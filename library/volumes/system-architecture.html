@@ -84,7 +84,7 @@
 <h1>System Architecture</h1>
 <p class="subtitle">X3650M3 System Architecture</p>
 <p class="lede">IBM System x3650 M3, machine type/model 7945KEG (the owner&#x27;s server). Platform: Intel Xeon 5600 (Westmere-EP) processors, Intel 5520 I/O Hub (IOH), Intel ICH10 southbridge, first-generation IMM (not IMM2/XCC).</p>
-<p class="meta"><span class="source">source: <code>docs/X3650M3_SYSTEM_ARCHITECTURE.md</code></span> <span>16 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">78</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">24</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">1</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">29</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">21</span></span></p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_SYSTEM_ARCHITECTURE.md</code></span> <span>16 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">101</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">29</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">9</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">39</span> <span class="tl tl-inferred">INFERRED</span><span class="n">1</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">15</span></span></p>
 </header>
 <details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-conventions-sources-and-capture-keys">1. Conventions, sources and capture keys</a></li><li class="l2"><a href="#2-system-overview-and-block-diagram">2. System overview and block diagram</a></li><li class="l2"><a href="#3-processor-complex">3. Processor complex</a></li><li class="l2"><a href="#4-intel-5520-ioh-and-the-esidmi-link">4. Intel 5520 IOH and the ESI/DMI link</a></li><li class="l2"><a href="#5-pcie-topology-measured-and-slot-mapping">5. PCIe topology (measured) and slot mapping</a></li><li class="l2"><a href="#6-ich10-southbridge-functions">6. ICH10 southbridge functions</a></li><li class="l2"><a href="#7-imm-attachment">7. IMM attachment</a></li><li class="l2"><a href="#8-video">8. Video</a></li><li class="l2"><a href="#9-usb">9. USB</a></li><li class="l2"><a href="#10-network-interfaces">10. Network interfaces</a></li><li class="l2"><a href="#11-clocks-and-timers">11. Clocks and timers</a></li><li class="l2"><a href="#12-acpi-tables-summary">12. ACPI tables summary</a></li><li class="l2"><a href="#13-interrupt-routing-highlights">13. Interrupt routing highlights</a></li><li class="l2"><a href="#14-source-conflicts">14. Source conflicts</a></li><li class="l2"><a href="#15-open-questions--unknown">15. Open questions / UNKNOWN</a></li></ul></nav></details>
 <div class="prose">
@@ -213,11 +213,11 @@ C-OS dmidecode type 9). Links of empty root ports are reported by Linux as <code
    [DIMM 1..9, CPU1 channels] |  CPU1: Xeon E5606 (Westmere-EP), 4C     |      [CPU2 socket: EMPTY]
    3 DDR3 channels (ff:04/05/06)  integrated memory controller (ff:03.x)|      9 DIMM slots, 3 ch
    &lt;======DDR3==============&gt; |  uncore on PCI bus 0xff: QPI link 0/1,  |&lt;-QPI-&gt; (link to CPU2 if
-                              |  QPI phys 0/1, IMC, address decoder     |        installed: UNKNOWN)
+                              |  QPI phys 0/1, IMC, address decoder     |        installed; link 0 down)
                               +--------------------+--------------------+
                                                    |
-                                                   | QPI (link used for IOH: UNKNOWN which port;
-                                                   |      speed: UNKNOWN)
+                                                   | QPI link 1 (up, 4.8 GT/s; register decode,
+                                                   |      section 3, CANDIDATE port use)
                                                    v
    +---------------------------------------------------------------------------------------+
    |  Intel 5520 IOH  (bus 00 dev 00.0 &quot;I/O Hub to ESI Port&quot; 8086:3406)                    |
@@ -226,7 +226,7 @@ C-OS dmidecode type 9). Links of empty root ports are reported by Linux as <code
    |                                                                                       |
    |   PCIe 2.0 root ports (5.0 GT/s capable):                                             |
    |    00:01.0 x2 -&gt; bus 0b-0f : Broadcom BCM5709 dual GbE (onboard NICs)                 |
-   |    00:02.0 x2 -&gt; bus 10-14 : (nothing present; purpose UNKNOWN)                       |
+   |    00:02.0 x2 -&gt; bus 10-14 : (nothing present; CANDIDATE d.card)                      |
    |    00:03.0 x8 -&gt; bus 15-19 : System Slot 2 (riser 1)          [empty]                 |
    |    00:05.0 x8 -&gt; bus 1a-1e : System Slot 1 (riser 1)          [empty]                 |
    |    00:07.0 x8 -&gt; bus 1f-23 : System Slot 4 (riser 2)  LSI SAS2008 HBA (1000:0072) x8  |
@@ -306,9 +306,9 @@ enumerated as a PCI device).</p>
 </tr>
 <tr>
 <td>QPI speed of the installed E5606</td>
-<td>not stated in any vendor source read. SMBIOS type 4 reports "External Clock: 4800 MHz" for both socket records (C-OS dmidecode, <span class="tl tl-measured">MEASURED</span>); reading this as a 4.8 GT/s QPI rate is <span class="tl tl-candidate">CANDIDATE</span> (the field meaning is not documented by IBM)</td>
-<td>C-OS dmidecode</td>
-<td><span class="tl tl-unknown">UNKNOWN</span> (SMBIOS value <span class="tl tl-measured">MEASURED</span>)</td>
+<td>4.8 GT/s: Intel ark E5606 (SKU 52583) "4.8 GT/s Intel QPI", 2 links (<span class="tl tl-documented">DOCUMENTED</span>); live QPI_0/1_PLL_STATUS (D2:F1/F5 offset 0x50) = 0x120C0112: current = max CCLK ratio 18 x 133.33 MHz = 2400 MHz, i.e. 4.8 GT/s (register layout per Xeon 5500 datasheet vol 2, 321322, sec 2.10.1; <span class="tl tl-measured">MEASURED</span> register, GT/s step <span class="tl tl-candidate">CANDIDATE</span>). SMBIOS type 4 "External Clock: 4800 MHz" agrees</td>
+<td>Intel ark; captures/2026-10-21_host_cpu_power_thermal_readonly.txt; C-OS dmidecode</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> + <span class="tl tl-measured">MEASURED</span> (SMBIOS value <span class="tl tl-measured">MEASURED</span>)</td>
 </tr>
 <tr>
 <td>Topology</td>
@@ -370,9 +370,13 @@ enumerated as a PCI device).</p>
   4-6, 13-15; channel 2 = 7-9, 16-18): 3 channels x 3 connectors per CPU, <span class="tl tl-documented">DOCUMENTED</span>. EDAC reports
   <code>max_location: channel 2 slot 2</code> (captures/2026-10-19_mem_storage_memory.txt, <span class="tl tl-measured">MEASURED</span>). Details:
   X3650M3_MEMORY.md.</li>
-<li>Two QPI link/physical function pairs exist (links 0 and 1). Which one is wired to the IOH, and whether the
-  other is wired to the CPU 2 socket, is not shown by any capture: <span class="tl tl-unknown">UNKNOWN</span>. Link status registers were not
-  read (the captures are plain lspci dumps; see Open questions).</li>
+<li>Two QPI link/physical function pairs exist (links 0 and 1). Link status registers read 2026-10-21 (<code>lspci -xxxx</code>
+  of ff:02.1 and ff:02.5, read-only; captures/2026-10-21_host_cpu_power_thermal_readonly.txt), decoded with the Xeon
+  5500 datasheet vol 2 (321322) sec 2.10.2 QPI_[0:1]_PH_PIS at offset 0x80: QPI Physical 0 reads 0x00020202
+  (calibration done, TX/RX state 0x02, INIT_SPEED 0: link 0 not up); QPI Physical 1 reads 0x070F0F03 (TX/RX
+  state 0x0F, PORT_TX_RDY, PORT_RMT_ACK, INIT_SPEED 1: link 1 up at operational speed). So the CPU reaches the 5520
+  IOH over QPI link 1, and link 0 is the (unused) link towards the empty CPU 2 socket (<span class="tl tl-candidate">CANDIDATE</span> port roles,
+  <span class="tl tl-measured">MEASURED</span> link states; the "0x0F = L0" state reading is <span class="tl tl-inferred">INFERRED</span> by the research agent from the datasheet).</li>
 <li>i7core_edac binds to ff:03.0 and reports "1 memory controller(s) found" (C-OS dmesg); coretemp and the
   Intel 5500 hwmon driver are loaded (C-RES hwmon names <code>intel5500</code>, <code>coretemp</code>).</li>
 <li><a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.12 states QPI is a point-to-point link between processors and between a processor and the I/O hub
@@ -502,7 +506,11 @@ enumerated as a PCI device).</p>
 <p>Notes:</p>
 <ul>
 <li>Root port numbers 4, 6 and 8 do not exist on this IOH variant in the capture (no devices 00:04, 00:06,
-  00:08). The 5520 root-port numbering skips these. Reason not documented: <span class="tl tl-unknown">UNKNOWN</span>. The DSDT nevertheless
+  00:08). Reason (<span class="tl tl-candidate">CANDIDATE</span>): the 5520 has 36 PCIe 2.0 lanes forming "3 to 10 root ports of different widths"
+  (2 x2 ports plus x4 ports that combine into x8/x16) and the PCI device number equals the IOH port number 1-10;
+  when two x4 ports are merged into one x8 port only the lower port number appears (x8 at 3/5/7/9), so 4, 6, 8 and 10
+  vanish (Hot Chips 21, D. Das Sharma, "Intel 5520 Chipset", slide 5; the IOH datasheet 321328 port table was not
+  retrieved). The DSDT nevertheless
   defines an object <code>PCI6</code> with _ADR 0x00060000 (C-HEX, byte-level decode, <span class="tl tl-measured">MEASURED</span>) although no device 00:06.0
   is enumerated; there is no DSDT object with _ADR 0x00020000 for the present root port 00:02.0.</li>
 <li>Lane budget (<span class="tl tl-candidate">CANDIDATE</span>): root port widths 2 + 2 + 8 + 8 + 8 + 8 = 36 PCIe lanes, plus x4 ESI. This
@@ -511,9 +519,11 @@ enumerated as a PCI device).</p>
 <li>Subsystem ID of IOH functions is 1014:xxxx (IBM) for the root ports (e.g. 1014:3408, C-SYSFS) and 1014:7270 for
   00:00.0.</li>
 <li>The ESI link (IOH side) is x4 at 2.5 GT/s with "Surprise+ LLActRep+ BwNot+" capabilities (C-VVV 00:00.0).
-  ESI is Intel's DMI-compatible interface between 5520 and ICH10. The ICH10 end of the link has no PCI
-  configuration function, so link width/speed from the ICH10 side cannot be read: <span class="tl tl-unknown">UNKNOWN</span>. The DMI/ESI
-  relationship is <span class="tl tl-candidate">CANDIDATE</span> (no vendor document read names it).</li>
+  ESI is Intel's DMI-compatible interface between 5520 and ICH10; the 5520 ESI is x4 at 2.5 GT/s (Hot Chips 21,
+  "Intel 5520 Chipset", <span class="tl tl-documented">DOCUMENTED</span>). The ICH10 end of the link has no PCI
+  configuration function, so link width/speed from the ICH10 side cannot be read from the OS (<span class="tl tl-unknown">UNKNOWN</span> from the
+  ICH10 side; the IOH side reads x4 2.5 GT/s, <span class="tl tl-measured">MEASURED</span>). The DMI/ESI relationship is <span class="tl tl-candidate">CANDIDATE</span> (no vendor document
+  read names it).</li>
 <li>VT-d: one DMAR DRHD unit at 0xfe710000 (flags 0x1, include-all) with ecap f020fe (C-OS dmesg, C-HEX DMAR).
   Linux enables interrupt remapping "in xapic mode" and queued invalidation (C-OS dmesg). The RMRR region
   0x7d750000-0x7d7cffff is claimed by the USB controllers (1a.0, 1a.1, 1a.7, 1d.0, 1d.1, 1d.2, 1d.7), most
@@ -621,13 +631,14 @@ to RAID controller"), <a class="sref" href="../catalog/sources.html#s-001">S-001
   supports x4 ("downgraded", C-SYSFS/C-VVV 0b:00.x). The root port is x2 capable only (LnkCap x2). <span class="tl tl-measured">MEASURED</span>.</li>
 <li>IOH root port 00:02.0 (bus 10-14) has no <a class="sref" href="../catalog/sources.html#s-001">S-001</a>/<a class="sref" href="../catalog/sources.html#s-002">S-002</a> counterpart and no <code>slots</code> entry. <span class="tl tl-candidate">CANDIDATE</span>: it is wired
   to the optional dual-port Ethernet daughter card connector (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.24 states the daughter card uses a
-  dedicated board connector and consumes no PCIe slot). Not verified because no daughter card is installed:
-  <span class="tl tl-unknown">UNKNOWN</span>.</li>
+  dedicated board connector and consumes no PCIe slot). Not verified because no daughter card is installed
+  (<span class="tl tl-measured">MEASURED</span> absence: nothing enumerates behind 00:02.0 in lspci 2026-10-19 and 2026-10-21, and the AML decode finds
+  no ACPI object for _ADR 0x00020000, captures/2026-10-21_acpi_aml_decode.txt); the purpose stays <span class="tl tl-candidate">CANDIDATE</span>.</li>
 <li>Riser variants (x16 riser = one slot; PCI-X riser) change which slot numbers exist (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.23, <a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.54).
   The measured server shows the slot numbering of the standard 2x x8 risers for slots 1-4 (all four root ports
   report x8, SMBIOS type 9 lists four "x8 PCI Express" slots); that both standard risers are physically
   installed is <span class="tl tl-candidate">CANDIDATE</span> (the IOH root-port LnkCap and SMBIOS slot table need not change with the riser). Which
-  riser part numbers are installed is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+  riser part numbers are installed is <span class="tl tl-unknown">UNKNOWN</span> (needs a cover-off look by the owner).</li>
 </ul>
 <p>IOMMU grouping (C-VVV, C-STOR, <span class="tl tl-measured">MEASURED</span>): ICH10 root ports 00:1c.0 and 00:1c.4, the M1015 (01:00.0), the
 Vitesse bridge (06:00.0) and the G200eV (07:00.0) all report "IOMMU group 23". The two ICH10 root ports share one
@@ -795,22 +806,22 @@ numbers are covered in X3650M3_FIRMWARE_HISTORY.md.</p>
 <tr>
 <td>USB (LAN-over-USB)</td>
 <td>USB device 04b3:4010 "IBM Corp. RNDIS/CDC ETHER", bus 5 port 2 (UHCI 1d.0, <code>usb5</code>), two configurations (RNDIS, config 2, and CDC Ethernet, config 1); driver <code>cdc_ether</code> binds config 1 and creates <code>enx5ef3fce08adf</code> (MAC [mac]), interface DOWN, no route (C-USB, C-LOU, C-RES dmesg, C-OS ip link)</td>
-<td>The IMM presents itself to the host as a USB network adapter ("LAN over USB"). Host-side interface is currently down. The IMM's own USB-side address and the in-band use of it are covered in X3650M3_IMM_ARCHITECTURE.md.</td>
+<td>The IMM presents itself to the host as a USB network adapter ("LAN over USB"). Host-side interface is currently down. IMM side (<span class="tl tl-extracted">EXTRACTED</span> from the 1.10 and 1.55 rootfs images, build/imm110, build/imm155): <code>ifcfg-usb0-*</code> sets the IMM usb0 to 169.254.95.118/16 with DHCP client off, and both images ship ISC dhcpd bound to usb0 (<code>etc/sysconfig/dhcpd</code> DHCPD_INTERFACE="usb0"); in 1.55 <code>etc/usb0_refresh.sh</code> writes a one-address pool 169.254.(95+node).120 for the host. For the installed 1.30 this is <span class="tl tl-candidate">CANDIDATE</span> (bracketed by 1.10 and 1.55); a live check would need the host interface brought up (state change, not done). Details: X3650M3_IMM_ARCHITECTURE.md.</td>
 </tr>
 <tr>
 <td>Serial</td>
 <td>COM1 (16550A at 0x3f8, IRQ 4) is shared with the IMM, which can take control for Serial over LAN and text console redirection (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.7 Table 1; <a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.14 rear view, "Serial connector")</td>
-<td><span class="tl tl-documented">DOCUMENTED</span>. Hardware multiplexer location (board vs. IMM): <span class="tl tl-unknown">UNKNOWN</span>.</td>
+<td><span class="tl tl-documented">DOCUMENTED</span>. Hardware multiplexer location (board vs. IMM): <span class="tl tl-unknown">UNKNOWN</span> (no schematic or vendor text; not resolvable from the repository sources).</td>
 </tr>
 <tr>
 <td>LAN</td>
 <td>Dedicated RJ-45 "Systems-management Ethernet connector, used only by the IMM"; the IMM can also share host "Ethernet 1" through a single cable (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.14 rear view / infocenter c_rear_view.html; <a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.7 Table 1: "dedicated or shared management network connections")</td>
-<td><span class="tl tl-documented">DOCUMENTED</span>. The sideband mechanism (NC-SI or similar) is not stated in the sources: <span class="tl tl-unknown">UNKNOWN</span>. IMM MAC [mac] (C-IPMI <code>lan print 1</code>); host NIC MACs [mac]/de (C-OS ip link). The last two octets are consecutive (8a:dc, 8a:dd, 8a:de) but the fourth octet differs (e0 vs e8), so the addresses are not one contiguous block. <span class="tl tl-measured">MEASURED</span>.</td>
+<td><span class="tl tl-documented">DOCUMENTED</span>. Sideband mechanism: NC-SI (<span class="tl tl-extracted">EXTRACTED</span> + <span class="tl tl-measured">MEASURED</span>: the IMM 1.55 rootfs runs <code>/bin/ncsiapp2</code> NC-SI discovery from <code>bin/netman.sh</code> with a "sharednicmode" option, and the host BCM5709 runs "NCSI 2.0.11" management firmware, <code>ethtool -i</code>, captures/2026-10-20_host_rebuild_inventory.txt; the IMM 1.30 side is <span class="tl tl-candidate">CANDIDATE</span> by bracketing). Live mode IMM.SharedNicMode = Dedicated (ASU 2026-10-20, <span class="tl tl-measured">MEASURED</span>). IMM MAC [mac] (C-IPMI <code>lan print 1</code>); host NIC MACs [mac]/de (C-OS ip link). The last two octets are consecutive (8a:dc, 8a:dd, 8a:de) but the fourth octet differs (e0 vs e8), so the addresses are not one contiguous block. <span class="tl tl-measured">MEASURED</span>.</td>
 </tr>
 <tr>
 <td>Virtual media key</td>
 <td>Optional IBM Virtual Media Key adds remote presence (remote KVM, virtual media) (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> spec table "Systems management"; <a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1; <a class="sref" href="../catalog/sources.html#s-004">S-004</a> "Removing an IBM virtual media key" in its table of contents)</td>
-<td><span class="tl tl-documented">DOCUMENTED</span>. Whether the key is installed on the owner's unit is <span class="tl tl-unknown">UNKNOWN</span>.</td>
+<td><span class="tl tl-documented">DOCUMENTED</span>. On the owner's unit remote presence is not active: WS-Man GetKVMStatus HasLicense 0, MaxSessions 0 (captures/2026-10-21_imm_wsman_read_inventory.txt, <span class="tl tl-measured">MEASURED</span>). Whether a physical key sits in the socket was not inspected (owner, optional).</td>
 </tr>
 <tr>
 <td>Recovery</td>
@@ -820,7 +831,7 @@ numbers are covered in X3650M3_FIRMWARE_HISTORY.md.</p>
 <tr>
 <td>IPMB / SMBus</td>
 <td>Channel 1 of the BMC reports medium 802.3 LAN (C-IPMI <code>channel info 1</code>); the ICH10 SMBus (1f.3, i801) is on the host; the host cannot see which SMBus segments connect to the IMM</td>
-<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td><span class="tl tl-unknown">UNKNOWN</span> (no schematic; not resolvable from the repository sources)</td>
 </tr>
 </tbody>
 </table></div>
@@ -919,7 +930,9 @@ adapter is installed.</p>
   (C-OS dmidecode type 8). <span class="tl tl-measured">MEASURED</span>.</li>
 <li>The only enumerated non-hub device is the IMM LAN-over-USB device (04b3:4010) at bus 5 port 2 (C-USB). No
   front/rear/internal USB devices were attached at capture time, so which root hub serves which physical port is
-  <span class="tl tl-unknown">UNKNOWN</span>. The same applies to the internal hypervisor port.</li>
+  <span class="tl tl-unknown">UNKNOWN</span> (needs the owner to plug a device into each port while <code>lsusb -t</code> runs). No USB hypervisor key is
+  present: <code>lsusb</code> on 2026-10-19 and 2026-10-21 lists only root hubs and the IMM device (<span class="tl tl-measured">MEASURED</span> by absence,
+  captures/2026-10-19_hw_lsusb_v.txt, captures/2026-10-21_host_cpu_power_thermal_readonly.txt).</li>
 <li>The RMRR reserved region used by all seven USB controllers (Section 4) is consistent with USB-based IMM
   remote media (<span class="tl tl-candidate">CANDIDATE</span>).</li>
 </ul>
@@ -1048,13 +1061,13 @@ adapter is installed.</p>
 <td>PCIe reference clock</td>
 <td>100 MHz standard; SlotClk+ reported on the ESI root port; per-slot clocking / spread spectrum</td>
 <td>C-VVV (00:00.0 LnkSta "SlotClk+")</td>
-<td><span class="tl tl-unknown">UNKNOWN</span> (value)</td>
+<td><span class="tl tl-unknown">UNKNOWN</span> (value; no schematic, not readable from the OS)</td>
 </tr>
 <tr>
 <td>Clock generators / oscillators on the board</td>
 <td>not documented in the sources read</td>
 <td>-</td>
-<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td><span class="tl tl-unknown">UNKNOWN</span> (no schematic; not resolvable)</td>
 </tr>
 <tr>
 <td>Watchdog</td>
@@ -1064,9 +1077,9 @@ adapter is installed.</p>
 </tr>
 <tr>
 <td>Time source in Linux</td>
-<td>not read in the captures (clocksource name is not captured)</td>
-<td>-</td>
-<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td>current clocksource <code>tsc</code>; available <code>tsc hpet acpi_pm</code> (2026-10-21)</td>
+<td>captures/2026-10-21_host_cpu_power_thermal_readonly.txt</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
 </tr>
 </tbody>
 </table></div>
@@ -1181,7 +1194,12 @@ documented in the sources), creator ID "IBM", creator revision 0x01000013. All <
 </table></div>
 <p>Absent tables (<span class="tl tl-measured">MEASURED</span> from the list, C-ACPI): no SRAT, no SLIT (consistent with a single NUMA node), no HEST,
 BERT or EINJ, no BOOT, no WDAT/WDRT, no ASF, no UEFI/SPCR/DBGP tables. ERST is the only error-record table.
-Whether firmware hides the other tables or never creates them: <span class="tl tl-unknown">UNKNOWN</span>. The first-generation UEFI/IMM
+Whether firmware hides the other tables or never creates them: partly answered. HEST/BERT/EINJ: the UEFI question
+at Setup offset 0x022D (prompt "Error Injection", help "Enable/Disable WHEA Support", ASU <code>uEFI.WheaSupport</code>) is
+Disable on this server (default; ASU and Setup variable, <span class="tl tl-measured">MEASURED</span>, docs/X3650M3_UEFI.md 12.7), so the WHEA tables
+are <span class="tl tl-candidate">CANDIDATE</span> gated by that setting. SRAT/SLIT: the kernel reports "No NUMA configuration found" (<span class="tl tl-measured">MEASURED</span>) with
+<code>uEFI.SocketInterleave</code> = NUMA and one socket; whether the firmware would publish SRAT with two sockets is <span class="tl tl-unknown">UNKNOWN</span>
+(needs a second CPU, excluded). WDAT/BOOT/SPCR: no setting found in the 1.13 IFR (<span class="tl tl-candidate">CANDIDATE</span>: never created). The first-generation UEFI/IMM
 platform's use of SMI (port 0xB2) for ACPI enable/disable is implied by the SMI command field (<span class="tl tl-candidate">CANDIDATE</span>).</p>
 <p>MADT (APIC) decode (C-HEX, <span class="tl tl-measured">MEASURED</span>):</p>
 <ul>
@@ -1208,8 +1226,13 @@ and sleep-state packages <code>_S0_</code>, <code>_S1_</code>, <code>_S5_</code>
 00:1d.0/.1/.2/.7 = UHC1/UHC2/UHC3/EHC1, 00:1f.0 = <code>LPC0</code>. <span class="tl tl-measured">MEASURED</span>.
 00:14.0 = <code>\_SB.PCI0.AMAP</code>, 00:14.2 = <code>\_SB.PCI0.ISCS</code>.
 Root port 00:02.0 has no ACPI path attribute in C-SYSFS and no DSDT object carries _ADR 0x00020000 (byte
-search): consistent with it being unused or special (see Section 15 item 3). Objects created dynamically or
-encoded differently could still be missed: <span class="tl tl-unknown">UNKNOWN</span> until a full AML decode.</p>
+search): consistent with it being unused or special (see Section 15 item 3). Full AML decode 2026-10-21 (iasl
+20200925, captures/2026-10-21_acpi_aml_decode.txt): confirmed - DSDT devices under PCI0 are PCI1, PCI3, PCI5, PCI6,
+PCI7, PCI9, PCIA, LPC0 and the USB/SATA functions, no object for 00:02.0. Further results (<span class="tl tl-extracted">EXTRACTED</span>): sleep states
+_S0, _S1, _S5 only (no S3/S4); no <code>_CST</code> anywhere; SSDT3 <code>_PSS</code> with 8 states 2128-1197 MHz (80.0-46.3 W),
+<code>_PSD</code> coordination 0xFE (HW_ALL) over 4 CPUs, <code>_PCT</code> = MSR 0x199/0x198; SSDT1 has 24 Processor objects;
+<code>\_SB.PCI0._OSC</code> returns CTRL = 0, so the OS gets no native PCIe hot plug/PME/AER control (kernel: "_OSC: platform
+does not support [PCIeHotplug SHPCHotplug PME AER PCIeCapability LTR DPC]", <span class="tl tl-measured">MEASURED</span>).</p>
 <p>Raw tables are preserved in C-HEX with SHA256: DSDT 48d58331ebedeceb98a419a127bccbfa12fab89fb30152370dda05a2d37b2467,
 SSDT1 443135619285e102b6392e09938036295435fc3ad0825d3db76ad7b5294716ed,
 SSDT2 d0b6f33623d2426c74b11cfff851f0d196311ffaabc08779f9389afba46c12d1,
@@ -1295,8 +1318,11 @@ FACP 7d0b7d9aac68bd8a069b0ab34232211e0f054528e59cc0ee620cd008e435f98e.</p>
   00:02.0 -&gt; 27, 00:03.0 -&gt; 29, 00:05.0 -&gt; 31, 00:07.0 -&gt; 33, 00:09.0 -&gt; 35, NIC functions 0b:00.0 -&gt; 24 and
   0b:00.1 -&gt; 36, SAS2008 HBA 1f:00.0 -&gt; 32); these are pin assignments on IOAPIC 9 (GSI &gt;= 24). The QuickData
   functions 00:16.x are routed to GSI 16-19 instead (table above). In Linux the root ports have MSI enabled and
-  0b:00.0, 1f:00.0 and 00:16.x have MSI-X enabled (C-VVV); 0b:00.1 (link down) has neither enabled. Whether firmware's <code>_PRT</code> yields exactly these GSIs is
-  not decoded here: <span class="tl tl-unknown">UNKNOWN</span> (the numbers are as reported by lspci).</li>
+  0b:00.0, 1f:00.0 and 00:16.x have MSI-X enabled (C-VVV); 0b:00.1 (link down) has neither enabled. Correction 2026-10-21: the lspci IRQs 25-35 of the root ports are Linux
+  MSI IRQ numbers (<code>/sys/kernel/irq/N/chip_name</code> IR-PCI-MSI), not GSIs. The <code>_PRT</code> decode (APIC mode, child tables
+  per root port) yields GSI 28/40 for 0b:00.0/0b:00.1 INTA/INTB and GSI 30 for 1f:00.0 INTA, which equals the
+  kernel's IOAPIC-9 pins 4/16/6 plus GSI base 24 (Linux IRQ 24, 36, 32); <span class="tl tl-extracted">EXTRACTED</span> + <span class="tl tl-measured">MEASURED</span>,
+  captures/2026-10-21_acpi_aml_decode.txt.</li>
 <li>Interrupt counters at capture time show interrupts for megasas, mpt2sas, the NIC and the ATA line all
   landing on single CPUs (no balancing configuration was read): not an architectural fact.</li>
 <li>NMI/PMI counters are equal across CPUs (579-616); MCE count 0, MCP (polls) 16-17 (C-PNP).</li>
@@ -1352,9 +1378,9 @@ FACP 7d0b7d9aac68bd8a069b0ab34232211e0f054528e59cc0ee620cd008e435f98e.</p>
 <tr>
 <td>6</td>
 <td>Remote presence (remote KVM) resolution</td>
-<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.28: up to 1280 x 1024 at 75 Hz regardless of the system state</td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.28 and the IMM user's guide <a class="sref" href="../catalog/sources.html#s-020">S-020</a>/<a class="sref" href="../catalog/sources.html#s-021">S-021</a>: up to 1280 x 1024 at 75 Hz regardless of the system state</td>
 <td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.10 and p.169, <a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.504: up to 1600 x 1200 at 75 Hz regardless of the system state</td>
-<td>Unresolved; same pattern as conflict 1. Not tested (Virtual Media Key presence <span class="tl tl-unknown">UNKNOWN</span>).</td>
+<td>Unresolved; same pattern as conflict 1. Not testable: remote presence is not licensed on this unit (WS-Man HasLicense 0, <span class="tl tl-measured">MEASURED</span> 2026-10-21).</td>
 </tr>
 <tr>
 <td>7</td>
@@ -1373,33 +1399,36 @@ FACP 7d0b7d9aac68bd8a069b0ab34232211e0f054528e59cc0ee620cd008e435f98e.</p>
 </tbody>
 </table></div>
 <h2 id="15-open-questions--unknown">15. Open questions / <span class="tl tl-unknown">UNKNOWN</span> <a class="anchor" href="#15-open-questions--unknown" aria-label="Link to this section">#</a></h2>
-<p>Each item needs a read-only measurement or a document not yet read. No experiments were run for this document.</p>
+<p>Status after the 2026-10-21 pass (read-only probes, offline AML/IFR decode, web research).</p>
 <ol>
-<li>QPI: speed and width of the CPU-to-IOH link, which of QPI link 0/1 is used, and the state of the second
-   link (CPU 2 socket empty). Needs <code>lspci -xxx</code> / <code>setpci</code> reads of ff:02.x registers or vendor documents. E5606
-   QPI speed not stated in <a class="sref" href="../catalog/sources.html#s-001">S-001</a>/<a class="sref" href="../catalog/sources.html#s-002">S-002</a>; SMBIOS "External Clock: 4800 MHz" is only a <span class="tl tl-candidate">CANDIDATE</span> indication. The UEFI
-   exposes a "QPI Link Speed" setting (uEFI.FreqSelect, X3650M3_UEFI.md); its current value was not read.</li>
-<li>ESI/DMI: ICH10-side link width/speed and confirmation that ESI is the 5520-ICH10 path (no vendor
-   document read names it).</li>
-<li>Purpose of IOH root port 00:02.0 (bus 10-14): daughter card connector (<span class="tl tl-candidate">CANDIDATE</span>) or unused.</li>
-<li>Which riser cards (part numbers) are installed, and which slot on each riser maps to which IOH port beyond
-   the sysfs slot address (needs a physical inspection or the riser PCB documentation).</li>
-<li>Which USB root hub serves the front, rear and internal USB ports; whether a hypervisor key is installed.</li>
-<li>Whether the Virtual Media Key is installed, and the IMM's own view of the host interfaces (LAN-over-USB
-   addressing, NC-SI sideband for the shared Ethernet port, serial mux location).</li>
-<li>Full DSDT/SSDT AML decode (<code>_PRT</code> mapping of GSIs, sleep states, <code>_OSC</code>, PCI0 device list), full <code>_PSS</code> table, and the P-state/C-state tables.</li>
-<li>Clock tree: BCLK value read from a register, PCIe reference clock source, clock generators, spread spectrum,
-   active Linux clocksource.</li>
-<li>Whether the missing ACPI tables (SRAT, SLIT, HEST, BERT, EINJ, WDAT) are absent by design or hidden by a
-   firmware setting.</li>
-<li>Which UEFI/IMM setting controls ICH10 SATA mode (IDE vs AHCI) and whether AHCI is selectable.</li>
-<li>Video: actual maximum resolution supported by the unit (conflict 1); the IMM's PCI function layout seen
-    by the host is only the VGA device (no other IMM PCI function was found in lspci).</li>
-<li>Vendor-side confirmation of the "Vitesse VSC452 SuperBMC bridge + Matrox G200eV = IMM" identification
-    (currently <span class="tl tl-candidate">CANDIDATE</span> from PCI IDs and subsystem 1014:0369).</li>
-<li>Physical interconnect between ICH10 and IMM for IPMB/SMBus (KCS is confirmed; IPMB path is not).</li>
-<li>Behavior with a second CPU installed (QPI link 1, additional IOH links, NUMA tables): not testable on the
-    present single-CPU configuration.</li>
+<li>Partly resolved: QPI speed 4.8 GT/s (<span class="tl tl-documented">DOCUMENTED</span> + <span class="tl tl-measured">MEASURED</span> register) and link states (link 1 up, link 0 down,
+   section 3). Still open: link width and the vendor statement of which IOH QPI port is used (<span class="tl tl-candidate">CANDIDATE</span> from link
+   states); the UEFI "QPI Link Speed" (<code>uEFI.QPISpeed</code>) is Max Performance (ASU 2026-10-20, <span class="tl tl-measured">MEASURED</span>).</li>
+<li>Partly resolved: ESI x4 2.5 GT/s (<span class="tl tl-documented">DOCUMENTED</span>, Hot Chips 21; IOH side <span class="tl tl-measured">MEASURED</span>). The ICH10 side has no OS-visible
+   configuration function (<span class="tl tl-unknown">UNKNOWN</span>, not readable).</li>
+<li>00:02.0 (bus 10-14): nothing present and no ACPI object (<span class="tl tl-measured">MEASURED</span>); daughter-card purpose remains <span class="tl tl-candidate">CANDIDATE</span>.</li>
+<li>Riser part numbers and slot-to-port mapping beyond sysfs: needs a physical inspection (owner).</li>
+<li>USB port-to-root-hub mapping: needs the owner to plug a device into each port; no hypervisor key or other USB
+   device is present (<span class="tl tl-measured">MEASURED</span>).</li>
+<li>Resolved: remote presence not licensed (WS-Man HasLicense 0); NC-SI sideband (<span class="tl tl-extracted">EXTRACTED</span> + <span class="tl tl-measured">MEASURED</span>); IMM usb0
+   169.254.95.118/16 with dhcpd (<span class="tl tl-extracted">EXTRACTED</span> for 1.10/1.55, <span class="tl tl-candidate">CANDIDATE</span> for 1.30). Serial mux location: <span class="tl tl-unknown">UNKNOWN</span> (no
+   schematic, not resolvable).</li>
+<li>Resolved: full AML decode (section 12, captures/2026-10-21_acpi_aml_decode.txt).</li>
+<li>Partly resolved: clocksource tsc (<span class="tl tl-measured">MEASURED</span>); BCLK 133.33 MHz is consistent with the QPI PLL ratio arithmetic
+   (18 x 133.33 = 2400 MHz) and the _PSS steps (<span class="tl tl-candidate">CANDIDATE</span>). Clock generators, PCIe reference clock source and
+   spread spectrum: <span class="tl tl-unknown">UNKNOWN</span> (no schematic).</li>
+<li>Partly resolved: HEST/BERT/EINJ <span class="tl tl-candidate">CANDIDATE</span> gated by <code>uEFI.WheaSupport</code> = Disable; SRAT/SLIT absent with one
+   socket (kernel "No NUMA configuration found").</li>
+<li>Resolved: SATA mode is set by <code>uEFI.IdeMode</code> (choices Compatibility mode / Native mode only, ASU showvalues
+    2026-10-21, <span class="tl tl-measured">MEASURED</span>); the 1.13 IFR "Configure SATA as" offers only "IDE" (<span class="tl tl-extracted">EXTRACTED</span>), so AHCI is not selectable
+    on D6E154A.</li>
+<li>Video maximum resolution (conflicts 1 and 6): still conflicting between <a class="sref" href="../catalog/sources.html#s-001">S-001</a>/<a class="sref" href="../catalog/sources.html#s-020">S-020</a> (1280 x 1024) and <a class="sref" href="../catalog/sources.html#s-002">S-002</a>/<a class="sref" href="../catalog/sources.html#s-004">S-004</a>
+    (1600 x 1200); remote presence is not licensed, so only a local-monitor test could settle conflict 1 (owner).</li>
+<li>VSC452 + G200eV = IMM: evidence upgraded (PCI ID <span class="tl tl-measured">MEASURED</span>, vsc452 SoC drivers in the IMM 1.10/1.55 images
+    <span class="tl tl-extracted">EXTRACTED</span>, docs/X3650M3_IMM_ARCHITECTURE.md 3.1); a vendor document naming the Vitesse part is still missing, so
+    the identification stays <span class="tl tl-candidate">CANDIDATE</span>.</li>
+<li>Physical ICH10-IMM IPMB/SMBus interconnect: <span class="tl tl-unknown">UNKNOWN</span> (no schematic, not resolvable).</li>
+<li>Behavior with a second CPU: not testable on the single-CPU configuration (needs hardware install).</li>
 </ol>
 </div>
 </article>
@@ -1410,7 +1439,7 @@ FACP 7d0b7d9aac68bd8a069b0ab34232211e0f054528e59cc0ee620cd008e435f98e.</p>
 </main>
 <aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-conventions-sources-and-capture-keys">1. Conventions, sources and capture keys</a></li><li class="l2"><a href="#2-system-overview-and-block-diagram">2. System overview and block diagram</a></li><li class="l2"><a href="#3-processor-complex">3. Processor complex</a></li><li class="l2"><a href="#4-intel-5520-ioh-and-the-esidmi-link">4. Intel 5520 IOH and the ESI/DMI link</a></li><li class="l2"><a href="#5-pcie-topology-measured-and-slot-mapping">5. PCIe topology (measured) and slot mapping</a></li><li class="l2"><a href="#6-ich10-southbridge-functions">6. ICH10 southbridge functions</a></li><li class="l2"><a href="#7-imm-attachment">7. IMM attachment</a></li><li class="l2"><a href="#8-video">8. Video</a></li><li class="l2"><a href="#9-usb">9. USB</a></li><li class="l2"><a href="#10-network-interfaces">10. Network interfaces</a></li><li class="l2"><a href="#11-clocks-and-timers">11. Clocks and timers</a></li><li class="l2"><a href="#12-acpi-tables-summary">12. ACPI tables summary</a></li><li class="l2"><a href="#13-interrupt-routing-highlights">13. Interrupt routing highlights</a></li><li class="l2"><a href="#14-source-conflicts">14. Source conflicts</a></li><li class="l2"><a href="#15-open-questions--unknown">15. Open questions / UNKNOWN</a></li></ul></nav></aside>
 </div>
-<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:54 UTC from commit <code>919a212665cc</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 11:31 UTC from commit <code>80d508298327</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
 <script src="../assets/library.js"></script>
 </body>
 </html>

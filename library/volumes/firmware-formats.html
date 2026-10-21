@@ -84,7 +84,7 @@
 <h1>Firmware Package and Image Formats</h1>
 <p class="subtitle">IBM System x3650 M3 (7945KEG) - Firmware Package and Image Formats</p>
 <p class="lede">how IBM firmware packages for the x3650 M3 are built (PKG SDK self-extractors, descriptor files, .upd archives, UEFI flash images, IMM packages, iflash) and how scripts/ibm_fw_unpack.py and scripts/uefi_fv.py handle them (IMM .upd: scripts/imm_upd.py). Rules ...</p>
-<p class="meta"><span class="source">source: <code>docs/X3650M3_FIRMWARE_FORMATS.md</code></span> <span>13 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">6</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">23</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">45</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">21</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">23</span> <span class="tl tl-not-verified">NOT VERIFIED</span><span class="n">1</span></span></p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_FIRMWARE_FORMATS.md</code></span> <span>13 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">11</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">25</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">46</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">21</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">19</span> <span class="tl tl-not-verified">NOT VERIFIED</span><span class="n">1</span></span></p>
 </header>
 <details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary">1. Summary</a></li><li class="l2"><a href="#2-packages-analyzed">2. Packages analyzed</a></li><li class="l2"><a href="#3-pkg-sdk-self-extractor-anatomy">3. PKG SDK self-extractor anatomy</a></li><li class="l2"><a href="#4-descriptor-files-xml-chg-txt">4. Descriptor files (.xml, .chg, .txt)</a></li><li class="l2"><a href="#5-the-upd-archive-oem_ibmxml-and-image-tarball">5. The .upd archive (oem_ibm.xml and image tarball)</a></li><li class="l2"><a href="#6-uefi-flash-image-structure">6. UEFI flash image structure</a></li><li class="l2"><a href="#7-imm-packages-upd">7. IMM packages (.upd)</a></li><li class="l3"><a href="#71-container-layout-extracted-cap-s2">7.1 Container layout (EXTRACTED, cap s2)</a></li><li class="l3"><a href="#72-payloads-extracted-cap-s4-to-s7">7.2 Payloads (EXTRACTED, cap s4 to s7)</a></li><li class="l3"><a href="#73-flash-layout-and-update-path-on-the-imm-extracted-cap-s8">7.3 Flash layout and update path on the IMM (EXTRACTED, cap s8)</a></li><li class="l3"><a href="#74-integrity-and-signing-extracted-cap-s3-s6-s7-s9">7.4 Integrity and signing (EXTRACTED, cap s3, s6, s7, s9)</a></li><li class="l3"><a href="#75-host-side-transfer-protocol-iflash-extracted-cap-s12">7.5 Host-side transfer protocol (iflash, EXTRACTED, cap s12)</a></li><li class="l3"><a href="#76-yuoo57h-versus-yuoo57x_v2-extracted-cap-s11">7.6 YUOO57H versus YUOO57X_v2 (EXTRACTED, cap s11)</a></li><li class="l3"><a href="#77-vendor-procedure-documented-x1immcrtmv7sh-and-x1instructionpdf-cap-s13-s14">7.7 Vendor procedure (DOCUMENTED, X1/IMMCRTMv7.sh and X1/Instruction.pdf; cap s13, s14)</a></li><li class="l3"><a href="#78-relevance-for-the-installed-imm-130-yuooc7e">7.8 Relevance for the installed IMM 1.30 YUOOC7E</a></li><li class="l3"><a href="#79-imm-155-yuooh5a-differences-from-110-extracted">7.9 IMM 1.55 YUOOH5A: differences from 1.10 (EXTRACTED)</a></li><li class="l2"><a href="#8-iflash-and-package-command-line">8. iflash and package command line</a></li><li class="l2"><a href="#9-tool-usage-commands-actually-run">9. Tool usage (commands actually run)</a></li><li class="l2"><a href="#10-tool-limitations-and-bugs-found">10. Tool limitations and bugs found</a></li><li class="l2"><a href="#11-open-questions--unknown">11. Open questions / UNKNOWN</a></li><li class="l2"><a href="#12-broadcom-netxtreme-ii-nic-firmware-package-241c">12. Broadcom NetXtreme II NIC firmware package (2.4.1c)</a></li><li class="l3"><a href="#121-packages">12.1 Packages</a></li><li class="l3"><a href="#122-container-format-extracted">12.2 Container format (EXTRACTED)</a></li><li class="l3"><a href="#123-bcm5709-1639-version-table">12.3 BCM5709 (1639) version table</a></li><li class="l3"><a href="#124-changes-215b---241c-relevant-to-the-5709">12.4 Changes 2.1.5b -&gt; 2.4.1c relevant to the 5709</a></li><li class="l3"><a href="#125-how-the-update-tool-flashes-extracted-from-strings-documented-from-the-txt">12.5 How the update tool flashes (EXTRACTED from strings; DOCUMENTED from the .txt)</a></li><li class="l3"><a href="#126-not-verified--unknown">12.6 NOT VERIFIED / UNKNOWN</a></li></ul></nav></details>
 <div class="prose">
@@ -997,9 +997,17 @@ symptoms, briefly:</p>
   disassembled), the IPMI NetFn/command that carries iflash's fm transactions, and the hidden iflash options.</li>
 <li>Meaning of manuf_id/product_id 12345678 and device_type 0x0001 in oem_ibm.xml: <span class="tl tl-unknown">UNKNOWN</span>.</li>
 <li>Mapping of the XML bank addresses to physical SPI flash offsets: <span class="tl tl-unknown">UNKNOWN</span>.</li>
-<li>Wrapper (linwrap/winwrap.exe) DMI matching logic: not analyzed (<span class="tl tl-candidate">CANDIDATE</span> reading in section 3).</li>
+<li>Wrapper (linwrap) DMI matching logic: partly answered (<span class="tl tl-extracted">EXTRACTED</span> symbols/strings, <span class="tl tl-candidate">CANDIDATE</span> semantics). The IMM 1.55
+  linwrap (i386, not stripped) reads SMBIOS from /dev/mem (SMBIOS::init, getStructureByType, matchOEMString,
+  cPackageInfo::matchDmiData) and fails with "Failed-Machine Type or BIOS mismatch". Reading of the dmiData syntax
+  <code>s&lt;type&gt;.&lt;offset&gt;[.*] &lt;prefix&gt;</code>: "s0.5 D6" = SMBIOS type 0, offset 05h (BIOS Version string) begins "D6" (UEFI
+  packages); "s11.4.* -[YUOO" = any type 11 OEM string contains "-[YUOO" (IMM 1.55 wrapcfg); "s1.4 ANY" = type 1
+  Manufacturer, any value (NIC packages). The offsets match the SMBIOS field layout; the code path was not disassembled.
+  winwrap.exe not analyzed.</li>
 <li>Capsule signature verification details (key, hash chain): <span class="tl tl-unknown">UNKNOWN</span> beyond the RSA2048-SHA256 GUID trailer.</li>
-<li><a class="sref" href="../catalog/sources.html#s-025">S-025</a> has no local text copy and was not used.</li>
+<li><a class="sref" href="../catalog/sources.html#s-025">S-025</a> (Word 97 .doc) has no committed text copy; its text (81100 characters) was extracted offline through the
+  Word piece table (olefile in a scratch venv) and used for ASU syntax in docs/X3650M3_TOOLS.md 3; a sources/text copy
+  is left to the sources owner.</li>
 <li>firmware/lenovo/bios-uefi: DS110660 and DS111571 empty, DS110872 not a UEFI image.</li>
 <li>Tool limits remaining after the fixes: section 10.</li>
 </ul>
@@ -1047,7 +1055,7 @@ analysis was offline; the vendor .bin and every tool inside it were NOT executed
 <td>2.3.1e .txt only</td>
 <td>firmware/ibm/broadcom-nic/2.3.1e/brcm_fw_nic_2.3.1e_linux_32-64.txt</td>
 <td>3954</td>
-<td>1b3b099db991b728e242eca51ac3e6242af1cdcec45bf79f2dfed0d24811e844 (no .bin/.chg; component versions <span class="tl tl-unknown">UNKNOWN</span>)</td>
+<td>1b3b099db991b728e242eca51ac3e6242af1cdcec45bf79f2dfed0d24811e844 (no local .bin/.chg; 7945 row of the web .chg: bootcode 7.4.0 / NCSI 2.0.11, section 12.3)</td>
 </tr>
 </tbody>
 </table></div>
@@ -1147,21 +1155,21 @@ bnx2 reports as this same version field is <span class="tl tl-candidate">CANDIDA
 </tr>
 <tr>
 <td>UMP firmware</td>
-<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td>none (<span class="tl tl-measured">MEASURED</span>: no UMP image in NVRAM, captures/2026-10-21_bcm5709_nvram_read.txt)</td>
 <td>1.0.6 (163A only)</td>
 <td>1.0.6 (163A only, <span class="tl tl-extracted">EXTRACTED</span>; <span class="tl tl-documented">DOCUMENTED</span>)</td>
 <td>163Aump.bin; 2.4.1c .chg line 396 "Ump Firmware for 5709 1.0.6"; no 1639ump.bin, so not applicable to the copper 5709 (<span class="tl tl-candidate">CANDIDATE</span>)</td>
 </tr>
 <tr>
 <td>MBA / PXE</td>
-<td><span class="tl tl-unknown">UNKNOWN</span> (ethtool expansion-rom-version empty)</td>
+<td>none (<span class="tl tl-measured">MEASURED</span>: NVRAM read holds no MBA image - no PCIR signature, no "Boot Agent" text, only ~52 KB used; hence the empty ethtool expansion-rom-version; captures/2026-10-21_bcm5709_nvram_read.txt)</td>
 <td>5.2.7 (<span class="tl tl-extracted">EXTRACTED</span>)</td>
 <td>7.8.75 (<span class="tl tl-extracted">EXTRACTED</span>; <span class="tl tl-documented">DOCUMENTED</span>)</td>
 <td>1639mba.bin strings; 2.4.1c .chg line 371 "PXE NX2 7.8.75"; installed: capture line 1777 empty</td>
 </tr>
 <tr>
 <td>iSCSI boot</td>
-<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td>none (<span class="tl tl-measured">MEASURED</span>, same NVRAM read)</td>
 <td>4.2.12 (<span class="tl tl-extracted">EXTRACTED</span>)</td>
 <td>7.10.4 (<span class="tl tl-extracted">EXTRACTED</span>; <span class="tl tl-documented">DOCUMENTED</span>)</td>
 <td>1639ib.bin strings; 2.4.1c .chg line 361 "iSCSI Boot 7.10.4"</td>
@@ -1177,9 +1185,17 @@ bnx2 reports as this same version field is <span class="tl tl-candidate">CANDIDA
 </table></div>
 <p>Image SHA256 (<span class="tl tl-extracted">EXTRACTED</span>, image/x86): 2.4.1c 1639bc 7ac43ea8..., 1639ncsi 41443dc3..., 1639mba 9e1f041f...,
 1639ib 710b64c1...; 2.1.5b 1639bc 344ef360..., 1639ncsi 5a6f958b..., 1639mba 0ee9f3fc..., 1639ib 9174a43f....</p>
-<p>Reading: the installed bc 6.2.0 / NCSI 2.0.11 is newer than 2.1.5b and older than 2.4.1c, so the NIC was last
-flashed with a package between them (2.3.1e or the UXSP 5.00 2.1.8e named in docs/X3650M3_FIRMWARE_HISTORY.md;
-which one is <span class="tl tl-unknown">UNKNOWN</span> because no .chg/.bin of those is local). 2.4.1c is an upgrade for bootcode and NC-SI.</p>
+<p>Reading: the installed bc 6.2.0 / NCSI 2.0.11 is newer than 2.1.5b and older than 2.4.1c. The IBM change histories
+(web, not mirrored) settle it: brcm_fw_nic_2.1.8e (2012-08-09), NetXtreme II table row 7945, "Current Release"
+bootcode 6.2.0 / NCSI 2.0.11, while 2.3.1e (2014-03-06) row 7945 lists previous 6.2.0 / 2.0.11 and current bootcode
+7.4.0 / NCSI 2.0.11 ("no fw level change between 2.3.1d and 2.3.1e")
+(<a href="https://download2.boulder.ibm.com/sar/CMA/XSA/brcm_fw_nic_2.1.8e_linux_32-64.chg" rel="noopener">https://download2.boulder.ibm.com/sar/CMA/XSA/brcm_fw_nic_2.1.8e_linux_32-64.chg</a>,
+<a href="https://download2.boulder.ibm.com/sar/CMA/XSA/brcm_fw_nic_2.3.1e_linux_32-64.chg" rel="noopener">https://download2.boulder.ibm.com/sar/CMA/XSA/brcm_fw_nic_2.3.1e_linux_32-64.chg</a>; <span class="tl tl-documented">DOCUMENTED</span>). So the NIC was last
+flashed with 2.1.8e (or a UXSP carrying it). 2.4.1c is an upgrade for bootcode and NC-SI.</p>
+<p>NVRAM read (<span class="tl tl-measured">MEASURED</span> 2026-10-21, <code>ethtool -e enp11s0f0 raw on</code>, summary in captures/2026-10-21_bcm5709_nvram_read.txt):
+524288 bytes returned, the upper 256 KiB mirror the lower 256 KiB; about 52 KB are used, holding bootcode
+"b9x1 6.2.0" (0x610) and "b9x2 6.2.0" (0x3B4C) and "NCSI 2.0.11" (0xA540), plus the strings "Skipped NCSI" and
+"Skipped IPMI". No MBA/PXE, iSCSI boot, UMP or IPMI image is installed.</p>
 <p>Device count: only one BCM5709 (two functions 0b:00.0 and 0b:00.1, VPD PN BCM95709C0) is enumerated
 (captures/2026-10-19_os_inventory.txt:1003-1004, captures/2026-10-19_hw_lspci_vvv.txt:1257-1275, :1331-1349;
 <span class="tl tl-measured">MEASURED</span>). SMBIOS type 10 lists four "BroadCom 5709C" entries (captures/2026-10-19_os_inventory.txt:789-807) but
@@ -1223,10 +1239,13 @@ source states it for the x3650 M3). The owner's IMM uses the dedicated port (doc
 </ul>
 <h3 id="126-not-verified--unknown">12.6 <span class="tl tl-not-verified">NOT VERIFIED</span> / <span class="tl tl-unknown">UNKNOWN</span> <a class="anchor" href="#126-not-verified--unknown" aria-label="Link to this section">#</a></h3>
 <ul>
-<li>Installed MBA, iSCSI boot and UMP/IPMI levels of the 5709 NVRAM (only bc and NCSI are captured).</li>
-<li>Which package last flashed the NIC (2.3.1e and 2.1.8e contents not local).</li>
+<li>Resolved 2026-10-21: installed MBA, iSCSI boot and UMP/IPMI images - none (NVRAM read, section 12.3).</li>
+<li>Resolved 2026-10-21: last flashing package = 2.1.8e (<span class="tl tl-documented">DOCUMENTED</span> from its web .chg, section 12.3).</li>
 <li>Detailed 5709 change list between bootcode 5.2.2/6.2.0 and 7.4.0 (Broadcom per-component .chg files not local).</li>
-<li>Byte order of the image header fields beyond the version word; the meaning of the 0x05 low byte.</li>
+<li>Byte order: resolved - the NVRAM holds big-endian 32-bit words (magic 0x669955AA at offset 0, ASCII in natural
+  order) and the package .bin images store the same words byte-swapped; in NVRAM the version word follows the
+  version string (bootcode 06 02 00 05, NCSI 02 00 0b 05; <span class="tl tl-measured">MEASURED</span>). The meaning of the constant 0x05 low byte stays
+  <span class="tl tl-unknown">UNKNOWN</span>.</li>
 </ul>
 </div>
 </article>
@@ -1237,7 +1256,7 @@ source states it for the x3650 M3). The owner's IMM uses the dedicated port (doc
 </main>
 <aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary">1. Summary</a></li><li class="l2"><a href="#2-packages-analyzed">2. Packages analyzed</a></li><li class="l2"><a href="#3-pkg-sdk-self-extractor-anatomy">3. PKG SDK self-extractor anatomy</a></li><li class="l2"><a href="#4-descriptor-files-xml-chg-txt">4. Descriptor files (.xml, .chg, .txt)</a></li><li class="l2"><a href="#5-the-upd-archive-oem_ibmxml-and-image-tarball">5. The .upd archive (oem_ibm.xml and image tarball)</a></li><li class="l2"><a href="#6-uefi-flash-image-structure">6. UEFI flash image structure</a></li><li class="l2"><a href="#7-imm-packages-upd">7. IMM packages (.upd)</a></li><li class="l3"><a href="#71-container-layout-extracted-cap-s2">7.1 Container layout (EXTRACTED, cap s2)</a></li><li class="l3"><a href="#72-payloads-extracted-cap-s4-to-s7">7.2 Payloads (EXTRACTED, cap s4 to s7)</a></li><li class="l3"><a href="#73-flash-layout-and-update-path-on-the-imm-extracted-cap-s8">7.3 Flash layout and update path on the IMM (EXTRACTED, cap s8)</a></li><li class="l3"><a href="#74-integrity-and-signing-extracted-cap-s3-s6-s7-s9">7.4 Integrity and signing (EXTRACTED, cap s3, s6, s7, s9)</a></li><li class="l3"><a href="#75-host-side-transfer-protocol-iflash-extracted-cap-s12">7.5 Host-side transfer protocol (iflash, EXTRACTED, cap s12)</a></li><li class="l3"><a href="#76-yuoo57h-versus-yuoo57x_v2-extracted-cap-s11">7.6 YUOO57H versus YUOO57X_v2 (EXTRACTED, cap s11)</a></li><li class="l3"><a href="#77-vendor-procedure-documented-x1immcrtmv7sh-and-x1instructionpdf-cap-s13-s14">7.7 Vendor procedure (DOCUMENTED, X1/IMMCRTMv7.sh and X1/Instruction.pdf; cap s13, s14)</a></li><li class="l3"><a href="#78-relevance-for-the-installed-imm-130-yuooc7e">7.8 Relevance for the installed IMM 1.30 YUOOC7E</a></li><li class="l3"><a href="#79-imm-155-yuooh5a-differences-from-110-extracted">7.9 IMM 1.55 YUOOH5A: differences from 1.10 (EXTRACTED)</a></li><li class="l2"><a href="#8-iflash-and-package-command-line">8. iflash and package command line</a></li><li class="l2"><a href="#9-tool-usage-commands-actually-run">9. Tool usage (commands actually run)</a></li><li class="l2"><a href="#10-tool-limitations-and-bugs-found">10. Tool limitations and bugs found</a></li><li class="l2"><a href="#11-open-questions--unknown">11. Open questions / UNKNOWN</a></li><li class="l2"><a href="#12-broadcom-netxtreme-ii-nic-firmware-package-241c">12. Broadcom NetXtreme II NIC firmware package (2.4.1c)</a></li><li class="l3"><a href="#121-packages">12.1 Packages</a></li><li class="l3"><a href="#122-container-format-extracted">12.2 Container format (EXTRACTED)</a></li><li class="l3"><a href="#123-bcm5709-1639-version-table">12.3 BCM5709 (1639) version table</a></li><li class="l3"><a href="#124-changes-215b---241c-relevant-to-the-5709">12.4 Changes 2.1.5b -&gt; 2.4.1c relevant to the 5709</a></li><li class="l3"><a href="#125-how-the-update-tool-flashes-extracted-from-strings-documented-from-the-txt">12.5 How the update tool flashes (EXTRACTED from strings; DOCUMENTED from the .txt)</a></li><li class="l3"><a href="#126-not-verified--unknown">12.6 NOT VERIFIED / UNKNOWN</a></li></ul></nav></aside>
 </div>
-<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:54 UTC from commit <code>919a212665cc</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 11:31 UTC from commit <code>80d508298327</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
 <script src="../assets/library.js"></script>
 </body>
 </html>

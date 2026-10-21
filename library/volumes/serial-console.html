@@ -84,7 +84,7 @@
 <h1>Serial Console Plan (remote console without the Virtual Media Key)</h1>
 <p class="subtitle">X3650M3 Serial Console Plan (remote console without the Virtual Media Key)</p>
 <p class="lede">reach the server console from power-on through UEFI setup, boot menu and an OS installer, remotely via [remote-access service], without the Virtual Media Key. Remote presence (graphical KVM) is a Premium feature and is not licensed on this unit; bypassing the license is ...</p>
-<p class="meta"><span class="source">source: <code>docs/X3650M3_SERIAL_CONSOLE.md</code></span> <span>9 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">14</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">9</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">1</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">10</span> <span class="tl tl-inferred">INFERRED</span><span class="n">1</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">3</span> <span class="tl tl-not-verified">NOT VERIFIED</span><span class="n">2</span></span></p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_SERIAL_CONSOLE.md</code></span> <span>9 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">14</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">9</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">2</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">12</span> <span class="tl tl-inferred">INFERRED</span><span class="n">1</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">2</span> <span class="tl tl-not-verified">NOT VERIFIED</span><span class="n">2</span></span></p>
 </header>
 <details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#1-uefi-settings-for-console-redirection">1. UEFI settings for console redirection</a></li><li class="l2"><a href="#2-serial-port-mapping">2. Serial port mapping</a></li><li class="l2"><a href="#3-how-to-change-the-uefi-settings">3. How to change the UEFI settings</a></li><li class="l2"><a href="#4-console-paths-and-remote-access-service">4. Console paths and [remote-access service]</a></li><li class="l2"><a href="#5-remote-access-service-connector-must-not-live-only-on-the-proxmox-host">5. [remote-access service] connector must not live only on the Proxmox host</a></li><li class="l2"><a href="#6-installing-an-os-over-the-serial-console">6. Installing an OS over the serial console</a></li><li class="l2"><a href="#7-what-serial-cannot-show">7. What serial cannot show</a></li><li class="l2"><a href="#8-ordered-steps">8. Ordered steps</a></li><li class="l2"><a href="#9-web-sources">9. Web sources</a></li></ul></nav></details>
 <div class="prose">
@@ -175,7 +175,7 @@ from sources/pdf/S-025_transitioning_to_uefi_and_imm.doc) and the UEFI 1.22 defa
 <td>uEFI.solan</td>
 <td>Disable (protected)</td>
 <td>unchanged</td>
-<td><span class="tl tl-unknown">UNKNOWN</span> effect; try only if SOL stays blank</td>
+<td><span class="tl tl-unknown">UNKNOWN</span> effect. <code>protected="true"</code> = not exposed through ASU (<span class="tl tl-candidate">CANDIDATE</span> strong: no protected entry appears in the live <code>asu64 showvalues uEFI</code> list, docs/X3650M3_UEFI.md), so it cannot be changed with ASU; only Setup could show it</td>
 </tr>
 </tbody>
 </table></div>
@@ -202,8 +202,11 @@ boot of 08:16:12; <span class="tl tl-measured">MEASURED</span>; details in docs/
 <p>The system summary is always shown on text remote consoles including SOL, whatever QuietBoot is (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> L950-951).</p>
 </li>
 <li>The host boots UEFI (captures/2026-10-20_host_probes_boot_apt.txt), so legacy serial redirection is not used.</li>
-<li>Function keys over serial: <span class="tl tl-unknown">UNKNOWN</span> for IBM firmware. edk2 TerminalDxe maps F1 to <code>ESC 1</code> (VT100+) or <code>ESC O P</code>
-  (VT100); F12 only in VT100+ (<code>ESC @</code>) (<span class="tl tl-candidate">CANDIDATE</span>, to test). Fallback: F1 Setup -&gt; Boot Manager -&gt; one-time boot.</li>
+<li>Function keys over serial: <span class="tl tl-unknown">UNKNOWN</span> for IBM firmware (live test needs the deferred reboot test). The UEFI 1.13 image
+  carries the EDK "Terminal" console driver (GUID 9E863906-A40F-4875-977F-5B93FF237FC6, 10810 bytes, FvPlatform) next
+  to IsaSerial (build/uefi113/b/modules.txt, <span class="tl tl-extracted">EXTRACTED</span>), so the EDK mapping is the expected one: F1 <code>ESC 1</code>
+  (VT100+) or <code>ESC O P</code> (VT100); F12 only in VT100+ (<code>ESC @</code>) (<span class="tl tl-candidate">CANDIDATE</span>, IBM changes to the driver not
+  disassembled). Fallback: F1 Setup -&gt; Boot Manager -&gt; one-time boot.</li>
 </ul>
 <h2 id="2-serial-port-mapping">2. Serial port mapping <a class="anchor" href="#2-serial-port-mapping" aria-label="Link to this section">#</a></h2>
 <ul>
@@ -237,7 +240,7 @@ boot of 08:16:12; <span class="tl tl-measured">MEASURED</span>; details in docs/
 <tr>
 <td>ASU out-of-band (<code>--host [lab-ip]</code>)</td>
 <td>fallback</td>
-<td>works with the OS off; needs IMM credentials; port <span class="tl tl-unknown">UNKNOWN</span></td>
+<td>works with the OS off; needs IMM credentials; CIM-XML client; on this IMM (CIM over HTTPS disabled) use <code>--cimhttp</code>, port 5988 <span class="tl tl-candidate">CANDIDATE</span> (docs/X3650M3_TOOLS.md 3)</td>
 </tr>
 <tr>
 <td>F1 setup with local monitor/keyboard</td>
@@ -400,7 +403,7 @@ out-of-band port, SOL through WARP UDP, IMM 1.30 handling of IPMI <code>chassis 
 </main>
 <aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#1-uefi-settings-for-console-redirection">1. UEFI settings for console redirection</a></li><li class="l2"><a href="#2-serial-port-mapping">2. Serial port mapping</a></li><li class="l2"><a href="#3-how-to-change-the-uefi-settings">3. How to change the UEFI settings</a></li><li class="l2"><a href="#4-console-paths-and-remote-access-service">4. Console paths and [remote-access service]</a></li><li class="l2"><a href="#5-remote-access-service-connector-must-not-live-only-on-the-proxmox-host">5. [remote-access service] connector must not live only on the Proxmox host</a></li><li class="l2"><a href="#6-installing-an-os-over-the-serial-console">6. Installing an OS over the serial console</a></li><li class="l2"><a href="#7-what-serial-cannot-show">7. What serial cannot show</a></li><li class="l2"><a href="#8-ordered-steps">8. Ordered steps</a></li><li class="l2"><a href="#9-web-sources">9. Web sources</a></li></ul></nav></aside>
 </div>
-<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:54 UTC from commit <code>919a212665cc</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 11:31 UTC from commit <code>80d508298327</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
 <script src="../assets/library.js"></script>
 </body>
 </html>

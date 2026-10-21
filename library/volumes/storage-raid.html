@@ -84,7 +84,7 @@
 <h1>Storage and RAID</h1>
 <p class="subtitle">IBM System x3650 M3 (7945KEG) - Storage and RAID</p>
 <p class="lede">storage controllers (supported and installed), drive bays, backplanes, cabling, drives, firmware levels, configuration utilities, RAID levels and feature keys, OS-side view, optimization notes. Owner&#x27;s server only.</p>
-<p class="meta"><span class="source">source: <code>docs/X3650M3_STORAGE_RAID.md</code></span> <span>15 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">76</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">22</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">9</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">74</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">39</span> <span class="tl tl-not-verified">NOT VERIFIED</span><span class="n">2</span></span></p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_STORAGE_RAID.md</code></span> <span>15 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">81</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">28</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">10</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">84</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">38</span> <span class="tl tl-not-verified">NOT VERIFIED</span><span class="n">2</span></span></p>
 </header>
 <details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#table-of-contents">Table of contents</a></li><li class="l2"><a href="#1-summary-of-the-installed-storage-subsystem">1. Summary of the installed storage subsystem</a></li><li class="l2"><a href="#2-source-map">2. Source map</a></li><li class="l2"><a href="#3-supported-controllers-documented">3. Supported controllers (DOCUMENTED)</a></li><li class="l2"><a href="#4-installed-controllers-measured">4. Installed controllers (MEASURED)</a></li><li class="l3"><a href="#41-serveraid-m1015-raid">4.1 ServeRAID M1015 (RAID)</a></li><li class="l3"><a href="#42-ibm-6gb-sas-hba-9212-4i4e-second-controller">4.2 IBM 6Gb SAS HBA [9212-4i4e] (second controller)</a></li><li class="l3"><a href="#43-chipset-sata-optical-drive-only">4.3 Chipset SATA (optical drive only)</a></li><li class="l2"><a href="#5-drive-bays-backplanes-sas-riser-and-cabling">5. Drive bays, backplanes, SAS riser and cabling</a></li><li class="l3"><a href="#51-bay-configurations-documented">5.1 Bay configurations (DOCUMENTED)</a></li><li class="l3"><a href="#52-expansion-options-documented-s-001-table-7-infocenter-t_installing_">5.2 Expansion options (DOCUMENTED, S-001 Table 7; infocenter t_installing_*)</a></li><li class="l3"><a href="#53-backplanes-and-riser-parts-s-004-table-13-s-005">5.3 Backplanes and riser (parts, S-004 Table 13; S-005)</a></li><li class="l3"><a href="#54-installed-backplane-measured">5.4 Installed backplane (MEASURED)</a></li><li class="l2"><a href="#6-installed-drives-and-drive-health-measured">6. Installed drives and drive health (MEASURED)</a></li><li class="l3"><a href="#61-smart-health-of-both-drives-measured-2026-10-20">6.1 SMART health of both drives (MEASURED, 2026-10-20)</a></li><li class="l2"><a href="#7-firmware-levels-installed-vs-available">7. Firmware levels: installed vs available</a></li><li class="l3"><a href="#71-hba-6gb-package-120-analysis-offline-2026-10-21">7.1 HBA 6Gb package 1.20 analysis (offline, 2026-10-21)</a></li><li class="l2"><a href="#8-configuration-utilities">8. Configuration utilities</a></li><li class="l2"><a href="#9-raid-levels-feature-keys-and-limits">9. RAID levels, feature keys and limits</a></li><li class="l2"><a href="#10-os-side-view-measured">10. OS-side view (MEASURED)</a></li><li class="l2"><a href="#11-optimization-notes-mixed-documented--candidate">11. Optimization notes (mixed DOCUMENTED / CANDIDATE)</a></li><li class="l2"><a href="#12-source-conflicts">12. Source conflicts</a></li><li class="l2"><a href="#13-open-questions--unknown">13. Open questions / UNKNOWN</a></li><li class="l2"><a href="#14-controller-event-log-and-termlog-measured-2026-10-20">14. Controller event log and termlog (MEASURED, 2026-10-20)</a></li><li class="l3"><a href="#141-coverage-and-clocks">14.1 Coverage and clocks</a></li><li class="l3"><a href="#142-physical-drives-present-at-each-controller-start">14.2 Physical drives present at each controller start</a></li><li class="l3"><a href="#143-correlation-with-the-imm-event-log-captures2026-10-20_imm_readlogtxt">14.3 Correlation with the IMM event log (captures/2026-10-20_imm_readlog.txt)</a></li><li class="l3"><a href="#144-slot-0--slot-1-events-around-2026-08-24-2026-10-14-and-2026-10-17">14.4 Slot 0 / slot 1 events around 2026-08-24, 2026-10-14 and 2026-10-17</a></li><li class="l3"><a href="#145-abnormal-event-classes-over-the-whole-log">14.5 Abnormal event classes over the whole log</a></li><li class="l3"><a href="#146-patrol-read-and-the-storcli-counters">14.6 Patrol Read and the storcli counters</a></li></ul></nav></details>
 <div class="prose">
@@ -674,8 +674,12 @@ and 16-bay (expander) wiring is shown only in figures of <a class="sref" href=".
 <ul>
 <li>FRU "DASD Backplane 1 (ID 3)": Board Mfg MOLX, Board Product "IBM Designed Device", Board Part Number 81Y4592,
   Board Extra 94Y6670 (further extras 3600, 00, 7000, 0), serial omitted here. 94Y6670 equals one of the two
-  8-drive backplane (19B) FRUs in <a class="sref" href="../catalog/sources.html#s-005">S-005</a> 46w8286 (older PDSG, 12th ed.); 81Y4592 occurs in no repository source
-  (<span class="tl tl-unknown">UNKNOWN</span> meaning).</li>
+  8-drive backplane (19B) FRUs in <a class="sref" href="../catalog/sources.html#s-005">S-005</a> 46w8286 (older PDSG, 12th ed.; "Backplane, SAS, 8 hard disk drives",
+  sources/text/S-005_46w8286.txt line 9432, <span class="tl tl-documented">DOCUMENTED</span>); 81Y4592 occurs in no vendor document. The IMM CIM inventory
+  reports the same card as "Drive Backplane 1" with PartNumber 81Y4592 and SKU 94Y6670
+  (captures/2026-10-21_imm_cim_read_inventory.txt lines 2302-2324, <span class="tl tl-measured">MEASURED</span>), so 81Y4592 is <span class="tl tl-candidate">CANDIDATE</span> the
+  assembly/manufacturing part number and 94Y6670 the FRU number (reason: same pattern as the system board, Board Part
+  Number 94Y7614 with Board Extra = FRU 69Y5082, docs/X3650M3_HARDWARE_COMPONENTS.md 2).</li>
 <li>FRU "DASD Backplane 2/3/4 (ID 4/5/6)": "Device not present".</li>
 <li>SDR: "DASD Backplane 1" and "SAS Riser" discrete sensors present (reading 0x1); "DASD Backplane 2" present as a
   sensor with reading 0x2, which <code>ipmitool -v</code> decodes as Entity Presence [Absent] (captures/2026-10-20_sdr_verbose_and_pd0.txt
@@ -771,7 +775,13 @@ later the controller reports the drive Onln with zero error counts (above) and t
 errors. The controller event log (section 14.4) shows that the controller itself failed and removed this drive on
 2026-10-14 (controller clock) after WRITE command timeouts and path resets, and found it again with its configuration
 at the next start; it is the only physical-drive failure in the whole controller log. C-10 stays open: the link
-between the 2026-10-14 controller failure and the 2026-10-17 IMM event is <span class="tl tl-candidate">CANDIDATE</span>, its mechanism <span class="tl tl-unknown">UNKNOWN</span>.</p>
+between the 2026-10-14 controller failure and the 2026-10-17 IMM event is <span class="tl tl-candidate">CANDIDATE</span>. Mechanism (<span class="tl tl-candidate">CANDIDATE</span>): the IMM
+drive events 806f010d/806f020d-04nn are per-slot sensors whose <a class="sref" href="../catalog/sources.html#s-004">S-004</a> service action names "Cable from the system board
+to the backplane" and the backplane, never the RAID controller (sources/text/S-004_00kc219.txt lines 5269-5282,
+5750-5761, <span class="tl tl-documented">DOCUMENTED</span>); the controller drives the fault/rebuild state to the backplane over SGPIO and the IMM reads
+the backplane over the configuration cable (I2C), as IBM documents for the M4 generation (tip "Drive fault LED and IMM
+might not report rebuild in slots 16 - 23 on non-expander backplanes", <a href="https://www.ibm.com/support/pages/node/863576" rel="noopener">https://www.ibm.com/support/pages/node/863576</a>).
+For the M3 this path is not documented; why the event surfaced on 2026-10-17 stays <span class="tl tl-unknown">UNKNOWN</span>.</p>
 <p>Virtual disk size: 486326272 sectors = 248,999,051,264 bytes, which is 1,060,298,752 bytes (about 1.0 GiB) less
 than the raw drive (arithmetic from the two captured numbers). storcli splits this (<span class="tl tl-measured">MEASURED</span>, lines 533-534 and
 259): Raw size 0x1d1c5970 sectors, Non Coerced size 0x1d0c5970 sectors, Coerced size 0x1cfcc000 sectors
@@ -912,8 +922,10 @@ their LBA and time are <span class="tl tl-unknown">UNKNOWN</span>; "all 140 erro
   issued it is <span class="tl tl-unknown">UNKNOWN</span>.</li>
 <li><span class="tl tl-unknown">UNKNOWN</span>: whether the errors happened in this server. The SMART log has no wall-clock time; the drive was in this
   server 2026-03-06 .. 2026-08-24 and again since 2026-10-20 (section 14.2), and the controller event log has no
-  medium-error or sense event for PD 0c in 2013-2026 (section 14.5). Also <span class="tl tl-unknown">UNKNOWN</span>: whether LBA 6284676 was later
-  rewritten, remapped or is still unreadable (<span class="tl tl-candidate">CANDIDATE</span>: not currently flagged, reason: pending count 0).</li>
+  medium-error or sense event for PD 0c in 2013-2026 (section 14.5). LBA 6284676 reads now: the owner-approved
+  extended (full-surface) self-test of 2026-10-20 completed without error at 1312 h
+  (captures/2026-10-20_smart_long_selftests.txt, <span class="tl tl-measured">MEASURED</span>); whether it was rewritten or remapped in between stays
+  <span class="tl tl-unknown">UNKNOWN</span> (pending count 0).</li>
 <li>Toshiba: the drive's own error logs are empty, so the 2026-10-14 WRITE(10) command timeouts (section 14.4) left no
   ATA error entry in the drive (<span class="tl tl-measured">MEASURED</span> absence). <span class="tl tl-candidate">CANDIDATE</span>: the drive never returned an error status for those
   commands (timeout on the controller or link side, or a drive that stopped responding without logging); this does
@@ -994,16 +1006,16 @@ should take the path from <code>smartctl --scan-open</code> rather than a fixed 
 <tr>
 <td>Drive firmware (Toshiba MK2546GSX; Hitachi HTS542512K9SA00)</td>
 <td>LB011A; BB2OC31P (storcli lines 532, 621)</td>
-<td>none in repository (the 4 files of category "Hard Drive and Solid State Drives, NVMe" are one QLogic 8G FC multiboot package, DS109984; no drive firmware)</td>
+<td>none in repository (the 4 files of category "Hard Drive and Solid State Drives, NVMe" are one QLogic 8G FC multiboot package, DS109984; no drive firmware); IBM drive firmware programs target IBM-branded drives by IBM model ID (<a href="https://www.ibm.com/support/pages/ibm-sas-hard-disk-drive-update-program-ibm-bladecenter-and-system-x" rel="noopener">https://www.ibm.com/support/pages/ibm-sas-hard-disk-drive-update-program-ibm-bladecenter-and-system-x</a>), none lists these laptop models</td>
 <td>smartctl capture; CATALOG.md</td>
-<td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-unknown">UNKNOWN</span></td>
+<td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-candidate">CANDIDATE</span> none exists</td>
 </tr>
 <tr>
 <td>Backplane firmware</td>
 <td>not exposed</td>
 <td>none</td>
 <td>-</td>
-<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td><span class="tl tl-unknown">UNKNOWN</span> (no source)</td>
 </tr>
 </tbody>
 </table></div>
@@ -1132,7 +1144,7 @@ printed in this build is <span class="tl tl-unknown">UNKNOWN</span> (<span class
 </tr>
 <tr>
 <td>Legacy BIOS</td>
-<td><span class="tl tl-unknown">UNKNOWN</span> (7.19.00.00 if the card was flashed with package 1.10.01, <span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td><span class="tl tl-unknown">UNKNOWN</span> (7.19.00.00 if the card was flashed with package 1.10.01, <span class="tl tl-candidate">CANDIDATE</span>); read-only <code>sas2ircu 0 DISPLAY</code> would show it, but running the vendor binary on the host was blocked by the agent permission system on 2026-10-21 (owner can run it)</td>
 <td>7.39.00.00</td>
 <td><span class="tl tl-unknown">UNKNOWN</span> / <span class="tl tl-extracted">EXTRACTED</span></td>
 </tr>
@@ -1268,8 +1280,13 @@ UEFI BETA banner is shown.</p>
 <p>Captured: StorCLI 1.14.12 read-only <code>show</code> output for the M1015 (captures/2026-10-20_storage_storcli.txt; binary
 from the Lenovo catalog package, run from /tmp on the host and removed afterwards, not installed). Not captured:
 MegaCLI, sas2ircu, sas2flash, lsiutil output. Boot settings from storcli (<span class="tl tl-measured">MEASURED</span>, lines 277-288): Enable BIOS Yes,
-Enable Web BIOS Yes, Enable PreBoot CLI Yes, Enable Ctrl-R No, Stop BIOS on Error On, BIOS Enumerate VDs 1. The UEFI HII screens of this server are <span class="tl tl-unknown">UNKNOWN</span> (no screenshot or IMM remote-presence
-capture).</p>
+Enable Web BIOS Yes, Enable PreBoot CLI Yes, Enable Ctrl-R No, Stop BIOS on Error On, BIOS Enumerate VDs 1. The UEFI HII screens of this server were not captured (no screenshot or IMM remote-presence
+capture; a live view needs a reboot). Offline (<span class="tl tl-extracted">EXTRACTED</span>, UTF-16 strings of the decompressed HBA driver
+build/mpt2sas120/uefi_07.27.04.00.efi, package 1.20, not the installed 07.18.01.05): the 9212 HII offers Controller
+Management (View / Change Controller Properties), Virtual Disk Management (Select RAID level, Manage Virtual Disk
+Properties), Physical Disk Management (View Physical Disk Properties), Manage Foreign Configuration, Manage Global
+Hotspare Disks and "Current status of Legacy BIOS. Select and Apply to modify". The IFR form tree and the M1015
+MegaRAID HII were not decoded (<span class="tl tl-unknown">UNKNOWN</span>).</p>
 <h2 id="9-raid-levels-feature-keys-and-limits">9. RAID levels, feature keys and limits <a class="anchor" href="#9-raid-levels-feature-keys-and-limits" aria-label="Link to this section">#</a></h2>
 <div class="table-wrap"><table>
 <thead>
@@ -1330,7 +1347,12 @@ PRL11-RLQ0 DDF layout with no span, PRL11-RLQ0 DDF layout with span" (lines 340-
 NO; Max Arms Per VD 16; Max Spans Per VD 8; Max Arrays 16; Max VD per array 16; Max Number of VDs 16; Max Parallel
 Commands 31; Min/Max Strip Size 8 KB / 64 KB; mixing SAS/SATA, or SSD/HDD, in one VD Not Allowed. Defaults (lines
 302-305): strip 64kB, Write Policy WT, Read Policy None. JBOD: "Enable JBOD = Yes" (line 342) but "Support JBOD = No"
-(line 152); both values are recorded as captured, their interaction is <span class="tl tl-unknown">UNKNOWN</span>.</p>
+(line 152); both values are recorded as captured. No Broadcom definition was found (<span class="tl tl-unknown">UNKNOWN</span>). <span class="tl tl-candidate">CANDIDATE</span> reading:
+"Enable JBOD" is the firmware 20.x property that allows per-drive JBOD (the 20.x .chg documents per-drive JBOD use:
+20.1.1-0059, 20.10.1-0022 "ServeRAID M1015 SATA JBOD ... uEFI boot", 20.13.1-0254; firmware/ibm/serveraid-m1015/
+20.13.1-0254/*.chg lines 120-213), while "Support JBOD" is the newer controller-wide JBOD-mode capability bit that
+storcli checks ("Prevent storCLI from allowing users to enable JBOD mode on controllers that do not support JBOD
+mode", storcli 1.12.15, DS111345 .chg lines 49-53). Not tested (a <code>set jbod</code> is state-changing).</p>
 <p>Currently configured (<span class="tl tl-measured">MEASURED</span>, lines 372-399, 470-483): one drive group (DG 0), one virtual disk 0/0, RAID0, state
 Optl (Optimal), access RW, Consistent Yes, cache NRWTD (No Read Ahead, WriteThrough, Direct IO), 231.898 GB, Span
 Depth 1, one drive per span (64:0), Strip Size 64 KB, Disk Cache Policy Disabled, Encryption None, Exposed to OS
@@ -1479,13 +1501,14 @@ log explains the Patrol Read values only partly (section 14.6).</p>
 </table></div>
 <h2 id="13-open-questions--unknown">13. Open questions / <span class="tl tl-unknown">UNKNOWN</span> <a class="anchor" href="#13-open-questions--unknown" aria-label="Link to this section">#</a></h2>
 <ol>
-<li>M1015 firmware: installed level resolved (20.10.1-0052, <span class="tl tl-measured">MEASURED</span>, section 7). Still open: where to obtain an M1015
-   firmware binary (newest documented ibm_fw_sraidmr_1000 20.11.1-0184; IBM Fix Central / Lenovo availability
-   <span class="tl tl-unknown">UNKNOWN</span>; no binary in firmware/ or sources/lenovo/CATALOG.md).</li>
+<li>M1015 firmware: installed level resolved (20.10.1-0052, <span class="tl tl-measured">MEASURED</span>, section 7). Binaries resolved: the Linux
+   packages 20.11.1-0184 and 20.13.1-0254 (.bin/.chg/.txt/.xml with SHA256SUMS) are in
+   firmware/ibm/serveraid-m1015/ (section 7 table). Flashing is excluded by docs/DECISIONS.md D-006.</li>
 <li>Virtual disk configuration: resolved (RAID0, strip 64 KB, Optimal, Consistent, NRWTD, schedules; <span class="tl tl-measured">MEASURED</span>, section
    9). Event log captured and analysed (section 14). Still open: why storcli shows 0 completed Patrol Read iterations
    while the log has 139 "Patrol Read complete" events, and whether the CC and PR iteration counters are swapped
-   (section 14.6).</li>
+   (section 14.6). No Broadcom document defines the storcli counter or says whether it resets at controller start
+   (web search 2026-10-21; storcli 1.14.12 .chg only adds "Patrol Read Start Time"); stays <span class="tl tl-unknown">UNKNOWN</span>.</li>
 <li>Advanced Feature Key: resolved, absent (<span class="tl tl-measured">MEASURED</span>, section 9). Unconfigured drives: none since 2026-10-20 (Hitachi 64:1, UGood at the storcli capture, is now VD 1)
    (section 6); foreign configurations: none before VD 1 creation (captures/2026-10-20_storage_hitachi_vd.txt
    pre-check <code>/c0/fall show</code>). Origin of the Hitachi drive is <span class="tl tl-unknown">UNKNOWN</span>; its presence history (section 14.2) and SMART
@@ -1497,35 +1520,50 @@ log explains the Patrol Read values only partly (section 14.6).</p>
    (section 14.3): <span class="tl tl-unknown">UNKNOWN</span>.</li>
 <li>Exact SFF-8087 port mapping and cabling for 8-bay and 16-bay (expander) layouts (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> figures 23, 28, 29 only).</li>
 <li>Second HBA (9212-4i4e): IT firmware established 2026-10-21 (section 4.2); still open whether its external
-   connector is cabled to anything and why it is installed (no devices attached; all 8 phys link "Unknown"). Newest documented IBM package is
-   1.10.05 (FW 10.00.08.00); a binary is not in the repository.</li>
+   connector is cabled to anything and why it is installed (no devices attached; all 8 phys link "Unknown"). HBA
+   firmware packages are in the repository: firmware/ibm/sas-hba-mpt2sas/1.20 (FW 20.00.02.00 IT) and
+   h1110-1.20.02 (Linux and Windows), both newer than 1.10.05 (section 7 table).</li>
 <li>Drive tray type and whether other bays hold fillers; both installed drives (Toshiba, Hitachi) are non-IBM-option
    SATA disks.</li>
 <li>Reserve between raw drive capacity and virtual disk size: split <span class="tl tl-measured">MEASURED</span> (512 MiB raw vs non coerced, rest from
-   1 GB coercion, section 6); that the 512 MiB holds DDF metadata remains <span class="tl tl-candidate">CANDIDATE</span>.</li>
+   1 GB coercion, section 6); that the 512 MiB holds DDF metadata remains <span class="tl tl-candidate">CANDIDATE</span>. Supporting facts: the M1015 is
+   "Compliant with Disk Data Format (DDF) configuration on disk (COD)" (sources/text/S-031_tips0740.txt line 86,
+   <span class="tl tl-documented">DOCUMENTED</span>) and DDF keeps its anchor in the last LBA with the metadata area below it (SNIA DDF; FreeBSD
+   sys/geom/raid/md_ddf.c reads the anchor at media size minus one sector and reserves 32 MB itself, so the reserve
+   size is implementation-defined). No Broadcom source states 512 MiB.</li>
 <li>UEFI HII pages for each controller (menu structure, option names, ASU setting names for storage) - belongs to
    X3650M3_UEFI.md once captured.</li>
 <li>Battery/iBBU: none on the M1015 (BBU Absent, <span class="tl tl-measured">MEASURED</span>, captures/2026-10-20_storage_storcli.txt lines 222, 728);
    remote battery tray presence not checked.</li>
-<li>IMM-side drive/RAID reporting: whether IMM v1 shows ServeRAID logical drives (IMM web/CLI storage view not probed
-   for this document).</li>
-<li>Compatibility of M5014/M5015 as drop-in replacement for the installed M1015 on this exact riser: the options exist
-   in <a class="sref" href="../catalog/sources.html#s-001">S-001</a>/<a class="sref" href="../catalog/sources.html#s-002">S-002</a>, but actual fit/behavior with this SAS riser (part 43V7067 is listed for non-tape models) was not tested.</li>
+<li>IMM-side drive/RAID reporting: <span class="tl tl-candidate">CANDIDATE</span> no. The IMM 1.30 CIM namespace root/cimv2 lists 286 classes with no
+   CIM_StorageVolume, CIM_DiskDrive or RAID class (only CIM_StorageExtent; captures/2026-10-21_imm_cim_read_inventory.txt
+   class list, <span class="tl tl-measured">MEASURED</span>), the 1.30 web UI pages (sources/imm_web/1.30) have no storage page, and WS-Man
+   GetVirtualLightPath offers only a "RAID" light-path LED (captures/2026-10-21_imm_wsman_read_inventory.txt). The IMM
+   sees drives only as per-slot sensors "Drive 0..15" (docs/X3650M3_SENSORS_SDR.md).</li>
+<li>Compatibility of M5014/M5015 as drop-in replacement for the installed M1015: <span class="tl tl-documented">DOCUMENTED</span> supported. <a class="sref" href="../catalog/sources.html#s-001">S-001</a> TIPS0805
+   lists M5014 46M0916 (max 1) and M5015 46M0829 (max 1, or 2 with kit 69Y5034) for the x3650 M3
+   (sources/text/S-001_tips0805.txt lines 554-624); in 8-bay configurations the controller sits on the SAS riser card in
+   its dedicated slot and the existing backplane signal cables move to the new controller (IC
+   t_installing_serveraid_sas_controller_on_sas_riser_card_option); battery-backed controllers run write-through until
+   the battery is charged. Not tested on this unit.</li>
 <li>Drive 0 fault event of 2026-10-17 (C-10): the controller event log and termlog are now captured (section 14.4:
-   controller failure of PD 0b on 2026-10-14, nothing on 2026-10-17). Still open: how the IMM learns drive faults
-   (SGPIO / backplane signal or controller message) and why it reported on 2026-10-17; why storcli error counters
+   controller failure of PD 0b on 2026-10-14, nothing on 2026-10-17). How the IMM learns drive faults: <span class="tl tl-candidate">CANDIDATE</span>
+   SGPIO from the controller to the backplane, read by the IMM over the backplane configuration cable (section 6 C-10
+   text; documented by IBM only for the M4 generation). Still open: why it reported on 2026-10-17; why storcli error counters
    read 0. Done 2026-10-20: <code>storcli64 /c0/e64/s0 show all</code> (all counters 0, captures/2026-10-20_sdr_verbose_and_pd0.txt)
    and <code>smartctl -a</code> / <code>-l xerror</code> of DID 11 (no error logged, so the 2026-10-14 WRITE timeouts at LBA 0x0c1b1198 /
    0x134bcda0 are not in the drive's log; section 6.1). Still open: the SMART long self-test (owner-approved, queued
    after the initial backup; result pending) and the IMM web drive view. Not to be run: any <code>set</code>, <code>start</code>,
    <code>delete</code>, <code>clear</code> or rebuild command.</li>
-<li>Controller event log follow-ups (section 14): the meaning of "PD Path reset (Type 03)", "Error f0" and termlog
-   "Error x2 / rtn status 4e" (FDE probe) in LSI firmware 2.120; whether "Consistency Check found inconsistent parity"
-   is also used for mirror mismatches; RAID level of the 2013-2015 VD 00/0; why 32 controller starts logged no
+<li>Controller event log follow-ups (section 14): "PD Path reset (Type 03)" and IOCLogInfo 0x31170000 decoded as
+   <span class="tl tl-candidate">CANDIDATE</span>/<span class="tl tl-documented">DOCUMENTED</span> in 14.4; "Error f0" and termlog "Error x2 / rtn status 4e" (FDE probe) stay <span class="tl tl-unknown">UNKNOWN</span>; whether
+   "Consistency Check found inconsistent parity" is also used for mirror mismatches stays <span class="tl tl-unknown">UNKNOWN</span> (IBM tip 854688,
+   <a href="https://www.ibm.com/support/pages/node/854688" rel="noopener">https://www.ibm.com/support/pages/node/854688</a>, confirms that a CC on RAID 1 compares the mirror copies and corrects
+   them, but does not quote the event text); RAID level of the 2013-2015 VD 00/0; why 32 controller starts logged no
    drive at all and 104 starts no "Time established" event.</li>
 <li>Hitachi SMART error log (section 6.1): where and when the 140 ATA errors occurred (only errors 136-140 are
-   retained, all UNC at LBA 6284676 at 1189 h), and whether that LBA is still unreadable. Read-only check: the queued
-   long self-test (<code>smartctl -l selftest -d sat+megaraid,12</code>, path from <code>smartctl --scan-open</code>).</li>
+   retained, all UNC at LBA 6284676 at 1189 h). Resolved: LBA 6284676 is readable now - the extended self-test of
+   2026-10-20 completed without error at 1312 h (captures/2026-10-20_smart_long_selftests.txt, <span class="tl tl-measured">MEASURED</span>).</li>
 </ol>
 <h2 id="14-controller-event-log-and-termlog-measured-2026-10-20">14. Controller event log and termlog (<span class="tl tl-measured">MEASURED</span>, 2026-10-20) <a class="anchor" href="#14-controller-event-log-and-termlog-measured-2026-10-20" aria-label="Link to this section">#</a></h2>
 <p>Sources: captures/2026-10-20_m1015_eventlog/events.txt (storcli64 1.14.12 <code>/c0 show events</code>; "E:n" = line of the
@@ -1545,7 +1583,9 @@ read-only. Offline analysis by parsing every event into one record per line; cou
   Nov 2013-Mar 2015). <span class="tl tl-candidate">CANDIDATE</span>: storcli converts with the host time zone including its historical DST rules; the
   pattern fits a zone that was UTC+2/UTC+3 with DST until 2016 and UTC+3 since (host time zone not captured).</li>
 <li>Host: storcli "Current Controller Date/Time" 16:58:21 vs system 18:58:22 (captures/2026-10-20_storage_storcli.txt
-  lines 50-51). Whether that value is on scale (a) or (b) is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+  lines 50-51). <span class="tl tl-candidate">CANDIDATE</span>: scale (b). Host time zone Europe/Istanbul (UTC+3, <code>timedatectl</code> 2026-10-21, <span class="tl tl-measured">MEASURED</span>);
+  from the IMM pairs below the firmware scale (a) is about host minus 3 h, so 16:58:21 at host 18:58:22 (host minus
+  2 h) is (a) + 1 h = the scale of the events.txt "Time:" field.</li>
 <li>IMM: IMM clock minus firmware scale is about +3.5 to +4 min in October 2026 (<span class="tl tl-candidate">CANDIDATE</span>, three pairs: controller
   power-on 2026-10-20 12:24:10 vs IMM #5 "Host Power turned on" 12:28:00; controller shutdown 2026-10-19 01:32:23
   vs IMM #21 01:36:14; controller power-on 2026-10-17 23:24:49 vs IMM #27 Power Up request 23:28:25). With the IMM
@@ -1736,8 +1776,12 @@ read-only. Offline analysis by parsing every event into one record per line; cou
 </table></div>
 <p>Decode (<span class="tl tl-candidate">CANDIDATE</span>, SCSI command set knowledge, no repository source): CDB opcode 0x2a = WRITE(10); the two
   writes address LBA 0x0c1b1198 (8 blocks) and 0x134bcda0 (16 blocks) of the RAID0 VD (on a one-drive RAID0 the VD
-  LBA equals the drive LBA, <span class="tl tl-candidate">CANDIDATE</span>). "Path reset (Type 03)", "Error f0" and IOCLogInfo 0x31170000: meaning
-  <span class="tl tl-unknown">UNKNOWN</span> (no LSI firmware documentation in the repository). After the power cycle the configuration is back
+  LBA equals the drive LBA, <span class="tl tl-candidate">CANDIDATE</span>). IOCLogInfo 0x31170000 decodes per the LSI MPI log header as type 3 (SAS),
+  originator 1 (PL), code 0x17 PL_LOGINFO_CODE_IO_DEVICE_MISSING_DELAY_RETRY (I/O held and retried because the device
+  was missing) (<span class="tl tl-documented">DOCUMENTED</span> for MPI 1.x, drivers/message/fusion/lsi/mpi_log_sas.h in the Linux kernel; same table for
+  SAS2008 <span class="tl tl-candidate">CANDIDATE</span>). "Path reset (Type 03)" matches MPI2 task-management type 0x03 TARGET_RESET
+  (drivers/scsi/mpt3sas/mpi/mpi2_init.h; <span class="tl tl-candidate">CANDIDATE</span>, consistent with the preceding command timeouts). "Error f0":
+  <span class="tl tl-unknown">UNKNOWN</span> (<span class="tl tl-candidate">CANDIDATE</span>: SCSI sense response code 0x70 with the VALID bit). No Broadcom document defines these texts. After the power cycle the configuration is back
   without any foreign-import or creation event (<span class="tl tl-candidate">CANDIDATE</span>: read again from the on-disk DDF metadata, reason: the
   NVRAM DDF was reset at 22:16:20 and the drive is the only other holder of the configuration).
 - Other "PCI-E link went down, resetting chip" lines: 2026-09-18 21:24:09 (T:866), 2026-09-29 07:08:35 (T:3355),
@@ -1864,7 +1908,7 @@ read-only. Offline analysis by parsing every event into one record per line; cou
 </main>
 <aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#table-of-contents">Table of contents</a></li><li class="l2"><a href="#1-summary-of-the-installed-storage-subsystem">1. Summary of the installed storage subsystem</a></li><li class="l2"><a href="#2-source-map">2. Source map</a></li><li class="l2"><a href="#3-supported-controllers-documented">3. Supported controllers (DOCUMENTED)</a></li><li class="l2"><a href="#4-installed-controllers-measured">4. Installed controllers (MEASURED)</a></li><li class="l3"><a href="#41-serveraid-m1015-raid">4.1 ServeRAID M1015 (RAID)</a></li><li class="l3"><a href="#42-ibm-6gb-sas-hba-9212-4i4e-second-controller">4.2 IBM 6Gb SAS HBA [9212-4i4e] (second controller)</a></li><li class="l3"><a href="#43-chipset-sata-optical-drive-only">4.3 Chipset SATA (optical drive only)</a></li><li class="l2"><a href="#5-drive-bays-backplanes-sas-riser-and-cabling">5. Drive bays, backplanes, SAS riser and cabling</a></li><li class="l3"><a href="#51-bay-configurations-documented">5.1 Bay configurations (DOCUMENTED)</a></li><li class="l3"><a href="#52-expansion-options-documented-s-001-table-7-infocenter-t_installing_">5.2 Expansion options (DOCUMENTED, S-001 Table 7; infocenter t_installing_*)</a></li><li class="l3"><a href="#53-backplanes-and-riser-parts-s-004-table-13-s-005">5.3 Backplanes and riser (parts, S-004 Table 13; S-005)</a></li><li class="l3"><a href="#54-installed-backplane-measured">5.4 Installed backplane (MEASURED)</a></li><li class="l2"><a href="#6-installed-drives-and-drive-health-measured">6. Installed drives and drive health (MEASURED)</a></li><li class="l3"><a href="#61-smart-health-of-both-drives-measured-2026-10-20">6.1 SMART health of both drives (MEASURED, 2026-10-20)</a></li><li class="l2"><a href="#7-firmware-levels-installed-vs-available">7. Firmware levels: installed vs available</a></li><li class="l3"><a href="#71-hba-6gb-package-120-analysis-offline-2026-10-21">7.1 HBA 6Gb package 1.20 analysis (offline, 2026-10-21)</a></li><li class="l2"><a href="#8-configuration-utilities">8. Configuration utilities</a></li><li class="l2"><a href="#9-raid-levels-feature-keys-and-limits">9. RAID levels, feature keys and limits</a></li><li class="l2"><a href="#10-os-side-view-measured">10. OS-side view (MEASURED)</a></li><li class="l2"><a href="#11-optimization-notes-mixed-documented--candidate">11. Optimization notes (mixed DOCUMENTED / CANDIDATE)</a></li><li class="l2"><a href="#12-source-conflicts">12. Source conflicts</a></li><li class="l2"><a href="#13-open-questions--unknown">13. Open questions / UNKNOWN</a></li><li class="l2"><a href="#14-controller-event-log-and-termlog-measured-2026-10-20">14. Controller event log and termlog (MEASURED, 2026-10-20)</a></li><li class="l3"><a href="#141-coverage-and-clocks">14.1 Coverage and clocks</a></li><li class="l3"><a href="#142-physical-drives-present-at-each-controller-start">14.2 Physical drives present at each controller start</a></li><li class="l3"><a href="#143-correlation-with-the-imm-event-log-captures2026-10-20_imm_readlogtxt">14.3 Correlation with the IMM event log (captures/2026-10-20_imm_readlog.txt)</a></li><li class="l3"><a href="#144-slot-0--slot-1-events-around-2026-08-24-2026-10-14-and-2026-10-17">14.4 Slot 0 / slot 1 events around 2026-08-24, 2026-10-14 and 2026-10-17</a></li><li class="l3"><a href="#145-abnormal-event-classes-over-the-whole-log">14.5 Abnormal event classes over the whole log</a></li><li class="l3"><a href="#146-patrol-read-and-the-storcli-counters">14.6 Patrol Read and the storcli counters</a></li></ul></nav></aside>
 </div>
-<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:54 UTC from commit <code>919a212665cc</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 11:31 UTC from commit <code>80d508298327</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
 <script src="../assets/library.js"></script>
 </body>
 </html>

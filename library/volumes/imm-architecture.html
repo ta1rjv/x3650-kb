@@ -84,7 +84,7 @@
 <h1>IMM (v1) Architecture</h1>
 <p class="subtitle">IBM System x3650 M3 - IMM (v1) Architecture</p>
 <p class="lede">the Integrated Management Module, first generation (&quot;IMM&quot;, not IMM2 or XCC), of the owner&#x27;s x3650 M3, type 7945KEG. Covers internals, host interfaces, network services, users, Standard vs Premium, update flow, measured configuration and security-relevant ...</p>
-<p class="meta"><span class="source">source: <code>docs/X3650M3_IMM_ARCHITECTURE.md</code></span> <span>13 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">53</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">41</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">11</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">18</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">18</span></span></p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_IMM_ARCHITECTURE.md</code></span> <span>13 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">64</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">43</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">23</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">26</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">12</span></span></p>
 </header>
 <details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#table-of-contents">Table of contents</a></li><li class="l2"><a href="#1-scope-and-conventions">1. Scope and conventions</a></li><li class="l2"><a href="#2-identity-and-measured-configuration-summary">2. Identity and measured configuration summary</a></li><li class="l2"><a href="#3-imm-v1-internals">3. IMM v1 internals</a></li><li class="l3"><a href="#31-integration-and-soc">3.1 Integration and SoC</a></li><li class="l3"><a href="#32-flash-and-banks">3.2 Flash and banks</a></li><li class="l3"><a href="#33-boot-heartbeat-recovery">3.3 Boot, heartbeat, recovery</a></li><li class="l2"><a href="#4-host-interfaces">4. Host interfaces</a></li><li class="l3"><a href="#41-kcs--ipmi-system-interface">4.1 KCS / IPMI (system interface)</a></li><li class="l3"><a href="#42-lan-over-usb">4.2 LAN over USB</a></li><li class="l3"><a href="#43-video-and-remote-presence">4.3 Video and remote presence</a></li><li class="l3"><a href="#44-serial-and-sol">4.4 Serial and SOL</a></li><li class="l3"><a href="#45-other-host-visible-items">4.5 Other host-visible items</a></li><li class="l2"><a href="#5-network-services-and-ports">5. Network services and ports</a></li><li class="l3"><a href="#51-measured-vs-documented">5.1 Measured vs documented</a></li><li class="l3"><a href="#52-ssh">5.2 SSH</a></li><li class="l3"><a href="#53-http-and-https">5.3 HTTP and HTTPS</a></li><li class="l3"><a href="#54-snmp">5.4 SNMP</a></li><li class="l3"><a href="#56-slp-cim-ntp-e-mail">5.6 SLP, CIM, NTP, e-mail</a></li><li class="l3"><a href="#57-dedicated-vs-shared-management-port">5.7 Dedicated vs shared management port</a></li><li class="l2"><a href="#6-users-authentication-ldap-ipmi-privileges">6. Users, authentication, LDAP, IPMI privileges</a></li><li class="l2"><a href="#7-standard-vs-premium-virtual-media-key">7. Standard vs Premium (Virtual Media Key)</a></li><li class="l2"><a href="#8-management-interfaces-and-tools">8. Management interfaces and tools</a></li><li class="l2"><a href="#9-update-flow">9. Update flow</a></li><li class="l3"><a href="#91-order-and-prerequisites">9.1 Order and prerequisites</a></li><li class="l3"><a href="#92-methods">9.2 Methods</a></li><li class="l3"><a href="#93-in-band-protocol-s-025-section-7-with-extracted-confirmation">9.3 In-band protocol (S-025 section 7, with EXTRACTED confirmation)</a></li><li class="l3"><a href="#94-installed-130-vs-latest-155">9.4 Installed 1.30 vs latest 1.55</a></li><li class="l3"><a href="#95-risks-for-this-host">9.5 Risks for this host</a></li><li class="l2"><a href="#10-event-logging-sel-and-imm-event-log">10. Event logging (SEL and IMM event log)</a></li><li class="l2"><a href="#12-source-conflicts">12. Source conflicts</a></li><li class="l2"><a href="#13-open-questions--unknown">13. Open questions / UNKNOWN</a></li></ul></nav></details>
 <div class="prose">
@@ -189,9 +189,15 @@ measured configuration and security-relevant observations. Security review is a 
 </tr>
 <tr>
 <td>Aux Firmware Rev Info</td>
-<td>0x00 0x00 0x1b 0x41 (encoding not established)</td>
+<td>0x00 0x00 0x1b 0x41 (encoding not established; the IPMI stack is Avocent's bin/bmc_app with config keys /v2/ibmc/bmc/fw_rev_major/minor/revision, <span class="tl tl-extracted">EXTRACTED</span> 1.55, captures/2026-10-21_imm_rootfs_unknown_extracts.txt)</td>
 <td>ipmi_inband</td>
 <td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-unknown">UNKNOWN</span> meaning</td>
+</tr>
+<tr>
+<td>IPMI LAN channel Protocol Vendor ID</td>
+<td>7154 = IANA enterprise number of the "Intelligent Platform Management Interface forum" (owner of the IPMB-1.0 channel protocol)</td>
+<td>ipmi_inband <code>channel info 1</code>; IANA PEN list <a href="https://www.iana.org/assignments/enterprise-numbers.txt" rel="noopener">https://www.iana.org/assignments/enterprise-numbers.txt</a> (entry 7154, read 2026-10-21)</td>
+<td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-documented">DOCUMENTED</span></td>
 </tr>
 <tr>
 <td>System UUID</td>
@@ -318,6 +324,14 @@ measured configuration and security-relevant observations. Security review is a 
   tftp the image" (BOOTVOL/BADVOL flags). An update writes the inactive side only (libfmp_ibmc: "/dev/mtd3
   mounted, programming ubi0_2, ubi0_4"), and rfs.mirror later copies the running side to the other with ubimirror.
   This is the software view of the "primary/backup ROM page" above; how J147 maps to <code>bootvolume</code> is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li><span class="tl tl-extracted">EXTRACTED</span> (captures/2026-10-21_imm_rootfs_unknown_extracts.txt U-098): in 1.10 rfs.mirror runs every minute from
+  etc/cron.minute and, after a flash, copies the running side to the other side, so both sides end up with the same
+  build. 1.55 has no rfs.mirror (ubimirror is only used by the bin/testfix script); its libfmp_ibmc sets <code>bootvolume</code>
+  and clears badside1/badside2/flipside after programming the inactive side, i.e. the previous build stays as the
+  fallback. Which model 1.30 follows is <span class="tl tl-unknown">UNKNOWN</span>; with the 1.10 model the backup side would also hold YUOOC7E
+  (<span class="tl tl-candidate">CANDIDATE</span>). Live: CIM_SoftwareIdentity lists only IMM, UEFI and DSA, and Tasks/GetFirmwareBuildID faults for every
+  FirmwareType including "backup" (<span class="tl tl-measured">MEASURED</span>, captures/2026-10-21_imm_cim_read_inventory.txt,
+  captures/2026-10-21_imm_wsman_firmware_buildid.txt).</li>
 <li><span class="tl tl-extracted">EXTRACTED</span> (IMM 1.10): the IMM can read and write the host UEFI SPI flash directly (<code>spiutil raw bios -r/-w</code>,
   libfmp_ibmc "Burning new layout"; YUOO57X burn.sh writes 0x380000-0x7DFFFF of a dx360 M2 UEFI flash, FORMATS
   7.6). The x3650 M3 offsets are <span class="tl tl-unknown">UNKNOWN</span>.</li>
@@ -373,9 +387,14 @@ measured configuration and security-relevant observations. Security review is a 
   Powered"), MaxPower 100 mA, wMaxSegmentSize 1514, full speed (12M) on bus 5 port 2 (UHCI 00:1d.0, hw_lsusb_v),
   driver cdc_ether, interface enx5ef3fce08adf in state DOWN with no address, route or
   neighbors. The host side is therefore not configured, and the IMM DHCP behavior at 1.30 was not exercised
-  (<span class="tl tl-unknown">UNKNOWN</span>). IMM side: <code>usbeth -en enabled</code> (<span class="tl tl-measured">MEASURED</span>, cli_settings line 26).</li>
+  (live test = host network change, not done). IMM side: <code>usbeth -en enabled</code> (<span class="tl tl-measured">MEASURED</span>, cli_settings line 26).</li>
+<li><span class="tl tl-extracted">EXTRACTED</span> (1.55 etc/usb0_refresh.sh, captures/2026-10-21_imm_rootfs_unknown_extracts.txt U-039): the IMM runs
+  dhcpd on usb0 with subnet 169.254.(95+node).0/24 and a single-address range .120-.120, and sets its own usb0 to
+  169.254.(95+node).118/16; node 0 gives IMM .118 and host .120. The 1.10 image has no such files (no DHCP server).
+  <a class="sref" href="../catalog/sources.html#s-022">S-022</a> dates the DHCP server to 1.15, so 1.30 <span class="tl tl-candidate">CANDIDATE</span> has the 1.55 behavior.</li>
 <li><span class="tl tl-measured">MEASURED</span>: no virtual keyboard, mouse or storage USB device from the IMM is present. <span class="tl tl-candidate">CANDIDATE</span>: those appear
-  only with the Premium key and an active remote presence session; key presence is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+  only with the Premium key and an active remote presence session. <span class="tl tl-measured">MEASURED</span> 2026-10-21: no remote presence
+  license (<code>GetKVMStatus</code> HasLicense 0, MaxSessions 0, section 7), so the key is not active.</li>
 </ul>
 <h3 id="43-video-and-remote-presence">4.3 Video and remote presence <a class="anchor" href="#43-video-and-remote-presence" aria-label="Link to this section">#</a></h3>
 <ul>
@@ -504,9 +523,6 @@ measured configuration and security-relevant observations. Security review is a 
   07:37:35 GMT (matches the IMM build date), ETag "-1747512116", Server lighttpd/1.4.13. The response Date header
   reads 14:03:15 GMT while the capture header time is 16:59:21Z: the IMM clock was about 2 h 56 min behind the
   capture host clock (<span class="tl tl-measured">MEASURED</span> difference; the capture host clock itself is not verified).</li>
-<li><span class="tl tl-measured">MEASURED</span> (failed): nmap ssl-cert and ssl-enum-ciphers returned nothing; openssl s_client with tls1, tls1_1,
-  tls1_2 at SECLEVEL=0 and ssl3 all failed with no certificate; curl https returned empty headers
-  (tls_openssl, imm_web). Cause <span class="tl tl-unknown">UNKNOWN</span>.</li>
 <li><span class="tl tl-documented">DOCUMENTED</span>: Cryptography modes Basic Compatible (default) and High Security (disables SSL, TLS key at least 128
   bits) (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p92). The default certificate is self-signed (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p85). SSL client roles table: <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p85.</li>
 </ul>
@@ -531,7 +547,8 @@ measured configuration and security-relevant observations. Security review is a 
 <ul>
 <li><span class="tl tl-documented">DOCUMENTED</span>: the x3650 M3 has a dedicated systems-management Ethernet connector used only by the IMM, and
   Ethernet 1 can share the network with the IMM through one cable (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> p32-33). Default mode for rack servers
-  is dedicated (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p19). The mode currently selected on this unit is <span class="tl tl-unknown">UNKNOWN</span>. See conflict 3.</li>
+  is dedicated (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p19). <span class="tl tl-measured">MEASURED</span>: this unit is in dedicated mode (<code>IMM.SharedNicMode=Dedicated</code>,
+  captures/2026-10-20_asu_show_all/show_all.txt). See conflict 3.</li>
 <li><span class="tl tl-documented">DOCUMENTED</span> defaults: DHCP first, falling back to static 192.168.70.125 (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p19; README 1.55 section 2.2);
   DHCP Control options Static IP, DHCP Enabled, DHCP with Failover (default) (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p20). <span class="tl tl-measured">MEASURED</span> unit is
   static and not using DHCP. IPv6 defaults: autoconfiguration on, static off, DHCPv6 on, stateless on (p19).</li>
@@ -581,8 +598,7 @@ measured configuration and security-relevant observations. Security review is a 
   DisableHighSpeed. HasLicense false shows "This advanced option requires the purchase and installation of a
   key" and hides the controls; "-1" shows "Unable to get license key information". The KVM and virtual media
   clients are Java Web Start files fetched from /kvm/kvm/jnlp and /kvm/vm/jnlp with the session ID (ActiveX
-  branch for Internet Explorer). The browser check is display only; where the IMM enforces the license for the
-  remote presence service (3900/tcp) is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+  branch for Internet Explorer). The browser check is display only.</li>
 </ul>
 <h2 id="8-management-interfaces-and-tools">8. Management interfaces and tools <a class="anchor" href="#8-management-interfaces-and-tools" aria-label="Link to this section">#</a></h2>
 <ul>
@@ -592,9 +608,13 @@ measured configuration and security-relevant observations. Security review is a 
 <li><span class="tl tl-documented">DOCUMENTED</span> tools (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p125-126): ipmitool (OpenIPMI drivers needed in-band, p125), OSA SMBridge (IPMI 1.5 and SOL), ASU 3.0.0
   or later (in-band or out-of-band; needs an IPMI driver if LAN over USB is disabled).</li>
 <li><span class="tl tl-documented">DOCUMENTED</span> CLI example output differs from this unit's state label (conflict 10).</li>
-<li>Not captured (<span class="tl tl-unknown">UNKNOWN</span>): ASU <code>show all</code>, ipsec CLI configuration, exact web structure, Service Advisor
-  availability (documented at <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p25 but applicability to the x3650 M3 is unconfirmed), scalable
-  partitioning (same).</li>
+<li>ASU <code>show all</code> captured 2026-10-20 (captures/2026-10-20_asu_show_all/show_all.txt, <span class="tl tl-measured">MEASURED</span>). ipsec state <span class="tl tl-measured">MEASURED</span>
+  2026-10-21 (<code>ipsec show -status</code> "success", no connections, RSA signature inactive,
+  captures/2026-10-21_imm_cli_ipsec_ssi_probes.txt). Web structure: 1.30 crawl plus the full 1.10/1.55 www trees
+  (<span class="tl tl-extracted">EXTRACTED</span>, docs/X3650M3_IMM_WEB_API.md). Still not captured (<span class="tl tl-unknown">UNKNOWN</span>): exact CLI-to-web mapping. Service Advisor
+  and scalable partitioning: code present but not enabled on this unit - both are gated by capability files
+  (<code>/service_advisor.cap</code>, <code>/mnc.cap</code> return 404, <span class="tl tl-measured">MEASURED</span>; 1.55 ibmcsp starts service_advisord only if
+  ServiceAdvisor.cap exists and the image ships none, <span class="tl tl-extracted">EXTRACTED</span>; resolved item U-125).</li>
 </ul>
 <h2 id="9-update-flow">9. Update flow <a class="anchor" href="#9-update-flow" aria-label="Link to this section">#</a></h2>
 <h3 id="91-order-and-prerequisites">9.1 Order and prerequisites <a class="anchor" href="#91-order-and-prerequisites" aria-label="Link to this section">#</a></h3>
@@ -677,8 +697,12 @@ size 0x3C0000 (UEFI side; format details belong to the UEFI documents).</li>
   docs/X3650M3_FIRMWARE_HISTORY.md).</li>
 <li><a class="sref" href="../catalog/sources.html#s-023">S-023</a> (2011-10-10) states that for new 2011 systems individual iflash packages, IMM CLI and SNMP updates
   would be unsupported and the web update emergency-only (UXZ packaging), and that pre-2011 systems are not
-  affected. This unit's board dates from Nov 2011 while the model shipped earlier; whether the transition
-  applies is <span class="tl tl-unknown">UNKNOWN</span>. See conflict 5.</li>
+  affected. This unit's board dates from Nov 2011 while the model shipped earlier. Resolved (<span class="tl tl-candidate">CANDIDATE</span>, strong):
+  the transition does not apply. <a class="sref" href="../catalog/sources.html#s-023">S-023</a> (sources/text/<a class="sref" href="../catalog/sources.html#s-023">S-023</a> lines 151-154): "This affects all new systems being
+  shipped in 2011 that include an IMM. Older systems that shipped before 2011 will not be affected and refreshes to
+  older systems will not be affected"; the 7945 is a pre-2011 machine type whose 2011 models are a refresh ("Models
+  announced February 2011", <a class="sref" href="../catalog/sources.html#s-001">S-001</a> TIPS0805), and IBM still shipped IMM 1.55 (2018) for it as a self-extracting
+  iflash package with iflash/iflash64 (<span class="tl tl-extracted">EXTRACTED</span>, firmware/ibm/imm/1.55-yuooh5a). See conflict 5.</li>
 </ul>
 <h3 id="95-risks-for-this-host">9.5 Risks for this host <a class="anchor" href="#95-risks-for-this-host" aria-label="Link to this section">#</a></h3>
 <ul>
@@ -711,14 +735,20 @@ size 0x3C0000 (UEFI side; format details belong to the UEFI documents).</li>
 <li>Capacity and wrap (<span class="tl tl-candidate">CANDIDATE</span>): no wrap has happened yet; reason: the oldest entries #781-#777 show the IMM on its
   documented default address 192.168.70.125 with gateway 0.0.0.0 (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p19, printed 11), i.e. the start of service on
   this site, and the SEL starts the same evening. The capacity is therefore at least 781 entries; the real limit and
-  the FIFO deletion are not observed (<span class="tl tl-unknown">UNKNOWN</span>). <span class="tl tl-measured">MEASURED</span> 2026-10-21: CIM_RecordLog "Chassis Event Log" reports
+  the FIFO deletion are not observed live. <span class="tl tl-extracted">EXTRACTED</span> (IMM 1.10 and 1.55 usr/lib/libPem.so.1.0, PEMDB_LogEvent,
+  MIPS disassembly by the parallel register audit, resolved item U-122): when the record count reaches 0x5DC (1500)
+  the code sets the max-threshold status once and calls PEMDB_DeleteOldestEvent before adding the new record, i.e.
+  FIFO wrap at 1500 (<span class="tl tl-candidate">CANDIDATE</span> for 1.30, same code in both brackets; matches <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p98). <span class="tl tl-measured">MEASURED</span> 2026-10-21: CIM_RecordLog "Chassis Event Log" reports
   MaxNumberOfRecords 1500, CurrentNumberOfRecords 794, OverwritePolicy 2 (<span class="tl tl-candidate">CANDIDATE</span> "Wraps When Full", DMTF value
   map), matching the UI comment "up to 1500 entries" (docs/X3650M3_IMM_WEB_API.md 6.1); WS-Man <code>GetEventLog</code>
   returns all 794 entries with 64-bit event IDs (captures/2026-10-21_imm_cim_read_inventory.txt, captures/2026-10-21_imm_wsman_read_inventory.txt). The IMM log keeps recording while the SEL is full (VBAT events from
   2025-11-28).</li>
 <li><span class="tl tl-measured">MEASURED</span> (imm_readlog): the IMM names its port "ENET[sp-ethernetport]" and "Ethernet[eth1]" in log messages
-  (153 network-start pairs), while the CLI configures it as <code>ifconfig eth0</code>; what the two names map to is <span class="tl tl-unknown">UNKNOWN</span>
-  (relevant to open question 8).</li>
+  (153 network-start pairs), while the CLI configures it as <code>ifconfig eth0</code>. <span class="tl tl-extracted">EXTRACTED</span> (1.55 etc/init.d/rfs.net,
+  bin/netman.sh; resolved item U-103): IMM Linux has eth0, eth1 and usb0; the platform table default "NCSI0=1
+  NCSI1=0" makes eth0 the NC-SI (shared) interface and eth1 the dedicated MAC; "sp-ethernetport" is the CIM DeviceID
+  of IBM_EthernetPort; CLI <code>ifconfig eth0</code> is a CLI object label, not the Linux interface. With the unit in dedicated
+  mode (<span class="tl tl-measured">MEASURED</span>, 5.7) "Ethernet[eth1]" is the dedicated port (<span class="tl tl-candidate">CANDIDATE</span>; ptables not decoded).</li>
 </ul>
 <h2 id="12-source-conflicts">12. Source conflicts <a class="anchor" href="#12-source-conflicts" aria-label="Link to this section">#</a></h2>
 <div class="table-wrap"><table>
@@ -747,7 +777,7 @@ size 0x3C0000 (UEFI side; format details belong to the UEFI documents).</li>
 <td>3</td>
 <td>IMM network port</td>
 <td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> p32-33: dedicated connector plus shared Ethernet 1; ZG11-0012 (via sources/SOURCES.md): IMM shares one onboard port</td>
-<td>Open</td>
+<td>Both modes exist; this unit is <span class="tl tl-measured">MEASURED</span> in dedicated mode (IMM.SharedNicMode=Dedicated, show_all.txt, 5.7)</td>
 </tr>
 <tr>
 <td>4</td>
@@ -759,7 +789,7 @@ size 0x3C0000 (UEFI side; format details belong to the UEFI documents).</li>
 <td>5</td>
 <td>Update-method support</td>
 <td><a class="sref" href="../catalog/sources.html#s-023">S-023</a>: iflash/CLI/SNMP unsupported for new 2011 systems; README 1.55 and <a class="sref" href="../catalog/sources.html#s-020">S-020</a> document them</td>
-<td>Open</td>
+<td>Resolved (<span class="tl tl-candidate">CANDIDATE</span>, strong): <a class="sref" href="../catalog/sources.html#s-023">S-023</a> excludes pre-2011 systems and their refreshes; the 7945 is one, and IBM shipped 1.55 as an iflash package (section 9)</td>
 </tr>
 <tr>
 <td>6</td>
@@ -827,26 +857,33 @@ size 0x3C0000 (UEFI side; format details belong to the UEFI documents).</li>
 <ol>
 <li>Partly answered 2026-10-21 from the IMM 1.10 images (3.1, 3.2: MIPS32 big-endian, vsc452 drivers, Linux
    2.6.16.46, NAND/UBI two-side layout, SPI parts MX25L12805D/S25FL128P). Still open for 1.30: kernel version,
-   RAM size, fitted flash parts, UBI map (needs a 1.30 or 1.55 imm_*.upd; only PCI ID VSC452 is <span class="tl tl-measured">MEASURED</span>).</li>
+   RAM size, fitted flash parts, UBI map (1.55 is now <span class="tl tl-extracted">EXTRACTED</span> and identical in format to 1.10, so 1.30 is
+   bracketed; the 1.30 .upd itself is still unavailable - Fix Central needs an IBM ID, Wayback unreachable from this
+   host on 2026-10-21; only PCI ID VSC452 is <span class="tl tl-measured">MEASURED</span>).</li>
 <li>Resolved 2026-10-21: the IMM reports no remote presence license (<code>GetKVMStatus</code> HasLicense 0, section 7).</li>
-<li>Resolved 2026-10-21: SNMP configuration read through WS-Man (5.4). Still open: meaning of the SNMPv3
-   protocol codes 3 and 2.</li>
-<li>Meaning of IPMI Aux Firmware Rev Info bytes 0x00 0x00 0x1b 0x41 and of protocol vendor ID 7154.</li>
+<li>Resolved 2026-10-20: SSL server and client disabled, no certificate or CSR (<span class="tl tl-measured">MEASURED</span>, cli_settings, 5.3).
+   Resolved 2026-10-21: 443 is a lighttpd socket with <code>ssl.engine = "disable"</code> (<span class="tl tl-extracted">EXTRACTED</span> 1.10/1.55, 5.3).</li>
+<li>Protocol vendor ID 7154 resolved: IANA enterprise number of the IPMI forum (<span class="tl tl-documented">DOCUMENTED</span>, section 2). Still
+   open: meaning of the Aux Firmware Rev Info bytes 0x00 0x00 0x1b 0x41 (no IBM source; Avocent bmc_app not
+   disassembled).</li>
 <li>Active IMM flash bank, IMM backup bank firmware level, position of jumper J147; no safe read-only query was
-   found. (The UEFI side is <span class="tl tl-measured">MEASURED</span>: primary bank active, backup D6E154A, section 2.)</li>
+   found (CIM_SoftwareIdentity and GetFirmwareBuildID checked 2026-10-21). Mirror/fallback behavior of 1.10 vs 1.55
+   <span class="tl tl-extracted">EXTRACTED</span> (section 3.2); for 1.30 <span class="tl tl-unknown">UNKNOWN</span>. J147 needs a cover-off look (owner). (The UEFI side is <span class="tl tl-measured">MEASURED</span>:
+   primary bank active, backup D6E154A, section 2.)</li>
 <li>LDAP and NTP resolved 2026-10-20 (<span class="tl tl-measured">MEASURED</span>, 5.6 and 6: LDAP defaults with local-only authentication, NTP
    disabled). Resolved 2026-10-21 via WS-Man (5.6): SMTP and SNMP alert settings, ipsec state. Service Advisor:
    all ServiceAdvisor READ operations except the activity log fault and <code>/service_advisor.cap</code> is absent
    (docs/X3650M3_IMM_WEB_API.md 9.1); <span class="tl tl-candidate">CANDIDATE</span>: feature not present on this unit.</li>
-<li>Dedicated vs shared management NIC mode currently selected.</li>
-<li>IMM DHCP server behavior on LAN over USB at 1.30 (documented from 1.15; host link is DOWN).</li>
-<li>Whether the <a class="sref" href="../catalog/sources.html#s-023">S-023</a> packaging transition applies to this unit.</li>
+<li>Resolved (STALE): dedicated mode, <code>IMM.SharedNicMode=Dedicated</code> (<span class="tl tl-measured">MEASURED</span>, show_all.txt, 5.7).</li>
+<li>Partly: 1.55 runs dhcpd on usb0 handing 169.254.95.120 to the host (<span class="tl tl-extracted">EXTRACTED</span>, 4.2); 1.10 has none; 1.30
+   <span class="tl tl-candidate">CANDIDATE</span> like 1.55. Live check would change the host network (not done).</li>
+<li>Resolved (<span class="tl tl-candidate">CANDIDATE</span>, strong): it does not apply (pre-2011 machine type and refresh models, section 9).</li>
 <li>Whether the installed firmware is factory-shipped (<span class="tl tl-candidate">CANDIDATE</span>) and its update history. The IMM log since
    2024-04-23 contains no "Flash of ... succeeded/failed" entry (40000023/40000024, <span class="tl tl-measured">MEASURED</span> absence, imm_readlog);
    updates before that date, or updates not logged by IMM 1.30, cannot be excluded.</li>
 <li>PSU1 FRU absent vs sensor not available; since 2026-10-21 also IPMI "Power Supply 2" vs IMM VPD "Power Supply 1"
     for the same single supply (docs/X3650M3_HARDWARE_COMPONENTS.md C-5).</li>
-<li>Exact CLI to web structure mapping; ASU <code>show all</code> output.</li>
+<li>Exact CLI to web structure mapping (open, low value). ASU <code>show all</code> captured 2026-10-20 (<span class="tl tl-measured">MEASURED</span>).</li>
 <li>SEL clearing requires owner approval (A-008).</li>
 </ol>
 </div>
@@ -858,7 +895,7 @@ size 0x3C0000 (UEFI side; format details belong to the UEFI documents).</li>
 </main>
 <aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#table-of-contents">Table of contents</a></li><li class="l2"><a href="#1-scope-and-conventions">1. Scope and conventions</a></li><li class="l2"><a href="#2-identity-and-measured-configuration-summary">2. Identity and measured configuration summary</a></li><li class="l2"><a href="#3-imm-v1-internals">3. IMM v1 internals</a></li><li class="l3"><a href="#31-integration-and-soc">3.1 Integration and SoC</a></li><li class="l3"><a href="#32-flash-and-banks">3.2 Flash and banks</a></li><li class="l3"><a href="#33-boot-heartbeat-recovery">3.3 Boot, heartbeat, recovery</a></li><li class="l2"><a href="#4-host-interfaces">4. Host interfaces</a></li><li class="l3"><a href="#41-kcs--ipmi-system-interface">4.1 KCS / IPMI (system interface)</a></li><li class="l3"><a href="#42-lan-over-usb">4.2 LAN over USB</a></li><li class="l3"><a href="#43-video-and-remote-presence">4.3 Video and remote presence</a></li><li class="l3"><a href="#44-serial-and-sol">4.4 Serial and SOL</a></li><li class="l3"><a href="#45-other-host-visible-items">4.5 Other host-visible items</a></li><li class="l2"><a href="#5-network-services-and-ports">5. Network services and ports</a></li><li class="l3"><a href="#51-measured-vs-documented">5.1 Measured vs documented</a></li><li class="l3"><a href="#52-ssh">5.2 SSH</a></li><li class="l3"><a href="#53-http-and-https">5.3 HTTP and HTTPS</a></li><li class="l3"><a href="#54-snmp">5.4 SNMP</a></li><li class="l3"><a href="#56-slp-cim-ntp-e-mail">5.6 SLP, CIM, NTP, e-mail</a></li><li class="l3"><a href="#57-dedicated-vs-shared-management-port">5.7 Dedicated vs shared management port</a></li><li class="l2"><a href="#6-users-authentication-ldap-ipmi-privileges">6. Users, authentication, LDAP, IPMI privileges</a></li><li class="l2"><a href="#7-standard-vs-premium-virtual-media-key">7. Standard vs Premium (Virtual Media Key)</a></li><li class="l2"><a href="#8-management-interfaces-and-tools">8. Management interfaces and tools</a></li><li class="l2"><a href="#9-update-flow">9. Update flow</a></li><li class="l3"><a href="#91-order-and-prerequisites">9.1 Order and prerequisites</a></li><li class="l3"><a href="#92-methods">9.2 Methods</a></li><li class="l3"><a href="#93-in-band-protocol-s-025-section-7-with-extracted-confirmation">9.3 In-band protocol (S-025 section 7, with EXTRACTED confirmation)</a></li><li class="l3"><a href="#94-installed-130-vs-latest-155">9.4 Installed 1.30 vs latest 1.55</a></li><li class="l3"><a href="#95-risks-for-this-host">9.5 Risks for this host</a></li><li class="l2"><a href="#10-event-logging-sel-and-imm-event-log">10. Event logging (SEL and IMM event log)</a></li><li class="l2"><a href="#12-source-conflicts">12. Source conflicts</a></li><li class="l2"><a href="#13-open-questions--unknown">13. Open questions / UNKNOWN</a></li></ul></nav></aside>
 </div>
-<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:54 UTC from commit <code>919a212665cc</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 11:31 UTC from commit <code>80d508298327</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
 <script src="../assets/library.js"></script>
 </body>
 </html>

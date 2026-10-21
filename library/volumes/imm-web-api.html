@@ -84,7 +84,7 @@
 <h1>IMM 1.30 Web UI and WS-Man API</h1>
 <p class="subtitle">IBM System x3650 M3 - IMM 1.30 Web UI and WS-Man API</p>
 <p class="lede">Engineering reference for the web interface of the owner&#x27;s IMM (first-generation IMM, firmware 1.30, build YUOOC7E, machine 7945KEG) and the WS-Management API that the web client uses. Written from repository material only (static UI files, WSDLs and captures ...</p>
-<p class="meta"><span class="source">source: <code>docs/X3650M3_IMM_WEB_API.md</code></span> <span>11 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">17</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">1</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">35</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">23</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">18</span></span></p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_IMM_WEB_API.md</code></span> <span>11 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">17</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">1</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">49</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">26</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">10</span></span></p>
 </header>
 <details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-overview-sources-and-conventions">1. Overview, sources and conventions</a></li><li class="l3"><a href="#11-what-this-document-covers">1.1 What this document covers</a></li><li class="l3"><a href="#12-sources">1.2 Sources</a></li><li class="l3"><a href="#13-truth-levels-used-here-docsagentmd">1.3 Truth levels used here (docs/AGENT.md)</a></li><li class="l2"><a href="#2-server-stack">2. Server stack</a></li><li class="l3"><a href="#21-ami-megarac-lineage-evidence">2.1 AMI MegaRAC lineage evidence</a></li><li class="l2"><a href="#3-ui-architecture">3. UI architecture</a></li><li class="l3"><a href="#31-frames-and-page-loading">3.1 Frames and page loading</a></li><li class="l3"><a href="#32-javascript-libraries">3.2 JavaScript libraries</a></li><li class="l3"><a href="#33-navigation-tree-navobjjs-and-page-to-operation-map">3.3 Navigation tree (navobj.js) and page-to-operation map</a></li><li class="l3"><a href="#34-crawl-coverage-measured-crawl">3.4 Crawl coverage (MEASURED, CRAWL)</a></li><li class="l2"><a href="#4-login-and-session-flow-static-client-code">4. Login and session flow (static client code)</a></li><li class="l3"><a href="#41-sequence">4.1 Sequence</a></li><li class="l3"><a href="#42-session-token-handling">4.2 Session token handling</a></li><li class="l3"><a href="#43-http-endpoints-other-than-wsman-extracted-unless-marked">4.3 HTTP endpoints other than /wsman (EXTRACTED unless marked)</a></li><li class="l3"><a href="#44-firmware-update-sequence-description-only">4.4 Firmware update sequence (description only)</a></li><li class="l2"><a href="#5-ws-man-client">5. WS-Man client</a></li><li class="l3"><a href="#51-transport-extracted">5.1 Transport (EXTRACTED)</a></li><li class="l3"><a href="#52-envelope-shape-extracted-libwsmansoapjs213-276-libwsmanwsdloperationjs22-146">5.2 Envelope shape (EXTRACTED, lib/wsman/soap.js:213-276, lib/wsman/WSDLOperation.js:22-146)</a></li><li class="l3"><a href="#53-wsdl-retrieval-extracted-measured-by-the-2026-10-20-download">5.3 WSDL retrieval (EXTRACTED; MEASURED by the 2026-10-20 download)</a></li><li class="l2"><a href="#6-operation-catalogue-133-operations">6. Operation catalogue (133 operations)</a></li><li class="l3"><a href="#61-monitors-httpwwwibmcomibmcspmonitors-sourcesimm_web130wsdlmonitorswsdlxml">6.1 Monitors (http://www.ibm.com/iBMC/sp/Monitors, sources/imm_web/1.30/wsdl/Monitors.wsdl.xml)</a></li><li class="l3"><a href="#62-tasks-httpwwwibmcomibmcsptasks-sourcesimm_web130wsdltaskswsdlxml">6.2 Tasks (http://www.ibm.com/iBMC/sp/Tasks, sources/imm_web/1.30/wsdl/Tasks.wsdl.xml)</a></li><li class="l3"><a href="#63-ibmccontrol-httpwwwibmcomibmcspibmccontrol-sourcesimm_web130wsdlibmccontrolwsdlxml">6.3 iBMCControl (http://www.ibm.com/iBMC/sp/iBMCControl, sources/imm_web/1.30/wsdl/iBMCControl.wsdl.xml)</a></li><li class="l3"><a href="#64-ibmcnwprotocol-httpwwwibmcomibmcspibmcnwprotocol-sourcesimm_web130wsdlibmcnwprotocolwsdlxml">6.4 iBMCNWProtocol (http://www.ibm.com/iBMC/sp/iBMCNWProtocol, sources/imm_web/1.30/wsdl/iBMCNWProtocol.wsdl.xml)</a></li><li class="l3"><a href="#65-serviceadvisor-httpwwwibmcomibmcspserviceadvisor-sourcesimm_web130wsdlserviceadvisorwsdlxml">6.5 ServiceAdvisor (http://www.ibm.com/iBMC/sp/ServiceAdvisor, sources/imm_web/1.30/wsdl/ServiceAdvisor.wsdl.xml)</a></li><li class="l3"><a href="#66-scalability-httpwwwibmcomibmcspscalability-sourcesimm_web130wsdlscalabilitywsdlxml">6.6 Scalability (http://www.ibm.com/iBMC/sp/Scalability, sources/imm_web/1.30/wsdl/Scalability.wsdl.xml)</a></li><li class="l2"><a href="#7-mapping-web-function-ws-man-cli-asu-cim-profile">7. Mapping: web function, WS-Man, CLI, ASU, CIM profile</a></li><li class="l2"><a href="#9-read-only-use-from-the-proxmox-host-request-shapes-live-read-results-2026-10-21">9. Read-only use from the Proxmox host (request shapes; live READ results 2026-10-21)</a></li><li class="l3"><a href="#91-live-read-run-2026-10-21-measured-wsread">9.1 Live READ run 2026-10-21 (MEASURED, wsread)</a></li><li class="l2"><a href="#10-open-questions--unknown">10. Open questions / UNKNOWN</a></li><li class="l2"><a href="#11-source-conflicts">11. Source conflicts</a></li></ul></nav></details>
 <div class="prose">
@@ -216,7 +216,10 @@ XML; they are cited by file and element name instead of a line number.</p>
 <ul>
 <li><span class="tl tl-extracted">EXTRACTED</span>: read directly from a file served by the IMM firmware and stored in the repository (UI code and the
   WSDL documents). The UI code is part of the firmware image, so its content is treated like extracted firmware
-  content. <span class="tl tl-extracted">EXTRACTED</span> states what the client code does or what the WSDL declares, not what the server enforces.</li>
+  content. <span class="tl tl-extracted">EXTRACTED</span> states what the client code does or what the WSDL declares, not what the server enforces.
+  Since 2026-10-21 <span class="tl tl-extracted">EXTRACTED</span> also covers the IMM 1.10 and 1.55 firmware root file systems (web tree, lighttpd
+  config, mod_wsman and handler libraries; captures/2026-10-21_imm_rootfs_unknown_extracts.txt); facts taken from
+  those images are applied to the installed 1.30 only as <span class="tl tl-candidate">CANDIDATE</span> unless the 1.30 copy was compared.</li>
 <li><span class="tl tl-measured">MEASURED</span>: observed in a live capture (HTTP headers, SLP replies, SOAP response headers, ASU output).</li>
 <li><span class="tl tl-documented">DOCUMENTED</span>: vendor document, cited through docs/X3650M3_IMM_INTERFACES.md where the citation already exists.</li>
 <li><span class="tl tl-candidate">CANDIDATE</span>: inference, with the reason given. <span class="tl tl-unknown">UNKNOWN</span>: not established.</li>
@@ -541,8 +544,8 @@ by <code>displayCfgSummary</code>, home_imp.js:513-519; impl/ibmccontrol_configs
 the largest read-only set in the UI), page/monitors_systemstatus_thresholds.html (popup).</p>
 <p>Feature gating (<span class="tl tl-extracted">EXTRACTED</span>): Scalability and Partition are enabled only if <code>HEAD ../mnc.cap</code> returns 200, Service
 Advisor only if <code>HEAD ../service_advisor.cap</code> returns 200 (impl/frameTree_imp.js:227-312). The crawler did not
-request these files, so the state on this unit is <span class="tl tl-unknown">UNKNOWN</span> (<span class="tl tl-candidate">CANDIDATE</span>: both absent on an x3650 M3, see the
-<span class="tl tl-candidate">CANDIDATE</span> note in docs/X3650M3_IMM_INTERFACES.md section 3.2).</p>
+request these files; <span class="tl tl-measured">MEASURED</span> 2026-10-21 (auth): both return 404, so both menus stay disabled on this unit (section 10
+item 7).</p>
 <h3 id="34-crawl-coverage-measured-crawl">3.4 Crawl coverage (<span class="tl tl-measured">MEASURED</span>, CRAWL) <a class="anchor" href="#34-crawl-coverage-measured-crawl" aria-label="Link to this section">#</a></h3>
 <ul>
 <li>129 files returned 200 without any login: every page, impl and library file listed above. 60 requests got 404;
@@ -553,11 +556,16 @@ request these files, so the state on this unit is <span class="tl tl-unknown">UN
 <li>46 SKIP: images, URLs with a query string (domapi.js, add/edit pages with <code>?action=</code> or <code>?WEBINDEX=</code>,
   <code>ibmccontrol_observedst.html?gmt=</code>, <code>ssl_ss_gen.html?installed=</code>), certificate downloads (certs/<em>.der,
   ipsec.certs/</em>.der), <code>.ssi</code> pages (private/nwi.ssi, private/adv_flashopt.ssi, res/rc_*.ssi), and download
-  endpoints (br/backup, backupxml, todownload.file, spevents.elg). These were not requested, so their
-  authentication behaviour is <span class="tl tl-unknown">UNKNOWN</span>.</li>
-<li>Not stored, therefore <span class="tl tl-unknown">UNKNOWN</span> in content: ibmccontrol_loginaddedit.html and ibmccontrol_alertsaddedit.html with
+  endpoints (br/backup, backupxml, todownload.file, spevents.elg). These were not requested by the crawl;
+  their authentication behaviour was measured on 2026-10-21 (section 10 items 1 and 8: all <code>.ssi</code> URLs 404).</li>
+<li>Not stored from the 1.30 unit: ibmccontrol_loginaddedit.html and ibmccontrol_alertsaddedit.html with
   their impl files (user and alert-recipient editing), ibmccontrol_restartedibmc.html, sessionexp.html,
-  help_<em>.html, the per-page str/EN/</em>_str.js files, and domapi.</li>
+  help_<em>.html, the per-page str/EN/</em><em>str.js files, and domapi. <span class="tl tl-extracted">EXTRACTED</span> 2026-10-21 instead from the IMM 1.10 and
+  1.55 firmware root file systems (www/, extracted with scripts/imm_upd.py jffs2 into build/, list in
+  captures/2026-10-21_imm_rootfs_unknown_extracts.txt U-105): 40 pages referenced by 1.30 but not crawled exist in
+  1.10 (86 pages) and 1.55 (105 pages, adds serviceadv</em>*, service_data, IPv6 and IPsec help) together with their
+  impl and str/EN files. Their 1.30 content is <span class="tl tl-candidate">CANDIDATE</span> (bracketed by 1.10 and 1.55; the stored 1.30 impl files
+  checked so far, e.g. ibmccontrol_restartibmc_imp.js, are byte-identical to 1.55).</li>
 </ul>
 <h2 id="4-login-and-session-flow-static-client-code">4. Login and session flow (static client code) <a class="anchor" href="#4-login-and-session-flow-static-client-code" aria-label="Link to this section">#</a></h2>
 <p>Described from the client code only. No credential was used for this document. The only authenticated
@@ -578,7 +586,8 @@ page, main page. In detail (all <span class="tl tl-extracted">EXTRACTED</span>):
    no extra header) (home_imp.js:348-353). Response handling (home_imp.js:356-402):<ul>
 <li>body starting with <code>ok</code>: authenticated. If the browser did not receive a usable <code>session_id</code> cookie, the
  client takes <code>resp.substr(3)</code> as the session id, stores it in <code>top.gSessionID</code> and in the URL fragment
- (365-372). <span class="tl tl-candidate">CANDIDATE</span>: the body is <code>ok</code> plus one separator character plus the id; the separator is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+ (365-372). The separator is <code>:</code> - <span class="tl tl-measured">MEASURED</span> body <code>ok:&lt;36-character id&gt;</code> (section 10
+ item 2) and <span class="tl tl-extracted">EXTRACTED</span> format string "ok:%s" in the 1.55 mod_wsman.so.</li>
 <li><code>unauthorized</code>: alert, form cleared (385-392); <code>locked</code>: page/locked.html (394-397); <code>existing</code>: page reload
  (398-401).</li>
 </ul>
@@ -2248,7 +2257,7 @@ class or method is known to back a web function.</p>
 </tr>
 <tr>
 <td>Restart IMM</td>
-<td>none found (page ibmccontrol_restartedibmc.html not stored); WSDL has ReStartiBMC</td>
+<td>ReStartiBMC, called by page/ibmccontrol_restartedibmc.html?reboot=yes (<span class="tl tl-extracted">EXTRACTED</span> 1.10/1.55; not stored from 1.30, section 10 item 5)</td>
 <td>resetsp</td>
 <td>-</td>
 <td>DMTF:Service Processor (<span class="tl tl-candidate">CANDIDATE</span>)</td>
@@ -2314,15 +2323,13 @@ curl -s -b &lt;cookiejar&gt; -H 'session_id: &lt;id&gt;' -X POST --data-binary '
   &lt;/SOAP-ENV:Body&gt;
 &lt;/SOAP-ENV:Envelope&gt;
 </code></pre>
-<p>Still open: the server's Set-Cookie
-attributes (the auth capture records that no Set-Cookie session id equal to the body id was seen).</p>
+<p>Server Set-Cookie: none (section 10 item 2).</p>
 <h3 id="91-live-read-run-2026-10-21-measured-wsread">9.1 Live READ run 2026-10-21 (<span class="tl tl-measured">MEASURED</span>, wsread) <a class="anchor" href="#91-live-read-run-2026-10-21-measured-wsread" aria-label="Link to this section">#</a></h3>
 <p>Values of
 elements whose name matches a secret pattern were replaced by <code>[REDACTED]</code> before storing; the pattern also hid
 non-secret password-policy values (wsread header). Result: 40 HTTP 200, 10 HTTP 500 <code>wsman:InternalError</code>
-(SOAP Receiver fault). Every password element the IMM returned (<code>UserPassword</code>, <code>PrivacyPassword</code>, LDAP
-<code>Password</code>) was empty (<span class="tl tl-measured">MEASURED</span>, wsread header and <code>GetLoginProfile</code>, <code>GetLDAPSettings</code>). Code meanings are
-<span class="tl tl-extracted">EXTRACTED</span> from the UI file named in the cell; codes without a file reference are raw values (meaning <span class="tl tl-unknown">UNKNOWN</span>).
+(SOAP Receiver fault). Code meanings are
+<span class="tl tl-extracted">EXTRACTED</span> from the UI file named in the cell; codes without a file reference are raw values; their meanings were <span class="tl tl-extracted">EXTRACTED</span> on 2026-10-21 (section 10 item 13).
 Account and contact values are not copied here ("owner's account").</p>
 <div class="table-wrap"><table>
 <thead>
@@ -2336,12 +2343,12 @@ Account and contact values are not copied here ("owner's account").</p>
 <tr>
 <td>Monitors/GetPasswordStatus</td>
 <td>200</td>
-<td>Status 0; BlankPasswordAllowed redacted</td>
+<td>Status 0 = neither expired (1) nor change required (2), i.e. password fine (home_imp.js:234-235); BlankPasswordAllowed redacted</td>
 </tr>
 <tr>
 <td>Monitors/GetSensorValues</td>
 <td>200</td>
-<td>ServerPower 2, ServerState "Booting OS"; Planar 3.3V 3.35 V, 5V 4.99 V, 12V 12.20 V, VBAT 1.79 V (lower critical 2.10, lower non-critical 2.25); Ambient Temp "77.00/ 25.00" (deg F / deg C, <span class="tl tl-candidate">CANDIDATE</span> from the values) with thresholds 38/41/45; fans 1A 21 %, 1B 17 %, 2A 21 %, 2B 17 %, 3A 41 %, 3B 38 %; 0 logged-in users; locator LED 4 (Off per the light path state map, impl/monitors_virtuallightpath_imp.js:58-63, <span class="tl tl-candidate">CANDIDATE</span> that the same map applies); iBMCHostName "SN# [redacted-id]". Element typos <code>Temperatue</code>, <code>LowerThresholdNonCritcal</code> as in the WSDL</td>
+<td>ServerPower 2 = On (impl/monitors_systemstatus_imp.js:155-161), ServerState "Booting OS"; Planar 3.3V 3.35 V, 5V 4.99 V, 12V 12.20 V, VBAT 1.79 V (lower critical 2.10, lower non-critical 2.25); Ambient Temp "77.00/ 25.00" (deg F / deg C, <span class="tl tl-candidate">CANDIDATE</span> from the values) with thresholds 38/41/45; fans 1A 21 %, 1B 17 %, 2A 21 %, 2B 17 %, 3A 41 %, 3B 38 %; 0 logged-in users; locator LED 4 (Off per the light path state map, impl/monitors_virtuallightpath_imp.js:58-63, <span class="tl tl-candidate">CANDIDATE</span> that the same map applies); iBMCHostName "SN# [redacted-id]". Element typos <code>Temperatue</code>, <code>LowerThresholdNonCritcal</code> as in the WSDL</td>
 </tr>
 <tr>
 <td>Monitors/GetAssertedEvents</td>
@@ -2376,7 +2383,7 @@ Account and contact values are not copied here ("owner's account").</p>
 <tr>
 <td>Monitors/GetPlatformLimitations</td>
 <td>500</td>
-<td>wsman:InternalError, "Unable To Process Request"</td>
+<td>wsman:InternalError, "Unable To Process Request"; the action is declared in Monitors.wsdl but not registered in etc/webWSMAN/Res/Monitors.res in 1.10 or 1.55 (no handler, <span class="tl tl-extracted">EXTRACTED</span>)</td>
 </tr>
 <tr>
 <td>Monitors/GetVirtualLightPath</td>
@@ -2461,7 +2468,7 @@ Account and contact values are not copied here ("owner's account").</p>
 <tr>
 <td>iBMCControl/GetLoginProfile</td>
 <td>200</td>
-<td>one login profile (slot 2, the owner's account, Privilege 1 = Supervisor per impl/ibmccontrol_loginprofiles_imp.js:224-226) with SNMPv3Config (AuthenticationProtocol 3, PrivacyProtocol 2, AccessType 1, trap host [lab-ip]); UserPassword and PrivacyPassword empty; GLS: UserAuthenticationMethod 2 = "Local only", LockoutPeriod 2 (minutes), WebInactivitySessionTimeout -1 = "User picks timeout" (impl/ibmccontrol_configsummary_imp.js:892-910), SecurityLevel 1; password-policy fields redacted</td>
+<td>[not published]</td>
 </tr>
 <tr>
 <td>iBMCControl/GetAlertSettings</td>
@@ -2558,8 +2565,10 @@ Account and contact values are not copied here ("owner's account").</p>
 <p>Observations (<span class="tl tl-measured">MEASURED</span> unless marked):</p>
 <ul>
 <li><code>GetPortAssignments</code> OpenPorts lists 8012, which the full TCP scan of 2026-10-19 did not find open (7 open ports,
-  docs/X3650M3_SECURITY_REVIEW.md section 2), and omits 427 (SLP) and 623 (IPMI), which are open. What OpenPorts
-  means for 8012 is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+  docs/X3650M3_SECURITY_REVIEW.md section 2), and omits 427 (SLP) and 623 (IPMI), which are open. 8012 is a
+  loopback-only listener: <span class="tl tl-extracted">EXTRACTED</span> (1.55 var/AMISP/etc/Providers/ClientConfig.conf) <code>EventRecv_DestinationURI =
+  http://127.0.0.1:8012</code>, the internal CIM event receiver next to 6012 (Event), 7012 (Email) and 8011 (SNMP); 1.10
+  has no 8012 entry. <span class="tl tl-candidate">CANDIDATE</span> for 1.30: same listener, which explains "listed but refused from the LAN".</li>
 <li>The 8 ServiceAdvisor and the Scalability faults are consistent with the 404 answers for <code>/service_advisor.cap</code>
   and <code>/mnc.cap</code> (auth): the UI enables those menus only when the <code>.cap</code> files exist (section 8 item 5). <span class="tl tl-candidate">CANDIDATE</span>:
   both features are absent on this unit.</li>
@@ -2576,32 +2585,35 @@ Account and contact values are not copied here ("owner's account").</p>
    <code>/kvm/kvm/jnlp</code>, <code>/username</code>: session only (200; Basic and none give 500/500/400). <code>/certs/cert_https.der</code> and
    <code>csr_https.der</code>: 403 without a session and with Basic, 404 with a session (no certificate exists, section 9.1
    <code>GetSSLSettings</code>). <code>/hostname.txt</code>: 200 without authentication. The <code>.ssi</code> page <code>/private/sysinfo.ssi</code>: 404
-   in all modes. Other <code>.ssi</code> pages: not tested.</li>
+   in all modes. Other <code>.ssi</code> pages: all 404 without authentication (item 8).</li>
 <li>PARTLY ANSWERED (auth): the success body is <code>ok:&lt;id&gt;</code> with a 36-character id (39 bytes). Server Set-Cookie
    attributes: none - <code>/session/create</code> sends no Set-Cookie header at all (<span class="tl tl-measured">MEASURED</span>, captures/2026-10-21_imm_port_endpoint_probes.txt); the
-   client sets the <code>session_id</code> cookie itself (section 4.2).</li>
+   client sets the <code>session_id</code> cookie itself (section 4.2). Separator <code>:</code> also <span class="tl tl-extracted">EXTRACTED</span> (1.55 mod_wsman "ok:%s").</li>
 <li>PARTLY ANSWERED (auth, wsread): neither <code>UserLogOniBMC</code> nor <code>/session/activate</code> is needed for custom
-   operations. Meaning of <code>LogInForcefully</code> and of <code>DestIPAndPort</code> on the server side: <span class="tl tl-unknown">UNKNOWN</span>.</li>
-<li>ANSWERED (wsread <code>GetLoginProfile</code>): <code>UserPassword</code> and <code>PrivacyPassword</code> are returned empty; the SNMPv3
-   settings without secrets are returned (section 8 item 6).</li>
-<li>How "Restart IMM" is triggered (page ibmccontrol_restartedibmc.html?reboot=yes not stored); whether it uses
-   <code>ReStartiBMC</code>. Open.</li>
-<li>Content of the uncrawled pages: login and alert add/edit, observed-DST, self-signed certificate, Scalability
-   create-partition, Service Advisor log and settings pages, help pages, per-page string files. Open.</li>
+   operations. Server side (<span class="tl tl-extracted">EXTRACTED</span> 1.55, captures/2026-10-21_imm_rootfs_unknown_extracts.txt U-106):
+   <code>UserLogOniBMC</code> -&gt; libMonitors.so -&gt; <code>CIMCWL_UserLogOniBMC</code> (libCimDataHelper.so) adds a "Web-%s"
+   CIM_ProtocolEndpoint entry (/tmp/AMISP/etc/Providers/ProtocolEndpoint.ini) and a CIM_ConcreteDependency to the
+   user's CIM_Identity, i.e. it registers the web user as logged on for CIM (helper <code>GetIPAndPort</code>). The parameter
+   names are not literal strings in the binaries, so the exact use of <code>DestIPAndPort</code> (<span class="tl tl-candidate">CANDIDATE</span>: part of the endpoint
+   record) and <code>LogInForcefully</code> (<span class="tl tl-candidate">CANDIDATE</span>: replace an existing entry) stays <span class="tl tl-unknown">UNKNOWN</span> without disassembly.</li>
+<li>ANSWERED (<span class="tl tl-extracted">EXTRACTED</span> 1.10/1.55 www, 1.30 <span class="tl tl-candidate">CANDIDATE</span>): impl/ibmccontrol_restartibmc_imp.js:70 loads
+   page/ibmccontrol_restartedibmc.html?reboot=yes, and that page calls <code>top.ReStartiBMC({}, recv)</code> when
+   <code>reboot=yes</code> (line 47), then <code>top.cleanup()</code>. The stored 1.30 impl file is byte-identical to 1.55. Not executed.</li>
+<li>ANSWERED offline (<span class="tl tl-extracted">EXTRACTED</span>, section 3.4): the uncrawled pages, their impl and str/EN files exist in the 1.10 and
+   1.55 firmware www trees (build/imm110, build/imm155); 1.30 content <span class="tl tl-candidate">CANDIDATE</span> (bracketed).</li>
 <li>ANSWERED (auth): <code>/mnc.cap</code> and <code>/service_advisor.cap</code> return 404 (HEAD, all modes), so the UI keeps the
    Scalability and Service Advisor menus disabled; matching faults of the READ operations of both services in
    section 9.1.</li>
-<li>PARTLY ANSWERED (auth): <code>/RPC/ajaxgw.asp</code> and <code>/private/sysinfo.ssi</code> return 404 in all modes. Other <code>.ssi</code>
-   pages: not tested.</li>
 <li>ANSWERED for the 50 parameterless READ operations with HTTP Basic: no event-log entry was written (count 794
-   before and after, section 6). A <code>/session/create</code> login is logged. Other state effects: <span class="tl tl-unknown">UNKNOWN</span>.</li>
-<li>Server-side implementation of the handlers (lighttpd module names, binaries) - needs the IMM firmware image
-    (D-004 (e), deferred).</li>
-<li>NEW: meaning of the codes without a UI mapping in section 9.1 (SNMPv3 AuthenticationProtocol 3 and
-    PrivacyProtocol 2, GLS SecurityLevel 1, GetPasswordStatus Status 0, ServerPower 2), and
-    why <code>GetPlatformLimitations</code> faults. OpenPorts 8012: listed but refused on TCP (no listener, <span class="tl tl-measured">MEASURED</span>,
-    captures/2026-10-21_imm_port_endpoint_probes.txt; purpose <span class="tl tl-unknown">UNKNOWN</span>). 623 and 427 missing from OpenPorts: 623 is UDP (IPMI), so the list is
-    <span class="tl tl-candidate">CANDIDATE</span> TCP-only.</li>
+   before and after, section 6). A <code>/session/create</code> login is logged. Other state effects: none found statically (section 6, <span class="tl tl-extracted">EXTRACTED</span>);
+   not exhaustively verified (low value).</li>
+<li>ANSWERED (<span class="tl tl-extracted">EXTRACTED</span> 1.10/1.55, captures/2026-10-21_imm_rootfs_unknown_extracts.txt U-110): lighttpd 1.4.13 with
+    <code>server.modules</code> mod_wsman (1.10) or mod_wsman, mod_cgi, mod_setenv (1.55), config var/AMISP/etc/lighttpd.conf,
+    document root /www. usr/lib/lighttpd/mod_wsman.so.1.0 implements /wsman and /session/{create,activate,
+    deactivate,expiry/increase,expiry/resume}, Basic realm "IMM", sessions, expiry and lockout (links libsession,
+    libwsman, libCIM-Client, libCimDataHelper, libuserm). WS-Man resource URIs map to service libraries via
+    etc/webWSMAN/Res/<em>.res: libMonitors.so, libTasks.so, libiBMCControl.so, libiBMCNWProtocol.so (1.55 adds
+    libScalability.so, libServiceAdvisor.so); these call CIMCWL_</em>/iBMCSP_* functions of libCimDataHelper.so.</li>
 </ol>
 <h2 id="11-source-conflicts">11. Source conflicts <a class="anchor" href="#11-source-conflicts" aria-label="Link to this section">#</a></h2>
 <div class="table-wrap"><table>
@@ -2642,13 +2654,13 @@ Account and contact values are not copied here ("owner's account").</p>
 <td>5</td>
 <td>Port used in <code>DestIPAndPort</code></td>
 <td>login path maps http/https to 80/443 (home_imp.js:255-259); password-change path falls back to "80" (home_imp.js:291)</td>
-<td>Client inconsistency; effect <span class="tl tl-unknown">UNKNOWN</span></td>
+<td>Client inconsistency; server effect <span class="tl tl-unknown">UNKNOWN</span> (handler records a CIM_ProtocolEndpoint, section 10 item 3)</td>
 </tr>
 <tr>
 <td>6</td>
 <td>Restart IMM</td>
 <td>web page exists (navobj.js:50) and the WSDL declares <code>ReStartiBMC</code>, but the stored restart page code does not call it (impl/ibmccontrol_restartibmc_imp.js:70)</td>
-<td>Open (section 10 item 5)</td>
+<td>Resolved: the call sits in page/ibmccontrol_restartedibmc.html, which was not crawled (<span class="tl tl-extracted">EXTRACTED</span> 1.10/1.55, section 10 item 5)</td>
 </tr>
 </tbody>
 </table></div>
@@ -2661,7 +2673,7 @@ Account and contact values are not copied here ("owner's account").</p>
 </main>
 <aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-overview-sources-and-conventions">1. Overview, sources and conventions</a></li><li class="l3"><a href="#11-what-this-document-covers">1.1 What this document covers</a></li><li class="l3"><a href="#12-sources">1.2 Sources</a></li><li class="l3"><a href="#13-truth-levels-used-here-docsagentmd">1.3 Truth levels used here (docs/AGENT.md)</a></li><li class="l2"><a href="#2-server-stack">2. Server stack</a></li><li class="l3"><a href="#21-ami-megarac-lineage-evidence">2.1 AMI MegaRAC lineage evidence</a></li><li class="l2"><a href="#3-ui-architecture">3. UI architecture</a></li><li class="l3"><a href="#31-frames-and-page-loading">3.1 Frames and page loading</a></li><li class="l3"><a href="#32-javascript-libraries">3.2 JavaScript libraries</a></li><li class="l3"><a href="#33-navigation-tree-navobjjs-and-page-to-operation-map">3.3 Navigation tree (navobj.js) and page-to-operation map</a></li><li class="l3"><a href="#34-crawl-coverage-measured-crawl">3.4 Crawl coverage (MEASURED, CRAWL)</a></li><li class="l2"><a href="#4-login-and-session-flow-static-client-code">4. Login and session flow (static client code)</a></li><li class="l3"><a href="#41-sequence">4.1 Sequence</a></li><li class="l3"><a href="#42-session-token-handling">4.2 Session token handling</a></li><li class="l3"><a href="#43-http-endpoints-other-than-wsman-extracted-unless-marked">4.3 HTTP endpoints other than /wsman (EXTRACTED unless marked)</a></li><li class="l3"><a href="#44-firmware-update-sequence-description-only">4.4 Firmware update sequence (description only)</a></li><li class="l2"><a href="#5-ws-man-client">5. WS-Man client</a></li><li class="l3"><a href="#51-transport-extracted">5.1 Transport (EXTRACTED)</a></li><li class="l3"><a href="#52-envelope-shape-extracted-libwsmansoapjs213-276-libwsmanwsdloperationjs22-146">5.2 Envelope shape (EXTRACTED, lib/wsman/soap.js:213-276, lib/wsman/WSDLOperation.js:22-146)</a></li><li class="l3"><a href="#53-wsdl-retrieval-extracted-measured-by-the-2026-10-20-download">5.3 WSDL retrieval (EXTRACTED; MEASURED by the 2026-10-20 download)</a></li><li class="l2"><a href="#6-operation-catalogue-133-operations">6. Operation catalogue (133 operations)</a></li><li class="l3"><a href="#61-monitors-httpwwwibmcomibmcspmonitors-sourcesimm_web130wsdlmonitorswsdlxml">6.1 Monitors (http://www.ibm.com/iBMC/sp/Monitors, sources/imm_web/1.30/wsdl/Monitors.wsdl.xml)</a></li><li class="l3"><a href="#62-tasks-httpwwwibmcomibmcsptasks-sourcesimm_web130wsdltaskswsdlxml">6.2 Tasks (http://www.ibm.com/iBMC/sp/Tasks, sources/imm_web/1.30/wsdl/Tasks.wsdl.xml)</a></li><li class="l3"><a href="#63-ibmccontrol-httpwwwibmcomibmcspibmccontrol-sourcesimm_web130wsdlibmccontrolwsdlxml">6.3 iBMCControl (http://www.ibm.com/iBMC/sp/iBMCControl, sources/imm_web/1.30/wsdl/iBMCControl.wsdl.xml)</a></li><li class="l3"><a href="#64-ibmcnwprotocol-httpwwwibmcomibmcspibmcnwprotocol-sourcesimm_web130wsdlibmcnwprotocolwsdlxml">6.4 iBMCNWProtocol (http://www.ibm.com/iBMC/sp/iBMCNWProtocol, sources/imm_web/1.30/wsdl/iBMCNWProtocol.wsdl.xml)</a></li><li class="l3"><a href="#65-serviceadvisor-httpwwwibmcomibmcspserviceadvisor-sourcesimm_web130wsdlserviceadvisorwsdlxml">6.5 ServiceAdvisor (http://www.ibm.com/iBMC/sp/ServiceAdvisor, sources/imm_web/1.30/wsdl/ServiceAdvisor.wsdl.xml)</a></li><li class="l3"><a href="#66-scalability-httpwwwibmcomibmcspscalability-sourcesimm_web130wsdlscalabilitywsdlxml">6.6 Scalability (http://www.ibm.com/iBMC/sp/Scalability, sources/imm_web/1.30/wsdl/Scalability.wsdl.xml)</a></li><li class="l2"><a href="#7-mapping-web-function-ws-man-cli-asu-cim-profile">7. Mapping: web function, WS-Man, CLI, ASU, CIM profile</a></li><li class="l2"><a href="#9-read-only-use-from-the-proxmox-host-request-shapes-live-read-results-2026-10-21">9. Read-only use from the Proxmox host (request shapes; live READ results 2026-10-21)</a></li><li class="l3"><a href="#91-live-read-run-2026-10-21-measured-wsread">9.1 Live READ run 2026-10-21 (MEASURED, wsread)</a></li><li class="l2"><a href="#10-open-questions--unknown">10. Open questions / UNKNOWN</a></li><li class="l2"><a href="#11-source-conflicts">11. Source conflicts</a></li></ul></nav></aside>
 </div>
-<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:54 UTC from commit <code>919a212665cc</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 11:31 UTC from commit <code>80d508298327</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
 <script src="../assets/library.js"></script>
 </body>
 </html>

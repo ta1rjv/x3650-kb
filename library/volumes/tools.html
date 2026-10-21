@@ -84,7 +84,7 @@
 <h1>Management, Diagnostic and Update Tools</h1>
 <p class="subtitle">IBM System x3650 M3 (7945KEG) - Management, Diagnostic and Update Tools</p>
 <p class="lede">ASU, DSA (Portable, Preboot), UXSPI, BoMC, Lenovo XClarity Essentials OneCLI, iflash and the IBM flash packages, StorCLI, SAS2IRCU / SAS2FLASH, ipmitool and the project scripts in scripts/. For every tool: purpose, local copies (path + SHA256) ...</p>
-<p class="meta"><span class="source">source: <code>docs/X3650M3_TOOLS.md</code></span> <span>19 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">37</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">39</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">28</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">42</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">24</span> <span class="tl tl-not-verified">NOT VERIFIED</span><span class="n">1</span></span></p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_TOOLS.md</code></span> <span>19 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">40</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">46</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">33</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">48</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">14</span> <span class="tl tl-not-verified">NOT VERIFIED</span><span class="n">1</span></span></p>
 </header>
 <details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary">1. Summary</a></li><li class="l2"><a href="#2-host-environment-relevant-to-the-tools-measured">2. Host environment relevant to the tools (MEASURED)</a></li><li class="l2"><a href="#3-transports-kcs-lan-over-usb-imm-external-lan-bootable-media">3. Transports: KCS, LAN over USB, IMM external LAN, bootable media</a></li><li class="l2"><a href="#4-asu---advanced-settings-utility">4. ASU - Advanced Settings Utility</a></li><li class="l3"><a href="#41-purpose-documented">4.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#42-local-copies">4.2 Local copies</a></li><li class="l3"><a href="#43-operating-system-and-runtime">4.3 Operating system and runtime</a></li><li class="l3"><a href="#44-transport-documented-s-026-v106-pdf-p19-21-p67-70">4.4 Transport (DOCUMENTED, S-026 v10.6 PDF p19-21, p67-70)</a></li><li class="l3"><a href="#45-commands">4.5 Commands</a></li><li class="l3"><a href="#46-caveats-documented-unless-marked">4.6 Caveats (DOCUMENTED unless marked)</a></li><li class="l2"><a href="#5-dsa---dynamic-system-analysis-portable-and-preboot">5. DSA - Dynamic System Analysis (Portable and Preboot)</a></li><li class="l3"><a href="#51-purpose-documented">5.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#52-local-copies-portable-101-build-dsala5q-all-xmls-list-x3650-m3-7945">5.2 Local copies (Portable 10.1, build DSALA5Q; all XMLs list x3650 M3 7945)</a></li><li class="l3"><a href="#53-operating-system-and-runtime">5.3 Operating system and runtime</a></li><li class="l3"><a href="#54-transport-documented">5.4 Transport (DOCUMENTED)</a></li><li class="l3"><a href="#55-commands">5.5 Commands</a></li><li class="l3"><a href="#56-caveats-documented">5.6 Caveats (DOCUMENTED)</a></li><li class="l3"><a href="#57-preboot-dsa-953-package-analysis-installed-348">5.7 Preboot DSA 9.53 package analysis (installed 3.48)</a></li><li class="l2"><a href="#6-uxspi---updatexpress-system-pack-installer">6. UXSPI - UpdateXpress System Pack Installer</a></li><li class="l3"><a href="#61-purpose-documented">6.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#62-local-copies">6.2 Local copies</a></li><li class="l3"><a href="#63-operating-system-and-runtime-documented">6.3 Operating system and runtime (DOCUMENTED)</a></li><li class="l3"><a href="#64-transport-and-commands-documented">6.4 Transport and commands (DOCUMENTED)</a></li><li class="l3"><a href="#65-caveats-documented-list-only">6.5 Caveats (DOCUMENTED, list only)</a></li><li class="l2"><a href="#7-bomc---bootable-media-creator">7. BoMC - Bootable Media Creator</a></li><li class="l3"><a href="#71-purpose-documented">7.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#72-local-copies">7.2 Local copies</a></li><li class="l3"><a href="#73-operating-system-and-runtime-documented">7.3 Operating system and runtime (DOCUMENTED)</a></li><li class="l3"><a href="#74-transport-and-commands">7.4 Transport and commands</a></li><li class="l2"><a href="#8-lenovo-xclarity-essentials-onecli">8. Lenovo XClarity Essentials OneCLI</a></li><li class="l2"><a href="#9-iflash-and-the-ibm-firmware-update-packages">9. iflash and the IBM firmware update packages</a></li><li class="l3"><a href="#91-local-copies-extracted-with-scriptsibm_fw_unpackpy-nothing-executed">9.1 Local copies (EXTRACTED with scripts/ibm_fw_unpack.py, nothing executed)</a></li><li class="l3"><a href="#92-runtime-on-this-host-candidate">9.2 Runtime on this host (CANDIDATE)</a></li><li class="l3"><a href="#93-commands-documented-package-readme-firmware_formats-8">9.3 Commands (DOCUMENTED, package README; FIRMWARE_FORMATS 8)</a></li><li class="l2"><a href="#10-storcli-serveraid-m1015">10. StorCLI (ServeRAID M1015)</a></li><li class="l3"><a href="#101-purpose-and-applicability-documented">10.1 Purpose and applicability (DOCUMENTED)</a></li><li class="l3"><a href="#102-local-copies">10.2 Local copies</a></li><li class="l3"><a href="#103-operating-system-and-runtime">10.3 Operating system and runtime</a></li><li class="l3"><a href="#104-procedure-used-on-2026-10-20-measured-capture-header-lines-1-8">10.4 Procedure used on 2026-10-20 (MEASURED, capture header lines 1-8)</a></li><li class="l3"><a href="#105-commands">10.5 Commands</a></li><li class="l2"><a href="#11-sas2ircu-and-sas2flash-ibm-6gb-sas-hba">11. SAS2IRCU and SAS2FLASH (IBM 6Gb SAS HBA)</a></li><li class="l3"><a href="#111-sas2ircu-documented--extracted">11.1 SAS2IRCU (DOCUMENTED / EXTRACTED)</a></li><li class="l3"><a href="#112-sas2flash">11.2 SAS2FLASH</a></li><li class="l2"><a href="#12-ipmitool">12. ipmitool</a></li><li class="l3"><a href="#121-purpose-and-availability">12.1 Purpose and availability</a></li><li class="l3"><a href="#122-transport">12.2 Transport</a></li><li class="l3"><a href="#123-commands">12.3 Commands</a></li><li class="l2"><a href="#13-related-tools-list-only">13. Related tools (list only)</a></li><li class="l2"><a href="#14-project-scripts-scripts">14. Project scripts (scripts/)</a></li><li class="l2"><a href="#15-static-inspection-done-for-this-document">15. Static inspection done for this document</a></li><li class="l2"><a href="#16-practical-tool-matrix-for-this-host-candidate">16. Practical tool matrix for this host (CANDIDATE)</a></li><li class="l2"><a href="#17-source-conflicts">17. Source conflicts</a></li><li class="l2"><a href="#18-open-questions--unknown">18. Open questions / UNKNOWN</a></li></ul></nav></details>
 <div class="prose">
@@ -184,9 +184,9 @@ vendor binary was executed (section 15).</p>
 <td>OneCLI</td>
 <td>Lenovo successor of ASU, DSA and UXSPI</td>
 <td>none: no OneCLI package in the 7945 catalog</td>
-<td><span class="tl tl-unknown">UNKNOWN</span> for this machine type</td>
+<td>no: not supported for System x M3 / IMM v1 (section 8)</td>
 <td>-</td>
-<td><span class="tl tl-documented">DOCUMENTED</span> (absence) / <span class="tl tl-unknown">UNKNOWN</span></td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
 </tr>
 <tr>
 <td>iflash / iflash64</td>
@@ -215,10 +215,10 @@ vendor binary was executed (section 15).</p>
 <tr>
 <td>SAS2FLASH</td>
 <td>SAS2 HBA firmware flasher</td>
-<td>none in repository or catalog</td>
+<td>none in repository or catalog; Broadcom distributed the SAS2 utilities from its docs server (SAS2IRCU P20: <a href="https://docs.broadcom.com/docs/SAS2IRCU_P20.zip" rel="noopener">https://docs.broadcom.com/docs/SAS2IRCU_P20.zip</a>), exact SAS2FLASH URL not found</td>
 <td><span class="tl tl-unknown">UNKNOWN</span></td>
 <td>in-band</td>
-<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td><span class="tl tl-unknown">UNKNOWN</span> (source URL)</td>
 </tr>
 <tr>
 <td>ipmitool</td>
@@ -320,13 +320,13 @@ USB), 5 (network services) and 9.3 (in-band update protocol). Tool-relevant poin
   the UEFI 1.14 package, SHA256 5fc16ee9f1298f4c71c2060c9e01a0f9d997ff1ed0bf636931f83ad2463718e6). Its OS
   detection reads /etc/redhat-release, /etc/SuSE-release and /etc/vmware-release, and it may edit
   /etc/modprobe.conf or /etc/modules.conf (keeping /etc/ORIGINAL.<em> copies) and use ifconfig/ifup/ifdown and
-  /etc/sysconfig/network</em> (<span class="tl tl-extracted">EXTRACTED</span>, grep of the script). No Debian branch was found; its behavior on this
-  Proxmox host (ifupdown2, Linux bridges for the VMs) is <span class="tl tl-unknown">UNKNOWN</span>. <span class="tl tl-candidate">CANDIDATE</span> risk: changes to host networking on
-  the lab hypervisor; treat any tool run that touches LAN over USB as STATE-CHANGING for the host.</li>
-<li>IMM external LAN (out-of-band): ASU <code>--host/--user/--password(-file)</code>, ipmitool <code>-I lanplus</code>, IMM web/SSH CLI.
-  Works with the host OS down (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> PDF p20). The TCP port ASU uses for out-of-band IMMv1 access is not stated in
-  the local sources (<span class="tl tl-unknown">UNKNOWN</span>; CIM on 5988/5989 is <span class="tl tl-candidate">CANDIDATE</span>, reason: <a class="sref" href="../catalog/sources.html#s-026">S-026</a> limitation 9 and immapp mention CIM
-  HTTP/HTTPS, not verified for IMMv1).</li>
+  /etc/sysconfig/network</em> (<span class="tl tl-extracted">EXTRACTED</span>, grep of the script). No Debian branch was found. Static reading (<span class="tl tl-extracted">EXTRACTED</span>,
+  not executed; IMM 1.55 image/cdc_interface.sh v1.0.8 and the ASU 10.3 copy v1.0.7): main() appends to
+  /var/log/IBM_Support/cdc_interface.log and calls detect_os_variant, which runs <code>ifconfig</code> and <code>route -n</code> (read) and
+  accepts only /etc/redhat-release, /etc/SuSE-release or <code>vmware -v</code>; otherwise it prints "Unable to detect operating
+  system, exiting." and exits 172 before any driver reload or ifcfg write. On this Debian 12 / Proxmox host it
+  therefore changes no ifupdown2 or bridge configuration, but LAN-over-USB setup by the IBM tools fails (<span class="tl tl-candidate">CANDIDATE</span>
+  consequence). Keep treating any tool run that touches LAN over USB as STATE-CHANGING for the host.</li>
 <li>Bootable media (BoMC, Preboot DSA ISO, embedded Preboot DSA via F2): the tools run on the server instead of
   Proxmox; using them requires a reboot of the lab host (STATE-CHANGING).</li>
 </ul>
@@ -593,8 +593,15 @@ local; its readme lists "x3650 M3 (7945, 4255, 5454)".</p>
 <li>Prerequisites (readme 1.2): the <code>sg</code> driver loaded for SCSI/USB data and diagnostics; Broadcom NetXtreme firmware
   levels need the vendor driver (the in-box driver does not export them); IPMI/service-processor drivers for
   service processor logs; libcurl for FTP upload; libstdc++.so.5 (32-bit) for some old ServeRAID tools on RHEL5/SLES11.</li>
-<li><span class="tl tl-candidate">CANDIDATE</span> on this host: the x86-64 stub needs only glibc; the expanded payload (collectors, bundled libraries) was
-  not inspected, so whether DSA runs on Debian 12 / kernel 6.8 is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>Payload (<span class="tl tl-extracted">EXTRACTED</span> 2026-10-21, not executed): lnvgy_utl_dsa_dsala5q-10.1_portable_rhel6_x86-64.bin (SHA256
+  274b05fadf4c2c9eafc81a7410fb90ef2c8a979b4aa9efcbee68afb72f7642b0) is an ELF stub plus a zip of 1113 entries
+  (<code>python3 -I scripts/ibm_fw_unpack.py extract &lt;bin&gt; build/dsa101_rhel6_x64</code>); the top level holds 122 files, 75 of
+  them ELF. External libraries they need (readelf NEEDED, not bundled): libc, libm, libdl, libpthread, librt,
+  libresolv, libnsl, libz, libgcc_s, libstdc++.so.6, libcrypt.so.1 - present on the host - and libstdc++.so.5 (the LSI
+  storage collectors IBM_StoreLib*.so), libidn.so.11 and libldap-2.4.so.2 (the bundled libcurl, used for upload) -
+  absent on the host (<span class="tl tl-measured">MEASURED</span>, captures/2026-10-21_host_lib_probe_dsa.txt). Highest GLIBC symbol version 2.7.
+  <span class="tl tl-candidate">CANDIDATE</span>: the core collectors load on Debian 12 / kernel 6.8; LSI storage collection and FTP upload fail without
+  those three libraries. Not run (vendor code as root on the hypervisor).</li>
 <li>Preboot DSA needs at least 1 GB of memory and a USB or optical device for ISO media (DSA 10.0 ISO readme 1.2).</li>
 </ul>
 <h3 id="54-transport-documented">5.4 Transport (<span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#54-transport-documented" aria-label="Link to this section">#</a></h3>
@@ -764,8 +771,8 @@ self-extractor (FIRMWARE_FORMATS; ELF stub) - <span class="tl tl-extracted">EXTR
 </tr>
 <tr>
 <td>Size of the IMM <code>staging</code> UBI volume / free space</td>
-<td><span class="tl tl-unknown">UNKNOWN</span> (no ubimkvol size for <code>staging</code> in the IMM 1.55 rootfs; only <code>rwfs</code> 40 MiB in etc/init.d/ifs.mtd:75)</td>
-<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td><span class="tl tl-unknown">UNKNOWN</span> (no ubimkvol size for <code>staging</code> in the IMM 1.55 rootfs; only <code>rwfs</code> 40 MiB in etc/init.d/ifs.mtd:75; bin/mountstaging only mounts an existing UBI volume named "staging" under /staging, so its size comes from the factory flash layout)</td>
+<td><span class="tl tl-unknown">UNKNOWN</span> (<span class="tl tl-extracted">EXTRACTED</span>: not created by any rootfs script)</td>
 </tr>
 <tr>
 <td>Space check before transfer</td>
@@ -866,7 +873,9 @@ device_type imm1, i.e. the vendor built it for IMM v1 storage.</p>
   OS-resident (Portable) DSA (<span class="tl tl-candidate">CANDIDATE</span>: the .chg mixes Portable and Preboot items).</li>
 <li>Version jump 3.x -&gt; 9.x: the .chg has no explanation; it goes 3.48 -&gt; 4.00 -&gt; 4.01 -&gt; 4.02 -&gt; 9.00. <span class="tl tl-candidate">CANDIDATE</span>: the
   9.x numbering follows the ToolsCenter 9.x family (the readme cites UXSPI 9.00, .txt section 2.3); not documented.</li>
-<li>9.53 vs 9.27: the only listed change is "Fix several CVEs". Which components were patched is <span class="tl tl-unknown">UNKNOWN</span>; the
+<li>9.53 vs 9.27: the only listed change is "Fix several CVEs" (9.27 DSYTA7F has empty change sections, "IMMv1 system
+  2012 4Q-LFC"). No IBM/Lenovo bulletin found names the 9.53 CVEs (web search 2026-10-21; the DSA Preboot bulletins
+  found cover 9.6/9.65 only). Which components were patched is <span class="tl tl-unknown">UNKNOWN</span>; the
   extracted kernel/initrd/rootfs are still the 2011-07-08 builds (5.7.2), so the fixes are <span class="tl tl-candidate">CANDIDATE</span> in the DSA
   payload (2014-02-17 files), not in the boot environment.</li>
 <li>Date conflict (recorded, not resolved): file dates and dsap.xml say 2014-02-17; XML releaseDate/timestamp say
@@ -1068,8 +1077,11 @@ out-of-band mode (13.0.1 readme 1.2). Unattended mode exists (<a class="sref" hr
 <li><span class="tl tl-documented">DOCUMENTED</span> absence: the Lenovo downloads catalog for machine type 7945 (sources/lenovo/CATALOG.md, 495 documents)
   contains no OneCLI package; "OneCLI" appears only in the category title "Lenovo XClarity Essentials (LXCE)
   (OneCLI, BOMC, UpdateXpress)", whose 18 files are all BoMC/SGBoMC (catalog lines 149-172).</li>
-<li>Support of OneCLI for the x3650 M3 / IMM v1 is <span class="tl tl-unknown">UNKNOWN</span>: no local document lists or excludes it. No OneCLI
-  command is documented here.</li>
+<li>OneCLI does not support the x3650 M3 / IMM v1 (<span class="tl tl-documented">DOCUMENTED</span>): the OneCLI supported-models page
+  (<a href="https://pubs.lenovo.com/lxce-onecli/onecli_supported_server_models" rel="noopener">https://pubs.lenovo.com/lxce-onecli/onecli_supported_server_models</a>) lists no System x M3, and its predecessor
+  "Lenovo ToolsCenter Suite CLI User's Guide" 1.0.0 (<a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/onecli_bk_1.0.0.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/onecli_bk_1.0.0.pdf</a>,
+  Ch.2 p.3) "supports IMM2, CMM, and Flex-IOM based systems" with no 7945 in its tables. IMM v1 stays on ASU, DSA and
+  UXSPI. No OneCLI command is documented here.</li>
 </ul>
 <h2 id="9-iflash-and-the-ibm-firmware-update-packages">9. iflash and the IBM firmware update packages <a class="anchor" href="#9-iflash-and-the-ibm-firmware-update-packages" aria-label="Link to this section">#</a></h2>
 <p>The package format and the flash flow are documented in docs/X3650M3_FIRMWARE_FORMATS.md sections 3, 7 and 8 and in
@@ -1301,7 +1313,11 @@ the M5000 package in firmware/ibm/serveraid-m5000 must not be used on the M1015 
 <li>Runtime on this host (<span class="tl tl-candidate">CANDIDATE</span>): static i386, so no libraries are needed and the missing i386 user space
   (<span class="tl tl-measured">MEASURED</span> 2026-10-20, section 2) does not matter, and the kernel allows 32-bit execution (CONFIG_IA32_EMULATION=y,
   not default-disabled; <span class="tl tl-measured">MEASURED</span>, captures/2026-10-20_host_probes_boot_apt.txt lines 4-6). The host uses mpt3sas, which registers the controller as mpt2sas_cm0
-  (<span class="tl tl-measured">MEASURED</span>); whether sas2ircu accepts the mpt3sas driver in place of mpt2sas.ko is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+  (<span class="tl tl-measured">MEASURED</span>). The mpt2sas driver was merged into mpt3sas (commit c84b06a48c4d, Nov 2015); the merged driver registers
+  the misc device /dev/mpt2ctl for SAS2 HBAs (<span class="tl tl-documented">DOCUMENTED</span>, LKML <a href="https://lkml.iu.edu/hypermail/linux/kernel/1511.1/02260.html" rel="noopener">https://lkml.iu.edu/hypermail/linux/kernel/1511.1/02260.html</a>),
+  so the SAS2 ioctl interface sas2ircu uses still exists; that sas2ircu works through it is <span class="tl tl-candidate">CANDIDATE</span>. A read-only
+  <code>sas2ircu LIST</code> / <code>sas2ircu 0 DISPLAY</code> run on the host was blocked by the agent permission system on 2026-10-21
+  (running a vendor binary); the owner can run it. sas2ircu does not apply to the MegaRAID-firmware M1015.</li>
 </ul>
 <pre><code>./sas2ircu                                              # read-only (prints usage, readme 3.0)
 ./sas2ircu LIST                                         # read-only - CANDIDATE syntax (common LSI usage, not in local sources)
@@ -1313,8 +1329,9 @@ the M5000 package in firmware/ibm/serveraid-m5000 must not be used on the M1015 
 <h3 id="112-sas2flash">11.2 SAS2FLASH <a class="anchor" href="#112-sas2flash" aria-label="Link to this section">#</a></h3>
 <p>No SAS2FLASH package exists in the repository or in the 7945 catalog (searched sources/lenovo/CATALOG.md,
 firmware/, sources/text/). The HBA firmware package that would contain a flasher (IBM "HBA 6Gb Controllers
-BIOS/FW/UEFI Update", ibm_fw_mpt2sas, newest documented 1.10.05) is known only from a UXSP changelog
-(STORAGE_RAID 7). Availability and command set: <span class="tl tl-unknown">UNKNOWN</span>. Any firmware write to the HBA is STATE-CHANGING; read-only
+BIOS/FW/UEFI Update", ibm_fw_mpt2sas) is now in the repository: firmware/ibm/sas-hba-mpt2sas/1.20 and
+h1110-1.20.02 (STORAGE_RAID 7); whether its image holds a sas2flash binary was not checked here. SAS2FLASH command
+set from a vendor source: <span class="tl tl-unknown">UNKNOWN</span>. Any firmware write to the HBA is STATE-CHANGING; read-only
 listing such as <code>sas2flash -listall</code> is <span class="tl tl-candidate">CANDIDATE</span> syntax only.</p>
 <h2 id="12-ipmitool">12. ipmitool <a class="anchor" href="#12-ipmitool" aria-label="Link to this section">#</a></h2>
 <h3 id="121-purpose-and-availability">12.1 Purpose and availability <a class="anchor" href="#121-purpose-and-availability" aria-label="Link to this section">#</a></h3>
@@ -1522,7 +1539,7 @@ grep on package .xml (applicableMachineTypes, Version) and on cdc_interface.sh
 </tr>
 <tr>
 <td>Full inventory/diagnostics</td>
-<td>DSA Portable with <code>--no-imm-lan</code> (runtime <span class="tl tl-unknown">UNKNOWN</span> on Debian), or Preboot DSA (reboot)</td>
+<td>DSA Portable with <code>--no-imm-lan</code> (<span class="tl tl-candidate">CANDIDATE</span>: core runs on Debian, LSI storage collectors and upload need libstdc++.so.5, libidn.so.11, libldap-2.4.so.2; section 5.3), or Preboot DSA (reboot)</td>
 <td>Portable DSA is not built for Debian</td>
 </tr>
 <tr>
@@ -1533,7 +1550,7 @@ grep on package .xml (applicableMachineTypes, Version) and on cdc_interface.sh
 <tr>
 <td>HBA (9212-4i4e) status</td>
 <td>SAS2IRCU (runtime <span class="tl tl-candidate">CANDIDATE</span>) or sysfs (already captured)</td>
-<td>i386 static binary; mpt3sas compatibility <span class="tl tl-unknown">UNKNOWN</span></td>
+<td>i386 static binary; mpt3sas provides /dev/mpt2ctl (<span class="tl tl-documented">DOCUMENTED</span>), sas2ircu over it <span class="tl tl-candidate">CANDIDATE</span></td>
 </tr>
 </tbody>
 </table></div>
@@ -1582,7 +1599,7 @@ grep on package .xml (applicableMachineTypes, Version) and on cdc_interface.sh
 <td>T-6</td>
 <td>IMM level for ASU certificate management</td>
 <td><a class="sref" href="../catalog/sources.html#s-026">S-026</a> v10.6 PDF p7: "yuoo78m or later"; PDF p19: "yuoo71a or later"</td>
-<td>not resolved; neither YUOO71A nor YUOO78M occurs in the IMM v1 build list (docs/X3650M3_FIRMWARE_HISTORY.md; IMM 1.55 .chg), so the builds may belong to another IMM line; whether installed YUOOC7E (1.30) meets the requirement is <span class="tl tl-unknown">UNKNOWN</span></td>
+<td>not resolved; neither YUOO71A nor YUOO78M occurs in the IMM v1 build list (docs/X3650M3_FIRMWARE_HISTORY.md; IMM 1.55 .chg). <span class="tl tl-candidate">CANDIDATE</span>: both precede the installed YUOOC7E (1.30) by build-ID order (71A before 1.14 YUOO73M; 78M between 1.21 YUOO75V and 1.22 YUOO84C), so either requirement is met; 1.22 .chg also "Fixed a problem where the IMM makes some certificate management settings protected that should not be protected"</td>
 </tr>
 <tr>
 <td>T-7</td>
@@ -1600,7 +1617,7 @@ grep on package .xml (applicableMachineTypes, Version) and on cdc_interface.sh
 <td>T-9</td>
 <td>SAS2IRCU driver dependency</td>
 <td>readme: mpt2sas.ko; host: mpt3sas registering mpt2sas_cm0</td>
-<td>compatibility <span class="tl tl-unknown">UNKNOWN</span> (section 11.1)</td>
+<td>mpt3sas keeps /dev/mpt2ctl for SAS2 HBAs (<span class="tl tl-documented">DOCUMENTED</span>); runtime compatibility <span class="tl tl-candidate">CANDIDATE</span>, not run (section 11.1)</td>
 </tr>
 </tbody>
 </table></div>
@@ -1610,23 +1627,37 @@ grep on package .xml (applicableMachineTypes, Version) and on cdc_interface.sh
    no /lib/ld-linux.so.2 (captures/2026-10-20_host_probes_wave2.txt lines 101-104); kernel CONFIG_IA32_EMULATION=y
    and not default-disabled (captures/2026-10-20_host_probes_boot_apt.txt lines 4-6). <span class="tl tl-candidate">CANDIDATE</span> consequence: static
    i386 binaries such as sas2ircu and the i386 storcli can run; dynamic i386 binaries (IBM package stub, linwrap,
-   iflash, 32-bit DSA builds) still need i386 libraries (section 9.2). Still open: libcrypt.so.1 for asu64.</li>
+   iflash, 32-bit DSA builds) still need i386 libraries (section 9.2). libcrypt.so.1: resolved, present
+   (/lib/x86_64-linux-gnu/libcrypt.so.1; captures/2026-10-20_asu_show_all README and
+   captures/2026-10-21_host_lib_probe_dsa.txt, <span class="tl tl-measured">MEASURED</span>).</li>
 <li>Resolved: ipmitool 1.8.19 (captures/2026-10-20_host_probes_wave2.txt).</li>
-<li>Whether asu64 10.3 runs on this host and returns the 209 UEFI settings via <code>--kcs</code> (read-only test; needs owner
-   approval to run a vendor binary as root on the hypervisor).</li>
-<li>Behavior of cdc_interface.sh on Debian/Proxmox (no Debian branch found); whether ASU/DSA/iflash would alter
-   ifupdown2/bridge configuration.</li>
-<li>OneCLI support for IMM v1 / machine type 7945: no local evidence either way.</li>
-<li>TCP port and protocol ASU uses out-of-band against IMM v1 (CIM 5988/5989 is <span class="tl tl-candidate">CANDIDATE</span>).</li>
-<li>DSA Portable payload dependencies (not extracted) and whether any Portable build runs on Debian 12.</li>
+<li>Resolved: asu64 10.3 ran read-only over <code>--kcs</code> on 2026-10-20 (<code>show all</code>: 155 uEFI.<em> and 168 IMM.</em> values,
+   captures/2026-10-20_asu_show_all/show_all.txt) and 2026-10-21 (<code>showvalues uEFI</code>,
+   captures/2026-10-21_asu_showvalues_uefi.txt), <span class="tl tl-measured">MEASURED</span>.</li>
+<li>Resolved (<span class="tl tl-extracted">EXTRACTED</span>, static reading): cdc_interface.sh exits 172 "Unable to detect operating system" on Debian
+   before any network change (section 3); ASU over <code>--kcs</code> does not use it. Whether iflash/DSA would try other LAN-over-USB
+   setup paths: not analysed.</li>
+<li>Resolved: OneCLI does not support IMM v1 / 7945 (<span class="tl tl-documented">DOCUMENTED</span>, section 8).</li>
+<li>Resolved (<span class="tl tl-extracted">EXTRACTED</span> / <span class="tl tl-candidate">CANDIDATE</span>): CIM-XML via OpenPegasus with <code>--cimhttp</code> / <code>--port</code> options; on this IMM
+   (HTTPS CIM disabled) CIM-XML over HTTP, default port 5988 <span class="tl tl-candidate">CANDIDATE</span> (section 3).</li>
+<li>Resolved as far as possible offline: DSA 10.1 Portable RHEL6 x86-64 payload extracted; missing host libraries
+   libstdc++.so.5, libidn.so.11, libldap-2.4.so.2 (section 5.3); running it = vendor code, not done.</li>
 <li>Resolved: storcli extraction method recorded in 10.4 (step 1).</li>
-<li>SAS2IRCU command syntax from a vendor source, its compatibility with mpt3sas, and a source for SAS2FLASH and the
-   HBA firmware package.</li>
+<li>SAS2IRCU: vendor guide <a href="https://docs.broadcom.com/doc/12353380" rel="noopener">https://docs.broadcom.com/doc/12353380</a> (v1.1, Nov 2012, not mirrored); mpt3sas keeps
+   /dev/mpt2ctl (<span class="tl tl-documented">DOCUMENTED</span>, section 11.1); live read-only run blocked by the agent permission system 2026-10-21.
+   HBA firmware package: in firmware/ibm/sas-hba-mpt2sas/. SAS2FLASH source URL: <span class="tl tl-unknown">UNKNOWN</span>.</li>
 <li>Installed Preboot DSA version: ANSWERED 2026-10-21 - 3.48, <span class="tl tl-measured">MEASURED</span> by three sources: NVRAM System_Data
     <code>DSYT89P 10/28/2011 3.48</code> (captures/2026-10-21_host_efivars_contents.txt), SMBIOS <code>$DS Preboot Diagnostics (DSA)
     3.48 -[DSYT89P]-</code> (captures/2026-10-19_os_inventory.txt line 827) and IMM CIM_SoftwareIdentity DSA Major 3 Minor 48
-    (captures/2026-10-21_imm_cim_read_inventory.txt). Still open: the newest Preboot DSA package for the x3650 M3.</li>
-<li>Exact BoMC and UXSPI CLI syntax for unattended operation (guides <a class="sref" href="../catalog/sources.html#s-029">S-029</a>/<a class="sref" href="../catalog/sources.html#s-030">S-030</a> have it; not extracted here).</li>
+    (captures/2026-10-21_imm_cim_read_inventory.txt). Newest Preboot DSA: <span class="tl tl-candidate">CANDIDATE</span> 9.53 DSYTC5F - UXSP d6sp03p-7.50
+    (<a href="https://delivery04.dhe.ibm.com/sar/CMA/XSA/04na6/3/ibm_utl_uxsp_d6sp03p-7.50_vsphere55_32-64.html" rel="noopener">https://delivery04.dhe.ibm.com/sar/CMA/XSA/04na6/3/ibm_utl_uxsp_d6sp03p-7.50_vsphere55_32-64.html</a>) lists
+    dsytc5f-9.53 (previous dsytc5c-9.42); no later x3650 M3 UXSP or IMM v1 DSA was found; package XML dated 2019-05-20.</li>
+<li>Resolved (<span class="tl tl-documented">DOCUMENTED</span>): UXSPI <code>&lt;program&gt; acquire|compare|update [options]</code> with <code>-u|--unattended</code>, <code>-l &lt;dir&gt;</code> /
+    <code>--local=&lt;dir&gt;</code>, <code>-m &lt;machine type&gt;</code>, <code>--remote=&lt;os-ip&gt; --remote-user --remote-password</code>
+    (sources/text/S-029_uxspi_userguide.963.txt lines 844-1090, 1151-1287); BoMC
+    <code>ibm_utl_bomc_v.r.m_distribution [--function=uxspi|dsa|serverguide] [--cd|--iso|--pxe|--usbkey] [--machine-type]
+    [--local] [--latest] [--no-acquire] [--tui] [--arch=x86|x64] [unattended=protocol://address/directory]</code>
+    (sources/text/S-030_bomc_userguide.txt lines 2068-2100).</li>
 </ol>
 </div>
 </article>
@@ -1637,7 +1668,7 @@ grep on package .xml (applicableMachineTypes, Version) and on cdc_interface.sh
 </main>
 <aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary">1. Summary</a></li><li class="l2"><a href="#2-host-environment-relevant-to-the-tools-measured">2. Host environment relevant to the tools (MEASURED)</a></li><li class="l2"><a href="#3-transports-kcs-lan-over-usb-imm-external-lan-bootable-media">3. Transports: KCS, LAN over USB, IMM external LAN, bootable media</a></li><li class="l2"><a href="#4-asu---advanced-settings-utility">4. ASU - Advanced Settings Utility</a></li><li class="l3"><a href="#41-purpose-documented">4.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#42-local-copies">4.2 Local copies</a></li><li class="l3"><a href="#43-operating-system-and-runtime">4.3 Operating system and runtime</a></li><li class="l3"><a href="#44-transport-documented-s-026-v106-pdf-p19-21-p67-70">4.4 Transport (DOCUMENTED, S-026 v10.6 PDF p19-21, p67-70)</a></li><li class="l3"><a href="#45-commands">4.5 Commands</a></li><li class="l3"><a href="#46-caveats-documented-unless-marked">4.6 Caveats (DOCUMENTED unless marked)</a></li><li class="l2"><a href="#5-dsa---dynamic-system-analysis-portable-and-preboot">5. DSA - Dynamic System Analysis (Portable and Preboot)</a></li><li class="l3"><a href="#51-purpose-documented">5.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#52-local-copies-portable-101-build-dsala5q-all-xmls-list-x3650-m3-7945">5.2 Local copies (Portable 10.1, build DSALA5Q; all XMLs list x3650 M3 7945)</a></li><li class="l3"><a href="#53-operating-system-and-runtime">5.3 Operating system and runtime</a></li><li class="l3"><a href="#54-transport-documented">5.4 Transport (DOCUMENTED)</a></li><li class="l3"><a href="#55-commands">5.5 Commands</a></li><li class="l3"><a href="#56-caveats-documented">5.6 Caveats (DOCUMENTED)</a></li><li class="l3"><a href="#57-preboot-dsa-953-package-analysis-installed-348">5.7 Preboot DSA 9.53 package analysis (installed 3.48)</a></li><li class="l2"><a href="#6-uxspi---updatexpress-system-pack-installer">6. UXSPI - UpdateXpress System Pack Installer</a></li><li class="l3"><a href="#61-purpose-documented">6.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#62-local-copies">6.2 Local copies</a></li><li class="l3"><a href="#63-operating-system-and-runtime-documented">6.3 Operating system and runtime (DOCUMENTED)</a></li><li class="l3"><a href="#64-transport-and-commands-documented">6.4 Transport and commands (DOCUMENTED)</a></li><li class="l3"><a href="#65-caveats-documented-list-only">6.5 Caveats (DOCUMENTED, list only)</a></li><li class="l2"><a href="#7-bomc---bootable-media-creator">7. BoMC - Bootable Media Creator</a></li><li class="l3"><a href="#71-purpose-documented">7.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#72-local-copies">7.2 Local copies</a></li><li class="l3"><a href="#73-operating-system-and-runtime-documented">7.3 Operating system and runtime (DOCUMENTED)</a></li><li class="l3"><a href="#74-transport-and-commands">7.4 Transport and commands</a></li><li class="l2"><a href="#8-lenovo-xclarity-essentials-onecli">8. Lenovo XClarity Essentials OneCLI</a></li><li class="l2"><a href="#9-iflash-and-the-ibm-firmware-update-packages">9. iflash and the IBM firmware update packages</a></li><li class="l3"><a href="#91-local-copies-extracted-with-scriptsibm_fw_unpackpy-nothing-executed">9.1 Local copies (EXTRACTED with scripts/ibm_fw_unpack.py, nothing executed)</a></li><li class="l3"><a href="#92-runtime-on-this-host-candidate">9.2 Runtime on this host (CANDIDATE)</a></li><li class="l3"><a href="#93-commands-documented-package-readme-firmware_formats-8">9.3 Commands (DOCUMENTED, package README; FIRMWARE_FORMATS 8)</a></li><li class="l2"><a href="#10-storcli-serveraid-m1015">10. StorCLI (ServeRAID M1015)</a></li><li class="l3"><a href="#101-purpose-and-applicability-documented">10.1 Purpose and applicability (DOCUMENTED)</a></li><li class="l3"><a href="#102-local-copies">10.2 Local copies</a></li><li class="l3"><a href="#103-operating-system-and-runtime">10.3 Operating system and runtime</a></li><li class="l3"><a href="#104-procedure-used-on-2026-10-20-measured-capture-header-lines-1-8">10.4 Procedure used on 2026-10-20 (MEASURED, capture header lines 1-8)</a></li><li class="l3"><a href="#105-commands">10.5 Commands</a></li><li class="l2"><a href="#11-sas2ircu-and-sas2flash-ibm-6gb-sas-hba">11. SAS2IRCU and SAS2FLASH (IBM 6Gb SAS HBA)</a></li><li class="l3"><a href="#111-sas2ircu-documented--extracted">11.1 SAS2IRCU (DOCUMENTED / EXTRACTED)</a></li><li class="l3"><a href="#112-sas2flash">11.2 SAS2FLASH</a></li><li class="l2"><a href="#12-ipmitool">12. ipmitool</a></li><li class="l3"><a href="#121-purpose-and-availability">12.1 Purpose and availability</a></li><li class="l3"><a href="#122-transport">12.2 Transport</a></li><li class="l3"><a href="#123-commands">12.3 Commands</a></li><li class="l2"><a href="#13-related-tools-list-only">13. Related tools (list only)</a></li><li class="l2"><a href="#14-project-scripts-scripts">14. Project scripts (scripts/)</a></li><li class="l2"><a href="#15-static-inspection-done-for-this-document">15. Static inspection done for this document</a></li><li class="l2"><a href="#16-practical-tool-matrix-for-this-host-candidate">16. Practical tool matrix for this host (CANDIDATE)</a></li><li class="l2"><a href="#17-source-conflicts">17. Source conflicts</a></li><li class="l2"><a href="#18-open-questions--unknown">18. Open questions / UNKNOWN</a></li></ul></nav></aside>
 </div>
-<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:54 UTC from commit <code>919a212665cc</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 11:31 UTC from commit <code>80d508298327</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
 <script src="../assets/library.js"></script>
 </body>
 </html>

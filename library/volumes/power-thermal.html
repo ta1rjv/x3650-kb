@@ -84,7 +84,7 @@
 <h1>Power and Thermal</h1>
 <p class="subtitle">IBM System x3650 M3 (7945KEG) - Power and Thermal</p>
 <p class="lede">power supplies (types, part numbers, efficiency, redundancy rules, installed state), a power budget for the installed configuration, power metering and capping (Active Energy Manager, IPMI, DCMI, ACPI P-states), fans and fan control, thermal thresholds and ...</p>
-<p class="meta"><span class="source">source: <code>docs/X3650M3_POWER_THERMAL.md</code></span> <span>13 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">58</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">41</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">7</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">38</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">31</span></span></p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_POWER_THERMAL.md</code></span> <span>13 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">76</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">41</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">7</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">40</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">30</span></span></p>
 </header>
 <details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-sources-and-capture-keys">1. Sources and capture keys</a></li><li class="l2"><a href="#2-summary-of-measured-values">2. Summary of measured values</a></li><li class="l2"><a href="#3-power-supplies">3. Power supplies</a></li><li class="l3"><a href="#31-options-and-part-numbers-summary">3.1 Options and part numbers (summary)</a></li><li class="l3"><a href="#32-electrical-input">3.2 Electrical input</a></li><li class="l3"><a href="#33-efficiency">3.3 Efficiency</a></li><li class="l3"><a href="#34-redundancy-and-over-load-rules">3.4 Redundancy and over-load rules</a></li><li class="l3"><a href="#35-installed-supply-measured-and-candidate">3.5 Installed supply (MEASURED and CANDIDATE)</a></li><li class="l2"><a href="#4-power-budget-for-the-installed-configuration">4. Power budget for the installed configuration</a></li><li class="l3"><a href="#41-component-values-with-sources">4.1 Component values with sources</a></li><li class="l3"><a href="#42-documented-system-level-reference-points">4.2 Documented system-level reference points</a></li><li class="l3"><a href="#43-budget-result-candidate">4.3 Budget result (CANDIDATE)</a></li><li class="l2"><a href="#5-power-metering-and-capping">5. Power metering and capping</a></li><li class="l3"><a href="#51-documented-features">5.1 Documented features</a></li><li class="l3"><a href="#52-measured-metering">5.2 Measured metering</a></li><li class="l3"><a href="#53-os-visible-power-controls-measured-with-firmware-context">5.3 OS-visible power controls (MEASURED, with firmware context)</a></li><li class="l2"><a href="#6-fans-and-fan-control">6. Fans and fan control</a></li><li class="l3"><a href="#61-hardware-summary">6.1 Hardware (summary)</a></li><li class="l3"><a href="#62-what-drives-fan-speed-documented-inputs">6.2 What drives fan speed (DOCUMENTED inputs)</a></li><li class="l3"><a href="#63-measured-fan-state-and-derived-values">6.3 Measured fan state and derived values</a></li><li class="l3"><a href="#64-fan-and-cooling-events">6.4 Fan and cooling events</a></li><li class="l2"><a href="#7-thermal-thresholds-and-environmental-limits">7. Thermal thresholds and environmental limits</a></li><li class="l3"><a href="#71-environmental-specification">7.1 Environmental specification</a></li><li class="l3"><a href="#72-imm-thresholds-measured-and-their-documented-meaning">7.2 IMM thresholds (MEASURED) and their documented meaning</a></li><li class="l3"><a href="#73-discrete-thermal-sensors-no-numeric-value-exposed">7.3 Discrete thermal sensors (no numeric value exposed)</a></li><li class="l3"><a href="#74-other-measured-temperatures">7.4 Other measured temperatures</a></li><li class="l2"><a href="#8-acoustics">8. Acoustics</a></li><li class="l2"><a href="#9-uefi-powerperformance-modes-and-their-thermal-effect">9. UEFI power/performance modes and their thermal effect</a></li><li class="l3"><a href="#91-operating-modes-extracted-docsx3650m3_uefimd-section-6">9.1 Operating modes (EXTRACTED, docs/X3650M3_UEFI.md section 6)</a></li><li class="l3"><a href="#92-expected-thermal-and-power-effect-on-this-server-candidate-unless-noted">9.2 Expected thermal and power effect on this server (CANDIDATE unless noted)</a></li><li class="l3"><a href="#93-memory-thermal-mode-extracted">9.3 Memory Thermal Mode (EXTRACTED)</a></li><li class="l2"><a href="#10-firmware-change-history-relevant-to-power-and-thermal">10. Firmware change history relevant to power and thermal</a></li><li class="l2"><a href="#11-source-conflicts-and-discrepancies">11. Source conflicts and discrepancies</a></li><li class="l2"><a href="#12-open-questions--next-captures">12. Open questions / next captures</a></li></ul></nav></details>
 <div class="prose">
@@ -219,7 +219,7 @@ in normal operation). No time series exists.</p>
 <td>Equivalent heat output</td>
 <td>80 W x 3.412 = 273 Btu/h</td>
 <td>arithmetic</td>
-<td><span class="tl tl-candidate">CANDIDATE</span> (unit conversion; AC/DC basis of the sensor <span class="tl tl-unknown">UNKNOWN</span>)</td>
+<td><span class="tl tl-candidate">CANDIDATE</span> (unit conversion; AC/DC basis of the sensor <span class="tl tl-unknown">UNKNOWN</span>, no IBM document found 2026-10-21; needs a wall meter, owner)</td>
 </tr>
 <tr>
 <td>Ambient (inlet) temperature, "Ambient Temp" (ID 32h, entity 12.1)</td>
@@ -447,7 +447,8 @@ output watts). Full table: docs/X3650M3_HARDWARE_COMPONENTS.md section 10.1. Val
 </tr>
 </tbody>
 </table></div>
-<p><span class="tl tl-documented">DOCUMENTED</span>. No efficiency data exists in the repository for the 460 W supply (<span class="tl tl-unknown">UNKNOWN</span>). <a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.4 states "power
+<p><span class="tl tl-documented">DOCUMENTED</span>. No efficiency data exists for the 460 W supply 39Y7229 (<span class="tl tl-unknown">UNKNOWN</span>: no 80 PLUS report found in the
+2026-10-21 web search; <a class="sref" href="../catalog/sources.html#s-002">S-002</a> Tables 2-3 cover only the 675 W units). <a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.4 states "power
 supplies that are up to 90% efficient" (<span class="tl tl-documented">DOCUMENTED</span>, generic).</p>
 <h3 id="34-redundancy-and-over-load-rules">3.4 Redundancy and over-load rules <a class="anchor" href="#34-redundancy-and-over-load-rules" aria-label="Link to this section">#</a></h3>
 <ul>
@@ -460,7 +461,8 @@ supplies that are up to 90% efficient" (<span class="tl tl-documented">DOCUMENTE
   "Normal, status warning"; above 460 W "System shutdown" with one supply (or two with one failed); "The server
   automatically shuts down if the total power consumption exceeds the total power supply output capacity". "You can
   enable the power capping feature in the Setup utility to control and monitor power consumption". <span class="tl tl-documented">DOCUMENTED</span>.</li>
-<li>675 W supplies: no equivalent threshold table in any repository document (<span class="tl tl-unknown">UNKNOWN</span>).</li>
+<li>675 W supplies: no equivalent threshold table in any repository document or in the 2026-10-21 web search; the only
+  statement is the generic AEM load-reduction sentence above (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.12). <span class="tl tl-unknown">UNKNOWN</span> beyond that.</li>
 <li>"Power supply 1 is the default/primary power supply. If power supply 1 fails, you must replace the power supply
   immediately." (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.124, <span class="tl tl-documented">DOCUMENTED</span>).</li>
 <li>IMM redundancy events: "Redundancy Lost ... (Power Unit)" 800b0108-1381xxxx and "restored" 800b0008-1381xxxx
@@ -522,7 +524,7 @@ BCM5709, Matrox G200eV (in the IMM), DVD-RAM drive, one power supply.</p>
 </tr>
 <tr>
 <td>8 GB DDR3 RDIMM (Hynix HMT31GR7BFR4A-H9)</td>
-<td><span class="tl tl-unknown">UNKNOWN</span> (no DIMM power figure in any repository source)</td>
+<td><span class="tl tl-unknown">UNKNOWN</span> (no DIMM power figure in any repository source; Hynix IDD datasheet not found in the 2026-10-21 search)</td>
 <td>-</td>
 <td><span class="tl tl-unknown">UNKNOWN</span></td>
 </tr>
@@ -551,8 +553,14 @@ BCM5709, Matrox G200eV (in the IMM), DVD-RAM drive, one power supply.</p>
 <td><span class="tl tl-measured">MEASURED</span></td>
 </tr>
 <tr>
-<td>Board, IOH 5520, ICH10, IMM, BCM5709, fans, backplane, DVD, VR losses</td>
-<td>no per-component figures in any repository source</td>
+<td>Intel 5520 IOH / ICH10</td>
+<td>27.1 W / 4.5 W TDP, from a secondary press table only (techbang.com/posts/820, not an Intel document); live IOH temperature 69-70.5 deg C (section 7.3)</td>
+<td>secondary source</td>
+<td><span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>Board, IMM, BCM5709, fans, backplane, DVD, VR losses</td>
+<td>no per-component figures in any repository source or in the 2026-10-21 search</td>
 <td>-</td>
 <td><span class="tl tl-unknown">UNKNOWN</span></td>
 </tr>
@@ -672,7 +680,7 @@ and makes the result an upper bound.</p>
   is not needed for over-load protection.</li>
 <li>The two placeholder allowances (40 W total) carry the largest uncertainty; even if both were doubled the bound
   (266.72 W) stays below 400 W.</li>
-<li>If the "Avg Power" sensor reports DC output (<span class="tl tl-unknown">UNKNOWN</span>, section 5.2), the AC input at the upper bound would be about
+<li>If the "Avg Power" sensor reports DC output (AC/DC basis <span class="tl tl-unknown">UNKNOWN</span>, section 5.2), the AC input at the upper bound would be about
   226.72 / 0.9076 to 226.72 / 0.9291 = 249.8 to 244.0 W for a 675 W-class supply (efficiency between the 20 and 50
   percent points of section 3.3, the bound being at about 34 percent load). No 460 W efficiency data exists.</li>
 <li>Energy at the measured level, if 80 W were constant: 80 W x 8760 h = 700.8 kWh per year. A single sample is not a
@@ -746,11 +754,17 @@ and makes the result an upper bound.</p>
 fans, temps, volts, syshealth, power on/off/state/cycle, reset (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> pp.128-131) and the web System Status page
 shows temperatures, voltages and fan speeds (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> pp.93-96). Capping on this server is therefore only reachable
 through the AEM application (IBM Systems Director) talking to the IMM. The protocol AEM uses (IPMI OEM commands or
-CIM) is not documented in the repository (<span class="tl tl-unknown">UNKNOWN</span>). IBM Systems Director / AEM availability for the owner: <span class="tl tl-unknown">UNKNOWN</span>.</p>
+CIM) is not documented in the repository (<span class="tl tl-unknown">UNKNOWN</span>). AEM is listed as a supported x3650 M3 feature ("measures and
+reports server power consumption as it occurs", <a class="sref" href="../catalog/sources.html#s-002">S-002</a> pp.11-12; <a class="sref" href="../catalog/sources.html#s-001">S-001</a> features), but no AEM 4.x / Systems Director
+6.x support matrix was found in the 2026-10-21 search and both products are withdrawn: availability for the owner
+remains <span class="tl tl-unknown">UNKNOWN</span> (<span class="tl tl-candidate">CANDIDATE</span>: not obtainable today).</p>
 <h3 id="52-measured-metering">5.2 Measured metering <a class="anchor" href="#52-measured-metering" aria-label="Link to this section">#</a></h3>
 <ul>
-<li>IPMI sensor "Avg Power" 80 W (ID 2Eh, entity 21.0, no thresholds). <span class="tl tl-measured">MEASURED</span> (C-IPMI). Averaging window, AC or DC
-  basis, and accuracy are <span class="tl tl-unknown">UNKNOWN</span>. <span class="tl tl-candidate">CANDIDATE</span>: AC input, reason: the IMM feature list says "Query power-supply input
+<li>IPMI sensor "Avg Power" 80 W (ID 2Eh, entity 21.0, no thresholds). <span class="tl tl-measured">MEASURED</span> (C-IPMI). A 20-sample series at
+  60 s steps on 2026-10-21 read 80, 90 and 100 W only (captures/2026-10-21_host_cpu_power_thermal_readonly.txt
+  batch 7): the sensor resolution is 10 W (<span class="tl tl-measured">MEASURED</span>). Averaging window, AC or DC basis, and accuracy are <span class="tl tl-unknown">UNKNOWN</span> (the
+  IMM user's guide has no power-metering section; the Linux ibmaem documentation describes an averaging interval for
+  AEM-capable IBM systems in general, <a href="https://docs.kernel.org/6.8/hwmon/ibmaem.html" rel="noopener">https://docs.kernel.org/6.8/hwmon/ibmaem.html</a>, not this sensor). <span class="tl tl-candidate">CANDIDATE</span>: AC input, reason: the IMM feature list says "Query power-supply input
   power"; not proven for this sensor. FW-IMM 1.14 (YUOO73M): "Improved the accuracy of power readings on 3550 M3,
   3650 M3, and 3620 M3" (<span class="tl tl-documented">DOCUMENTED</span>; the installed 1.30 includes it).</li>
 <li>No PSU input/output, current or PSU temperature sensors exist in the SDR (<span class="tl tl-measured">MEASURED</span>).</li>
@@ -758,8 +772,10 @@ CIM) is not documented in the repository (<span class="tl tl-unknown">UNKNOWN</s
   mentions DCMI for the IMM v1 (searched <a class="sref" href="../catalog/sources.html#s-002">S-002</a>, <a class="sref" href="../catalog/sources.html#s-004">S-004</a>, <a class="sref" href="../catalog/sources.html#s-020">S-020</a>, <a class="sref" href="../catalog/sources.html#s-021">S-021</a>, FW-IMM). DCMI power reading and DCMI power
   limit are therefore not available. Note: generic <code>ipmitool sensor</code> reads of "Avg Power" work and are the in-band
   metering path.</li>
-<li>The current state of <code>uEFI.EnergyManager</code> on the owner's server is <span class="tl tl-unknown">UNKNOWN</span> (no ASU capture); POST code 3828004 is
-  not present in the captured SEL, which only holds IPMI-format entries (the UEFI POST event log was not captured).</li>
+<li><code>uEFI.EnergyManager</code> (power capping support) is Enable on the owner's server, which is also the default (ASU
+  <code>show all</code>, captures/2026-10-20_asu_show_all/show_all.txt; <code>showvalues</code> marks <code>&lt;Enable&gt;</code>,
+  captures/2026-10-21_asu_showvalues_uefi.txt; <span class="tl tl-measured">MEASURED</span>). POST code 3828004 is not present in the captured SEL, which
+  only holds IPMI-format entries (the UEFI POST event log was not captured).</li>
 </ul>
 <h3 id="53-os-visible-power-controls-measured-with-firmware-context">5.3 OS-visible power controls (<span class="tl tl-measured">MEASURED</span>, with firmware context) <a class="anchor" href="#53-os-visible-power-controls-measured-with-firmware-context" aria-label="Link to this section">#</a></h3>
 <ul>
@@ -769,15 +785,21 @@ CIM) is not documented in the repository (<span class="tl tl-unknown">UNKNOWN</s
   decoded offline).</li>
 <li><span class="tl tl-candidate">CANDIDATE</span> interpretation (ACPI specification semantics, the specification is not mirrored in the repository):
   P_LVL2_LAT &gt; 100 and P_LVL3_LAT &gt; 1000 mean the firmware advertises no ACPI C2/C3 through the FADT; DUTY_WIDTH = 0
-  and no <code>_TSS</code> mean no OS-controlled T-state throttling. This fits the UEFI 1.22 default <code>uEFI.ProcessorCcxEnable</code>
-  = Disable (docs/X3650M3_UEFI.md section 10), but the installed UEFI 1.13 settings are not captured.</li>
+  and no <code>_TSS</code> mean no OS-controlled T-state throttling. This fits the live setting <code>uEFI.ProcessorCcxEnable</code> =
+  Disable on the installed UEFI 1.13 (ASU show all 2026-10-20, <span class="tl tl-measured">MEASURED</span>; docs/X3650M3_UEFI.md 12.7).</li>
 <li>The kernel uses <code>intel_idle</code> (<span class="tl tl-measured">MEASURED</span>), which uses its own MWAIT C-state table rather than ACPI <code>_CST</code>
-  (<span class="tl tl-candidate">CANDIDATE</span>, kernel behaviour, not from a repository source); which C-states are actually entered is <span class="tl tl-unknown">UNKNOWN</span> until
-  the cpuidle state statistics are captured (section 12).</li>
+  (<span class="tl tl-candidate">CANDIDATE</span>, kernel behaviour, not from a repository source). States requested by the kernel on cpu0 since the
+  08:16 boot (2026-10-21 13:54, cpuidle sysfs, <span class="tl tl-measured">MEASURED</span>, captures/2026-10-21_host_cpu_power_thermal_readonly.txt):
+  POLL 0.26 s, C1 (MWAIT 0x00) 6.3 s, C1E (0x01) 118 s, C3 (0x10) 727 s, C6 (0x20, exit latency 200 us) 17765 s
+  of about 20 000 s uptime, governor <code>menu</code>, no state disabled. So C6 is requested most of the time even though
+  UEFI "Power C-States" is Disable; whether the hardware grants C6 or demotes it (package C-state limit, MSR 0xE2)
+  is <span class="tl tl-unknown">UNKNOWN</span> (reading MSRs needs the msr module, a kernel state change, not done).</li>
 <li>One core ran at 1693.709 MHz while the others ran at about 2133 MHz (C-CPU), and lscpu reports min 1197 MHz:
-  OS frequency scaling is active, so "Processor Performance States" is enabled in UEFI (<span class="tl tl-candidate">CANDIDATE</span>, strong, reason:
-  P-state transitions are visible to the OS). The cpufreq driver and governor are <span class="tl tl-unknown">UNKNOWN</span> (<code>cpupower</code> not installed,
-  C-OS).</li>
+  OS frequency scaling is active, so "Processor Performance States" is enabled in UEFI; confirmed by the Setup
+  variable byte 0x013F = Enable (docs/X3650M3_UEFI.md 12.7, <span class="tl tl-measured">MEASURED</span>). cpufreq driver <code>acpi-cpufreq</code>, governor
+  <code>performance</code>, frequency table 2128000 1995000 1862000 1729000 1596000 1463000 1330000 1197000 kHz (= the 8 _PSS
+  entries); time_in_state of cpu0 since boot: 100 % at 2128000 kHz (<span class="tl tl-measured">MEASURED</span> 2026-10-21, same capture). With the
+  performance governor the P-states are available but unused.</li>
 <li><code>intel_powerclamp</code> is loaded (<span class="tl tl-measured">MEASURED</span>); it is an OS-side idle-injection mechanism, unrelated to AEM (<span class="tl tl-candidate">CANDIDATE</span>).</li>
 </ul>
 <h2 id="6-fans-and-fan-control">6. Fans and fan control <a class="anchor" href="#6-fans-and-fan-control" aria-label="Link to this section">#</a></h2>
@@ -841,7 +863,7 @@ numbering, connector LEDs and part numbers: docs/X3650M3_HARDWARE_COMPONENTS.md 
 </tbody>
 </table></div>
 <p>The fan control algorithm, curve, zone-to-fan mapping and sensor weighting are not documented in any repository
-source (<span class="tl tl-unknown">UNKNOWN</span>). The IMM does not expose a fan mode or manual fan speed setting in the user's guide (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> fans
+source (<span class="tl tl-unknown">UNKNOWN</span>; not in any source found, IMM firmware internals only). The IMM does not expose a fan mode or manual fan speed setting in the user's guide (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> fans
 command is read-only), and no UEFI fan setting exists in the extracted forms (docs/X3650M3_UEFI.md); the only
 documented levers are the operating mode (section 9) and the memory Thermal Mode (section 9.3).</p>
 <h3 id="63-measured-fan-state-and-derived-values">6.3 Measured fan state and derived values <a class="anchor" href="#63-measured-fan-state-and-derived-values" aria-label="Link to this section">#</a></h3>
@@ -897,7 +919,12 @@ percentage of the maximum fan speed" (<a class="sref" href="../catalog/sources.h
   power-supply side (<span class="tl tl-candidate">CANDIDATE</span>, from <a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7, docs/X3650M3_HARDWARE_COMPONENTS.md 11.1). Possible reasons, none
   verified: zone-based control with zone 3 covering the PSU/PCIe riser area (two SAS2008 adapters), or a missing PSU
   filler or other airflow path change on that side. <span class="tl tl-unknown">UNKNOWN</span> until the zone mapping is known or a time series shows
-  how module 3 tracks load.</li>
+  how module 3 tracks load. Time series 2026-10-21 13:58-14:17 (20 samples, 60 s, captures/2026-10-21_host_cpu_power_thermal_readonly.txt
+  batch 7, <span class="tl tl-measured">MEASURED</span>): ambient 25 deg C constant, Avg Power 80-100 W, load average 1.9-10.1, IOH 69.5-70.5 deg C, CPU
+  core 0 31-35 deg C; Fan 1A 1595-1624, 2A 1595, 3A 3074-3132, 3B 2425-2450 RPM - no fan reacted to the load
+  changes. The hottest measured component is the IOH (about 45 K above ambient while the CPU sits about 7-10 K
+  above), so the IOH / PCIe riser area is the more likely driver of fan 3 than the CPU (<span class="tl tl-candidate">CANDIDATE</span>). A 24 h series
+  with real load steps would still be needed for the control curve.</li>
 <li>Altitude reads 40 feet, so pressure-based fan compensation should be minimal (<span class="tl tl-candidate">CANDIDATE</span>).</li>
 <li>Lower critical thresholds 290 RPM (A) and 250 RPM (B) are far below the measured speeds (<span class="tl tl-measured">MEASURED</span>).</li>
 </ul>
@@ -1034,10 +1061,43 @@ before the IMM warns (<span class="tl tl-candidate">CANDIDATE</span>).</p>
 </tbody>
 </table></div>
 <p>The non-zero value appears only on sensors of populated devices (DIMM 3 is the populated slot; CPU 1 populated), so
-0x1 is the normal/present state (<span class="tl tl-candidate">CANDIDATE</span>, same reasoning as section 3.5). Threshold temperatures behind CPU,
-IOH and DIMM sensors are not readable in the captures (<span class="tl tl-unknown">UNKNOWN</span>). The IMM guide example shows CPU, DASD and ambient
-rows in <code>temps</code> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p.129), but the owner's IMM lists only "Ambient Temp" (<span class="tl tl-measured">MEASURED</span>), so no CPU temperature is
-reported by the IMM v1 on this server.</p>
+0x1 is the normal/present state (<span class="tl tl-candidate">CANDIDATE</span>, same reasoning as section 3.5). The IMM guide example shows CPU, DASD and
+ambient rows in <code>temps</code> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p.129), but the owner's IMM lists only "Ambient Temp" (<span class="tl tl-measured">MEASURED</span>), so no CPU temperature
+is reported by the IMM v1 on this server. The DIMM n Temp sensors are discrete severity sensors (type 01h, reading
+"Transition to OK" on DIMM 3, captures/2026-10-20_sdr_verbose_and_pd0.txt), so no DIMM temperature value is exposed
+(<span class="tl tl-measured">MEASURED</span>).</p>
+<p>Host-side temperatures (in-band Linux hwmon, <span class="tl tl-measured">MEASURED</span> 2026-10-21 13:54-14:18, captures/2026-10-21_host_cpu_power_thermal_readonly.txt;
+coretemp and i5500_temp were already loaded, nothing was loaded):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Sensor (driver)</th>
+<th>Value</th>
+<th>Thresholds</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intel 5520 IOH (<code>intel5500</code>, temp1)</td>
+<td>69.0-70.5 deg C</td>
+<td>high 100, hysteresis 90, critical 110 deg C</td>
+<td>read from the IOH thermal sensor; about 45 K above ambient (25 deg C)</td>
+</tr>
+<tr>
+<td>CPU cores 0, 1, 9, 10 (<code>coretemp</code>)</td>
+<td>28-37 deg C</td>
+<td>high 85, critical 95 deg C</td>
+<td>per-core DTS (TjMax-based); no package sensor on this CPU</td>
+</tr>
+<tr>
+<td>DIMM 3</td>
+<td>not available</td>
+<td>-</td>
+<td>no TSOD reading via EDAC/hwmon; IMM sensor is discrete only</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="74-other-measured-temperatures">7.4 Other measured temperatures <a class="anchor" href="#74-other-measured-temperatures" aria-label="Link to this section">#</a></h3>
 <div class="table-wrap"><table>
 <thead>
@@ -1103,7 +1163,7 @@ reported by the IMM v1 on this server.</p>
 </tr>
 </tbody>
 </table></div>
-<p><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-extracted">EXTRACTED</span>. No measured sound level exists (<span class="tl tl-unknown">UNKNOWN</span>). Fan speed is the dominant acoustic variable that
+<p><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-extracted">EXTRACTED</span>. No measured sound level exists (<span class="tl tl-unknown">UNKNOWN</span>; needs an owner measurement). Fan speed is the dominant acoustic variable that
 the captures expose (fans at 17-41 percent, section 2); the relation between fan percent and bel is not documented.</p>
 <h2 id="9-uefi-powerperformance-modes-and-their-thermal-effect">9. UEFI power/performance modes and their thermal effect <a class="anchor" href="#9-uefi-powerperformance-modes-and-their-thermal-effect" aria-label="Link to this section">#</a></h2>
 <p>Settings, values and defaults are in docs/X3650M3_UEFI.md (section 6 operating modes, section 7 and Appendix A for
@@ -1158,14 +1218,18 @@ ASU names, section 10 for default conflicts). This section covers only the power
 </tbody>
 </table></div>
 <p>The column assignment is <span class="tl tl-candidate">CANDIDATE</span> in the UEFI document (IFR operators not rendered). The mode in use on the
-owner's server is <span class="tl tl-unknown">UNKNOWN</span> (no ASU capture); the <span class="tl tl-measured">MEASURED</span> P-state activity (section 5.3) rules out Performance mode if
-the assignment above is right (<span class="tl tl-candidate">CANDIDATE</span>).</p>
+owner's server is Custom Mode (<code>uEFI.OperatingMode</code>, ASU show all 2026-10-20, <span class="tl tl-measured">MEASURED</span>) with Performance States
+Enable, C1E Enable, Memory speed and QPI speed Max Performance, Turbo Disable, Power C-States Disable, package
+C-state limit ACPI C3, PCIe ASPM Disable on all 11 ports (ASU and Setup variable, <span class="tl tl-measured">MEASURED</span>; docs/X3650M3_UEFI.md
+12.7). Its values equal the "Custom default" column.</p>
 <h3 id="92-expected-thermal-and-power-effect-on-this-server-candidate-unless-noted">9.2 Expected thermal and power effect on this server (<span class="tl tl-candidate">CANDIDATE</span> unless noted) <a class="anchor" href="#92-expected-thermal-and-power-effect-on-this-server-candidate-unless-noted" aria-label="Link to this section">#</a></h3>
 <ul>
 <li>Turbo Mode has no effect: the E5606 has no Turbo Boost (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.12, <span class="tl tl-documented">DOCUMENTED</span>; no "ida" flag, <span class="tl tl-measured">MEASURED</span>).</li>
 <li>Processor Performance States: with P-states the CPU can drop from 2128 MHz (80.0 W declared) to 1197 MHz (46.3 W
   declared); the declared difference is 80.000 - 46.255 = 33.745 W at full load (C-ACPI arithmetic). At light load
-  most savings come from idle states rather than P-states, and their effect is <span class="tl tl-unknown">UNKNOWN</span> without cpuidle statistics.
+  most savings come from idle states rather than P-states; the kernel already requests C6 for most idle time
+  (section 5.3), but the wattage saved is <span class="tl tl-unknown">UNKNOWN</span> (needs before/after Avg Power with a setting change, excluded by
+  D-006).
   Performance mode disables P-states and C1E, so the CPU stays at 2128 MHz and idles at a higher power; the IMM has
   a "fan control enhancement for performance mode" (IMM 1.14, <span class="tl tl-documented">DOCUMENTED</span>), so higher fan speed is expected in
   Performance mode (<span class="tl tl-candidate">CANDIDATE</span>, mechanism <span class="tl tl-unknown">UNKNOWN</span>).</li>
@@ -1173,13 +1237,18 @@ the assignment above is right (<span class="tl tl-candidate">CANDIDATE</span>).<
   no wattage source). The DIMM already runs at 1067 MT/s (docs/X3650M3_MEMORY.md).</li>
 <li>Acoustic mode is described as lowest power and lower acoustic level (<span class="tl tl-extracted">EXTRACTED</span> help text); how the IMM fan curve
   changes in that mode is not documented (<span class="tl tl-unknown">UNKNOWN</span>).</li>
-<li>C-states: UEFI 1.22 defaults "CPU C State" (<code>uEFI.ProcessorCcxEnable</code>) to Disable and the package C-state limit to
-  ACPI C2 (1.14: C3); the FADT of the installed firmware advertises no ACPI C2/C3 (section 5.3). Deeper C-states would
-  lower idle power and heat but the effect on this server is <span class="tl tl-unknown">UNKNOWN</span> until measured.</li>
-<li>PCI Express ASPM (<code>uEFI.PcieAspm*</code>, Disable default, "Enable L1 Only") lowers idle link power of PCIe devices;
-  affected devices here are the two SAS2008 adapters and the BCM5709 (<span class="tl tl-candidate">CANDIDATE</span>, effect <span class="tl tl-unknown">UNKNOWN</span>).</li>
-<li>On-board LAN power (<code>uEFI.ZoarPower</code>, docs/X3650M3_UEFI.md A.1) is a MiscConfiguration setting; its effect on the
-  measured power is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>C-states: the installed 1.13 has "Power C-States" (<code>uEFI.ProcessorCcxEnable</code>) = Disable and the package C-state
+  limit = ACPI C3 (<span class="tl tl-measured">MEASURED</span>; 1.22 defaults Disable / ACPI C2); the FADT advertises no ACPI C2/C3 (section 5.3), but
+  intel_idle requests C6 anyway (section 5.3). The effect of enabling ACPI C-states on this server is <span class="tl tl-unknown">UNKNOWN</span> until
+  measured (a setting change, excluded by D-006).</li>
+<li>PCI Express ASPM (<code>uEFI.PcieAspm0..10</code>, all Disable on this server, <span class="tl tl-measured">MEASURED</span>; choices Disable / "Enable L1") lowers
+  idle link power of PCIe devices; affected devices here are the two SAS2008 adapters and the BCM5709 (<span class="tl tl-candidate">CANDIDATE</span>,
+  effect <span class="tl tl-unknown">UNKNOWN</span>: setting change excluded by D-006). The OS cannot enable ASPM itself: the kernel reports "FADT
+  indicates ASPM is unsupported, using BIOS configuration" (<span class="tl tl-measured">MEASURED</span> 2026-10-21).</li>
+<li>On-board LAN power (<code>uEFI.ZoarPower</code>, docs/X3650M3_UEFI.md A.1) is a MiscConfiguration setting; it is not exposed by
+  ASU on the installed 1.13 (protected); the Setup variable shows "On-board LAN Power" = Turn OFF (offset 0x05D1,
+  the IFR default; <span class="tl tl-candidate">CANDIDATE</span> that this is ZoarPower, meaning not documented). Its effect on the measured power is
+  <span class="tl tl-unknown">UNKNOWN</span>.</li>
 </ul>
 <p>Any change of these settings is a UEFI setting change on the Proxmox host that runs the agent: it needs explicit
 owner approval and a reboot (docs/AGENT.md, A-007). No change is recommended by this document.</p>
@@ -1327,22 +1396,27 @@ An IMM or UEFI update is a flash on the host that runs the agent and needs expli
 <p>All items below are read-only unless marked. Nothing here may change settings, power state or firmware. Any item
 marked "owner approval" needs explicit approval because this server is the Proxmox host that runs the agent (A-007).
 IMM CLI/web reads need the IMM credential, which the agent may not read; the owner runs them.</p>
-<p>Open questions:</p>
+<p>Open questions (status after the 2026-10-21 pass):</p>
 <ol>
 <li>Wattage, part number and physical bay of the installed supply; whether a filler 49Y4821 sits in the empty bay
-   (owner: visual check of the rear label and bays, no cover removal needed).</li>
-<li>AC or DC basis, averaging window and accuracy of the "Avg Power" sensor; true wall power.</li>
-<li>Whether IBM Systems Director / AEM is available at all; current value of <code>uEFI.EnergyManager</code> (capping enabled?).</li>
-<li>Active operating mode and the values of <code>uEFI.PerformanceStates</code>, <code>uEFI.ProcessorCcxEnable</code>, <code>uEFI.PackageCState</code>,
-   <code>uEFI.ProcessorC1eEnable</code>, <code>uEFI.DdrSpeed</code>, <code>uEFI.QPISpeed</code>, <code>uEFI.PcieAspm*</code>, <code>uEFI.ZoarPower</code> on UEFI 1.13.</li>
-<li>Fan control: zone-to-fan mapping, why module 3 runs at about twice the speed of modules 1-2, and fan response to
-   load and ambient.</li>
-<li>CPU, IOH and DIMM temperatures and their thresholds (not exposed by the IMM SDR); bit meanings of the discrete
-   0x1 readings.</li>
-<li>Which C-states the CPU actually enters under <code>intel_idle</code> and the cpufreq driver/governor in use.</li>
+   (owner: visual check of the rear label and bays, no cover removal needed). Open.</li>
+<li>AC or DC basis, averaging window and accuracy of the "Avg Power" sensor; true wall power. Partly: resolution 10 W
+   (<span class="tl tl-measured">MEASURED</span>); basis/window/accuracy not documented in any source found (needs a wall meter, owner).</li>
+<li>AEM availability: <span class="tl tl-unknown">UNKNOWN</span> (no support matrix found, products withdrawn). <code>uEFI.EnergyManager</code> = Enable (resolved,
+   <span class="tl tl-measured">MEASURED</span>, section 5.2).</li>
+<li>Resolved: Custom Mode with the values in 9.1 (<span class="tl tl-measured">MEASURED</span>); <code>uEFI.PerformanceStates</code> and <code>uEFI.ZoarPower</code> are not
+   ASU-visible on 1.13 and were read from the Setup variable (Performance States Enable, On-board LAN Power Turn OFF;
+   docs/X3650M3_UEFI.md 12.7).</li>
+<li>Fan control: partly. A 20-minute series shows fixed fan speeds under small load changes and the IOH as the hottest
+   component (section 6.3); the zone-to-fan mapping and the control curve remain <span class="tl tl-unknown">UNKNOWN</span> (24 h series with load
+   steps still useful).</li>
+<li>Resolved: CPU core and IOH temperatures with thresholds are readable in-band (section 7.3, <span class="tl tl-measured">MEASURED</span>); DIMM
+   temperatures are not exposed (discrete sensors only).</li>
+<li>Resolved: intel_idle requests POLL/C1/C1E/C3/C6 with C6 dominant; acpi-cpufreq / performance at 2128 MHz 100 %
+   of the time (section 5.3, <span class="tl tl-measured">MEASURED</span>). Hardware-granted package C-states remain <span class="tl tl-unknown">UNKNOWN</span> (MSR read needed).</li>
 <li>Whether the CPU 2 air baffle, DIMM air baffle and drive-bay fillers are fitted (owner, visual; cover removal is a
-   physical intervention on the running host: owner decision).</li>
-<li>Real power of the DIMM, the SAS HBA and the platform base load (closes the placeholders in section 4.3).</li>
+   physical intervention on the running host: owner decision). Open.</li>
+<li>Real power of the DIMM, the SAS HBA and the platform base load: no datasheet figures found (section 4.1); open.</li>
 <li>IMM events after 2025-05-05 (SEL full, A-008): the SEL records nothing after that date; clearing it needs owner
     approval (save first). The IMM event log covers the period (captures/2026-10-20_imm_readlog.txt, 781 entries,
     decode in docs/X3650M3_ERROR_CODES.md 15.6-15.8): its only sensor events are Planar VBAT and drive events; no
@@ -1382,7 +1456,7 @@ IMM CLI/web reads need the IMM credential, which the agent may not read; the own
 <td>9</td>
 </tr>
 <tr>
-<td>ASU <code>asu show uEFI.OperatingMode</code> and the settings of question 4 (ASU is not installed on the host; installing it is a host change: owner approval; <code>show</code> is read-only)</td>
+<td>Done: ASU 10.3 ([host-path] on the host) <code>show all --kcs</code> 2026-10-20 and <code>showvalues uEFI --kcs</code> 2026-10-21 (captures/2026-10-20_asu_show_all/show_all.txt, captures/2026-10-21_asu_showvalues_uefi.txt)</td>
 <td>3, 4</td>
 </tr>
 <tr>
@@ -1419,7 +1493,7 @@ flashing, and any UEFI setting change.</p>
 </main>
 <aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-sources-and-capture-keys">1. Sources and capture keys</a></li><li class="l2"><a href="#2-summary-of-measured-values">2. Summary of measured values</a></li><li class="l2"><a href="#3-power-supplies">3. Power supplies</a></li><li class="l3"><a href="#31-options-and-part-numbers-summary">3.1 Options and part numbers (summary)</a></li><li class="l3"><a href="#32-electrical-input">3.2 Electrical input</a></li><li class="l3"><a href="#33-efficiency">3.3 Efficiency</a></li><li class="l3"><a href="#34-redundancy-and-over-load-rules">3.4 Redundancy and over-load rules</a></li><li class="l3"><a href="#35-installed-supply-measured-and-candidate">3.5 Installed supply (MEASURED and CANDIDATE)</a></li><li class="l2"><a href="#4-power-budget-for-the-installed-configuration">4. Power budget for the installed configuration</a></li><li class="l3"><a href="#41-component-values-with-sources">4.1 Component values with sources</a></li><li class="l3"><a href="#42-documented-system-level-reference-points">4.2 Documented system-level reference points</a></li><li class="l3"><a href="#43-budget-result-candidate">4.3 Budget result (CANDIDATE)</a></li><li class="l2"><a href="#5-power-metering-and-capping">5. Power metering and capping</a></li><li class="l3"><a href="#51-documented-features">5.1 Documented features</a></li><li class="l3"><a href="#52-measured-metering">5.2 Measured metering</a></li><li class="l3"><a href="#53-os-visible-power-controls-measured-with-firmware-context">5.3 OS-visible power controls (MEASURED, with firmware context)</a></li><li class="l2"><a href="#6-fans-and-fan-control">6. Fans and fan control</a></li><li class="l3"><a href="#61-hardware-summary">6.1 Hardware (summary)</a></li><li class="l3"><a href="#62-what-drives-fan-speed-documented-inputs">6.2 What drives fan speed (DOCUMENTED inputs)</a></li><li class="l3"><a href="#63-measured-fan-state-and-derived-values">6.3 Measured fan state and derived values</a></li><li class="l3"><a href="#64-fan-and-cooling-events">6.4 Fan and cooling events</a></li><li class="l2"><a href="#7-thermal-thresholds-and-environmental-limits">7. Thermal thresholds and environmental limits</a></li><li class="l3"><a href="#71-environmental-specification">7.1 Environmental specification</a></li><li class="l3"><a href="#72-imm-thresholds-measured-and-their-documented-meaning">7.2 IMM thresholds (MEASURED) and their documented meaning</a></li><li class="l3"><a href="#73-discrete-thermal-sensors-no-numeric-value-exposed">7.3 Discrete thermal sensors (no numeric value exposed)</a></li><li class="l3"><a href="#74-other-measured-temperatures">7.4 Other measured temperatures</a></li><li class="l2"><a href="#8-acoustics">8. Acoustics</a></li><li class="l2"><a href="#9-uefi-powerperformance-modes-and-their-thermal-effect">9. UEFI power/performance modes and their thermal effect</a></li><li class="l3"><a href="#91-operating-modes-extracted-docsx3650m3_uefimd-section-6">9.1 Operating modes (EXTRACTED, docs/X3650M3_UEFI.md section 6)</a></li><li class="l3"><a href="#92-expected-thermal-and-power-effect-on-this-server-candidate-unless-noted">9.2 Expected thermal and power effect on this server (CANDIDATE unless noted)</a></li><li class="l3"><a href="#93-memory-thermal-mode-extracted">9.3 Memory Thermal Mode (EXTRACTED)</a></li><li class="l2"><a href="#10-firmware-change-history-relevant-to-power-and-thermal">10. Firmware change history relevant to power and thermal</a></li><li class="l2"><a href="#11-source-conflicts-and-discrepancies">11. Source conflicts and discrepancies</a></li><li class="l2"><a href="#12-open-questions--next-captures">12. Open questions / next captures</a></li></ul></nav></aside>
 </div>
-<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:54 UTC from commit <code>919a212665cc</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 11:31 UTC from commit <code>80d508298327</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
 <script src="../assets/library.js"></script>
 </body>
 </html>

@@ -84,9 +84,9 @@
 <h1>Sensors and SDR Decode</h1>
 <p class="subtitle">IBM System x3650 M3 (7945KEG) - Sensors and SDR Decode</p>
 <p class="lede">decode of every sensor that the IMM (v1, build YUOOC7E, IPMI firmware 1.30) of the owner&#x27;s server exposes in its sensor data record (SDR) repository: name, sensor number, sensor type, event/reading type, entity ID/instance, unit, thresholds ...</p>
-<p class="meta"><span class="source">source: <code>docs/X3650M3_SENSORS_SDR.md</code></span> <span>14 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">77</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">17</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">1</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">63</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">20</span></span></p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_SENSORS_SDR.md</code></span> <span>14 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">87</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">18</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">7</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">68</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">17</span></span></p>
 </header>
-<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#table-of-contents">Table of contents</a></li><li class="l2"><a href="#1-sources-conventions-and-truth-levels">1. Sources, conventions and truth levels</a></li><li class="l2"><a href="#2-capture-summary">2. Capture summary</a></li><li class="l3"><a href="#21-second-snapshot-2026-10-20-c-w2-measured">2.1 Second snapshot 2026-10-20 (C-W2, MEASURED)</a></li><li class="l2"><a href="#3-how-to-read-the-values-columns-threshold-names-discrete-state-bytes">3. How to read the values (columns, threshold names, discrete state bytes)</a></li><li class="l3"><a href="#31-ipmitool-sensor-columns-measured-layout">3.1 ipmitool sensor columns (MEASURED layout)</a></li><li class="l3"><a href="#32-threshold-names-across-interfaces">3.2 Threshold names across interfaces</a></li><li class="l3"><a href="#33-discrete-sensor-columns">3.3 Discrete sensor columns</a></li><li class="l2"><a href="#4-threshold-analog-sensors">4. Threshold (analog) sensors</a></li><li class="l3"><a href="#41-full-threshold-records-c-v-measured-2026-10-20-2105">4.1 Full threshold records (C-V, MEASURED 2026-10-20 ~21:05)</a></li><li class="l2"><a href="#5-fans-and-cooling-zones">5. Fans and cooling zones</a></li><li class="l3"><a href="#51-fan-sensor-set">5.1 Fan sensor set</a></li><li class="l3"><a href="#52-zone-decode">5.2 Zone decode</a></li><li class="l2"><a href="#6-discrete-sensors---decoding-reference">6. Discrete sensors - decoding reference</a></li><li class="l3"><a href="#61-generic-reading-types">6.1 Generic reading types</a></li><li class="l3"><a href="#62-sensor-specific-reading-type-0x6f-offsets-used-on-this-server">6.2 Sensor-specific (reading type 0x6F) offsets used on this server</a></li><li class="l2"><a href="#7-discrete-sensors---measured-states">7. Discrete sensors - measured states</a></li><li class="l3"><a href="#71-presence-risers-and-connectors">7.1 Presence, risers and connectors</a></li><li class="l3"><a href="#72-processor-chipset-and-temperature-status">7.2 Processor, chipset and temperature status</a></li><li class="l3"><a href="#73-memory">7.3 Memory</a></li><li class="l3"><a href="#74-power">7.4 Power</a></li><li class="l3"><a href="#75-drives">7.5 Drives</a></li><li class="l3"><a href="#76-pci">7.6 PCI</a></li><li class="l3"><a href="#77-firmware-system-and-logging">7.7 Firmware, system and logging</a></li><li class="l2"><a href="#8-sensors-in-the-event-catalog-but-not-in-the-sdr-and-the-reverse">8. Sensors in the event catalog but not in the SDR (and the reverse)</a></li><li class="l2"><a href="#9-mapping-to-light-path-leds-and-imm-events">9. Mapping to light path LEDs and IMM events</a></li><li class="l2"><a href="#10-abnormal-readings-and-findings">10. Abnormal readings and findings</a></li><li class="l2"><a href="#11-contradictions">11. Contradictions</a></li><li class="l2"><a href="#12-open-questions--next-captures">12. Open questions / next captures</a></li><li class="l2"><a href="#13-verbose-sdr-dump-2026-10-20-all-135-sensors">13. Verbose SDR dump 2026-10-20 (all 135 sensors)</a></li><li class="l3"><a href="#131-record-table">13.1 Record table</a></li><li class="l3"><a href="#132-comparison-with-the-catalog-derived-values-of-section-7">13.2 Comparison with the catalog-derived values of section 7</a></li></ul></nav></details>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#table-of-contents">Table of contents</a></li><li class="l2"><a href="#1-sources-conventions-and-truth-levels">1. Sources, conventions and truth levels</a></li><li class="l2"><a href="#2-capture-summary">2. Capture summary</a></li><li class="l3"><a href="#21-second-snapshot-2026-10-20-c-w2-measured">2.1 Second snapshot 2026-10-20 (C-W2, MEASURED)</a></li><li class="l2"><a href="#3-how-to-read-the-values-columns-threshold-names-discrete-state-bytes">3. How to read the values (columns, threshold names, discrete state bytes)</a></li><li class="l3"><a href="#31-ipmitool-sensor-columns-measured-layout">3.1 ipmitool sensor columns (MEASURED layout)</a></li><li class="l3"><a href="#32-threshold-names-across-interfaces">3.2 Threshold names across interfaces</a></li><li class="l3"><a href="#33-discrete-sensor-columns">3.3 Discrete sensor columns</a></li><li class="l2"><a href="#4-threshold-analog-sensors">4. Threshold (analog) sensors</a></li><li class="l3"><a href="#41-full-threshold-records-c-v-measured-2026-10-20-2105">4.1 Full threshold records (C-V, MEASURED 2026-10-20 ~21:05)</a></li><li class="l2"><a href="#5-fans-and-cooling-zones">5. Fans and cooling zones</a></li><li class="l3"><a href="#51-fan-sensor-set">5.1 Fan sensor set</a></li><li class="l3"><a href="#52-zone-decode">5.2 Zone decode</a></li><li class="l2"><a href="#6-discrete-sensors---decoding-reference">6. Discrete sensors - decoding reference</a></li><li class="l3"><a href="#61-generic-reading-types">6.1 Generic reading types</a></li><li class="l3"><a href="#62-sensor-specific-reading-type-0x6f-offsets-used-on-this-server">6.2 Sensor-specific (reading type 0x6F) offsets used on this server</a></li><li class="l2"><a href="#7-discrete-sensors---measured-states">7. Discrete sensors - measured states</a></li><li class="l3"><a href="#71-presence-risers-and-connectors">7.1 Presence, risers and connectors</a></li><li class="l3"><a href="#72-processor-chipset-and-temperature-status">7.2 Processor, chipset and temperature status</a></li><li class="l3"><a href="#73-memory">7.3 Memory</a></li><li class="l3"><a href="#74-power">7.4 Power</a></li><li class="l3"><a href="#75-drives">7.5 Drives</a></li><li class="l3"><a href="#76-pci">7.6 PCI</a></li><li class="l3"><a href="#77-firmware-system-and-logging">7.7 Firmware, system and logging</a></li><li class="l2"><a href="#8-sensors-in-the-event-catalog-but-not-in-the-sdr-and-the-reverse">8. Sensors in the event catalog but not in the SDR (and the reverse)</a></li><li class="l2"><a href="#9-mapping-to-light-path-leds-and-imm-events">9. Mapping to light path LEDs and IMM events</a></li><li class="l2"><a href="#10-abnormal-readings-and-findings">10. Abnormal readings and findings</a></li><li class="l2"><a href="#11-contradictions">11. Contradictions</a></li><li class="l2"><a href="#12-open-questions--next-captures">12. Open questions / next captures</a></li><li class="l2"><a href="#13-verbose-sdr-dump-2026-10-20-all-135-sensors">13. Verbose SDR dump 2026-10-20 (all 135 sensors)</a></li><li class="l3"><a href="#131-record-table">13.1 Record table</a></li><li class="l3"><a href="#132-comparison-with-the-catalog-derived-values-of-section-7">13.2 Comparison with the catalog-derived values of section 7</a></li><li class="l3"><a href="#133-raw-sdr-dump-2026-10-21-measured-and-firmware-sdr-files-extracted">13.3 Raw SDR dump 2026-10-21 (MEASURED) and firmware SDR files (EXTRACTED)</a></li></ul></nav></details>
 <div class="prose">
 <p>Scope: decode of every sensor that the IMM (v1, build YUOOC7E, IPMI firmware 1.30) of the owner's server exposes
 in its sensor data record (SDR) repository: name, sensor number, sensor type, event/reading type, entity
@@ -335,11 +335,13 @@ dump of 2026-10-20 (C-V) is tabulated in section 13.</p>
 <ul>
 <li>The 229 SDR records against 160 <code>elist all</code> lines leave 69 records not printed. The verbose dump (C-V) explains
   the 160 (135 sensors + 24 FRU locators + 1 MC locator, <span class="tl tl-measured">MEASURED</span>) and prints no further record either, and
-  <code>sdr elist event</code> is empty, so the 69 are not event-only records (<span class="tl tl-measured">MEASURED</span> absence). <span class="tl tl-candidate">CANDIDATE</span>: they are OEM
-  (type C0h) or other record types that ipmitool 1.8.19 does not print, reason: every other record type is printed;
-  their content needs a raw <code>sdr dump</code> (Q-S3).</li>
+  <code>sdr elist event</code> is empty, so the 69 are not event-only records (<span class="tl tl-measured">MEASURED</span> absence). Resolved 2026-10-21 by the raw
+  <code>ipmitool sdr dump</code> (captures/2026-10-21_sdr_raw_dump.txt, <span class="tl tl-measured">MEASURED</span>): the 69 are 8 entity association records (08h)
+  and 61 IBM OEM records (C0h, manufacturer ID 20301), see section 13.3.</li>
 <li>VBAT 1.791 V on 2026-10-20 vs 1.727 V on 2026-10-19 (+0.064 V): both below lc 2.095 V; the difference is
-  <span class="tl tl-measured">MEASURED</span>, its cause <span class="tl tl-unknown">UNKNOWN</span> (single readings at different times and host power states).</li>
+  <span class="tl tl-measured">MEASURED</span>, its cause <span class="tl tl-unknown">UNKNOWN</span> (single readings at different times and host power states). A 30 min series on
+  2026-10-21 (60 samples, 30 s) read a constant 1.791 V at host load 1.8-12.7 (captures/2026-10-21_sensor_timeseries_30min.txt, <span class="tl tl-measured">MEASURED</span>), so the
+  reading does not move with short-term host load; the 1.727 V reading stays unexplained.</li>
 <li>The sensor numbers 0x60, 0x61, 0x7F, 0xB6 and the entities 4.0, 4.1, 19.1, 33.1 are now <span class="tl tl-measured">MEASURED</span> for these four
   discrete sensors. Drive sensors: entity 0x04 instance n and type Drive Slot / Bay confirm the catalog-derived values
   (section 7.5). Power Unit: measured entity 19.1 vs catalog EE/FF 13/81 (800b0008-1381); the instance byte 0x81 vs
@@ -703,11 +705,17 @@ docs/X3650M3_ERROR_CODES.md section 4.2); their link to the measured sensor by n
   11.1) is lower than the IMM warning level 38 C; the IMM thresholds are therefore not the environmental spec.</li>
 <li>Altitude: 40 ft. <a class="sref" href="../catalog/sources.html#s-001">S-001</a> documents "An altimeter works in conjunction with the IMM to govern fan rotation". The
   derating rule (1 C per 1000 ft above 914.4 m) does not apply at this reading (<span class="tl tl-documented">DOCUMENTED</span> rule, applied). Whether
-  the reading follows barometric pressure (weather dependent) is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+  the reading follows barometric pressure (weather dependent) is <span class="tl tl-unknown">UNKNOWN</span>; on 2026-10-21 it read a constant 0 ft
+  over 30 min (captures/2026-10-21_sensor_timeseries_30min.txt, <span class="tl tl-measured">MEASURED</span>), against 40 ft earlier, so the value changes between days (step size
+  <span class="tl tl-candidate">CANDIDATE</span>: coarse quantisation) but a weather correlation needs a series over days.</li>
 <li>Avg Power: 80 W (2026-10-19), 80 W (C-W2) and 90 W (C-V, during the initial vzdump backup). No thresholds
   ("No Thresholds" readable and settable, C-V), no DCMI (section 2); the SDR "Minimum sensor range" prints 2550.000
   (C-V line 56), above every reading, so that field is not a usable range (<span class="tl tl-candidate">CANDIDATE</span>: unset or vendor-specific
-  value). Averaging window <span class="tl tl-unknown">UNKNOWN</span>. Power metering and capping: docs/X3650M3_POWER_THERMAL.md section 5.</li>
+  value). Averaging window, AC/DC basis and accuracy: <span class="tl tl-unknown">UNKNOWN</span> - the IMM I User's Guide 6th ed. (47c9202) has no
+  power-metering section, and the Linux ibmaem documentation (<a href="https://docs.kernel.org/6.8/hwmon/ibmaem.html" rel="noopener">https://docs.kernel.org/6.8/hwmon/ibmaem.html</a>) only
+  says AEM v1 reports average power over a configurable interval; IMM 1.14 YUOO73M "Improved the accuracy of power
+  readings on x3650 M3" (IMM 1.55 .chg). A wall-meter comparison would settle AC vs DC. SDR raw: M=10, unit Watts,
+  no thresholds (section 13.3). Power metering and capping: docs/X3650M3_POWER_THERMAL.md section 5.</li>
 <li>Altitude: 40 ft on 2026-10-19, 0 ft on 2026-10-20 (C-V); nominal 520 ft, hysteresis +/-80 ft, no thresholds
   (<span class="tl tl-measured">MEASURED</span>). Whether the reading follows air pressure or is a coarse step value is <span class="tl tl-unknown">UNKNOWN</span>.</li>
 </ul>
@@ -1046,7 +1054,10 @@ fan produces no warning before the critical event.</p>
   has been restored" for the same reading type).</li>
 <li>Zone-to-fan mapping: not documented. <span class="tl tl-candidate">CANDIDATE</span>: Cooling Zone n corresponds to fan module n, reason: three zones,
   three modules, same numbering; not verified.</li>
-<li>Speed policy: Fan 3 runs at about twice the speed of fans 1-2 at 27 C ambient (<span class="tl tl-measured">MEASURED</span>). <a class="sref" href="../catalog/sources.html#s-001">S-001</a> documents only
+<li>Speed policy: Fan 3 runs at about twice the speed of fans 1-2 at 27 C ambient (<span class="tl tl-measured">MEASURED</span>). 30 min series
+  2026-10-21 (captures/2026-10-21_sensor_timeseries_30min.txt, <span class="tl tl-measured">MEASURED</span>): at 25 C ambient and host 1-min load 1.8-12.7 (Avg Power 80-100 W) fans
+  1A/1B/2A/2B stayed within one SDR count (1595-1624/1125/1595/1100 RPM) and 3A/3B at 3074-3132/2425-2450 RPM, so
+  the 2:1 ratio is steady and does not follow host load at this ambient. <a class="sref" href="../catalog/sources.html#s-001">S-001</a> documents only
   the altimeter input. Reason for the asymmetry is <span class="tl tl-unknown">UNKNOWN</span> (<span class="tl tl-candidate">CANDIDATE</span>: zone-based control driven by the populated
   CPU 1/DIMM 3 and the single power supply side; see HARDWARE_COMPONENTS 11.2).</li>
 <li>Light path link (<span class="tl tl-documented">DOCUMENTED</span>, <a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.365, FAN LED): "With BRD lit and all cooling zones asserted", check the PCI
@@ -1748,11 +1759,11 @@ failure (Warning), 806f050d/060d array critical/failed, 806f070d rebuild (ERROR_
 </tr>
 <tr>
 <td>Progress</td>
-<td>0x0F / RT <span class="tl tl-unknown">UNKNOWN</span> (C-V enables only "Unknown Progress")</td>
+<td>0x0F / 0x6F (raw SDR 2026-10-21; assertion and reading mask = offset 02 only)</td>
 <td>0x22/01 (C-V, 34.1 BIOS)</td>
 <td>0x0080</td>
 <td>none</td>
-<td>306 SEL entries (progress "Unspecified" 161, "System boot initiated" 145); offset 02 is event-only (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>306 SEL entries (progress "Unspecified" 161, "System boot initiated" 145), event data c2 00 ff / c2 13 ff (offset 02, extension code 0x00 / 0x13; captures/2026-10-21_sel_progress_events.txt, <span class="tl tl-measured">MEASURED</span>); offset 02 is never held as a state (<span class="tl tl-candidate">CANDIDATE</span>)</td>
 </tr>
 <tr>
 <td>NMI State</td>
@@ -1772,11 +1783,11 @@ failure (Warning), 806f050d/060d array critical/failed, 806f070d rebuild (ERROR_
 </tr>
 <tr>
 <td>OS RealTime Mod</td>
-<td>0x12/03</td>
+<td>0x12/03 (raw SDR: sensor 0x39, entity 35.1, masks offset 00 only)</td>
 <td>0x23/01 (operating system)</td>
 <td>0x0080</td>
 <td>neither offset asserted</td>
-<td>catalog 80030012 "has deasserted" (Info); meaning of the sensor (OS real-time module?) <span class="tl tl-unknown">UNKNOWN</span></td>
+<td>catalog 80030012 "has deasserted" (Info); meaning of the sensor <span class="tl tl-unknown">UNKNOWN</span> (no other occurrence in the IMM 1.55 rootfs than the SDR files; no UEFI setting with "real time" in show_all)</td>
 </tr>
 <tr>
 <td>Aux Log</td>
@@ -1842,9 +1853,11 @@ failure (Warning), 806f050d/060d array critical/failed, 806f070d rebuild (ERROR_
 <p>Event-only records: <code>ipmitool sdr elist event</code> printed nothing on 2026-10-20 (C-V lines 5-6), so the SDR holds no
 event-only (type 03h) record that ipmitool 1.8.19 lists (<span class="tl tl-measured">MEASURED</span> absence; the mapping of <code>elist event</code> to type 03h
 is ipmitool usage, not in sources/). The <span class="tl tl-candidate">CANDIDATE</span> "event-only" explanation for CMOS Battery, IMM FW Failover, No
-I/O Resources and No Op ROM Space is therefore not supported. Whether these catalog names belong to later firmware
-(<a class="sref" href="../catalog/sources.html#s-004">S-004</a> 16th ed. describes later IMM builds than YUOOC7E), are raised by the IMM without an SDR record, or sit in the
-69 records ipmitool does not print (section 2.1) is <span class="tl tl-unknown">UNKNOWN</span>.</p>
+I/O Resources and No Op ROM Space is therefore not supported. Resolved 2026-10-21 (<span class="tl tl-extracted">EXTRACTED</span>): these names belong to
+later firmware. The IMM 1.55 platform SDR file for this machine (var/bmc/victory_ref/victory_ref.sdrdat, section 13.3)
+renames Planar VBAT (0x1C, entity 7.1) to "CMOS Battery" (0x1C, entity 0x28.1, same thresholds) and adds compact
+records "IMM FW Failover" (0xBF, type 0x2B), "No I/O Resources" (0xF8) and "No Op ROM Space" (0xF7, type 0x21). They
+are not among the 69 unprinted records of the live 1.30 SDR (those are entity associations and OEM LED records).</p>
 <h2 id="9-mapping-to-light-path-leds-and-imm-events">9. Mapping to light path LEDs and IMM events <a class="anchor" href="#9-mapping-to-light-path-leds-and-imm-events" aria-label="Link to this section">#</a></h2>
 <p>LED meanings: <span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.363-367; ERROR_CODES 9.1). Sensor mapping: <span class="tl tl-candidate">CANDIDATE</span> unless the <a class="sref" href="../catalog/sources.html#s-004">S-004</a> text
 names the condition, reason given per row. Current LED state: <span class="tl tl-unknown">UNKNOWN</span> for all LEDs - the panel was not
@@ -2017,9 +2030,9 @@ inspected; the "expected" column is a <span class="tl tl-candidate">CANDIDATE</s
 <td>6</td>
 <td>Fan 3 about twice the speed of fans 1-2</td>
 <td>3103/2450 vs 1595/1125 and 1595/1100 RPM</td>
-<td>Within limits; cause <span class="tl tl-unknown">UNKNOWN</span></td>
+<td>Within limits; steady over 30 min and host load 1.8-12.7 (2026-10-21 series); cause <span class="tl tl-unknown">UNKNOWN</span> (<span class="tl tl-candidate">CANDIDATE</span>: zone control)</td>
 <td><span class="tl tl-measured">MEASURED</span></td>
-<td>Time series of <code>fans</code> / <code>sensor</code></td>
+<td>done: captures/2026-10-21_sensor_timeseries_30min.txt</td>
 </tr>
 <tr>
 <td>7</td>
@@ -2056,19 +2069,19 @@ installed configuration and are not faults.</p>
 <td>SC-2</td>
 <td>Battery sensor name and entity</td>
 <td>SDR: "Planar VBAT", entity 7.1 (system board), number 0x1C (<span class="tl tl-measured">MEASURED</span>). <a class="sref" href="../catalog/sources.html#s-004">S-004</a> catalog: "CMOS Battery", event IDs 8001xx02-2801 = entity 0x28 (battery) instance 01</td>
-<td>partly resolved: the IMM log names the sensor "Planar VBAT" (SDR name, not "CMOS Battery") with the exact <a class="sref" href="../catalog/sources.html#s-004">S-004</a> message texts of 80010002/80010202/81010002/81010202-2801xxxx and severities W/E/I/I matching the catalog (<span class="tl tl-measured">MEASURED</span>, C-LOG #9, #10, #36, #46). The event ID itself is not printed by <code>readlog</code> in the capture, so whether the IMM uses entity 0x28 or 0x07 in it is <span class="tl tl-unknown">UNKNOWN</span> (ERROR_CODES Q-11)</td>
+<td>resolved 2026-10-21: the catalog form is the IMM 1.55 SDR ("CMOS Battery", entity 0x28.1, section 8, <span class="tl tl-extracted">EXTRACTED</span>), the live 1.30 IMM logs 0701 (ERROR_CODES 15.7). Earlier note: the IMM log names the sensor "Planar VBAT" (SDR name, not "CMOS Battery") with the exact <a class="sref" href="../catalog/sources.html#s-004">S-004</a> message texts of 80010002/80010202/81010002/81010202-2801xxxx and severities W/E/I/I matching the catalog (<span class="tl tl-measured">MEASURED</span>, C-LOG #9, #10, #36, #46). The event ID itself is not printed by <code>readlog</code> in the capture, so whether the IMM uses entity 0x28 or 0x07 in it is <span class="tl tl-unknown">UNKNOWN</span> (ERROR_CODES Q-11)</td>
 </tr>
 <tr>
 <td>SC-3</td>
 <td>SEL Fullness state vs SEL</td>
 <td>SEL Fullness reads 0x0080 (no offset asserted) while <code>sel info</code> reports 100% used, Overflow true, and SEL entries 0x181 "Log almost full" and 0x200 "Log full" were asserted. C-V (2026-10-20): sensor 0xB6, entity 33.1, assertions enabled for "Log area reset/cleared", "Log full", "Log almost full", no state asserted</td>
-<td>not resolved; <span class="tl tl-candidate">CANDIDATE</span>: the IMM generates the SEL-full events without keeping the sensor state, reason: all other event-style sensors (Progress, Host Power) also read 0x0080. It is a normal (non event-only) record: <code>sdr elist event</code> is empty (C-V)</td>
+<td>not resolved; <span class="tl tl-candidate">CANDIDATE</span>: the IMM generates the SEL-full events without keeping the sensor state, reason: all other event-style sensors (Progress, Host Power) also read 0x0080. It is a normal (non event-only) record: <code>sdr elist event</code> is empty (C-V). Raw SDR 2026-10-21: the record's discrete reading mask is 0x0034 (offsets 02, 04, 05), so the SDR itself declares "Log full" readable; the empty state is runtime behaviour of the IMM, not an SDR limit (<span class="tl tl-measured">MEASURED</span>); the record is byte-identical in the IMM 1.55 platform SDR</td>
 </tr>
 <tr>
 <td>SC-4</td>
 <td>Power Unit redundancy state</td>
 <td>Power Unit (0x08/0x0B, entity 0x13/0x81) reads 0x0080 with one supply installed; a redundancy sensor would be expected to assert a non-redundant offset (03/04/05). C-V: number 0x7F, entity 19.1, assertions enabled only for "Fully Redundant" and "Redundancy Lost" (offsets 00, 01), no state asserted</td>
-<td>not resolved; <span class="tl tl-candidate">CANDIDATE</span>: redundancy is evaluated only with two supplies installed; the SDR does not even enable the non-redundant offsets 03-05 (<span class="tl tl-measured">MEASURED</span>), so the IMM cannot report "non-redundant" through this sensor</td>
+<td>not resolved; <span class="tl tl-candidate">CANDIDATE</span>: redundancy is evaluated only with two supplies installed; the SDR does not even enable the non-redundant offsets 03-05 (<span class="tl tl-measured">MEASURED</span>), so the IMM cannot report "non-redundant" through this sensor. Raw SDR 2026-10-21 confirms: assertion and reading mask 0x0003 (offsets 00/01 only), entity instance stored as 0x81 (logical); identical record in the IMM 1.55 platform SDR (<span class="tl tl-extracted">EXTRACTED</span>), so a firmware update would not change it; entity association: power unit 19.1 contains power supplies 10.1-10.2</td>
 </tr>
 <tr>
 <td>SC-5</td>
@@ -2080,7 +2093,7 @@ installed configuration and are not faults.</p>
 <td>SC-6</td>
 <td>Fault sensors of the absent supply report OK</td>
 <td>Power Supply 1 reads na, FRU 1 not present, but PS 1 Fan/Therm/OP/12V OV/UV/OC/VCO Fault all read 0x0180 (offset 00 "transition to OK")</td>
-<td>not resolved; <span class="tl tl-candidate">CANDIDATE</span>: these severity sensors are defaulted to OK by the IMM, not measured from a supply; they carry no information about bay 1</td>
+<td>partly resolved: the raw SDR (2026-10-21) shows that the discrete reading mask of these sensors includes offset 00 "transition to OK" (PS 1 Fan/Therm Fault 0x0005, PS1 12V OV Fault 0x0041), so the IMM reports the OK offset as the idle state; the sensors are not disabled when the supply is absent (<span class="tl tl-candidate">CANDIDATE</span>: no entity-presence gating). They carry no information about bay 1</td>
 </tr>
 <tr>
 <td>SC-7</td>
@@ -2092,13 +2105,13 @@ installed configuration and are not faults.</p>
 <td>SC-8</td>
 <td>IMM system state</td>
 <td><code>syshealth</code> "State Booting OS" while Proxmox is running; Progress sensor shows no state</td>
-<td>not resolved; <span class="tl tl-candidate">CANDIDATE</span>: no OS-side agent or watchdog reports "OS booted" to the IMM v1</td>
+<td>explained (<span class="tl tl-documented">DOCUMENTED</span> state text, <span class="tl tl-candidate">CANDIDATE</span> mechanism): IMM I User's Guide 6th ed. (<a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/47c9202.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/47c9202.pdf</a>, Ch.5 p.103) names the state "Booting OS or in unsupported OS" - the server "might be in the operating system if the operating system is not configured to support the in-band interface to the IMM"; the in-band interface is LAN over USB (Ch.6 p.121, IMM 169.254.95.118). Lenovo IMM2 docs (<a href="https://pubs.lenovo.com/x3550-m4/t_logging_web_interface" rel="noopener">https://pubs.lenovo.com/x3550-m4/t_logging_web_interface</a>) state that the state changes to "OS booted" once ICMP over that link succeeds. The host's LAN-over-USB interface (cdc_ether, enx5ef3fce08adf) is DOWN with no address (captures/2026-10-21_host_readonly_misc.txt, <span class="tl tl-measured">MEASURED</span>), so <span class="tl tl-candidate">CANDIDATE</span>: the IMM never reaches the OS and stays at "Booting OS"; not the IPMI watchdog. Bringing the link up would change host networking (owner decision)</td>
 </tr>
 <tr>
 <td>SC-9</td>
 <td>Idle state of severity sensors</td>
 <td>Severity (0x07) sensors Planar Fault, Pwr Rail A-E, PS faults, CPU 1 OverTemp, IOH Temp Status, DIMM 3 Temp read 0x0180 (offset 00 OK); VT Fault and Sys Board Fault, same reading type and entity 0x07, read 0x0080 (no state). C-V (2026-10-20) shows the same split: the first group asserts "Transition to OK", VT Fault (enables only "Transition to Non-recoverable") and Sys Board Fault (enables only "Transition to Critical from less severe") assert nothing; absent DIMM n Temp sensors also assert nothing</td>
-<td>not a fault indication; why some severity sensors never set offset 00 is <span class="tl tl-unknown">UNKNOWN</span> (the enable masks of both groups contain no OK offset, so the masks do not explain it)</td>
+<td>not a fault indication; explained by the raw SDR (2026-10-21, <span class="tl tl-measured">MEASURED</span>): the discrete reading mask contains offset 00 for the first group (Planar Fault 0x0005, Pwr Rail A Fault 0x0041, CPU 1 OverTemp and IOH Temp Status 0x000D, DIMM n Temp 0x0017, PS faults 0x0005/0x0041) but not for VT Fault (0x0040) and Sys Board Fault (0x0004), so only the first group can show "Transition to OK". Absent DIMM n Temp sensors are presumably not scanned (<span class="tl tl-candidate">CANDIDATE</span>)</td>
 </tr>
 <tr>
 <td>SC-11</td>
@@ -2138,13 +2151,13 @@ excluded.</p>
 <td>Q-S2</td>
 <td>Full SDR fields: sensor type, event/reading type, assertion/deassertion masks, readable/settable thresholds, hysteresis, nominal reading, M/B/R conversion factors, sensor initialization flags</td>
 <td><code>ipmitool -v sdr list all</code> (equivalently <code>ipmitool sdr -v</code>); <code>ipmitool sdr info</code> (record count, SDR version, last update)</td>
-<td>mostly done: <code>sdr info</code> (C-W2) and the <code>-v</code> dump (C-V, sections 4.1 and 13) give sensor type, assertion/deassertion masks, readable/settable thresholds, hysteresis, nominal and normal range. Still open: the event/reading type code of discrete records, M/B/R conversion factors and sensor initialization flags, which ipmitool -v does not print (needs the raw records, Q-S3)</td>
+<td>resolved 2026-10-21 by the raw dump (Q-S3, section 13.3: event/reading type, reading masks, M/B/R, init flags of all records). Earlier status: mostly done: <code>sdr info</code> (C-W2) and the <code>-v</code> dump (C-V, sections 4.1 and 13) give sensor type, assertion/deassertion masks, readable/settable thresholds, hysteresis, nominal and normal range. Still open: the event/reading type code of discrete records, M/B/R conversion factors and sensor initialization flags, which ipmitool -v does not print (needs the raw records, Q-S3)</td>
 </tr>
 <tr>
 <td>Q-S3</td>
 <td>Raw SDR repository for offline decode and diff after firmware updates</td>
-<td><code>ipmitool sdr dump captures/&lt;date&gt;_sdr.bin</code> (writes a local file only)</td>
-<td>open (not run); would show the 69 records that neither <code>elist all</code> nor <code>-v sdr list all</code> prints (section 2.1) and the raw fields of Q-S2</td>
+<td><code>ipmitool sdr dump &lt;file&gt;</code> (writes a local file only)</td>
+<td>resolved 2026-10-21: captures/2026-10-21_sdr_raw_dump.txt (hex dump + decode + comparison with the IMM 1.10/1.55 platform SDR files), section 13.3</td>
 </tr>
 <tr>
 <td>Q-S4</td>
@@ -2167,7 +2180,7 @@ excluded.</p>
 <tr>
 <td>Q-S7</td>
 <td>Fan control behaviour and zone mapping</td>
-<td>repeated <code>ipmitool sensor</code> and CLI <code>fans</code>/<code>temps</code> at intervals (e.g. 10 samples over 30 min, idle vs load)</td>
+<td>partly done 2026-10-21: 60 samples over 30 min, load 1.8-12.7, fans steady (captures/2026-10-21_sensor_timeseries_30min.txt); open: zone-to-fan mapping and behaviour at higher ambient</td>
 <td>section 5.2, finding 6</td>
 </tr>
 <tr>
@@ -3737,6 +3750,38 @@ prints "Event Status: Unavailable". Changes since 2026-10-19 (C-IPMI): Drive 1 [
 <li>PCI 1-5 share entity 48.1 (0x30/01) and differ only by sensor number (0xC4-0xC8), consistent with the single
   catalog ID 806f0021-3001 for all five.</li>
 </ul>
+<h3 id="133-raw-sdr-dump-2026-10-21-measured-and-firmware-sdr-files-extracted">13.3 Raw SDR dump 2026-10-21 (<span class="tl tl-measured">MEASURED</span>) and firmware SDR files (<span class="tl tl-extracted">EXTRACTED</span>) <a class="anchor" href="#133-raw-sdr-dump-2026-10-21-measured-and-firmware-sdr-files-extracted" aria-label="Link to this section">#</a></h3>
+<p>Source: captures/2026-10-21_sdr_raw_dump.txt (<code>ipmitool sdr dump</code> in-band, read-only; 8010 bytes; hex dump, offline
+decode of every record, comparison with the IMM firmware SDR files in build/, extracted with scripts/ibm_fw_unpack.py).</p>
+<ul>
+<li>Record types: 229 = 13 full (01h) + 122 compact (02h) + 24 FRU locator (11h) + 1 MC locator (12h) + 8 entity
+  association (08h) + 61 OEM (C0h). ipmitool prints the first four kinds (160 lines); the last two are the 69
+  unprinted records of section 2.1.</li>
+<li>OEM records: manufacturer ID 0x004F4D = 20301 (IBM), sub-type 0xED, each naming one light-path LED: Fault, Info,
+  CPU, PS, DASD, FAN, DIMM, NMI, OVER SPEC, TEMP, SP, Identify, PCI, CPU 1-2, FAN 1-3, DIMM 1-18, Channel A-E, CNFG,
+  LOG, RAID, Planar, Riser 1-2, Battery, PCI 1-4, SAS MISSING, SAS ERR, BRD, VRM, LINK, BMC Heartbeat, Power (plus two
+  0xEE records). The list equals, name for name and in order, the WS-Man GetVirtualLightPath list
+  (captures/2026-10-21_imm_wsman_read_inventory.txt). The inner field layout is undocumented.</li>
+<li>Entity associations: cooling unit 30.n contains fan 29.n (n = 1..3: each "Cooling Zone n" is exactly one fan
+  module); power unit 19.1 contains power supplies 10.1-10.2; group entity 0x25 instance 1 contains DIMMs 32.1-32.16,
+  instance 3 drive bays 4.0-4.11, instance 4 processors 3.1-3.2, instance 2 entity 0x30 instance 1.</li>
+<li>Raw fields not printed by ipmitool -v: init flags 0x7F (full) / 0x67 (compact); discrete reading masks (used in
+  SC-3, SC-6, SC-9); logical entity instances stored with bit 7 set (Power Unit and Host Power 19.0x81, group entity
+  0x25.0x8n), which is why the IMM event IDs carry 81/8n (section 13.2 <span class="tl tl-candidate">CANDIDATE</span> now <span class="tl tl-measured">MEASURED</span> at the SDR level);
+  conversion factors, e.g. Planar VBAT M=127, R exponent -4 (0.0127 V/count; lc raw 0xA5 = 2.0955 V, lnc raw 0xB1 =
+  2.2479 V), fan tachs M=29 ("A") / M=25 ("B") RPM per count, Avg Power M=10 W, Altitude M=40 ft, Ambient Temp M=1
+  B=-132.</li>
+<li>Platform: the IMM selects its SDR file per platform. IMM 1.55 etc/vpd_list maps VPD 0x0050 / POS 0x0002 to
+  vpd-highvol.sh, which picks victory_ref when the riser-type GPIO reads 0 and the planar ID is 4 (destiny/destiny_ref
+  for the other riser type). The FRU 0 Board Extra values 0002 and 0050 of this server equal that POS/VPD pair
+  (<span class="tl tl-candidate">CANDIDATE</span> meaning of those fields). Name-set comparison against all 30 platform files of IMM 1.55: best match
+  var/bmc/victory_ref/victory_ref.sdrdat (<span class="tl tl-extracted">EXTRACTED</span>).</li>
+<li>Identity: 228 of the 229 live records are byte-identical to the IMM 1.55 victory_ref file; the only difference is
+  Planar VBAT -&gt; CMOS Battery (section 8). Against IMM 1.10 victory_ref, 1.30 adds PS 1/2 OP Fault, adds offset 06 to
+  the Power Supply n masks (0x000B -&gt; 0x004B) and offset 03 to the DIMM masks (0x00B2 -&gt; 0x00BA), and sets bit 7 on the
+  Power Unit / Host Power instances. So an IMM update from 1.30 to 1.55 changes only the battery sensor and adds three
+  sensors (<span class="tl tl-extracted">EXTRACTED</span>).</li>
+</ul>
 </div>
 </article>
 <nav class="pager" aria-label="Previous and next">
@@ -3744,9 +3789,9 @@ prints "Event Status: Unavailable". Changes since 2026-10-19 (C-IPMI): Drive 1 [
 <a class="next" href="imm-architecture.html"><span>Next</span>IMM (v1) Architecture</a>
 </nav>
 </main>
-<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#table-of-contents">Table of contents</a></li><li class="l2"><a href="#1-sources-conventions-and-truth-levels">1. Sources, conventions and truth levels</a></li><li class="l2"><a href="#2-capture-summary">2. Capture summary</a></li><li class="l3"><a href="#21-second-snapshot-2026-10-20-c-w2-measured">2.1 Second snapshot 2026-10-20 (C-W2, MEASURED)</a></li><li class="l2"><a href="#3-how-to-read-the-values-columns-threshold-names-discrete-state-bytes">3. How to read the values (columns, threshold names, discrete state bytes)</a></li><li class="l3"><a href="#31-ipmitool-sensor-columns-measured-layout">3.1 ipmitool sensor columns (MEASURED layout)</a></li><li class="l3"><a href="#32-threshold-names-across-interfaces">3.2 Threshold names across interfaces</a></li><li class="l3"><a href="#33-discrete-sensor-columns">3.3 Discrete sensor columns</a></li><li class="l2"><a href="#4-threshold-analog-sensors">4. Threshold (analog) sensors</a></li><li class="l3"><a href="#41-full-threshold-records-c-v-measured-2026-10-20-2105">4.1 Full threshold records (C-V, MEASURED 2026-10-20 ~21:05)</a></li><li class="l2"><a href="#5-fans-and-cooling-zones">5. Fans and cooling zones</a></li><li class="l3"><a href="#51-fan-sensor-set">5.1 Fan sensor set</a></li><li class="l3"><a href="#52-zone-decode">5.2 Zone decode</a></li><li class="l2"><a href="#6-discrete-sensors---decoding-reference">6. Discrete sensors - decoding reference</a></li><li class="l3"><a href="#61-generic-reading-types">6.1 Generic reading types</a></li><li class="l3"><a href="#62-sensor-specific-reading-type-0x6f-offsets-used-on-this-server">6.2 Sensor-specific (reading type 0x6F) offsets used on this server</a></li><li class="l2"><a href="#7-discrete-sensors---measured-states">7. Discrete sensors - measured states</a></li><li class="l3"><a href="#71-presence-risers-and-connectors">7.1 Presence, risers and connectors</a></li><li class="l3"><a href="#72-processor-chipset-and-temperature-status">7.2 Processor, chipset and temperature status</a></li><li class="l3"><a href="#73-memory">7.3 Memory</a></li><li class="l3"><a href="#74-power">7.4 Power</a></li><li class="l3"><a href="#75-drives">7.5 Drives</a></li><li class="l3"><a href="#76-pci">7.6 PCI</a></li><li class="l3"><a href="#77-firmware-system-and-logging">7.7 Firmware, system and logging</a></li><li class="l2"><a href="#8-sensors-in-the-event-catalog-but-not-in-the-sdr-and-the-reverse">8. Sensors in the event catalog but not in the SDR (and the reverse)</a></li><li class="l2"><a href="#9-mapping-to-light-path-leds-and-imm-events">9. Mapping to light path LEDs and IMM events</a></li><li class="l2"><a href="#10-abnormal-readings-and-findings">10. Abnormal readings and findings</a></li><li class="l2"><a href="#11-contradictions">11. Contradictions</a></li><li class="l2"><a href="#12-open-questions--next-captures">12. Open questions / next captures</a></li><li class="l2"><a href="#13-verbose-sdr-dump-2026-10-20-all-135-sensors">13. Verbose SDR dump 2026-10-20 (all 135 sensors)</a></li><li class="l3"><a href="#131-record-table">13.1 Record table</a></li><li class="l3"><a href="#132-comparison-with-the-catalog-derived-values-of-section-7">13.2 Comparison with the catalog-derived values of section 7</a></li></ul></nav></aside>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#table-of-contents">Table of contents</a></li><li class="l2"><a href="#1-sources-conventions-and-truth-levels">1. Sources, conventions and truth levels</a></li><li class="l2"><a href="#2-capture-summary">2. Capture summary</a></li><li class="l3"><a href="#21-second-snapshot-2026-10-20-c-w2-measured">2.1 Second snapshot 2026-10-20 (C-W2, MEASURED)</a></li><li class="l2"><a href="#3-how-to-read-the-values-columns-threshold-names-discrete-state-bytes">3. How to read the values (columns, threshold names, discrete state bytes)</a></li><li class="l3"><a href="#31-ipmitool-sensor-columns-measured-layout">3.1 ipmitool sensor columns (MEASURED layout)</a></li><li class="l3"><a href="#32-threshold-names-across-interfaces">3.2 Threshold names across interfaces</a></li><li class="l3"><a href="#33-discrete-sensor-columns">3.3 Discrete sensor columns</a></li><li class="l2"><a href="#4-threshold-analog-sensors">4. Threshold (analog) sensors</a></li><li class="l3"><a href="#41-full-threshold-records-c-v-measured-2026-10-20-2105">4.1 Full threshold records (C-V, MEASURED 2026-10-20 ~21:05)</a></li><li class="l2"><a href="#5-fans-and-cooling-zones">5. Fans and cooling zones</a></li><li class="l3"><a href="#51-fan-sensor-set">5.1 Fan sensor set</a></li><li class="l3"><a href="#52-zone-decode">5.2 Zone decode</a></li><li class="l2"><a href="#6-discrete-sensors---decoding-reference">6. Discrete sensors - decoding reference</a></li><li class="l3"><a href="#61-generic-reading-types">6.1 Generic reading types</a></li><li class="l3"><a href="#62-sensor-specific-reading-type-0x6f-offsets-used-on-this-server">6.2 Sensor-specific (reading type 0x6F) offsets used on this server</a></li><li class="l2"><a href="#7-discrete-sensors---measured-states">7. Discrete sensors - measured states</a></li><li class="l3"><a href="#71-presence-risers-and-connectors">7.1 Presence, risers and connectors</a></li><li class="l3"><a href="#72-processor-chipset-and-temperature-status">7.2 Processor, chipset and temperature status</a></li><li class="l3"><a href="#73-memory">7.3 Memory</a></li><li class="l3"><a href="#74-power">7.4 Power</a></li><li class="l3"><a href="#75-drives">7.5 Drives</a></li><li class="l3"><a href="#76-pci">7.6 PCI</a></li><li class="l3"><a href="#77-firmware-system-and-logging">7.7 Firmware, system and logging</a></li><li class="l2"><a href="#8-sensors-in-the-event-catalog-but-not-in-the-sdr-and-the-reverse">8. Sensors in the event catalog but not in the SDR (and the reverse)</a></li><li class="l2"><a href="#9-mapping-to-light-path-leds-and-imm-events">9. Mapping to light path LEDs and IMM events</a></li><li class="l2"><a href="#10-abnormal-readings-and-findings">10. Abnormal readings and findings</a></li><li class="l2"><a href="#11-contradictions">11. Contradictions</a></li><li class="l2"><a href="#12-open-questions--next-captures">12. Open questions / next captures</a></li><li class="l2"><a href="#13-verbose-sdr-dump-2026-10-20-all-135-sensors">13. Verbose SDR dump 2026-10-20 (all 135 sensors)</a></li><li class="l3"><a href="#131-record-table">13.1 Record table</a></li><li class="l3"><a href="#132-comparison-with-the-catalog-derived-values-of-section-7">13.2 Comparison with the catalog-derived values of section 7</a></li><li class="l3"><a href="#133-raw-sdr-dump-2026-10-21-measured-and-firmware-sdr-files-extracted">13.3 Raw SDR dump 2026-10-21 (MEASURED) and firmware SDR files (EXTRACTED)</a></li></ul></nav></aside>
 </div>
-<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:54 UTC from commit <code>919a212665cc</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 11:31 UTC from commit <code>80d508298327</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
 <script src="../assets/library.js"></script>
 </body>
 </html>

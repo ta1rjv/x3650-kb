@@ -84,9 +84,9 @@
 <h1>UEFI Firmware</h1>
 <p class="subtitle">IBM System x3650 M3 (7945KEG) - UEFI Firmware</p>
 <p class="lede">UEFI architecture and POST flow, the Setup menu tree and options, ASU setting names and values, operating modes, and an image analysis of UEFI 1.22 (D6E164A) against 1.14 (D6E156B) including the microcode list. Rules: docs/AGENT.md (every fact has a source ...</p>
-<p class="meta"><span class="source">source: <code>docs/X3650M3_UEFI.md</code></span> <span>14 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">39</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">8</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">26</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">33</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">12</span></span></p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_UEFI.md</code></span> <span>14 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">51</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">8</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">28</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">37</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">10</span></span></p>
 </header>
-<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary">1. Summary</a></li><li class="l2"><a href="#2-architecture-and-post-flow">2. Architecture and POST flow</a></li><li class="l2"><a href="#3-firmware-banks-recovery-and-jumpers">3. Firmware banks, recovery and jumpers</a></li><li class="l2"><a href="#4-setup-utility-menu-tree">4. Setup utility menu tree</a></li><li class="l2"><a href="#5-setup-forms-and-options-from-extracted-hii-forms">5. Setup forms and options (from extracted HII forms)</a></li><li class="l2"><a href="#6-operating-modes">6. Operating modes</a></li><li class="l2"><a href="#7-asu-settings-s-026-and-the-setup-xml">7. ASU settings (S-026) and the setup XML</a></li><li class="l2"><a href="#8-image-analysis-122-versus-114">8. Image analysis: 1.22 versus 1.14</a></li><li class="l3"><a href="#81-image-analysis-122-versus-installed-113-d6e154a">8.1 Image analysis: 1.22 versus installed 1.13 (D6E154A)</a></li><li class="l2"><a href="#9-microcode">9. Microcode</a></li><li class="l2"><a href="#10-source-conflicts">10. Source conflicts</a></li><li class="l2"><a href="#11-open-questions--unknown">11. Open questions / UNKNOWN</a></li><li class="l2"><a href="#12-live-uefi-variables-on-the-owners-server-2026-10-21">12. Live UEFI variables on the owner&#x27;s server (2026-10-21)</a></li><li class="l3"><a href="#121-boot-manager-variables">12.1 Boot manager variables</a></li><li class="l3"><a href="#122-secure-boot">12.2 Secure Boot</a></li><li class="l3"><a href="#123-console-variables-evidence-for-the-2026-10-20-console-redirection-change">12.3 Console variables (evidence for the 2026-10-20 console-redirection change)</a></li><li class="l3"><a href="#124-vendor-variable-groups">12.4 Vendor variable groups</a></li><li class="l3"><a href="#125-identity-strings">12.5 Identity strings</a></li><li class="l3"><a href="#126-redacted-variables">12.6 Redacted variables</a></li><li class="l2"><a href="#appendix-a-full-asu-setting-table-uefi-122">Appendix A. Full ASU setting table (UEFI 1.22)</a></li><li class="l3"><a href="#a1-top-level-settings">A.1 Top-level settings</a></li><li class="l3"><a href="#a2-sub-settings-uefi-122">A.2 Sub-settings (UEFI 1.22)</a></li></ul></nav></details>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary">1. Summary</a></li><li class="l2"><a href="#2-architecture-and-post-flow">2. Architecture and POST flow</a></li><li class="l2"><a href="#3-firmware-banks-recovery-and-jumpers">3. Firmware banks, recovery and jumpers</a></li><li class="l2"><a href="#4-setup-utility-menu-tree">4. Setup utility menu tree</a></li><li class="l2"><a href="#5-setup-forms-and-options-from-extracted-hii-forms">5. Setup forms and options (from extracted HII forms)</a></li><li class="l2"><a href="#6-operating-modes">6. Operating modes</a></li><li class="l2"><a href="#7-asu-settings-s-026-and-the-setup-xml">7. ASU settings (S-026) and the setup XML</a></li><li class="l2"><a href="#8-image-analysis-122-versus-114">8. Image analysis: 1.22 versus 1.14</a></li><li class="l3"><a href="#81-image-analysis-122-versus-installed-113-d6e154a">8.1 Image analysis: 1.22 versus installed 1.13 (D6E154A)</a></li><li class="l2"><a href="#9-microcode">9. Microcode</a></li><li class="l2"><a href="#10-source-conflicts">10. Source conflicts</a></li><li class="l2"><a href="#11-open-questions--unknown">11. Open questions / UNKNOWN</a></li><li class="l2"><a href="#12-live-uefi-variables-on-the-owners-server-2026-10-21">12. Live UEFI variables on the owner&#x27;s server (2026-10-21)</a></li><li class="l3"><a href="#121-boot-manager-variables">12.1 Boot manager variables</a></li><li class="l3"><a href="#122-secure-boot">12.2 Secure Boot</a></li><li class="l3"><a href="#123-console-variables-evidence-for-the-2026-10-20-console-redirection-change">12.3 Console variables (evidence for the 2026-10-20 console-redirection change)</a></li><li class="l3"><a href="#124-vendor-variable-groups">12.4 Vendor variable groups</a></li><li class="l3"><a href="#125-identity-strings">12.5 Identity strings</a></li><li class="l3"><a href="#126-redacted-variables">12.6 Redacted variables</a></li><li class="l3"><a href="#127-setup-variable-decoded-at-the-113-ifr-offsets-2026-10-21">12.7 Setup variable decoded at the 1.13 IFR offsets (2026-10-21)</a></li><li class="l2"><a href="#appendix-a-full-asu-setting-table-uefi-122">Appendix A. Full ASU setting table (UEFI 1.22)</a></li><li class="l3"><a href="#a1-top-level-settings">A.1 Top-level settings</a></li><li class="l3"><a href="#a2-sub-settings-uefi-122">A.2 Sub-settings (UEFI 1.22)</a></li></ul></nav></details>
 <div class="prose">
 <p>Scope: UEFI architecture and POST flow, the Setup menu tree and options, ASU setting names and values, operating
 modes, and an image analysis of UEFI 1.22 (D6E164A) against 1.14 (D6E156B) including the microcode list.
@@ -399,8 +399,14 @@ v9.30 guide, "uEFI settings in an IMMv1 system", printed pp.23-24) lists the mri
 guide, printed pp.73-74, "Configuring iSCSI") documents the <code>iSCSI.</code> prefix and instance suffixes such as
 <code>iSCSI.AttemptName.1</code>; the v9.30 list also shows <code>.1</code> instance suffixes (<code>uEFI.OnboardDeviceEnable.1</code>). Applying the
 rule to names that do not appear in <a class="sref" href="../catalog/sources.html#s-026">S-026</a> is <span class="tl tl-candidate">CANDIDATE</span>; the <code>PXE.</code> prefix is <span class="tl tl-candidate">CANDIDATE</span> (from the XML only).
-<code>protected="true"</code> is set on 134 top-level settings (also 134 in 1.14); its meaning is <span class="tl tl-unknown">UNKNOWN</span> (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> v10.6 text
-lines 3498-3552 discuss hidden and read-only settings but do not define the attribute).</p>
+<code>protected="true"</code> is set on 134 top-level settings (also 134 in 1.14). <a class="sref" href="../catalog/sources.html#s-026">S-026</a> (v10.6 text lines 3498-3552) discusses
+hidden and read-only settings but does not define the attribute. Meaning on the installed build (<span class="tl tl-candidate">CANDIDATE</span>, strong):
+"not exposed through ASU". Evidence: the 1.13 setup XML (build/uefi113 leaf 002_FREEFORM_92217677-...) compared with
+the live <code>asu64 showvalues uEFI --kcs</code> list (captures/2026-10-21_asu_showvalues_uefi.txt, <span class="tl tl-measured">MEASURED</span> 2026-10-21):
+every one of the 78 base names ASU lists is an unprotected setting or sub-setting except PcieAspm0..10 (protected
+sub-settings of PowerSchemes, listed anyway); none of the 443 other protected entries of the uEFI config appears in
+ASU, and only 4 unprotected names are missing from ASU (IPv6Support, Thermal_Mode, WatchdogTimerOsLoader,
+WatchdogTimerOsLoaderValue). This includes <code>uEFI.solan</code> (protected, not listed).</p>
 <p>Group counts: DateTimeOptions 1, BootOptions 2, ProcessorConfiguration 62, MemoryConfiguration 21,
 DeviceConfiguration 2, PlanarDevices 5, SystemCDROM_DVD 1, ConsoleRedirection 9, Com1 7, Com2 8, PowerSchemes 3,
 iBMCSettings 2, LegacyConfiguration 6, TPMConfiguration 1, CSIConfiguration 9, IOH Tylersburg 7 plus VTD 1,
@@ -890,7 +896,7 @@ MemorySubClass 9536 -&gt; 9568, AcpiPlatform 32640 -&gt; 32672, HiiDatabase 4726
 LegacyBiosPlatform 33696 -&gt; 33728, PlatformCapabilitiesDriver 2912 -&gt; 2944, FPMTcontrolModule 9184 -&gt; 9216; same size:
 PciBus (27679 differ), IbmCapabilitiesDriver (3424), PxeConfig (1912), PlatformBST (103), SpdMgm (97), AcpiVTD (68),
 PlatformInfo PEIM (66), PciPlatform (66), PlatformType (65). Not disassembled; reasons for the changes are <span class="tl tl-unknown">UNKNOWN</span>
-beyond the .chg entries below.</p>
+beyond the .chg entries below (needs per-module disassembly; not done in the 2026-10-21 pass).</p>
 <p>Change history 1.14..1.22 (ibm_fw_uefi_d6e164a-1.22_anyos_i386.chg, SHA256 7c8dc54b...c1f36, <span class="tl tl-documented">DOCUMENTED</span>; Sec =
 security relevance as judged here, <span class="tl tl-candidate">CANDIDATE</span> unless a CVE is given):</p>
 <div class="table-wrap"><table>
@@ -1016,16 +1022,30 @@ Signatures 0x106A4/5 are Nehalem-EP, 0x206C0/1/2 Westmere-EP steppings (CPU fami
 family 6 model 44 stepping 2, so CPUID 0x206C2; 4 logical CPUs in one package; the OS reports microcode 0x14. The
 matching update is 0x206C2: 1.14 ships 0x15, 1.22 ships 0x1F, so the OS-visible 0x14 is older than both (the machine
 runs UEFI D6E154A, whose image ships 0x206C2 rev 0x14, <span class="tl tl-extracted">EXTRACTED</span>, section 8.1; that the UEFI rather than an OS loader
-loaded it is <span class="tl tl-candidate">CANDIDATE</span>). The mapping of this
-CPU to the pf03 platform-ID mask was not verified (<span class="tl tl-candidate">CANDIDATE</span>).</p>
+loaded it is <span class="tl tl-candidate">CANDIDATE</span>; the host has no intel-microcode package and the kernel log says "microcode: Current
+revision: 0x00000014" with no early update, <span class="tl tl-measured">MEASURED</span> 2026-10-21). Platform ID: the kernel reports
+<code>/sys/devices/system/cpu/cpu0/microcode/processor_flags</code> = 0x1, i.e. platform ID 0 (Linux exposes 1 &lt;&lt; platform_id),
+and the pf mask 0x03 of the 1.13/1.14/1.22 updates includes bit 0, so the 0x206C2 updates match this CPU (<span class="tl tl-measured">MEASURED</span>
+value + <span class="tl tl-candidate">CANDIDATE</span> rule; captures/2026-10-21_host_cpu_power_thermal_readonly.txt).</p>
 <h2 id="10-source-conflicts">10. Source conflicts <a class="anchor" href="#10-source-conflicts" aria-label="Link to this section">#</a></h2>
 <ul>
-<li>PackageCState (ACPI C-State limit) default in 1.22 (<span class="tl tl-extracted">EXTRACTED</span>): the setup XML and the Processors-page question
+<li>
+<p>PackageCState (ACPI C-State limit) default in 1.22 (<span class="tl tl-extracted">EXTRACTED</span>): the setup XML and the Processors-page question
   (qid 0x000F) default to ACPI C2, but the Operating Modes form question on the same varstore offset 0x0142 (qid
   0x0007) still defaults to ACPI C3, and the 1.22 mode summaries list "ACPI C3" for all modes. In 1.14 all three say
-  ACPI C3. Which default a "Load Default Settings" actually writes in 1.22 is <span class="tl tl-unknown">UNKNOWN</span>.</li>
-<li>Power C-States (<code>uEFI.ProcessorCcxEnable</code>) default in 1.14: form Enable, XML Disable (1.22: both Disable;
-  <span class="tl tl-extracted">EXTRACTED</span>, form-to-setting mapping <span class="tl tl-candidate">CANDIDATE</span>, section 5).</li>
+  ACPI C3. Which default a "Load Default Settings" actually writes in 1.22 is <span class="tl tl-unknown">UNKNOWN</span> (needs disassembly of the
+default-load code or a live test on 1.22; the live test is excluded by D-006). On the installed 1.13 there is no
+conflict: the IFR default of offset 0x0142 is ACPI C3 and ASU marks <code>&lt;ACPI C3&gt;</code> as default (captures/2026-10-21_asu_showvalues_uefi.txt,
+<span class="tl tl-measured">MEASURED</span>).</p>
+</li>
+<li>
+<p>Power C-States (<code>uEFI.ProcessorCcxEnable</code>) default in 1.14: form Enable, XML Disable (1.22: both Disable;
+  <span class="tl tl-extracted">EXTRACTED</span>, form-to-setting mapping <span class="tl tl-candidate">CANDIDATE</span>, section 5). The installed 1.13 has the same split: IFR question
+  "Power C-States" (offset 0x0141) default Enable, while ASU (XML-derived) marks <code>&lt;Disable&gt;</code> as default; the live
+  value is Disable (ASU show all 2026-10-20 and Setup byte 0x0141 = 0, section 12.7; <span class="tl tl-measured">MEASURED</span>). The same pattern
+  exists for Demand Scrub (IFR default Disable, ASU default Enable, live Enable). Which default "Load Default
+  Settings" writes is <span class="tl tl-unknown">UNKNOWN</span> (live test excluded by D-006).</p>
+</li>
 <li>Setup labels say "ICH10" while the XML groups say ICH9Devices; both refer to the same southbridge family
   (<span class="tl tl-candidate">CANDIDATE</span>, vendor naming inconsistency).</li>
 <li>Readme prerequisite IMM 1.07 versus XML preReq yuoo57h, which is IMM 1.10 (IMM 1.55 readme section 1.4): both
@@ -1048,22 +1068,28 @@ CPU to the pf03 platform-ID mask was not verified (<span class="tl tl-candidate"
 </ul>
 <h2 id="11-open-questions--unknown">11. Open questions / <span class="tl tl-unknown">UNKNOWN</span> <a class="anchor" href="#11-open-questions--unknown" aria-label="Link to this section">#</a></h2>
 <ul>
-<li>Meaning of <code>protected="true"</code> in the setup XML: <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>Meaning of <code>protected="true"</code> in the setup XML: answered as <span class="tl tl-candidate">CANDIDATE</span> (= not exposed through ASU; section 7).</li>
 <li><a class="sref" href="../catalog/sources.html#s-025">S-025</a> (.doc) has no local text copy; not used.</li>
 <li>IFR OR operators and conditions not rendered by the tool, so mode-to-summary assignment is <span class="tl tl-candidate">CANDIDATE</span>; the full
-  question visibility logic is not extracted.</li>
+  question visibility logic is not extracted (tool extension of scripts/uefi_fv.py not done in the 2026-10-21 pass).</li>
 <li>Forms for 1.14 were rendered only as a diff against 1.22; a Memory/Processors line-by-line reading beyond the
-  differences listed was not done.</li>
-<li>The 30 same-size leaf files with more than debug-directory differences and SecureCapsule (section 8): not analyzed.</li>
+  differences listed was not done (open, offline work; the 1.13 forms are rendered in build/uefi113/b/setup_forms.txt).</li>
+<li>The 30 same-size leaf files with more than debug-directory differences and SecureCapsule (section 8): not analyzed
+  (needs disassembly; open).</li>
 <li>Vendor typo in the setup XML: sub-setting ID PciRootPortURE[4] has mriName PciRootPortURE[1] (duplicate of root
-  port 2's name); the effective ASU name for root port 5 URR is <span class="tl tl-unknown">UNKNOWN</span>.</li>
-<li>Platform-ID match and loaded microcode revision on the live system: not verified.</li>
+  port 2's name); the effective ASU name for root port 5 URR is moot on the installed build: ASU 10.3 lists no
+  PciRootPortURE* setting at all on D6E154A (the ICH root-port sub-settings are protected, section 7; <span class="tl tl-measured">MEASURED</span>,
+  captures/2026-10-21_asu_showvalues_uefi.txt). The live value is readable from the Setup variable instead (root
+  port 5 URR, offset 0x01D0 = 0 = disabled, section 12.7). Still <span class="tl tl-unknown">UNKNOWN</span> for 1.22 (not installed).</li>
+<li>Platform-ID match and loaded microcode revision on the live system: resolved 2026-10-21 (section 9: processor_flags
+  0x1 matches pf 0x03; loaded 0x14, no OS microcode package; <span class="tl tl-measured">MEASURED</span>).</li>
 <li>Tool defects in <code>hii</code> and <code>microcode</code> are fixed; remaining tool limits: FORMATS doc section 10.</li>
 <li>IMM firmware internals and the stored NVRAM layout (IbmcIfrNVData semantics) are covered in
   docs/X3650M3_IMM_ARCHITECTURE.md or <span class="tl tl-unknown">UNKNOWN</span>.</li>
-<li>Live NVRAM (section 12): meaning of the System_Data fields (D6CP54A = CRTM build, section 10), of the IBM CFGBoot#### records,
-  of the one differing byte between Setup and TempSetup, and of the setup byte offsets in the 1.13 <code>Setup</code> variable
-  (1850 bytes, no 1.13 image extracted): <span class="tl tl-unknown">UNKNOWN</span> or <span class="tl tl-candidate">CANDIDATE</span>.</li>
+<li>Live NVRAM (section 12): the 1.13 <code>Setup</code> byte layout and the one differing Setup/TempSetup byte are resolved
+  (section 12.7, IFR offsets of the extracted 1.13 image). Still <span class="tl tl-unknown">UNKNOWN</span> or <span class="tl tl-candidate">CANDIDATE</span>: the field meanings of
+  System_Data (D6CP54A = CRTM build, section 10) and of the IBM CFGBoot#### records (not in any IFR varstore; needs
+  BDS disassembly).</li>
 </ul>
 <h2 id="12-live-uefi-variables-on-the-owners-server-2026-10-21">12. Live UEFI variables on the owner's server (2026-10-21) <a class="anchor" href="#12-live-uefi-variables-on-the-owners-server-2026-10-21" aria-label="Link to this section">#</a></h2>
 <p>Source unless noted: captures/2026-10-21_host_efivars_contents.txt (read-only dump of all 181 variables under
@@ -1237,8 +1263,9 @@ rewritten by ASU or by the boot (no capture between 23:12 and 08:16); console be
 </table></div>
 <p>Total 181 variables (85 + 73 + 6 + 5 + 12; <span class="tl tl-measured">MEASURED</span>). <code>Setup</code> (attributes 0x7) and <code>TempSetup</code> (0x6, volatile) are
 1850 data bytes each and differ in one byte (data offset 1520); both contain the ASCII strings <code>setp</code>, <code>REFD</code>,
-<code>CPU0</code> (<span class="tl tl-measured">MEASURED</span>). That <code>Setup</code> is the SYSTEM_CONFIGURATION varstore of the installed 1.13 is <span class="tl tl-candidate">CANDIDATE</span> (same GUID;
-1850 bytes against 1851 in 1.14 and 1854 in 1.22, section 1); its byte layout for 1.13 is <span class="tl tl-unknown">UNKNOWN</span>.</p>
+<code>CPU0</code> (<span class="tl tl-measured">MEASURED</span>). <code>Setup</code> is the SYSTEM_CONFIGURATION varstore of the installed 1.13: same GUID and same size
+(1850) as varstore 0x2008 in the extracted 1.13 image (1851 in 1.14, 1854 in 1.22); decoding it at the 1.13 IFR
+offsets reproduces 24+ values measured independently with ASU (section 12.7; <span class="tl tl-extracted">EXTRACTED</span> + <span class="tl tl-measured">MEASURED</span>).</p>
 <h3 id="125-identity-strings">12.5 Identity strings <a class="anchor" href="#125-identity-strings" aria-label="Link to this section">#</a></h3>
 <div class="table-wrap"><table>
 <thead>
@@ -1275,6 +1302,131 @@ only here).</p>
 <code>HDDP-fab7e9e1-39dd-4f2b-8408-e20e906cb6de</code> (file size 1036 bytes, i.e. 1032 data bytes, attributes 0x7) and
 <code>UnlockIDCopy-eaec226f-c9a3-477a-a826-ddc716cdc0e3</code> (32 data bytes, attributes 0x7). Their names suggest hard disk
 password data and an unlock identifier (<span class="tl tl-candidate">CANDIDATE</span>); their contents must not be copied into this repository.</p>
+<h3 id="127-setup-variable-decoded-at-the-113-ifr-offsets-2026-10-21">12.7 Setup variable decoded at the 1.13 IFR offsets (2026-10-21) <a class="anchor" href="#127-setup-variable-decoded-at-the-113-ifr-offsets-2026-10-21" aria-label="Link to this section">#</a></h3>
+<p>Source: captures/2026-10-21_uefi113_setup_variable_decode.txt (offline: Setup data byte at each varstore-0x2008
+question offset of build/uefi113/b/setup_forms.txt; full list of 263 questions there). Validation: OperatingMode,
+Turbo, TurboBoost, C1E, ACPI C-state limit, Power C-States, QPI and memory speed, channel mode, socket interleave,
+patrol/demand scrub, IDE mode, Quiet Boot, Hyper-Threading and all console-redirection values equal the ASU
+readings (<span class="tl tl-measured">MEASURED</span>); the layout is therefore <span class="tl tl-extracted">EXTRACTED</span> + <span class="tl tl-measured">MEASURED</span>. Values of questions that ASU does not expose
+(<span class="tl tl-measured">MEASURED</span> byte, <span class="tl tl-candidate">CANDIDATE</span> semantics where the IFR text is the only description):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>IFR question</th>
+<th>Live value</th>
+<th>IFR default</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x013F</td>
+<td>Performance States (EIST/P-states)</td>
+<td>Enable</td>
+<td>Enable</td>
+<td>not in ASU 1.13; consistent with acpi-cpufreq and the 8-entry _PSS (docs/X3650M3_SYSTEM_ARCHITECTURE.md 12)</td>
+</tr>
+<tr>
+<td>0x0141</td>
+<td>Power C-States (<code>uEFI.ProcessorCcxEnable</code>)</td>
+<td>Disable</td>
+<td>Enable</td>
+<td>no _CST in the ACPI tables; Linux intel_idle still uses C1-C6 via MWAIT</td>
+</tr>
+<tr>
+<td>0x0144 / 0x0145</td>
+<td>Report C6/ACPI C3 / Report C7/ACPI C3</td>
+<td>Enable / Disable</td>
+<td>Enable / Disable</td>
+<td></td>
+</tr>
+<tr>
+<td>0x023D</td>
+<td>VT-d</td>
+<td>Enable</td>
+<td>Disable</td>
+<td>kernel: DMAR table, "DMAR-IR: Enabled IRQ remapping", IOMMU groups (<span class="tl tl-measured">MEASURED</span>)</td>
+</tr>
+<tr>
+<td>0x014A</td>
+<td>Virtualization (VMX)</td>
+<td>Enable</td>
+<td>Enable</td>
+<td>= uEFI.ProcessorVmxEnable</td>
+</tr>
+<tr>
+<td>0x0152</td>
+<td>Machine Check</td>
+<td>Enable</td>
+<td>Disable</td>
+<td></td>
+</tr>
+<tr>
+<td>0x022D</td>
+<td>Error Injection, help "Enable/Disable WHEA Support" (= uEFI.WheaSupport)</td>
+<td>Disable</td>
+<td>Disable</td>
+<td></td>
+</tr>
+<tr>
+<td>0x0661</td>
+<td>Thermal Mode (Normal / Performance)</td>
+<td>Normal</td>
+<td>Normal</td>
+<td>unprotected, not listed by ASU</td>
+</tr>
+<tr>
+<td>0x069F / 0x06A0</td>
+<td>2DPC Max Frequency</td>
+<td>1066 MHz / Disable</td>
+<td>1333 MHz / Disable</td>
+<td>1333 at 2 DPC only with "2DPC@1333-Qualified DIMMs" (help text)</td>
+</tr>
+<tr>
+<td>0x059C / 0x059D</td>
+<td>Channel / Rank Interleaving</td>
+<td>6-way / 4-way</td>
+<td>same</td>
+<td></td>
+</tr>
+<tr>
+<td>0x05A4 / 0x0596</td>
+<td>Memory Page Policy / Data Scrambling</td>
+<td>Open / Disable</td>
+<td>same</td>
+<td></td>
+</tr>
+<tr>
+<td>0x013B / 0x013A</td>
+<td>Configure SATA as / IDE mode</td>
+<td>IDE / Compatibility</td>
+<td>IDE / Compatibility</td>
+<td>the only SATA-type option in 1.13 is "IDE" (help text mentions RAID/AHCI)</td>
+</tr>
+<tr>
+<td>0x01CC-0x01D1</td>
+<td>URR of ICH root ports 1-6</td>
+<td>0 (all)</td>
+<td>-</td>
+<td>the PciRootPortURE settings of the XML</td>
+</tr>
+<tr>
+<td>0x0126 / 0x0127</td>
+<td>TPM Device / TPM State</td>
+<td>Enable / Restore</td>
+<td>Disable / Disable</td>
+<td><span class="tl tl-candidate">CANDIDATE</span> semantics (no TPM device seen by the OS: not checked)</td>
+</tr>
+<tr>
+<td>0x05F0</td>
+<td>Legacy Serial Port Redirection</td>
+<td>Setup 3 "Pre &amp; Post Boot", TempSetup 0 "Disable"</td>
+<td>Disable</td>
+<td>the only Setup/TempSetup difference (section 12.4); cause <span class="tl tl-candidate">CANDIDATE</span>, see capture header</td>
+</tr>
+</tbody>
+</table></div>
 <h2 id="appendix-a-full-asu-setting-table-uefi-122">Appendix A. Full ASU setting table (UEFI 1.22) <a class="anchor" href="#appendix-a-full-asu-setting-table-uefi-122" aria-label="Link to this section">#</a></h2>
 <h3 id="a1-top-level-settings">A.1 Top-level settings <a class="anchor" href="#a1-top-level-settings" aria-label="Link to this section">#</a></h3>
 <p>Generated from the setup XML of the 1.22 package (<span class="tl tl-extracted">EXTRACTED</span>); the ASU name column is <code>&lt;config mriName&gt;.&lt;setting
@@ -3215,9 +3367,9 @@ means the attribute is absent.</p>
 <a class="next" href="firmware-formats.html"><span>Next</span>Firmware Package and Image Formats</a>
 </nav>
 </main>
-<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary">1. Summary</a></li><li class="l2"><a href="#2-architecture-and-post-flow">2. Architecture and POST flow</a></li><li class="l2"><a href="#3-firmware-banks-recovery-and-jumpers">3. Firmware banks, recovery and jumpers</a></li><li class="l2"><a href="#4-setup-utility-menu-tree">4. Setup utility menu tree</a></li><li class="l2"><a href="#5-setup-forms-and-options-from-extracted-hii-forms">5. Setup forms and options (from extracted HII forms)</a></li><li class="l2"><a href="#6-operating-modes">6. Operating modes</a></li><li class="l2"><a href="#7-asu-settings-s-026-and-the-setup-xml">7. ASU settings (S-026) and the setup XML</a></li><li class="l2"><a href="#8-image-analysis-122-versus-114">8. Image analysis: 1.22 versus 1.14</a></li><li class="l3"><a href="#81-image-analysis-122-versus-installed-113-d6e154a">8.1 Image analysis: 1.22 versus installed 1.13 (D6E154A)</a></li><li class="l2"><a href="#9-microcode">9. Microcode</a></li><li class="l2"><a href="#10-source-conflicts">10. Source conflicts</a></li><li class="l2"><a href="#11-open-questions--unknown">11. Open questions / UNKNOWN</a></li><li class="l2"><a href="#12-live-uefi-variables-on-the-owners-server-2026-10-21">12. Live UEFI variables on the owner&#x27;s server (2026-10-21)</a></li><li class="l3"><a href="#121-boot-manager-variables">12.1 Boot manager variables</a></li><li class="l3"><a href="#122-secure-boot">12.2 Secure Boot</a></li><li class="l3"><a href="#123-console-variables-evidence-for-the-2026-10-20-console-redirection-change">12.3 Console variables (evidence for the 2026-10-20 console-redirection change)</a></li><li class="l3"><a href="#124-vendor-variable-groups">12.4 Vendor variable groups</a></li><li class="l3"><a href="#125-identity-strings">12.5 Identity strings</a></li><li class="l3"><a href="#126-redacted-variables">12.6 Redacted variables</a></li><li class="l2"><a href="#appendix-a-full-asu-setting-table-uefi-122">Appendix A. Full ASU setting table (UEFI 1.22)</a></li><li class="l3"><a href="#a1-top-level-settings">A.1 Top-level settings</a></li><li class="l3"><a href="#a2-sub-settings-uefi-122">A.2 Sub-settings (UEFI 1.22)</a></li></ul></nav></aside>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary">1. Summary</a></li><li class="l2"><a href="#2-architecture-and-post-flow">2. Architecture and POST flow</a></li><li class="l2"><a href="#3-firmware-banks-recovery-and-jumpers">3. Firmware banks, recovery and jumpers</a></li><li class="l2"><a href="#4-setup-utility-menu-tree">4. Setup utility menu tree</a></li><li class="l2"><a href="#5-setup-forms-and-options-from-extracted-hii-forms">5. Setup forms and options (from extracted HII forms)</a></li><li class="l2"><a href="#6-operating-modes">6. Operating modes</a></li><li class="l2"><a href="#7-asu-settings-s-026-and-the-setup-xml">7. ASU settings (S-026) and the setup XML</a></li><li class="l2"><a href="#8-image-analysis-122-versus-114">8. Image analysis: 1.22 versus 1.14</a></li><li class="l3"><a href="#81-image-analysis-122-versus-installed-113-d6e154a">8.1 Image analysis: 1.22 versus installed 1.13 (D6E154A)</a></li><li class="l2"><a href="#9-microcode">9. Microcode</a></li><li class="l2"><a href="#10-source-conflicts">10. Source conflicts</a></li><li class="l2"><a href="#11-open-questions--unknown">11. Open questions / UNKNOWN</a></li><li class="l2"><a href="#12-live-uefi-variables-on-the-owners-server-2026-10-21">12. Live UEFI variables on the owner&#x27;s server (2026-10-21)</a></li><li class="l3"><a href="#121-boot-manager-variables">12.1 Boot manager variables</a></li><li class="l3"><a href="#122-secure-boot">12.2 Secure Boot</a></li><li class="l3"><a href="#123-console-variables-evidence-for-the-2026-10-20-console-redirection-change">12.3 Console variables (evidence for the 2026-10-20 console-redirection change)</a></li><li class="l3"><a href="#124-vendor-variable-groups">12.4 Vendor variable groups</a></li><li class="l3"><a href="#125-identity-strings">12.5 Identity strings</a></li><li class="l3"><a href="#126-redacted-variables">12.6 Redacted variables</a></li><li class="l3"><a href="#127-setup-variable-decoded-at-the-113-ifr-offsets-2026-10-21">12.7 Setup variable decoded at the 1.13 IFR offsets (2026-10-21)</a></li><li class="l2"><a href="#appendix-a-full-asu-setting-table-uefi-122">Appendix A. Full ASU setting table (UEFI 1.22)</a></li><li class="l3"><a href="#a1-top-level-settings">A.1 Top-level settings</a></li><li class="l3"><a href="#a2-sub-settings-uefi-122">A.2 Sub-settings (UEFI 1.22)</a></li></ul></nav></aside>
 </div>
-<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:54 UTC from commit <code>919a212665cc</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 11:31 UTC from commit <code>80d508298327</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
 <script src="../assets/library.js"></script>
 </body>
 </html>

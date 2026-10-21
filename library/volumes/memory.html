@@ -84,7 +84,7 @@
 <h1>Memory</h1>
 <p class="subtitle">IBM System x3650 M3 (7945KEG) - Memory</p>
 <p class="lede">DIMM slots and channels, population rules per mode, supported DIMM types, speed and voltage rules, RAS features, UEFI memory settings, the measured installed configuration and upgrade paths for the owner&#x27;s server. Rules: docs/AGENT.md (every fact has a source ...</p>
-<p class="meta"><span class="source">source: <code>docs/X3650M3_MEMORY.md</code></span> <span>15 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">30</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">64</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">18</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">21</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">13</span></span></p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_MEMORY.md</code></span> <span>15 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">40</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">69</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">18</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">30</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">12</span></span></p>
 </header>
 <details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary">1. Summary</a></li><li class="l2"><a href="#2-memory-subsystem-architecture">2. Memory subsystem architecture</a></li><li class="l2"><a href="#3-dimm-slot-map">3. DIMM slot map</a></li><li class="l3"><a href="#31-channel-and-cpu-assignment">3.1 Channel and CPU assignment</a></li><li class="l3"><a href="#32-non-mirroring-fill-order-round-robin-over-the-channels-farthest-first-not-stated">3.2 Non-mirroring fill order (round robin over the channels, farthest-first not stated)</a></li><li class="l3"><a href="#33-name-mapping-across-interfaces-measured-for-dimm03-rest-by-pattern">3.3 Name mapping across interfaces (MEASURED for DIMM03, rest by pattern)</a></li><li class="l2"><a href="#4-dimm-types-sizes-ranks-and-limits">4. DIMM types, sizes, ranks and limits</a></li><li class="l3"><a href="#41-general-rules">4.1 General rules</a></li><li class="l3"><a href="#42-maximum-capacity-table-s-002-table-9">4.2 Maximum capacity table (S-002 Table 9)</a></li><li class="l3"><a href="#43-orderable-options-s-001-table-6-memory-options">4.3 Orderable options (S-001 Table 6, &quot;Memory options&quot;)</a></li><li class="l2"><a href="#5-speed-and-voltage-rules">5. Speed and voltage rules</a></li><li class="l3"><a href="#51-speed-vs-dimms-per-channel-dpc">5.1 Speed vs DIMMs per channel (DPC)</a></li><li class="l3"><a href="#52-1333-mhz-at-2-dpc-s-002-bullet">5.2 1333 MHz at 2 DPC (S-002 bullet)</a></li><li class="l3"><a href="#53-cpu-limit">5.3 CPU limit</a></li><li class="l3"><a href="#54-voltage">5.4 Voltage</a></li><li class="l2"><a href="#6-population-rules-and-order-per-mode">6. Population rules and order per mode</a></li><li class="l3"><a href="#61-independent-normal-mode">6.1 Independent (normal) mode</a></li><li class="l3"><a href="#62-memory-mirroring">6.2 Memory mirroring</a></li><li class="l3"><a href="#63-online-spare-sparing">6.3 Online-spare (sparing)</a></li><li class="l3"><a href="#64-applicability-to-the-owners-machine">6.4 Applicability to the owner&#x27;s machine</a></li><li class="l2"><a href="#7-ras-features">7. RAS features</a></li><li class="l2"><a href="#8-uefi-and-asu-memory-settings">8. UEFI and ASU memory settings</a></li><li class="l3"><a href="#81-setup-utility-f1---documented">8.1 Setup utility (F1) - DOCUMENTED</a></li><li class="l3"><a href="#82-asu-setting-names-s-026-asu-v930-guide-vmware-esxivsphere-section-uefi-settings-in-an-immv1-system">8.2 ASU setting names (S-026, ASU v9.30 guide, VMware ESXi/vSphere section, &quot;uEFI settings in an IMMv1 system&quot;)</a></li><li class="l2"><a href="#9-installed-configuration-measured">9. Installed configuration (MEASURED)</a></li><li class="l2"><a href="#10-management-side-visibility">10. Management-side visibility</a></li><li class="l2"><a href="#11-upgrade-paths-for-this-machine">11. Upgrade paths for this machine</a></li><li class="l3"><a href="#111-capacity-options-with-the-current-cpu-connectors-1-9-only">11.1 Capacity options with the current CPU (connectors 1-9 only)</a></li><li class="l3"><a href="#112-maximum-capacity-second-cpu">11.2 Maximum capacity (second CPU)</a></li><li class="l3"><a href="#113-speed-upgrade-options">11.3 Speed upgrade options</a></li><li class="l3"><a href="#114-procedure-and-constraints-documented">11.4 Procedure and constraints (documented)</a></li><li class="l2"><a href="#12-diagnostics-hooks">12. Diagnostics hooks</a></li><li class="l2"><a href="#13-source-conflicts">13. Source conflicts</a></li><li class="l2"><a href="#14-open-questions--unknown">14. Open questions / UNKNOWN</a></li></ul></nav></details>
 <div class="prose">
@@ -359,7 +359,9 @@ furthest from CPU1, which would match the fill order of 3.2 starting with 3, 6, 
 16 GB = 288 GB, 12 quad-rank 16 GB = 192 GB, 12 dual-rank UDIMM 4 GB = 48 GB). RDIMM options per <a class="sref" href="../catalog/sources.html#s-002">S-002</a>: 2, 4, 8,
 16 GB; UDIMM options: 2 and 4 GB.</p>
 <h3 id="43-orderable-options-s-001-table-6-memory-options">4.3 Orderable options (S-001 Table 6, "Memory options") <a class="anchor" href="#43-orderable-options-s-001-table-6-memory-options" aria-label="Link to this section">#</a></h3>
-<p>Level: <span class="tl tl-documented">DOCUMENTED</span> (vendor option list; status of availability today <span class="tl tl-unknown">UNKNOWN</span> - the product is withdrawn).</p>
+<p>Level: <span class="tl tl-documented">DOCUMENTED</span> (vendor option list; status of availability today <span class="tl tl-unknown">UNKNOWN</span> - the product is withdrawn; no IBM or
+Lenovo statement on third-party RDIMMs was found beyond the generic "Support (if any) for non-IBM products is provided
+by the third party", research 2026-10-21).</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -553,6 +555,12 @@ their relation to the <a class="sref" href="../catalog/sources.html#s-002">S-002
   runs at the same value, <span class="tl tl-measured">MEASURED</span>, section 9).</li>
 <li>Only the 7945-22x row of <a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 2 names the E5606; the E5606 is not in the <a class="sref" href="../catalog/sources.html#s-001">S-001</a> processor option table.
   Other 4C rows with "1066 MHz" (E5603, E5607, E5620) use other CPUs.</li>
+<li>Intel specification for the E5606 (intel.com ark, SKU 52583, "Intel Xeon Processor E5606 (8M Cache, 2.13 GHz,
+  4.80 GT/s Intel QPI)" specifications page, research 2026-10-21): memory types DDR3 800/1066, 3 channels, max 288
+  GB, max bandwidth 25.6 GB/s, ECC supported, QPI 4.8 GT/s with 2 links, TDP 80 W, no Turbo, no Hyper-Threading.
+  RAS per the Xeon 5600 datasheet vol 2 (Table 3-1, Sec 3.4): x4 SDDC in independent channel mode, x8 SDDC in
+  lockstep (Ch0+Ch1), mirroring Ch0+Ch1 with Ch2 empty, sparing with Ch2 as the spare (5600 only). <span class="tl tl-documented">DOCUMENTED</span>.
+  Supported DIMM voltages for this SKU are not listed on the ark page (<span class="tl tl-unknown">UNKNOWN</span> beyond the <a class="sref" href="../catalog/sources.html#s-001">S-001</a> family statement).</li>
 </ul>
 <h3 id="54-voltage">5.4 Voltage <a class="anchor" href="#54-voltage" aria-label="Link to this section">#</a></h3>
 <ul>
@@ -560,9 +568,16 @@ their relation to the <a class="sref" href="../catalog/sources.html#s-002">S-002
   on Xeon 5600 systems; all DIMMs then run at 1.5 V. Xeon 5500 systems do not support 1.35 V DIMMs. Source: <a class="sref" href="../catalog/sources.html#s-001">S-001</a>
   "Memory options". Level: <span class="tl tl-documented">DOCUMENTED</span>.</li>
 <li>1.35 V DIMMs "consume 20 percent less energy". Source: <a class="sref" href="../catalog/sources.html#s-001">S-001</a> (features list). Level: <span class="tl tl-documented">DOCUMENTED</span> (vendor claim).</li>
-<li>The installed DIMM is 1.5 V only: SPD says <code>1.5 V Nominal Op: Yes</code>, <code>1.35 V Nominal Op: No</code>. Source:
-  captures/2026-10-19_ipmi_inband.txt (FRU DIMM 3). Level: <span class="tl tl-measured">MEASURED</span>. (The same capture also prints
-  <code>1.2X V Nominal Op: Yes</code>; the meaning of that SPD bit for DDR3 is <span class="tl tl-unknown">UNKNOWN</span>.)</li>
+<li>Correction 2026-10-21: ipmitool prints <code>1.5 V Nominal Op: Yes</code>, <code>1.35 V Nominal Op: No</code>, <code>1.2X V Nominal Op: Yes</code>
+  (captures/2026-10-19_ipmi_inband.txt, FRU DIMM 3, <span class="tl tl-measured">MEASURED</span>). ipmitool <code>lib/dimm_spd.c</code> prints "No" when the
+  bit is set for all three bits of SPD byte 6 (<code>(spd_data[6]&amp;2) != 0 ? "No":"Yes"</code>,
+  <a href="https://raw.githubusercontent.com/ipmitool/ipmitool/master/lib/dimm_spd.c" rel="noopener">https://raw.githubusercontent.com/ipmitool/ipmitool/master/lib/dimm_spd.c</a>), but JEDEC Std 21-C 4.1.2.11 (DDR3
+  SPD, byte 6 "Module Nominal Voltage, VDD") defines bit 0 = 1 as "NOT 1.5 V operable" and bits 1 / 2 = 1 as
+  "1.35 V operable" / "1.25 V operable". "1.2X V" is the 1.25 V bit. The printed lines therefore mean byte 6 = 0x02:
+  1.5 V operable, 1.35 V operable, not 1.25 V operable (<span class="tl tl-candidate">CANDIDATE</span>, derived from the ipmitool source and JEDEC; the
+  raw byte was not read). The earlier statement "1.5 V only" rested on the inverted ipmitool text and is
+  withdrawn; the module runs at 1.5 V here in any case (single DIMM, LV-DIMM Power "Low Power" acts only with two
+  1.35 V DIMMs on a channel and a 1333 MHz CPU, UEFI help text, docs/X3650M3_UEFI.md 12.7).</li>
 <li>UEFI controls: Memory speed, LV-DIMM power (see 8).</li>
 </ul>
 <h2 id="6-population-rules-and-order-per-mode">6. Population rules and order per mode <a class="anchor" href="#6-population-rules-and-order-per-mode" aria-label="Link to this section">#</a></h2>
@@ -715,9 +730,9 @@ the <span class="tl tl-measured">MEASURED</span> installed state (section 9); th
 </tr>
 <tr>
 <td>Patrol scrub / demand scrub</td>
-<td>UEFI/ASU settings <code>PatrolScrub</code>, <code>DemandScrub</code> exist (see 8); UEFI 1.22 defaults: Patrol Scrub Disable, Demand Scrub Enable; behavior and intervals are not described in the local sources</td>
-<td><a class="sref" href="../catalog/sources.html#s-026">S-026</a> (ASU 9.30); docs/X3650M3_UEFI.md Appendix A</td>
-<td>names <span class="tl tl-documented">DOCUMENTED</span>; defaults <span class="tl tl-extracted">EXTRACTED</span> (1.22 image, not read from this machine); behavior <span class="tl tl-unknown">UNKNOWN</span></td>
+<td>UEFI/ASU settings <code>PatrolScrub</code>, <code>DemandScrub</code> exist (see 8). 1.13 IFR help: Patrol Scrub "continuously scans memory, corrects and writes-back soft memory errors as they are detected"; Demand Scrub "writes-back corrected soft memory errors to memory at the time of access" (<span class="tl tl-extracted">EXTRACTED</span>). Live: PatrolScrub Disable, DemandScrub Enable (<span class="tl tl-measured">MEASURED</span>, ASU 2026-10-20/21). The patrol interval is not stated in any source found (<span class="tl tl-unknown">UNKNOWN</span>). SG24-5287 Table 10-11 lists Patrol Scrubbing Off / Demand Scrubbing On as the maximum-performance settings</td>
+<td><a class="sref" href="../catalog/sources.html#s-026">S-026</a> (ASU 9.30); docs/X3650M3_UEFI.md 12.7; <a class="sref" href="../catalog/sources.html#s-035">S-035</a> sec 10.9</td>
+<td>names <span class="tl tl-documented">DOCUMENTED</span>; help text <span class="tl tl-extracted">EXTRACTED</span>; live <span class="tl tl-measured">MEASURED</span>; interval <span class="tl tl-unknown">UNKNOWN</span></td>
 </tr>
 <tr>
 <td>Light path DIMM LEDs</td>
@@ -749,16 +764,22 @@ the <span class="tl tl-measured">MEASURED</span> installed state (section 9); th
 <ul>
 <li>Chipkill requires x4-based DIMMs per <a class="sref" href="../catalog/sources.html#s-001">S-001</a>. The installed DIMM reports <code>SDRAM Device Width: 4 bits</code> (SPD via IPMI
   FRU), so it is an x4 device module (<span class="tl tl-measured">MEASURED</span>). EDAC reports <code>dimm_dev_type: x8</code> - conflict C-6 (resolved in
-  favour of SPD x4: the driver derives x8 from the DDR3 bank count, see C-6). Whether
-  Chipkill (SDDC) is actually active on a single-DIMM, single-channel configuration is <span class="tl tl-unknown">UNKNOWN</span>: the local
-  documents do not describe the mechanism (for example whether it needs lockstep pairing of channels).</li>
-<li>Memory mirroring availability per CPU SKU (E5606) is not stated; <a class="sref" href="../catalog/sources.html#s-002">S-002</a> only restricts sparing to the 5600
-  series. <span class="tl tl-unknown">UNKNOWN</span> for mirroring on the E5606.</li>
-<li>EDAC <code>dimm_edac_mode: S8ECD8ED</code> is the driver's label for the ECC mode of the DIMM and is reported as is
-  (<span class="tl tl-measured">MEASURED</span>); its relation to Chipkill is not documented in the local sources (<span class="tl tl-unknown">UNKNOWN</span>).</li>
-<li>EDAC <code>sdram_scrub_rate: 0</code> (<span class="tl tl-measured">MEASURED</span>) is the value the OS driver exposes; it is not evidence that the firmware
-  patrol scrub is off (<span class="tl tl-unknown">UNKNOWN</span>). The UEFI 1.22 default for Patrol Scrub is Disable (<span class="tl tl-extracted">EXTRACTED</span>), but the machine runs
-  UEFI build D6E154A (version 1.13 per SMBIOS, docs/X3650M3_FIRMWARE_HISTORY.md) and its live setting was not read.</li>
+  favour of SPD x4: the driver derives x8 from the DDR3 bank count, see C-6). Chipkill (x4 SDDC) is active on
+  this machine (<span class="tl tl-candidate">CANDIDATE</span>, strong): the Intel Xeon 5600 datasheet vol 2 (Table 3-1, p.57-58) states RDIMMs get x4
+  SDDC in Independent Channel Mode and x8 SDDC in lockstep, and the Xeon 5500 datasheet vol 2 (321322, sec 2.8.3)
+  defines MC_CONTROL bit 1 ECCEN: "ECCEN without Lockstep enables the x4 SDDC" (<span class="tl tl-documented">DOCUMENTED</span>). Live registers
+  (<code>lspci -s ff:03.0 -xxx</code>, 2026-10-21, <span class="tl tl-measured">MEASURED</span>): MC_CONTROL (0x48) = 0x00000102 (ECCEN = 1, CHANNEL0_ACTIVE = 1,
+  open page), MC_STATUS (0x4C) = 0x1E (ECC_ENABLED, channels 1 and 2 disabled); channel mode Independent (ASU).</li>
+<li>Mirroring: the datasheet describes mirroring (Ch0 with Ch1, Ch2 empty) for the whole 5500/5600 series without
+  per-SKU exceptions, and TIPS0805 lists mirroring and sparing for the x3650 M3 (<span class="tl tl-documented">DOCUMENTED</span>); availability on the
+  E5606 specifically is <span class="tl tl-candidate">CANDIDATE</span> (yes). The live UEFI offers Mirroring and Sparing as choices
+  (<code>uEFI.MemoryChannelMode</code>, ASU showvalues 2026-10-21, <span class="tl tl-measured">MEASURED</span>).</li>
+<li>EDAC <code>dimm_edac_mode: S8ECD8ED</code> is the i7core_edac driver's label: it maps MC_CONTROL bit 1 to "x8 SDDC"
+  (<code>#define ECCx8(pvt) (mc_control &amp; (1 &lt;&lt; 1))</code>, drivers/edac/i7core_edac.c). The Intel datasheet names that bit
+  ECCEN and ties x4 SDDC to it in independent mode, so the label is a driver naming artifact (same pattern as C-6;
+  conflict recorded in 13, resolved in favour of the datasheet).</li>
+<li>EDAC <code>sdram_scrub_rate: 0</code> (<span class="tl tl-measured">MEASURED</span>) is the value the OS driver exposes. The firmware patrol scrub is indeed off:
+  live <code>uEFI.PatrolScrub</code> = Disable (ASU show all 2026-10-20 and Setup byte 0x05A1, <span class="tl tl-measured">MEASURED</span>; default Disable).</li>
 </ul>
 <h2 id="8-uefi-and-asu-memory-settings">8. UEFI and ASU memory settings <a class="anchor" href="#8-uefi-and-asu-memory-settings" aria-label="Link to this section">#</a></h2>
 <h3 id="81-setup-utility-f1---documented">8.1 Setup utility (F1) - <span class="tl tl-documented">DOCUMENTED</span> <a class="anchor" href="#81-setup-utility-f1---documented" aria-label="Link to this section">#</a></h3>
@@ -829,8 +850,19 @@ section 7 and Appendix A, <span class="tl tl-extracted">EXTRACTED</span>; * = de
 listed in docs/X3650M3_UEFI.md Appendix A.</p>
 <p>Caveats: the list in <a class="sref" href="../catalog/sources.html#s-026">S-026</a> is the set supported for ESXi hypervisor use, not a full dump for the x3650 M3. The ASU
 guide lists the x3650 M3 (7945, 4255, 5454) as supported (<a class="sref" href="../catalog/sources.html#s-026">S-026</a>). The defaults above are those of the 1.22 image;
-the machine runs UEFI build D6E154A (version 1.13 per SMBIOS), and its live values were not read (<code>asu show uEFI</code> is
-read-only but needs host access; not done because offline task). Changing any of these requires owner approval
+the machine runs UEFI build D6E154A (version 1.13 per SMBIOS). Live values and allowed choices on D6E154A (<span class="tl tl-measured">MEASURED</span>,
+<code>asu64 show all --kcs</code> 2026-10-20, <code>asu64 showvalues uEFI --kcs</code> 2026-10-21, captures/2026-10-20_asu_show_all/show_all.txt,
+captures/2026-10-21_asu_showvalues_uefi.txt; ASU default in angle brackets): DdrSpeed = Max Performance (Minimal Power
+/ Power Efficiency / &lt;Max Performance&gt;); MemoryChannelMode = Independent (&lt;Independent&gt; / Mirroring / Sparing, no
+lockstep); SocketInterleave = NUMA (Non-NUMA / &lt;NUMA&gt;); PatrolScrub = Disable (&lt;Disable&gt; / Enable); DemandScrub =
+Enable (Disable / &lt;Enable&gt;); LvDimmPower = Low Power (&lt;Low Power&gt; / Enhanced Performance); Plt2DPC1333Capable =
+Disable, Enable2DPCOverclock = Disable. Not exposed by ASU on 1.13 but readable from the Setup variable: Channel
+Interleaving 6-way, Rank Interleaving 4-way, Memory Page Policy Open, Memory Data Scrambling Disable, Thermal Mode
+Normal (docs/X3650M3_UEFI.md 12.7). Effects (1.13 IFR help, <span class="tl tl-extracted">EXTRACTED</span>): Memory Speed "Max performance mode maximizes
+performance. Power efficiency mode maximizes performance per watt. Minimal power mode maximizes power savings" - the
+resulting MHz per mode is not stated in any source found (<span class="tl tl-unknown">UNKNOWN</span>); LV-DIMM Power acts only when the CPU supports
+1333 MHz, Memory Speed is Max Performance and two 1.35 V DIMMs share a channel (so it has no effect here); Socket
+Interleave NUMA = memory not interleaved across processors. Changing any of these requires owner approval
 (docs/AGENT.md).</p>
 <h2 id="9-installed-configuration-measured">9. Installed configuration (<span class="tl tl-measured">MEASURED</span>) <a class="anchor" href="#9-installed-configuration-measured" aria-label="Link to this section">#</a></h2>
 <p>Capture: captures/2026-10-19_mem_storage_memory.txt (dmidecode 3.4, SMBIOS 2.5, EDAC sysfs), plus
@@ -866,7 +898,7 @@ captures/2026-10-19_ipmi_inband.txt (FRU/SPD), captures/2026-10-19_os_inventory.
 </tr>
 <tr>
 <td>Voltage (SPD)</td>
-<td>1.5 V yes, 1.35 V no</td>
+<td>ipmitool prints 1.5 V Yes, 1.35 V No, 1.2X V Yes; decoded per JEDEC this is 1.5 V and 1.35 V operable (ipmitool inverts bits 1-2; see 5.4, <span class="tl tl-candidate">CANDIDATE</span>)</td>
 <td>ipmi_inband.txt FRU DIMM 3</td>
 </tr>
 <tr>
@@ -960,7 +992,7 @@ captures/2026-10-19_ipmi_inband.txt (FRU/SPD), captures/2026-10-19_os_inventory.
 <tr>
 <td>IMM CIM CIM_PhysicalMemory</td>
 <td>18 instances Memory Device 1-18; Memory Device 3: Capacity 8589934592, part HMT31GR7BFR4A-H9, serial [redacted-id], MemoryType 24, FormFactor 8, Speed 1; the others all zero</td>
-<td>Speed 1 is not a usable MHz value (meaning <span class="tl tl-unknown">UNKNOWN</span>); MemoryType 24 = DDR3 and FormFactor 8 = DIMM in the DMTF value maps (<span class="tl tl-candidate">CANDIDATE</span>, schema not in sources/) (<span class="tl tl-measured">MEASURED</span> 2026-10-21, captures/2026-10-21_imm_cim_read_inventory.txt)</td>
+<td>Speed 1 is not a usable MHz value (DMTF CIM_PhysicalMemory.Speed is "the speed of the PhysicalMemory, in nanoseconds", schemas.dmtf.org/wbem/cim-html/2.49.0/CIM_PhysicalMemory.html, <span class="tl tl-documented">DOCUMENTED</span>; 1 ns is a placeholder, <span class="tl tl-candidate">CANDIDATE</span>); MemoryType 24 = DDR3 and FormFactor 8 = DIMM in the DMTF value maps (<span class="tl tl-documented">DOCUMENTED</span>, same DMTF page) (<span class="tl tl-measured">MEASURED</span> 2026-10-21, captures/2026-10-21_imm_cim_read_inventory.txt)</td>
 </tr>
 <tr>
 <td>EDAC (Linux)</td>
@@ -971,8 +1003,10 @@ captures/2026-10-19_ipmi_inband.txt (FRU/SPD), captures/2026-10-19_os_inventory.
 </table></div>
 <p>Level: <span class="tl tl-measured">MEASURED</span> (all rows are from the captures above).</p>
 <p>Conflict-free note: <code>DIMM 3</code> populated and <code>DIMM 3 Temp</code> have different state bytes (0x40 vs 0x1) from the empty
-slots (0x0). The bit assignment is not documented in the local sources; interpreting 0x40 as "present" is
-<span class="tl tl-candidate">CANDIDATE</span>.</p>
+slots (0x0). Decoded (<span class="tl tl-measured">MEASURED</span>, captures/2026-10-20_sdr_verbose_and_pd0.txt): <code>DIMM 3</code> is a Memory sensor (type
+0Ch) with state "Presence Detected" asserted (offset 6 = bit 6 = 0x40); <code>DIMM 3 Temp</code> is a discrete Temperature
+sensor (type 01h) asserting "Transition to OK" (0x1). No DIMM temperature value is exposed by the IMM, and the host
+has no DIMM thermal sensor driver output either (2026-10-21).</p>
 <h2 id="11-upgrade-paths-for-this-machine">11. Upgrade paths for this machine <a class="anchor" href="#11-upgrade-paths-for-this-machine" aria-label="Link to this section">#</a></h2>
 <p>Premises (all stated above): 1x E5606 (1066 MHz maximum), 1 of 2 sockets used, DIMM03 filled with a 1.5 V 8 GB
 2Rx4 RDIMM, RDIMM-only platform use (UDIMMs would require removing the RDIMM, since types cannot be mixed).</p>
@@ -1048,7 +1082,8 @@ slots (0x0). The bit assignment is not documented in the local sources; interpre
 </table></div>
 <p>Level: <span class="tl tl-documented">DOCUMENTED</span> rules applied to the measured CPU; arithmetic is derived. Speed column = min(E5606 limit 1066,
 DPC limit): 1 and 2 DPC give 1066 under both <a class="sref" href="../catalog/sources.html#s-001">S-001</a> and <a class="sref" href="../catalog/sources.html#s-002">S-002</a> (C-3 has no effect on this CPU), 3 DPC gives 800.
-Real-world performance is not measured (<span class="tl tl-unknown">UNKNOWN</span>). 24 GB is reached with two further identical 8 GB 2Rx4 1.5 V
+Real-world performance is not measured (<span class="tl tl-unknown">UNKNOWN</span>: a bandwidth tool such as STREAM/mbw is not installed on the host and
+installing one is a host change; the 3-channel comparison needs extra DIMMs). 24 GB is reached with two further identical 8 GB 2Rx4 1.5 V
 RDIMMs; mixing 1.5 V and 1.35 V RDIMMs is allowed by <a class="sref" href="../catalog/sources.html#s-001">S-001</a> (all then run at 1.5 V). Keeping speed grades equal is a
 recommendation, not a vendor rule (<span class="tl tl-candidate">CANDIDATE</span>; <a class="sref" href="../catalog/sources.html#s-002">S-002</a> only says all channels run at the fastest common frequency).</p>
 <h3 id="112-maximum-capacity-second-cpu">11.2 Maximum capacity (second CPU) <a class="anchor" href="#112-maximum-capacity-second-cpu" aria-label="Link to this section">#</a></h3>
@@ -1151,7 +1186,7 @@ recommendation, not a vendor rule (<span class="tl tl-candidate">CANDIDATE</span
 <td>Speed at 2 DPC</td>
 <td><a class="sref" href="../catalog/sources.html#s-002">S-002</a>: 1066 MHz at 2 DPC (1333 only under the X5600 Setup conditions)</td>
 <td><a class="sref" href="../catalog/sources.html#s-001">S-001</a>: 1333 MHz for one or two single/dual-rank RDIMMs per channel; UDIMM 2 DPC 1066</td>
-<td>Open. Both agree for 1 DPC (1333) and 3 DPC (800). <a class="sref" href="../catalog/sources.html#s-002">S-002</a> is more specific (conditions + Setup options); not resolved. No effect on the installed E5606 (1066 MHz CPU limit at 1 and 2 DPC under both rules).</td>
+<td>Open. Both agree for 1 DPC (1333) and 3 DPC (800). <a class="sref" href="../catalog/sources.html#s-002">S-002</a> is more specific (conditions + Setup options); not resolved. No effect on the installed E5606 (1066 MHz CPU limit at 1 and 2 DPC under both rules). Update 2026-10-21: the installed UEFI 1.13 supports <a class="sref" href="../catalog/sources.html#s-002">S-002</a>: question "2DPC Max Frequency" enables 1333 MHz at 2 DPC only "when using 2DPC@1333-Qualified DIMMs" and is Disable by default and live (<span class="tl tl-extracted">EXTRACTED</span> + <span class="tl tl-measured">MEASURED</span>, docs/X3650M3_UEFI.md 12.7); resolved in favour of <a class="sref" href="../catalog/sources.html#s-002">S-002</a> as the default behaviour (<span class="tl tl-candidate">CANDIDATE</span>).</td>
 </tr>
 <tr>
 <td>C-4</td>
@@ -1188,34 +1223,53 @@ recommendation, not a vendor rule (<span class="tl tl-candidate">CANDIDATE</span
 <td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> 49Y1565 (16 GB 2Rx4 1.35 V FRU)</td>
 <td>Option vs service number; both listed.</td>
 </tr>
+<tr>
+<td>C-9</td>
+<td>ECC mode of the installed DIMM</td>
+<td>EDAC <code>dimm_edac_mode: S8ECD8ED</code> (i7core_edac maps MC_CONTROL bit 1 to "x8")</td>
+<td>Intel Xeon 5500/5600 datasheet vol 2: MC_CONTROL bit 1 = ECCEN, "ECCEN without Lockstep enables the x4 SDDC"; live MC_CONTROL 0x102, Independent mode (<span class="tl tl-measured">MEASURED</span> 2026-10-21)</td>
+<td>Resolved in favour of the datasheet (x4 SDDC active, <span class="tl tl-candidate">CANDIDATE</span> strong); the EDAC label is a driver naming artifact (section 7).</td>
+</tr>
+<tr>
+<td>C-10</td>
+<td>Module voltage</td>
+<td>earlier text of 5.4: "1.5 V only" from the ipmitool lines</td>
+<td>ipmitool inverts SPD byte 6 bits 1-2 (source code) - per JEDEC the printed lines mean 1.5 V and 1.35 V operable</td>
+<td>Resolved 2026-10-21 in favour of the JEDEC decode (<span class="tl tl-candidate">CANDIDATE</span>: raw byte not read, section 5.4).</td>
+</tr>
 </tbody>
 </table></div>
 <h2 id="14-open-questions--unknown">14. Open questions / <span class="tl tl-unknown">UNKNOWN</span> <a class="anchor" href="#14-open-questions--unknown" aria-label="Link to this section">#</a></h2>
+<p>Status after the 2026-10-21 pass (read-only probes, ASU showvalues, 1.13 IFR decode, web research).</p>
 <ol>
 <li>Exact physical distance of each connector from its CPU - only in images (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> Figures 121-123, <a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 12);
-   the bank-level layout and drawing order are recorded in 3.3 (<span class="tl tl-candidate">CANDIDATE</span> for per-channel distance). Needed for
-   hands-on upgrades.</li>
-<li>Lockstep / "channel mode" values: answered for the UEFI 1.22 image (Independent, Mirroring, Sparing; no
-   lockstep; section 6, <span class="tl tl-extracted">EXTRACTED</span>). Still open: the live value and choices of the installed build D6E154A
-   (<code>asu showvalues</code>, read-only, owner approval for live).</li>
-<li>Whether mirroring is available on the E5606 and whether Chipkill is active in this single-DIMM, single-channel
-   configuration.</li>
-<li>Effects of Memory speed, LV-DIMM power, PatrolScrub, DemandScrub, SocketInterleave (choices and 1.22 defaults
-   are in 8.2, <span class="tl tl-extracted">EXTRACTED</span>); patrol scrub interval; live values on this
-   machine.</li>
-<li>Which exact IBM FRU/option number corresponds to the installed Hynix module (HMT31GR7BFR4A-H9); is the module
-   in the supported (ServerProven) list. <a class="sref" href="../catalog/sources.html#s-037">S-037</a> (ServerProven 7945) is unavailable.</li>
-<li>Meaning of SDR state bytes for <code>DIMM n</code> (0x40 vs 0x0) and <code>DIMM n Temp</code> sensors; whether the DIMM temperature
-   sensors report real values on this board.</li>
-<li>Conflicts C-1, C-2, C-3 above (resolve by UEFI image analysis, firmware release notes or ServerProven data).</li>
-<li>E5606 memory behavior beyond the TIPS model table: official Intel specification (max speed, channels, supported
-   voltages, RAS) is not in the local source set; the 1066 MHz and 1.35 V support for this exact SKU come from
-   the 7945-22x row and the general 5600 statement only.</li>
-<li>Meaning of SPD "1.2X V Nominal Op: Yes" for a DDR3 DIMM (ipmitool decode of SPD byte 6).</li>
-<li>Current availability and compatibility of third-party RDIMMs in this platform (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> lists IBM options only;
-    the product is withdrawn).</li>
-<li>Real memory performance (bandwidth, latency) of the 1-channel configuration versus 3-channel; not measured.</li>
-<li>Whether the SEL had memory events before it overflowed (512 of 512 entries used; oldest entries 2024-04-23).</li>
+   the bank-level layout and drawing order are recorded in 3.3 (<span class="tl tl-candidate">CANDIDATE</span> for per-channel distance). Open: needs
+   image measurement or a cover-off look (owner).</li>
+<li>Resolved: live channel mode Independent; choices on D6E154A Independent / Mirroring / Sparing, no lockstep
+   (<span class="tl tl-measured">MEASURED</span>, section 8.2).</li>
+<li>Resolved (<span class="tl tl-candidate">CANDIDATE</span> strong): x4 SDDC (Chipkill) is active (ECCEN set in independent mode, section 7); mirroring is
+   a series-wide 5600 feature and is offered by the live UEFI (E5606 specifically <span class="tl tl-candidate">CANDIDATE</span>).</li>
+<li>Partly resolved: live values and help-text effects in 8.2 and 7. Still <span class="tl tl-unknown">UNKNOWN</span>: the memory MHz selected by "Power
+   Efficiency" / "Minimal Power" on the E5606 and the patrol scrub interval (no source found; a live test is
+   excluded by D-006).</li>
+<li>Partly: IBM option 49Y1436 / FRU 49Y1446 (also 49Y1415/49Y1416 in <a class="sref" href="../catalog/sources.html#s-004">S-004</a>) are the 8 GB 2Rx4 1.5 V PC3-10600
+   RDIMMs; no source links the Hynix part HMT31GR7BFR4A-H9 to an IBM number (<span class="tl tl-candidate">CANDIDATE</span> mapping only); ServerProven
+   (<a class="sref" href="../catalog/sources.html#s-037">S-037</a>) remains unavailable.</li>
+<li>Resolved: <code>DIMM 3</code> 0x40 = Presence Detected; <code>DIMM n Temp</code> are discrete severity sensors without a value
+   (section 10).</li>
+<li>C-3 resolved in favour of <a class="sref" href="../catalog/sources.html#s-002">S-002</a> (section 13). C-1 (SMBIOS 192 GB vs 288 GB) and C-2 (minimum DIMM) stay open: no
+   firmware or document evidence found; C-2 does not affect this machine.</li>
+<li>Resolved for speed/channels/ECC/RAS (Intel ark and datasheet, section 5.3); per-SKU DIMM voltage support not on
+   the ark page.</li>
+<li>Resolved: "1.2X V" is the 1.25 V bit of SPD byte 6, and ipmitool prints bits 1-2 inverted (section 5.4).</li>
+<li>Third-party RDIMMs: no IBM/Lenovo compatibility statement found (generic non-IBM-product disclaimer only);
+    remains <span class="tl tl-unknown">UNKNOWN</span> in practice.</li>
+<li>Real memory bandwidth/latency: not measured (needs a benchmark tool install on the host, owner approval; the
+    3-channel comparison needs extra DIMMs).</li>
+<li>Resolved: the 512-entry SEL (2024-04-23 .. 2025-05-05) contains no memory event (306 firmware progress, 203
+    power unit, 2 SEL fullness, 1 drive entries; captures/2026-10-19_ipmi_inband.txt), and the IMM event log
+    (captures/2026-10-20_imm_readlog.txt) has no DIMM entry; EDAC CE/UE = 0 on 2026-10-21 (<span class="tl tl-measured">MEASURED</span>). Events before
+    2024-04-23 are unrecoverable.</li>
 </ol>
 </div>
 </article>
@@ -1226,7 +1280,7 @@ recommendation, not a vendor rule (<span class="tl tl-candidate">CANDIDATE</span
 </main>
 <aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary">1. Summary</a></li><li class="l2"><a href="#2-memory-subsystem-architecture">2. Memory subsystem architecture</a></li><li class="l2"><a href="#3-dimm-slot-map">3. DIMM slot map</a></li><li class="l3"><a href="#31-channel-and-cpu-assignment">3.1 Channel and CPU assignment</a></li><li class="l3"><a href="#32-non-mirroring-fill-order-round-robin-over-the-channels-farthest-first-not-stated">3.2 Non-mirroring fill order (round robin over the channels, farthest-first not stated)</a></li><li class="l3"><a href="#33-name-mapping-across-interfaces-measured-for-dimm03-rest-by-pattern">3.3 Name mapping across interfaces (MEASURED for DIMM03, rest by pattern)</a></li><li class="l2"><a href="#4-dimm-types-sizes-ranks-and-limits">4. DIMM types, sizes, ranks and limits</a></li><li class="l3"><a href="#41-general-rules">4.1 General rules</a></li><li class="l3"><a href="#42-maximum-capacity-table-s-002-table-9">4.2 Maximum capacity table (S-002 Table 9)</a></li><li class="l3"><a href="#43-orderable-options-s-001-table-6-memory-options">4.3 Orderable options (S-001 Table 6, &quot;Memory options&quot;)</a></li><li class="l2"><a href="#5-speed-and-voltage-rules">5. Speed and voltage rules</a></li><li class="l3"><a href="#51-speed-vs-dimms-per-channel-dpc">5.1 Speed vs DIMMs per channel (DPC)</a></li><li class="l3"><a href="#52-1333-mhz-at-2-dpc-s-002-bullet">5.2 1333 MHz at 2 DPC (S-002 bullet)</a></li><li class="l3"><a href="#53-cpu-limit">5.3 CPU limit</a></li><li class="l3"><a href="#54-voltage">5.4 Voltage</a></li><li class="l2"><a href="#6-population-rules-and-order-per-mode">6. Population rules and order per mode</a></li><li class="l3"><a href="#61-independent-normal-mode">6.1 Independent (normal) mode</a></li><li class="l3"><a href="#62-memory-mirroring">6.2 Memory mirroring</a></li><li class="l3"><a href="#63-online-spare-sparing">6.3 Online-spare (sparing)</a></li><li class="l3"><a href="#64-applicability-to-the-owners-machine">6.4 Applicability to the owner&#x27;s machine</a></li><li class="l2"><a href="#7-ras-features">7. RAS features</a></li><li class="l2"><a href="#8-uefi-and-asu-memory-settings">8. UEFI and ASU memory settings</a></li><li class="l3"><a href="#81-setup-utility-f1---documented">8.1 Setup utility (F1) - DOCUMENTED</a></li><li class="l3"><a href="#82-asu-setting-names-s-026-asu-v930-guide-vmware-esxivsphere-section-uefi-settings-in-an-immv1-system">8.2 ASU setting names (S-026, ASU v9.30 guide, VMware ESXi/vSphere section, &quot;uEFI settings in an IMMv1 system&quot;)</a></li><li class="l2"><a href="#9-installed-configuration-measured">9. Installed configuration (MEASURED)</a></li><li class="l2"><a href="#10-management-side-visibility">10. Management-side visibility</a></li><li class="l2"><a href="#11-upgrade-paths-for-this-machine">11. Upgrade paths for this machine</a></li><li class="l3"><a href="#111-capacity-options-with-the-current-cpu-connectors-1-9-only">11.1 Capacity options with the current CPU (connectors 1-9 only)</a></li><li class="l3"><a href="#112-maximum-capacity-second-cpu">11.2 Maximum capacity (second CPU)</a></li><li class="l3"><a href="#113-speed-upgrade-options">11.3 Speed upgrade options</a></li><li class="l3"><a href="#114-procedure-and-constraints-documented">11.4 Procedure and constraints (documented)</a></li><li class="l2"><a href="#12-diagnostics-hooks">12. Diagnostics hooks</a></li><li class="l2"><a href="#13-source-conflicts">13. Source conflicts</a></li><li class="l2"><a href="#14-open-questions--unknown">14. Open questions / UNKNOWN</a></li></ul></nav></aside>
 </div>
-<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:54 UTC from commit <code>919a212665cc</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 11:31 UTC from commit <code>80d508298327</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
 <script src="../assets/library.js"></script>
 </body>
 </html>

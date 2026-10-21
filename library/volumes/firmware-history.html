@@ -84,7 +84,7 @@
 <h1>Firmware History and Naming</h1>
 <p class="subtitle">x3650 M3 Firmware History and Naming</p>
 <p class="lede">Truth levels per docs/AGENT.md. Research pass P1, 2026-10-19.</p>
-<p class="meta"><span class="source">source: <code>docs/X3650M3_FIRMWARE_HISTORY.md</code></span> <span>8 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">4</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">5</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">5</span> <span class="tl tl-inferred">INFERRED</span><span class="n">1</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">2</span> <span class="tl tl-planned">PLANNED</span><span class="n">1</span></span></p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_FIRMWARE_HISTORY.md</code></span> <span>8 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">4</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">5</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">6</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">2</span> <span class="tl tl-inferred">INFERRED</span><span class="n">1</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">2</span> <span class="tl tl-planned">PLANNED</span><span class="n">1</span></span></p>
 </header>
 <details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#installed-levels-measured">Installed levels (MEASURED)</a></li><li class="l2"><a href="#naming-documented">Naming (DOCUMENTED)</a></li><li class="l2"><a href="#latest-available-documented">Latest available (DOCUMENTED)</a></li><li class="l2"><a href="#imm-v1-history-documented-uxsp-500--750-pages-imm-155-chg">IMM v1 history (DOCUMENTED: UXSP 5.00 / 7.50 pages, IMM 1.55 .chg)</a></li><li class="l2"><a href="#uefi-history-documented-uxsp-pages-uefi-122-chg">UEFI history (DOCUMENTED: UXSP pages, UEFI 1.22 .chg)</a></li><li class="l2"><a href="#update-order-and-safety-documented">Update order and safety (DOCUMENTED)</a></li><li class="l2"><a href="#conflicts">Conflicts</a></li><li class="l2"><a href="#open-items">Open items</a></li></ul></nav></details>
 <div class="prose">
@@ -655,17 +655,26 @@ Heartbleed-era OpenSSL, POODLE, Logjam).</p>
 <h2 id="conflicts">Conflicts <a class="anchor" href="#conflicts" aria-label="Link to this section">#</a></h2>
 <ul>
 <li>Installed UEFI build D6E154A is not in the 1.22 <code>.chg</code> (which lists 1.13 = D6E154B); UXSP 5.00 lists
-  <code>d6e154a</code>. SMBIOS reports D6E154A as version 1.13 (<span class="tl tl-measured">MEASURED</span>), so it is a 1.13 build; why the .chg names D6E154B is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+  <code>d6e154a</code>. SMBIOS reports D6E154A as version 1.13 (<span class="tl tl-measured">MEASURED</span>), so it is a 1.13 build; why the .chg names D6E154B is <span class="tl tl-unknown">UNKNOWN</span>.
+  Web search 2026-10-21 found no IBM page or RETAIN tip on it; IBM node 834502 shows only 1.14 D6E156B, and SUSE YES
+  bulletin 137007 (x3650 M3 7945, 2012-02-28, <a href="https://www.suse.com/nbswebapp/yesbulletin/137007.htm" rel="noopener">https://www.suse.com/nbswebapp/yesbulletin/137007.htm</a>) prints a third
+  form "D6E154WUS - v1.13". <span class="tl tl-candidate">CANDIDATE</span>: a re-spin of 1.13 under the same version number (no source).</li>
 <li>UEFI 1.11: D6E150C (IBM tip snippet) vs D6E150D (<code>.chg</code>).</li>
 <li>IMM build strings appear as "YU00..." (digit zero) in some field reports; the measured VPD reads <code>YUOOC7E</code>.</li>
 </ul>
 <h2 id="open-items">Open items <a class="anchor" href="#open-items" aria-label="Link to this section">#</a></h2>
 <ul>
-<li>IMM 1.55 binary: IBM Fix Central needs an IBM ID login. The same IMM package is listed for QRadar M3
-  appliances (<a href="https://www.ibm.com/support/pages/qradar-m3-firmware-v22-xseries-2u-xx05-and-xx24-appliances-premusb" rel="noopener">https://www.ibm.com/support/pages/qradar-m3-firmware-v22-xseries-2u-xx05-and-xx24-appliances-premusb</a>).</li>
+<li>IMM 1.55 binary: resolved - the full package is in firmware/ibm/imm/1.55-yuooh5a/ (table above, <span class="tl tl-extracted">EXTRACTED</span> and
+  analysed). The same IMM package is listed for QRadar M3 appliances
+  (<a href="https://www.ibm.com/support/pages/qradar-m3-firmware-v22-xseries-2u-xx05-and-xx24-appliances-premusb" rel="noopener">https://www.ibm.com/support/pages/qradar-m3-firmware-v22-xseries-2u-xx05-and-xx24-appliances-premusb</a>).</li>
+<li>IMM 1.30 YUOOC7E package: no live download found (web search 2026-10-21; UXSP change histories such as
+  <a href="https://delivery04.dhe.ibm.com/sar/CMA/XSA/03jtd/22/ibm_utl_uxsp_d6sp03a-5.00_windows_32-64.html" rel="noopener">https://delivery04.dhe.ibm.com/sar/CMA/XSA/03jtd/22/ibm_utl_uxsp_d6sp03a-5.00_windows_32-64.html</a> name 1.30 without a
+  link; Fix Central needs a login; the Wayback Machine was not reachable from the agent host).</li>
 <li>IMM SoC, kernel, flash layout: <span class="tl tl-extracted">EXTRACTED</span> for 1.10 (MIPS32, vsc452 drivers, Linux 2.6.16.46, NAND/UBI two-side
-  layout; docs/X3650M3_FIRMWARE_FORMATS.md 7, docs/X3650M3_IMM_ARCHITECTURE.md 3.1-3.2); <span class="tl tl-unknown">UNKNOWN</span> for the installed
-  1.30 (no 1.30 <code>imm_*.upd</code> locally).</li>
+  layout; docs/X3650M3_FIRMWARE_FORMATS.md 7, docs/X3650M3_IMM_ARCHITECTURE.md 3.1-3.2) and for 1.55 (same format);
+  <span class="tl tl-unknown">UNKNOWN</span> for the installed 1.30 (no 1.30 <code>imm_*.upd</code> locally; bracketed by 1.10 and 1.55, <span class="tl tl-candidate">CANDIDATE</span>). The live 1.30
+  SDR equals the 1.55 platform SDR file var/bmc/victory_ref/victory_ref.sdrdat byte for byte for 228 of 229 records (all but Planar VBAT)
+  (captures/2026-10-21_sdr_raw_dump.txt), which supports the bracketing for that subsystem.</li>
 <li>RE lead <a href="https://github.com/smx-smx/tools" rel="noopener">https://github.com/smx-smx/tools</a> (<code>ibmextract</code>): inspected 2026-10-21, POWER .pak only, not applicable
   (docs/X3650M3_FIRMWARE_FORMATS.md 7).</li>
 </ul>
@@ -678,7 +687,7 @@ Heartbleed-era OpenSSL, POODLE, Logjam).</p>
 </main>
 <aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#installed-levels-measured">Installed levels (MEASURED)</a></li><li class="l2"><a href="#naming-documented">Naming (DOCUMENTED)</a></li><li class="l2"><a href="#latest-available-documented">Latest available (DOCUMENTED)</a></li><li class="l2"><a href="#imm-v1-history-documented-uxsp-500--750-pages-imm-155-chg">IMM v1 history (DOCUMENTED: UXSP 5.00 / 7.50 pages, IMM 1.55 .chg)</a></li><li class="l2"><a href="#uefi-history-documented-uxsp-pages-uefi-122-chg">UEFI history (DOCUMENTED: UXSP pages, UEFI 1.22 .chg)</a></li><li class="l2"><a href="#update-order-and-safety-documented">Update order and safety (DOCUMENTED)</a></li><li class="l2"><a href="#conflicts">Conflicts</a></li><li class="l2"><a href="#open-items">Open items</a></li></ul></nav></aside>
 </div>
-<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:54 UTC from commit <code>919a212665cc</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 11:31 UTC from commit <code>80d508298327</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
 <script src="../assets/library.js"></script>
 </body>
 </html>
