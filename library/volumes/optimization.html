@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proxmox Host Optimization Guide - x3650 M3 Library</title>
+<meta name="description" content="tuning of this exact machine as a Proxmox VE host: UEFI operating mode, P-states, C-states and the (absent) Turbo and Hyper-Threading, memory population and speed, storage path, PCIe slot placement ...">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="volume" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="../pages/reading-guide.html">Reading Guide</a></li>
+<li><a href="../pages/system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="../pages/firmware-guide.html">Firmware Guide</a></li>
+<li><a href="../pages/imm-guide.html">IMM Guide</a></li>
+<li><a href="../pages/uefi-guide.html">UEFI Guide</a></li>
+<li><a href="../pages/troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="../pages/tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="../pages/glossary.html">Glossary</a></li>
+<li><a href="../pages/faq.html">FAQ</a></li>
+<li><a href="../pages/timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="../pages/about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="system-architecture.html">System Architecture</a></li>
+<li><a href="hardware-components.html">Hardware Components</a></li>
+<li><a href="memory.html">Memory</a></li>
+<li><a href="storage-raid.html">Storage and RAID</a></li>
+<li><a href="power-thermal.html">Power and Thermal</a></li>
+<li><a href="sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="uefi.html">UEFI Firmware</a></li>
+<li><a href="firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="optimization.html" aria-current="page">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Volumes</li><li>Diagnostics and operations</li><li aria-current="page">Proxmox Host Optimization Guide</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">Volume 18 - Diagnostics and operations</p>
+<h1>Proxmox Host Optimization Guide</h1>
+<p class="subtitle">IBM System x3650 M3 (7945KEG) - Proxmox Host Optimization Guide</p>
+<p class="lede">tuning of this exact machine as a Proxmox VE host: UEFI operating mode, P-states, C-states and the (absent) Turbo and Hyper-Threading, memory population and speed, storage path, PCIe slot placement and IOMMU groups for passthrough, fans and power, the ...</p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_OPTIMIZATION.md</code></span> <span>16 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">109</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">23</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">6</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">87</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">30</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary-and-priority-list">1. Summary and priority list</a></li><li class="l2"><a href="#2-sources-and-capture-keys">2. Sources and capture keys</a></li><li class="l2"><a href="#3-how-to-read-a-recommendation">3. How to read a recommendation</a></li><li class="l2"><a href="#4-measured-baseline">4. Measured baseline</a></li><li class="l2"><a href="#5-cpu-operating-mode-p-states-c-states-turbo-hyper-threading">5. CPU: operating mode, P-states, C-states, Turbo, Hyper-Threading</a></li><li class="l3"><a href="#51-what-the-cpu-can-and-cannot-do">5.1 What the CPU can and cannot do</a></li><li class="l3"><a href="#52-operating-modes-extracted-docsx3650m3_uefimd-section-6-mode-to-column-assignment-candidate">5.2 Operating modes (EXTRACTED, docs/X3650M3_UEFI.md section 6; mode-to-column assignment CANDIDATE)</a></li><li class="l3"><a href="#53-c-states-and-the-firmware-update-erratum">5.3 C-states and the firmware-update erratum</a></li><li class="l2"><a href="#6-memory">6. Memory</a></li><li class="l3"><a href="#61-current-state-and-the-cost-of-it">6.1 Current state and the cost of it</a></li><li class="l3"><a href="#62-rules-that-apply-documented-docsx3650m3_memorymd-sections-5-6-11">6.2 Rules that apply (DOCUMENTED, docs/X3650M3_MEMORY.md sections 5, 6, 11)</a></li><li class="l3"><a href="#63-upgrade-paths-applied-to-the-measured-cpu">6.3 Upgrade paths (applied to the measured CPU)</a></li><li class="l3"><a href="#64-cpu-swap-as-a-memory-and-compute-upgrade-hardware-candidate-option">6.4 CPU swap as a memory and compute upgrade (hardware, CANDIDATE option)</a></li><li class="l3"><a href="#65-uefi-memory-settings">6.5 UEFI memory settings</a></li><li class="l2"><a href="#7-storage">7. Storage</a></li><li class="l3"><a href="#71-current-path-and-its-limits">7.1 Current path and its limits</a></li><li class="l3"><a href="#72-storage-recommendations-all-candidate-reasoning">7.2 Storage recommendations (all CANDIDATE reasoning)</a></li><li class="l2"><a href="#8-pcie-slot-placement-and-iommu-groups">8. PCIe slot placement and IOMMU groups</a></li><li class="l3"><a href="#81-measured-groups-c-vvv">8.1 Measured groups (C-VVV)</a></li><li class="l3"><a href="#82-placement-rules-for-this-machine">8.2 Placement rules for this machine</a></li><li class="l2"><a href="#9-fans-power-and-thermal">9. Fans, power and thermal</a></li><li class="l2"><a href="#10-firmware-upgrade-path-and-order">10. Firmware upgrade path and order</a></li><li class="l3"><a href="#101-installed-vs-latest-docsx3650m3_firmware_historymd-docsx3650m3_storage_raidmd-section-7">10.1 Installed vs latest (docs/X3650M3_FIRMWARE_HISTORY.md, docs/X3650M3_STORAGE_RAID.md section 7)</a></li><li class="l3"><a href="#102-why-the-uefi-update-matters-for-a-kvm-host">10.2 Why the UEFI update matters for a KVM host</a></li><li class="l3"><a href="#103-order-documented-s-022-pp11-12-imm-155-readme-section-14">10.3 Order (DOCUMENTED, S-022 pp.11-12; IMM 1.55 README section 1.4)</a></li><li class="l3"><a href="#104-no-flash-alternative-for-microcode-r-b1">10.4 No-flash alternative for microcode (R-B1)</a></li><li class="l2"><a href="#11-linux--proxmox-side-settings">11. Linux / Proxmox-side settings</a></li><li class="l2"><a href="#12-recommendation-register">12. Recommendation register</a></li><li class="l3"><a href="#121-tier-a---no-risk-os-side">12.1 Tier A - no-risk, OS-side</a></li><li class="l3"><a href="#122-tier-b---os-side-needs-a-reboot">12.2 Tier B - OS-side, needs a reboot</a></li><li class="l3"><a href="#123-tier-c---firmware-settings-power-hardware">12.3 Tier C - firmware, settings, power, hardware</a></li><li class="l2"><a href="#13-read-only-probes-that-close-the-gaps">13. Read-only probes that close the gaps</a></li><li class="l2"><a href="#14-contradictions-between-sources">14. Contradictions between sources</a></li><li class="l2"><a href="#15-open-questions--unknown">15. Open questions / UNKNOWN</a></li></ul></nav></details>
+<div class="prose">
+<p>Scope: tuning of this exact machine as a Proxmox VE host: UEFI operating mode, P-states, C-states and the
+(absent) Turbo and Hyper-Threading, memory population and speed, storage path, PCIe slot placement and IOMMU groups
+for passthrough, fans and power, the firmware upgrade path and order, and the Linux/Proxmox-side settings. Rules:
+docs/AGENT.md (every fact has a source and a truth level: <span class="tl tl-documented">DOCUMENTED</span>, <span class="tl tl-extracted">EXTRACTED</span>, <span class="tl tl-measured">MEASURED</span>, <span class="tl tl-candidate">CANDIDATE</span>, <span class="tl tl-unknown">UNKNOWN</span>).
+Source IDs: sources/SOURCES.md. This document is offline work: no command was run against the host, the IMM or the
+internet while writing it. All <span class="tl tl-measured">MEASURED</span> values come from the captures listed in section 2 (2026-10-19/20).</p>
+<p>Important context (docs/AGENT.md, docs/ASSUMPTIONS.md A-007): this server IS the Proxmox host [lab-ip] that
+runs the agent container. Any reboot, power action, firmware flash, UEFI/IMM/controller setting change or
+hardware change takes down the whole lab. Such items are marked "owner approval required" below. No performance
+number in this document is measured; every benefit estimate is <span class="tl tl-candidate">CANDIDATE</span> with its reasoning.</p>
+<h2 id="contents">Contents <a class="anchor" href="#contents" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Summary and priority list</li>
+<li>Sources and capture keys</li>
+<li>How to read a recommendation</li>
+<li>Measured baseline</li>
+<li>CPU: operating mode, P-states, C-states, Turbo, Hyper-Threading</li>
+<li>Memory</li>
+<li>Storage</li>
+<li>PCIe slot placement and IOMMU groups</li>
+<li>Fans, power and thermal</li>
+<li>Firmware upgrade path and order</li>
+<li>Linux / Proxmox-side settings</li>
+<li>Recommendation register</li>
+<li>Read-only probes that close the gaps</li>
+<li>Contradictions between sources</li>
+<li>Open questions / <span class="tl tl-unknown">UNKNOWN</span></li>
+</ol>
+<h2 id="1-summary-and-priority-list">1. Summary and priority list <a class="anchor" href="#1-summary-and-priority-list" aria-label="Link to this section">#</a></h2>
+<p>The machine is a single-socket Xeon E5606 (4 cores, no Turbo, no Hyper-Threading) with one 8 GB DIMM on one of
+three memory channels, booting Proxmox from a RAID0 virtual disk on a single 14173-hour SATA HDD behind a cacheless
+ServeRAID M1015 in the ICH10 x4 slot. Its firmware is from 2011 (IMM 1.30, UEFI 1.13 build D6E154A) and the CPU
+runs microcode 0x14. The biggest levers are therefore hardware and firmware, not kernel knobs.</p>
+<p>Priority (<span class="tl tl-candidate">CANDIDATE</span> ranking; reasoning in the referenced sections):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Item</th>
+<th>Tier</th>
+<th>Why first</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Off-host backup of VMs/CTs and host config (R-A6)</td>
+<td>A (no risk)</td>
+<td>Boot VD is RAID0 on one old HDD (no redundancy, <span class="tl tl-measured">MEASURED</span>); every later step (flash, DIMM work) carries a no-boot risk. Note: the backup set up on 2026-10-20 (job hitachi-weekly, captures/2026-10-20_host_backup_setup.txt) targets hitachi-data, a drive in the same chassis on the same controller, so the current backup target is not off-host</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Run the remaining read-only probes of section 13 (R-A1)</td>
+<td>A</td>
+<td>Governor, idle states, KSM, swappiness, scheduler and boot mode are <span class="tl tl-measured">MEASURED</span> since 2026-10-20 (C-W2), boot loader, THP, hugepages and APT sources since C-BA; live UEFI values (ASU) and the microcode package revision are still <span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Replace the CMOS battery (R-C1) and save + clear the full SEL (R-C2)</td>
+<td>C (approval)</td>
+<td>VBAT 1.727 V is below the critical threshold (<span class="tl tl-measured">MEASURED</span>); a battery event can reset all UEFI settings to defaults (<span class="tl tl-documented">DOCUMENTED</span>); SEL logging is stopped, so faults during later changes would go unrecorded</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Add two 8 GB RDIMMs in DIMM06 and DIMM09 (R-C3), in the same power-off window as rank 3</td>
+<td>C</td>
+<td>8 GB is the hard ceiling for all guests (<span class="tl tl-measured">MEASURED</span> 7.7 GiB); 2 more DIMMs fill all three channels at the CPU's 1066 MHz limit</td>
+</tr>
+<tr>
+<td>5</td>
+<td>CPU microcode: UEFI 1.22 (R-C8) or the OS microcode package (R-B1)</td>
+<td>C or B</td>
+<td>0x14 predates the Westmere fix for system resets with 32-bit PAE guests and VT FlexPriority (UEFI 1.18 .chg) and all Spectre-era updates. R-B1 also needs an APT source change first: the Debian lines carry only main contrib (<span class="tl tl-measured">MEASURED</span> C-BA)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Boot-disk redundancy (R-C11) and moving any new disks to the 9212-4i4e HBA path (R-C12)</td>
+<td>C</td>
+<td>Removes the single point of failure; the HBA has 4x the raw link bandwidth of the M1015 slot and its own IOMMU group</td>
+</tr>
+<tr>
+<td>7</td>
+<td>UEFI power settings: C-states on, Patrol Scrub on, stay in Custom mode (R-C5, R-C6)</td>
+<td>C</td>
+<td>Idle power and RAS; Performance mode buys nothing on a no-Turbo CPU. The OS already uses C1E/C3/C6 (<span class="tl tl-measured">MEASURED</span>), so the C-state part may already be in effect; read the live UEFI values first</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="2-sources-and-capture-keys">2. Sources and capture keys <a class="anchor" href="#2-sources-and-capture-keys" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>File</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C-CPU</td>
+<td>captures/2026-10-19_hw_cpuinfo.txt</td>
+<td>/proc/cpuinfo</td>
+</tr>
+<tr>
+<td>C-OS</td>
+<td>captures/2026-10-19_os_inventory.txt</td>
+<td>dmidecode, lscpu, free, lsblk, /proc/cmdline, pveversion, lsmod, cpuidle driver, dmesg</td>
+</tr>
+<tr>
+<td>C-VVV</td>
+<td>captures/2026-10-19_hw_lspci_vvv.txt</td>
+<td>lspci -vvv incl. IOMMU groups, ACS, LnkCtl</td>
+</tr>
+<tr>
+<td>C-MEM</td>
+<td>captures/2026-10-19_mem_storage_memory.txt</td>
+<td>SMBIOS memory, EDAC</td>
+</tr>
+<tr>
+<td>C-IPMI</td>
+<td>captures/2026-10-19_ipmi_inband.txt</td>
+<td>FRU, SDR, sensors, SEL info, chassis status</td>
+</tr>
+<tr>
+<td>C-CLI</td>
+<td>captures/2026-10-19_imm_cli_baseline.txt</td>
+<td>IMM legacy CLI (vpd, fans, temps)</td>
+</tr>
+<tr>
+<td>C-STOR</td>
+<td>captures/2026-10-20_storage_storcli.txt</td>
+<td>storcli /c0 show all (M1015)</td>
+</tr>
+<tr>
+<td>C-DRV</td>
+<td>captures/2026-10-19_mem_storage_drives.txt</td>
+<td>smartctl, SCSI hosts, dmesg storage</td>
+</tr>
+<tr>
+<td>C-W2</td>
+<td>captures/2026-10-20_host_probes_wave2.txt</td>
+<td>cpufreq, cpuidle, KSM, swappiness, I/O scheduler, boot mode, intel-microcode package, os-release (2026-10-20 ~20:35 +03, during a vzdump backup)</td>
+</tr>
+<tr>
+<td>C-BA</td>
+<td>captures/2026-10-20_host_probes_boot_apt.txt</td>
+<td>kernel IA32 config, /proc/cmdline, proxmox-boot-tool status, efibootmgr -v, THP, active APT source lines, free -m, NUMA nodes, hugepages (2026-10-20 ~21:10 +03)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Vendor documents: <a class="sref" href="../catalog/sources.html#s-001">S-001</a> (TIPS0805 Product Guide), <a class="sref" href="../catalog/sources.html#s-002">S-002</a> (Installation and User's Guide 00kc218), <a class="sref" href="../catalog/sources.html#s-022">S-022</a> (Firmware
+update best practices for IMMv1 systems, Nov 2012), <a class="sref" href="../catalog/sources.html#s-035">S-035</a> (SG24-5287 Tuning IBM System x Servers for Performance),
+infocenter pages in sources/infocenter/7945/text/. Firmware: firmware/ibm/uefi/1.22-d6e164a/ibm_fw_uefi_d6e164a-1.22_anyos_i386.chg
+(called "UEFI .chg" below). Derived knowledge: docs/X3650M3_UEFI.md, X3650M3_MEMORY.md, X3650M3_STORAGE_RAID.md,
+X3650M3_SYSTEM_ARCHITECTURE.md, X3650M3_FIRMWARE_HISTORY.md, X3650M3_IMM_ARCHITECTURE.md,
+X3650M3_HARDWARE_COMPONENTS.md.</p>
+<h2 id="3-how-to-read-a-recommendation">3. How to read a recommendation <a class="anchor" href="#3-how-to-read-a-recommendation" aria-label="Link to this section">#</a></h2>
+<p>Each recommendation in section 12 has: ID, action, expected benefit, evidence, risk, reversibility, reboot needed,
+approval. Tiers:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Meaning</th>
+<th>Approval</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A - no-risk OS-side</td>
+<td>Read-only, or a runtime OS change that is lost at the next boot or undone by one command; no reboot, no service interruption</td>
+<td>not required (still report to the owner)</td>
+</tr>
+<tr>
+<td>B - OS-side, needs reboot</td>
+<td>Persistent OS change (package that loads at boot, kernel command line) that only takes effect after a host reboot</td>
+<td>owner approval required (the reboot takes down the lab)</td>
+</tr>
+<tr>
+<td>C - firmware / settings / power / hardware</td>
+<td>UEFI, IMM or RAID controller setting, firmware flash, SEL clear, power-off, hardware install</td>
+<td>owner approval required</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="4-measured-baseline">4. Measured baseline <a class="anchor" href="#4-measured-baseline" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Value</th>
+<th>Source</th>
+<th>Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>1x Xeon E5606 @ 2.13 GHz, family 6 model 44 stepping 2 (CPUID 0x206C2), 4 cores, 1 thread per core, socket 2 empty, 1 NUMA node (one node directory, node0)</td>
+<td>C-CPU; C-OS lscpu; C-BA line 109</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Turbo</td>
+<td>absent: no <code>ida</code> flag in /proc/cpuinfo; "All Xeon 5600 processors support Turbo Boost with the exception of L5609, E5607, E5606, and E5603"</td>
+<td>C-CPU flags; <a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.11 (text lines 383-388)</td>
+<td><span class="tl tl-measured">MEASURED</span> + <span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>Hyper-Threading</td>
+<td>absent: siblings 4 = cpu cores 4, lscpu "Thread(s) per core: 1"; <a class="sref" href="../catalog/sources.html#s-001">S-001</a> lists E5606 as an exception</td>
+<td>C-CPU; C-OS; <a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.11 (lines 389-393)</td>
+<td><span class="tl tl-measured">MEASURED</span> + <span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>EIST / frequency range</td>
+<td><code>est</code> flag present; cpufreq min 1197 MHz, max 2128 MHz; "CPU(s) scaling MHz 99%"; one core read 1693.709 MHz, three 2133 MHz in /proc/cpuinfo at capture time</td>
+<td>C-CPU; C-OS lscpu</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>cpufreq driver / governor</td>
+<td>driver <code>acpi-cpufreq</code>; governor <code>performance</code> on cpu0-cpu3; available: conservative ondemand userspace powersave performance schedutil (<code>acpi_cpufreq</code> not in lsmod: built into the kernel, <span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>C-W2 lines 72-79; C-OS</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>cpuidle driver</td>
+<td><code>intel_idle</code></td>
+<td>C-OS /sys/devices/system/cpu/cpuidle/current_driver</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Available idle states / residency</td>
+<td>cpu0, intel_idle: POLL (0 us), C1 (3 us), C1E (10 us), C3 (20 us), C6 (200 us), none disabled; usage / residency since boot: C1 94478 / 7.5 s, C1E 597947 / 101.6 s, C3 1077295 / 585.3 s, C6 2334364 / 16391.6 s; C6 = 95.9 % of the logged idle time (arithmetic); uptime not captured</td>
+<td>C-W2 lines 80-86</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Microcode</td>
+<td>0x14 (dmesg "microcode: Current revision: 0x00000014")</td>
+<td>C-CPU; C-OS dmesg</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>CPU vulnerability state</td>
+<td>MDS "Vulnerable: Clear CPU buffers attempted, no microcode"; Spec store bypass "Vulnerable"; Spectre v2 "Mitigation; Retpolines; STIBP disabled"; Meltdown "Mitigation; PTI"; MMIO stale data "Unknown"</td>
+<td>C-OS lscpu</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>1x 8 GB RDIMM 2Rx4 1.5 V (Hynix HMT31GR7BFR4A-H9) in DIMM03 (CPU1 channel 0), 1067 MT/s; MemTotal 7.7 GiB; used 2.6 GiB, buff/cache 4.2 GiB, available 5.1 GiB; swap 7.7 GiB, 0 B used</td>
+<td>C-MEM; C-OS free -h</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Memory use 2026-10-20 ~21:10</td>
+<td><code>free -m</code>: total 7900, used 2899, free 186, shared 60, buff/cache 5178, available 5001 MiB; swap total 7891, used 1, free 7890 MiB</td>
+<td>C-BA lines 105-107</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Transparent huge pages</td>
+<td>enabled <code>[madvise]</code>, defrag <code>[madvise]</code>; AnonHugePages, ShmemHugePages, FileHugePages 0 kB</td>
+<td>C-BA lines 88-89, 111-113</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Static huge pages</td>
+<td>HugePages_Total 0 (Free/Rsvd/Surp 0), Hugepagesize 2048 kB, Hugetlb 0 kB: none reserved</td>
+<td>C-BA lines 114-119</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>EDAC</td>
+<td>i7core_edac, mc0, CE 0, UE 0</td>
+<td>C-MEM</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>KSM</td>
+<td><code>ksm-control-daemon 1.5-1</code> installed; /sys/kernel/mm/ksm/run 0, pages_sharing 0; ksmtuned active</td>
+<td>C-OS pveversion; C-W2 lines 87-90</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Swappiness</td>
+<td>vm.swappiness 60</td>
+<td>C-W2 lines 91-92</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>I/O scheduler</td>
+<td>sda and sdb: mq-deadline (choices none, mq-deadline)</td>
+<td>C-W2 lines 93-95</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Boot mode</td>
+<td>UEFI (/sys/firmware/efi present)</td>
+<td>C-W2 lines 96-97</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>UEFI boot entries</td>
+<td>BootCurrent 000E = "proxmox", <code>HD(2,GPT,f6cd5039-...,0x800,0x200000)/File(\EFI\proxmox\shimx64.efi)</code>; BootOrder 000E,000F,0002,0008,0000,003C-0046; 000F = "Ubuntu" <code>\EFI\ubuntu\shimx64.efi</code> on partition 1 of a different GPT partition GUID (c8d6946d-...); Boot0010-0046 repeat the firmware VenMedia entries (Floppy, PXE, Hard Disk 1-4, Diagnostics, iSCSI, Legacy Only, Embedded Hypervisor) several times</td>
+<td>C-BA lines 13-86</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>EFI system partition</td>
+<td>partition 2, start sector 0x800 (2048), 0x200000 sectors = 1 GiB at 512 B/sector (arithmetic); matches sda2 1G in lsblk, so the ESP is sda2 (<span class="tl tl-candidate">CANDIDATE</span>: size and position match; partition GUID not cross-checked)</td>
+<td>C-BA line 30; C-OS lsblk</td>
+<td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>Boot loader</td>
+<td><code>proxmox-boot-tool status</code>: "E: /etc/kernel/proxmox-boot-uuids does not exist." - proxmox-boot-tool does not manage the ESP (<span class="tl tl-measured">MEASURED</span>). GRUB via shim (<span class="tl tl-candidate">CANDIDATE</span>, three indicators, agent knowledge of Debian/Proxmox boot: the entry loads shimx64.efi, which chain-loads GRUB in the Debian layout; Proxmox uses systemd-boot only through proxmox-boot-tool; /proc/cmdline starts with <code>BOOT_IMAGE=</code>, which GRUB adds)</td>
+<td>C-BA lines 8-11, 13-15, 30</td>
+<td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>Ubuntu boot entry</td>
+<td>Boot000F "Ubuntu" second in BootOrder; which disk holds GPT partition c8d6946d-... and whether it still exists is not captured</td>
+<td>C-BA lines 15, 31</td>
+<td><span class="tl tl-measured">MEASURED</span> (entry) / <span class="tl tl-unknown">UNKNOWN</span> (target)</td>
+</tr>
+<tr>
+<td>APT sources (active lines)</td>
+<td>Debian <code>bookworm</code>, <code>bookworm-updates</code> (ftp.tr.debian.org) and <code>bookworm-security</code> (security.debian.org): components <code>main contrib</code> only, no <code>non-free-firmware</code> and no <code>non-free</code>; Proxmox <code>pve-no-subscription</code> (bookworm); pve-enterprise.list has no active line; <code>ceph-reef bookworm test</code> enabled; third-party: [remote-access service] ([remote-access service], <code>any main</code>), [remote-access service] ([remote-access service] stable, <code>bookworm main</code>), both with signed-by keyrings</td>
+<td>C-BA lines 91-103</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>OS base</td>
+<td>Debian GNU/Linux 12 (bookworm); no foreign dpkg architecture; no /lib/ld-linux.so.2</td>
+<td>C-W2 lines 101-104</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Microcode package</td>
+<td><code>intel-microcode</code> not installed (dpkg-query: no packages found); running microcode 0x14</td>
+<td>C-W2 lines 98-100</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Kernel / Proxmox</td>
+<td>6.8.12-43-pve, proxmox-ve 8.4.0, pve-manager 8.4.21; <code>zfsutils-linux</code> installed; CONFIG_IA32_EMULATION=y, CONFIG_IA32_EMULATION_DEFAULT_DISABLED not set</td>
+<td>C-OS; C-BA lines 4-6</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Kernel command line</td>
+<td><code>BOOT_IMAGE=/boot/vmlinuz-6.8.12-43-pve root=/dev/mapper/pve-root ro quiet</code> (no IOMMU, idle or hugepage parameters; unchanged on 2026-10-20)</td>
+<td>C-OS /proc/cmdline; C-BA line 8</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>VT-d / IOMMU</td>
+<td>DMAR table present, "Intel(R) Virtualization Technology for Directed I/O", interrupt remapping enabled in xapic mode, queued invalidation; IOMMU groups 0-31 populated</td>
+<td>C-OS dmesg; C-VVV</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Boot disk</td>
+<td>/dev/sda = M1015 VD 0/0 RAID0 on one drive (Toshiba MK2546GSX, 14173 power-on hours, 3.0 Gb/s), 231.9 GB, LVM pve-root 223.2G + pve-swap 7.7G; partitions sda1 1007K, sda2 1G, sda3 230.9G</td>
+<td>C-STOR; C-DRV; C-OS lsblk</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Controller cache</td>
+<td>M1015 "iMR(0MB)", On Board Memory 0MB, BBU Absent, VD cache NRWTD (no read ahead, write-through, direct I/O), block layer "Write cache: disabled, read cache: disabled"</td>
+<td>C-STOR; C-DRV dmesg</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Second drive</td>
+<td>Hitachi HTS542512K9SA00, 110.827 GB coerced, 1.5 Gb/s link; inserted 2026-10-20 (owner statement); since 2026-10-20 VD 1 RAID0, /dev/sdb, Proxmox storage hitachi-data (backup target)</td>
+<td>C-STOR; captures/2026-10-20_storage_hitachi_vd.txt</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Other block device</td>
+<td>loop0 211G (origin not captured)</td>
+<td>C-OS lsblk</td>
+<td><span class="tl tl-measured">MEASURED</span> (existence) / <span class="tl tl-unknown">UNKNOWN</span> (purpose)</td>
+</tr>
+<tr>
+<td>M1015 link</td>
+<td>ICH10 root port 00:1c.0, 2.5 GT/s x4 (device capable 5 GT/s x8)</td>
+<td>C-VVV; docs/X3650M3_STORAGE_RAID.md 4.1</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>SAS HBA link</td>
+<td>IBM 6Gb SAS HBA (9212-4i4e, SAS2008, 1000:0072) in System Slot 4, IOH root port 00:07.0, 5 GT/s x8, no devices attached</td>
+<td>C-VVV; docs/X3650M3_STORAGE_RAID.md 4.2</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>PCIe ASPM</td>
+<td>"ASPM Disabled" on every LnkCtl line in the capture</td>
+<td>C-VVV</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Power</td>
+<td>Avg Power 80 W (90 W in CIM on 2026-10-21); one PSU seen (IPMI: "Power Supply 2" present, "Power Supply 1" na; IMM VPD: "Power Supply 1" FRU 39Y7229); PSU wattage <span class="tl tl-candidate">CANDIDATE</span> 460 W AC (FRU match, docs/X3650M3_POWER_THERMAL.md 3.5); Power Restore Policy "previous"</td>
+<td>C-IPMI sensor, FRU, chassis status; captures/2026-10-21_imm_wsman_read_inventory.txt, captures/2026-10-21_imm_cim_read_inventory.txt</td>
+<td><span class="tl tl-measured">MEASURED</span> (wattage <span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>Fans</td>
+<td>Fan 1A/1B/2A/2B/3A/3B: 1595/1125/1595/1100/3103/2450 RPM; IMM CLI 21/17/21/17/41/38 %; all ok, no Cooling/Fan Fault</td>
+<td>C-IPMI; C-CLI fans</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Ambient</td>
+<td>27 C (upper non-critical 38 C)</td>
+<td>C-IPMI</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>CMOS battery</td>
+<td>Planar VBAT 1.727 V, status cr (lower critical 2.095 V)</td>
+<td>C-IPMI</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>SEL</td>
+<td>512/512 entries, overflow, logging stopped since 2025-05-05</td>
+<td>C-IPMI; docs/ASSUMPTIONS.md A-008</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Firmware</td>
+<td>IMM YUOOC7E 1.30 (2011-09-30), UEFI D6E154A "1.13" (2011-09-23), DSA DSYT89P, M1015 20.10.1-0052, HBA FW 10.00.05.00</td>
+<td>docs/X3650M3_FIRMWARE_HISTORY.md; C-STOR</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="5-cpu-operating-mode-p-states-c-states-turbo-hyper-threading">5. CPU: operating mode, P-states, C-states, Turbo, Hyper-Threading <a class="anchor" href="#5-cpu-operating-mode-p-states-c-states-turbo-hyper-threading" aria-label="Link to this section">#</a></h2>
+<h3 id="51-what-the-cpu-can-and-cannot-do">5.1 What the CPU can and cannot do <a class="anchor" href="#51-what-the-cpu-can-and-cannot-do" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Turbo: the E5606 has none (<span class="tl tl-documented">DOCUMENTED</span> <a class="sref" href="../catalog/sources.html#s-001">S-001</a>; <span class="tl tl-measured">MEASURED</span> no <code>ida</code> flag). The UEFI items "Turbo Mode"
+  (<code>uEFI.TurboModeEnable</code>) and "Turbo Boost" (<code>uEFI.TurboBoost</code>) therefore have no effect on this CPU (<span class="tl tl-candidate">CANDIDATE</span>:
+  firmware cannot enable a feature the part lacks; consistent with the absent flag). Do not spend a reboot on them.</li>
+<li>Hyper-Threading: none (<span class="tl tl-documented">DOCUMENTED</span> + <span class="tl tl-measured">MEASURED</span>). <code>uEFI.ProcessorHyperThreading</code> is irrelevant on this CPU.</li>
+<li>P-states (EIST): present and active; OS range 1197-2128 MHz (<span class="tl tl-measured">MEASURED</span>). With no Turbo, the highest P-state is the
+  nominal 2.13 GHz (<span class="tl tl-candidate">CANDIDATE</span>: the 2128 MHz cpufreq maximum equals the nominal frequency within rounding).</li>
+<li>C-states: the OS uses intel_idle with POLL, C1, C1E, C3 and C6, all enabled and all used; C6 holds 95.9 % of the
+  idle time of cpu0 (<span class="tl tl-measured">MEASURED</span>, C-W2). <span class="tl tl-candidate">CANDIDATE</span>: intel_idle drives these states from its own per-model table, so
+  their use does not prove the live UEFI "CPU C State" value (reason: agent knowledge of the driver, not verified
+  on this host). The UEFI 1.22
+  setup XML defaults are <code>uEFI.ProcessorCcxEnable</code> ("CPU C State") = Disable and <code>uEFI.PackageCState</code> = ACPI C2
+  (greyed out while CcxEnable is Disable); <code>uEFI.ProcessorC1eEnable</code> = Enable (<span class="tl tl-extracted">EXTRACTED</span>, docs/X3650M3_UEFI.md
+  section 7). The live values of the installed build D6E154A are <span class="tl tl-unknown">UNKNOWN</span> (needs ASU, section 13).</li>
+</ul>
+<h3 id="52-operating-modes-extracted-docsx3650m3_uefimd-section-6-mode-to-column-assignment-candidate">5.2 Operating modes (<span class="tl tl-extracted">EXTRACTED</span>, docs/X3650M3_UEFI.md section 6; mode-to-column assignment <span class="tl tl-candidate">CANDIDATE</span>) <a class="anchor" href="#52-operating-modes-extracted-docsx3650m3_uefimd-section-6-mode-to-column-assignment-candidate" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Acoustic</th>
+<th>Efficiency</th>
+<th>Performance</th>
+<th>Custom (default)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Memory Speed</td>
+<td>Minimal Power</td>
+<td>Power Efficiency</td>
+<td>Max Performance</td>
+<td>Max Performance</td>
+</tr>
+<tr>
+<td>Processor Performance States</td>
+<td>Enabled</td>
+<td>Enabled</td>
+<td>Disabled</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>C1 Enhanced Mode</td>
+<td>Enabled</td>
+<td>Enabled</td>
+<td>Disabled</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>QPI Link Speed</td>
+<td>Minimal Power</td>
+<td>Minimal Power</td>
+<td>Max Performance</td>
+<td>Max Performance</td>
+</tr>
+<tr>
+<td>Turbo Mode</td>
+<td>Disabled</td>
+<td>Disabled</td>
+<td>Enabled</td>
+<td>Disabled</td>
+</tr>
+</tbody>
+</table></div>
+<p>Assessment for this machine (<span class="tl tl-candidate">CANDIDATE</span>, reasoning given):</p>
+<ul>
+<li>Performance mode disables P-states and C1E and enables a Turbo the CPU does not have. The only remaining
+  effect is pinning the cores at 2.13 GHz all the time, which the OS can already do with the <code>performance</code>
+  governor. Expected gain: none in throughput, possibly lower wake-up latency; cost: higher idle power. Not
+  recommended.</li>
+<li>Efficiency and Acoustic modes lower QPI and memory speed settings. Memory already runs at the E5606 limit of
+  1066 MHz; whether "Power Efficiency" or "Minimal Power" drops it further (for example to 800 MHz) is <span class="tl tl-unknown">UNKNOWN</span>.
+  On a memory-starved single-channel host this is a risk for VM performance. Not recommended without a
+  measurement.</li>
+<li>Custom mode (the default and, per the help text, the only mode in which the individual questions are editable)
+  is the recommended mode. Within Custom: keep P-states Enable, C1E Enable, memory and QPI at Max Performance, and
+  enable C-states (R-C5).</li>
+</ul>
+<h3 id="53-c-states-and-the-firmware-update-erratum">5.3 C-states and the firmware-update erratum <a class="anchor" href="#53-c-states-and-the-firmware-update-erratum" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><a class="sref" href="../catalog/sources.html#s-022">S-022</a> p.10 (<span class="tl tl-documented">DOCUMENTED</span>): "Due to an Intel erratum, if your server is running Linux or VMware, you should disable
+  C-States before you update UEFI, IMM, FPGA, or DSA Preboot. C-states can be returned to the original settings
+  after the updates are complete. See RETAIN TIP H195678." Updates through the IMM web or CLI interface do not have
+  this requirement. The IMM 1.55 README restricts it to 32-bit Linux command-line updates (conflict, section 14).</li>
+<li>Consequence: if C-states are enabled (R-C5), any in-band (Proxmox-side) firmware update must be preceded by
+  disabling them again, or the update must be done through the IMM web interface.</li>
+<li>Expected benefit of enabling C-states: lower idle power on a host that measured 80 W at capture time
+  (<span class="tl tl-candidate">CANDIDATE</span>; reason: <a class="sref" href="../catalog/sources.html#s-035">S-035</a> describes C-states as halting the core clock in idle and C1E as an automatic
+  voltage/frequency reduction; the size of the saving on this machine is not measured). Expected cost: small
+  wake-up latency (<span class="tl tl-candidate">CANDIDATE</span>, <a class="sref" href="../catalog/sources.html#s-035">S-035</a> C-state text). No number is claimed.</li>
+</ul>
+<h2 id="6-memory">6. Memory <a class="anchor" href="#6-memory" aria-label="Link to this section">#</a></h2>
+<h3 id="61-current-state-and-the-cost-of-it">6.1 Current state and the cost of it <a class="anchor" href="#61-current-state-and-the-cost-of-it" aria-label="Link to this section">#</a></h3>
+<p>One 8 GB RDIMM in DIMM03 uses one of the CPU's three DDR3 channels (<span class="tl tl-measured">MEASURED</span> + <span class="tl tl-documented">DOCUMENTED</span>,
+docs/X3650M3_MEMORY.md sections 3, 9). Two consequences (<span class="tl tl-candidate">CANDIDATE</span>, from the topology): memory bandwidth is limited
+to one channel, and 7.7 GiB is the total for host, ZFS ARC (if a pool exists), KSM and all guests.</p>
+<h3 id="62-rules-that-apply-documented-docsx3650m3_memorymd-sections-5-6-11">6.2 Rules that apply (<span class="tl tl-documented">DOCUMENTED</span>, docs/X3650M3_MEMORY.md sections 5, 6, 11) <a class="anchor" href="#62-rules-that-apply-documented-docsx3650m3_memorymd-sections-5-6-11" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Speed = min(CPU limit, DIMM rating, DPC limit). The E5606 limit is 1066 MHz (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> model 7945-22x row). 1 DPC
+  and 2 DPC give 1066 MHz on this CPU under both <a class="sref" href="../catalog/sources.html#s-001">S-001</a> and <a class="sref" href="../catalog/sources.html#s-002">S-002</a>; 3 DPC gives 800 MHz.</li>
+<li>Fill order per CPU for performance: 3, 6, 9 (one DIMM per channel), then 2, 5, 8, then 1, 4, 7. Connectors
+  10-18 need the second CPU.</li>
+<li>RDIMM and UDIMM never mixed. 1.5 V and 1.35 V RDIMMs may be mixed on Xeon 5600; all then run at 1.5 V.</li>
+<li>Mirroring needs identical pairs (3+6 first), sparing needs three identical DIMMs (3, 6, 9).</li>
+<li>After any DIMM change: disconnect power, wait 10 seconds; refit the DIMM air baffle.</li>
+</ul>
+<h3 id="63-upgrade-paths-applied-to-the-measured-cpu">6.3 Upgrade paths (applied to the measured CPU) <a class="anchor" href="#63-upgrade-paths-applied-to-the-measured-cpu" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Layout</th>
+<th>Total</th>
+<th>Speed</th>
+<th>Assessment (<span class="tl tl-candidate">CANDIDATE</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 (recommended)</td>
+<td>add 2x 8 GB 2Rx4 1.5 V RDIMM in DIMM06, DIMM09</td>
+<td>24 GB</td>
+<td>1066 MHz, 1 DPC</td>
+<td>Triples usable channels and memory; best value step</td>
+</tr>
+<tr>
+<td>2</td>
+<td>add 3 more in DIMM02, 05, 08</td>
+<td>48 GB</td>
+<td>1066 MHz, 2 DPC</td>
+<td>Capacity without a speed penalty</td>
+</tr>
+<tr>
+<td>3</td>
+<td>6x 16 GB 2Rx4 (49Y1563, 1.35 V) in 3, 6, 9, 2, 5, 8</td>
+<td>96 GB</td>
+<td>1066 MHz</td>
+<td>Highest capacity at full speed on one CPU</td>
+</tr>
+<tr>
+<td>avoid</td>
+<td>9 DIMMs (3 DPC) or 2 quad-rank per channel</td>
+<td>72-144 GB</td>
+<td>800 MHz</td>
+<td>Speed drop by the DPC rule</td>
+</tr>
+</tbody>
+</table></div>
+<p>Keep identical part numbers per channel set (recommendation, not a vendor rule; docs/X3650M3_MEMORY.md 11.1).
+Third-party RDIMM compatibility is <span class="tl tl-unknown">UNKNOWN</span> (product withdrawn, ServerProven list unavailable).</p>
+<h3 id="64-cpu-swap-as-a-memory-and-compute-upgrade-hardware-candidate-option">6.4 CPU swap as a memory and compute upgrade (hardware, <span class="tl tl-candidate">CANDIDATE</span> option) <a class="anchor" href="#64-cpu-swap-as-a-memory-and-compute-upgrade-hardware-candidate-option" aria-label="Link to this section">#</a></h3>
+<p>A Xeon 5600 part with a 1333 MHz rating (for example X5650, X5660, X5670, X5675, E5649, L5640; <a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 5)
+raises the memory ceiling to 1333 MHz at 1 DPC and adds Turbo and Hyper-Threading (all 5600 parts except L5609,
+E5607, E5606, E5603; <a class="sref" href="../catalog/sources.html#s-001">S-001</a>). Constraints: UEFI 1.15 "Add power table for X5690 Processor" and 1.18 microcode for
+"Intel Xeon X5675, X5687, X5690 6-core Westmere-EP Processors" (UEFI .chg, <span class="tl tl-documented">DOCUMENTED</span>) indicate that the installed
+UEFI 1.13 build predates support work for the top bins, so update UEFI first (<span class="tl tl-candidate">CANDIDATE</span>); 130 W parts use heat sink
+69Y1207 and the 130 W models ship with 675 W supplies (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 2; docs/X3650M3_HARDWARE_COMPONENTS.md); the
+installed PSU wattage is <span class="tl tl-unknown">UNKNOWN</span>. A second CPU adds three channels and DIMM10-18 and needs its own heat sink,
+CPU 2 air baffle and memory (docs/X3650M3_HARDWARE_COMPONENTS.md). Do not mix Xeon 5500 and 5600 CPUs. CPU work is
+a trained-technician FRU task (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> via docs/X3650M3_HARDWARE_COMPONENTS.md).</p>
+<h3 id="65-uefi-memory-settings">6.5 UEFI memory settings <a class="anchor" href="#65-uefi-memory-settings" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Setting (ASU)</th>
+<th>1.22 default</th>
+<th>Recommendation</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uEFI.DdrSpeed</td>
+<td>Max Performance</td>
+<td>keep</td>
+<td>Already at CPU limit; lower settings risk dropping speed (<span class="tl tl-unknown">UNKNOWN</span> effect)</td>
+</tr>
+<tr>
+<td>uEFI.PatrolScrub</td>
+<td>Disable</td>
+<td>Enable (R-C6)</td>
+<td>Background scrubbing finds latent single-bit errors before they combine (<span class="tl tl-candidate">CANDIDATE</span>: general ECC practice; cost not measured); fits an always-on host</td>
+</tr>
+<tr>
+<td>uEFI.DemandScrub</td>
+<td>Enable</td>
+<td>keep</td>
+<td>-</td>
+</tr>
+<tr>
+<td>uEFI.MemoryChannelMode</td>
+<td>Independent</td>
+<td>keep</td>
+<td>Mirroring/sparing need 2/3 identical DIMMs and halve/third capacity</td>
+</tr>
+<tr>
+<td>uEFI.SocketInterleave</td>
+<td>NUMA</td>
+<td>keep</td>
+<td>Single socket today</td>
+</tr>
+</tbody>
+</table></div>
+<p>Live values on D6E154A: <span class="tl tl-unknown">UNKNOWN</span> (section 13, ASU probe).</p>
+<h2 id="7-storage">7. Storage <a class="anchor" href="#7-storage" aria-label="Link to this section">#</a></h2>
+<h3 id="71-current-path-and-its-limits">7.1 Current path and its limits <a class="anchor" href="#71-current-path-and-its-limits" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Slot / root port</th>
+<th>Link (<span class="tl tl-measured">MEASURED</span>)</th>
+<th>Raw ceiling (arithmetic, 8b/10b)</th>
+<th>IOMMU group</th>
+<th>Devices</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ServeRAID M1015</td>
+<td>dedicated RAID slot ("Slot 5"), ICH10 root port 00:1c.0 behind the ESI link (x4, 2.5 GT/s)</td>
+<td>2.5 GT/s x4</td>
+<td>about 1000 MB/s per direction, shared upstream with all ICH10 devices (USB, SATA, video) through ESI</td>
+<td>23 (shared with 00:1c.4, Vitesse bridge, Matrox video)</td>
+<td>boot VD (Toshiba), idle Hitachi</td>
+</tr>
+<tr>
+<td>IBM 6Gb SAS HBA 9212-4i4e</td>
+<td>System Slot 4, IOH root port 00:07.0</td>
+<td>5 GT/s x8</td>
+<td>about 4000 MB/s per direction</td>
+<td>28 (alone)</td>
+<td>none</td>
+</tr>
+</tbody>
+</table></div>
+<p>Arithmetic: 2.5 GT/s x 4 lanes x 8/10 / 8 = 1000 MB/s; 5 GT/s x 8 x 8/10 / 8 = 4000 MB/s. These are link ceilings,
+not measured throughput. For one 3.0 Gb/s SATA HDD neither limit matters (<span class="tl tl-candidate">CANDIDATE</span>); they matter once SSDs are added.</p>
+<p>M1015 facts that bound tuning (<span class="tl tl-documented">DOCUMENTED</span> <a class="sref" href="../catalog/sources.html#s-032">S-032</a> + <span class="tl tl-measured">MEASURED</span> C-STOR): no cache, so no write-back, no read-ahead and no
+cache policy at all; BBU not supported; base RAID levels 0, 1, 10 (no Advanced Feature Key installed, so no RAID 5);
+VD strip 64 KB; Patrol Read Auto every 168 h (0 completed iterations, next start in the past at capture time);
+consistency check every 168 h. Controller-side write tuning is therefore not possible; the only write-performance
+levers are the drives themselves, the drive's own write cache (Disk Cache Policy "Disabled", <span class="tl tl-measured">MEASURED</span>) and the OS
+side.</p>
+<h3 id="72-storage-recommendations-all-candidate-reasoning">7.2 Storage recommendations (all <span class="tl tl-candidate">CANDIDATE</span> reasoning) <a class="anchor" href="#72-storage-recommendations-all-candidate-reasoning" aria-label="Link to this section">#</a></h3>
+<ol>
+<li>Back up first (R-A6). The boot VD has no redundancy and the drive has 14179 power-on hours, 635 power cycles and
+   no self-test ever run (<span class="tl tl-measured">MEASURED</span>, captures/2026-10-20_smart_both_drives.txt; 14173 h / 634 on 2026-10-19, C-DRV);
+   SMART is clean (0 reallocated/pending, empty error logs; docs/X3650M3_STORAGE_RAID.md 6.1).</li>
+<li>Do not enable the drive write cache on the RAID0 VD (<code>Disk Cache Policy</code>): with no BBU and no controller cache a
+   power loss can lose acknowledged writes; with one PSU (no redundancy, <span class="tl tl-measured">MEASURED</span>) this risk is real. Benefit would
+   be faster writes; risk is data loss on the only copy of the host. Not recommended unless backups exist and the
+   owner accepts the risk (would be R-C level, approval).</li>
+<li>The Hitachi drive (110.8 GB, 1.5 Gb/s; inserted 2026-10-20, owner statement; SMART 2026-10-20: 1311 power-on
+   hours, 0 reallocated/pending, 140 logged ATA UNC read errors at 1189 h, docs/X3650M3_STORAGE_RAID.md 6.1) cannot mirror the
+   231.9 GB VD (too small, arithmetic). Done 2026-10-20 at the owner's request: separate RAID0 VD 1, Proxmox storage
+   hitachi-data, used as a vzdump target (R-C10; captures/2026-10-20_storage_hitachi_vd.txt). It sits in the same
+   chassis on the same controller, so it is not an off-host copy (R-A6 still applies). Boot drive context: the
+   controller failed the Toshiba boot drive once on 2026-10-14 and recovered it after a power cycle
+   (docs/X3650M3_STORAGE_RAID.md 14.4, <span class="tl tl-measured">MEASURED</span>); this strengthens R-A6 and R-A7 (<span class="tl tl-candidate">CANDIDATE</span> weighting).</li>
+<li>Boot redundancy (R-C11): a RAID 1 needs two members of at least the Toshiba's coerced size; <a class="sref" href="../catalog/sources.html#s-031">S-031</a> lists Online
+   RAID Level Migration for the M1015, but a RAID0 -&gt; RAID1 migration on this firmware is not verified (<span class="tl tl-unknown">UNKNOWN</span>).
+   The safer path is two new identical drives, a new RAID 1 VD and a Proxmox reinstall or migration from backup.</li>
+<li>New fast storage (SSDs, ZFS mirror) belongs on the HBA (R-C12): full 5 GT/s x8 IOH link, own IOMMU group (can
+   be passed to a VM), and no RAID firmware between ZFS and the disks if the card runs IT firmware (IT/IR mode is
+   <span class="tl tl-unknown">UNKNOWN</span>, needs sas2ircu/sas2flash). Open point: whether the HBA's internal port can be cabled to the drive
+   backplane (cabling <span class="tl tl-unknown">UNKNOWN</span>) or only the external "4e" port to an enclosure.</li>
+<li>M1015 firmware 20.10.1-0052 is six releases behind 20.11.1-0184 (<span class="tl tl-documented">DOCUMENTED</span> changelog); listed fixes concern LEDs,
+   RAID key handling, rebuild behavior and event-log NULL entries, none performance-related. No binary is in the
+   repository. Low priority (R-C9).</li>
+<li>Patrol Read reporting 0 iterations with a past start time is unexplained (<span class="tl tl-unknown">UNKNOWN</span>); read the controller event log
+   before changing any schedule (section 13).</li>
+</ol>
+<h2 id="8-pcie-slot-placement-and-iommu-groups">8. PCIe slot placement and IOMMU groups <a class="anchor" href="#8-pcie-slot-placement-and-iommu-groups" aria-label="Link to this section">#</a></h2>
+<h3 id="81-measured-groups-c-vvv">8.1 Measured groups (C-VVV) <a class="anchor" href="#81-measured-groups-c-vvv" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Members</th>
+<th>Passthrough suitability (<span class="tl tl-candidate">CANDIDATE</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>IOH root port 00:03.0 = System Slot 2 (riser 1, low profile, x8 Gen2), empty</td>
+<td>own group, ACS present: good</td>
+</tr>
+<tr>
+<td>4</td>
+<td>IOH root port 00:05.0 = System Slot 1 (riser 1, full height/full length, x8 Gen2), empty</td>
+<td>own group, ACS present: good</td>
+</tr>
+<tr>
+<td>5</td>
+<td>IOH root port 00:07.0 = System Slot 4 (riser 2, full height/half length)</td>
+<td>(the endpoint 1f:00.0 is in group 28)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>IOH root port 00:09.0 = System Slot 3 (riser 2, full height/full length, x8 Gen2), empty</td>
+<td>own group, ACS present: good</td>
+</tr>
+<tr>
+<td>23</td>
+<td>ICH10 root ports 00:1c.0 and 00:1c.4, M1015 01:00.0, Vitesse VSC452 06:00.0, Matrox G200eV 07:00.0</td>
+<td>not suitable: boot controller and console video share one group; ICH10 ports show no ACS capability</td>
+</tr>
+<tr>
+<td>27</td>
+<td>BCM5709 0b:00.0 and 0b:00.1 (onboard NIC, both ports)</td>
+<td>both ports move together; enp11s0f0 carries vmbr0 (<span class="tl tl-measured">MEASURED</span>), so passing the NIC through removes host networking</td>
+</tr>
+<tr>
+<td>28</td>
+<td>SAS2008 HBA 1f:00.0 (Slot 4)</td>
+<td>alone: suitable for passing the whole HBA to a storage VM</td>
+</tr>
+<tr>
+<td>22, 24</td>
+<td>ICH10 USB UHCI/EHCI controllers</td>
+<td>USB controllers are covered by the DMAR RMRR 0x7d750000-0x7d7cffff (docs/X3650M3_SYSTEM_ARCHITECTURE.md section 4); passthrough of RMRR-bound devices is restricted by Linux (<span class="tl tl-candidate">CANDIDATE</span>, agent knowledge) and they also carry the IMM virtual media/LAN-over-USB path (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>All IOH root ports 00:01.0-00:09.0 report an Access Control Services capability; 00:1c.0 and 00:1c.4 do not
+(<span class="tl tl-measured">MEASURED</span>). Interrupt remapping is enabled (<span class="tl tl-measured">MEASURED</span>), so <code>allow_unsafe_interrupts</code> is not needed (<span class="tl tl-candidate">CANDIDATE</span>).</p>
+<h3 id="82-placement-rules-for-this-machine">8.2 Placement rules for this machine <a class="anchor" href="#82-placement-rules-for-this-machine" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Add-in cards that may be passed through (GPU, NIC, NVMe carrier, HBA) go into System Slots 1-4 on the IOH, never
+  behind the ICH10. Full-height full-length cards: slots 1 and 3; low profile: slot 2; slot 4 holds the HBA
+  (<span class="tl tl-documented">DOCUMENTED</span> form factors, <a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.23, <a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.54).</li>
+<li>A 10 GbE NIC for the host belongs in slot 1 or 3 (x8 Gen2 = about 4000 MB/s raw per direction, enough for dual
+  10 GbE by arithmetic, <span class="tl tl-candidate">CANDIDATE</span>). The onboard BCM5709 runs at 5 GT/s x2 (root port is x2-capable only, <span class="tl tl-measured">MEASURED</span>).</li>
+<li>UEFI has per-slot "PCIe Gen1/Gen2" questions (<span class="tl tl-extracted">EXTRACTED</span>); keep Gen2. Live values <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>ASPM is disabled on all links (<span class="tl tl-measured">MEASURED</span>) and UEFI offers only "Disable / Enable L1 Only" (<span class="tl tl-extracted">EXTRACTED</span>). Enabling L1
+  could save a little power on idle links; old adapters and ASPM have a history of link problems (<span class="tl tl-candidate">CANDIDATE</span>). Not
+  recommended.</li>
+<li>One PCI riser-card assembly must always be present in riser connector 2 (<span class="tl tl-documented">DOCUMENTED</span>,
+  docs/X3650M3_HARDWARE_COMPONENTS.md).</li>
+</ul>
+<h2 id="9-fans-power-and-thermal">9. Fans, power and thermal <a class="anchor" href="#9-fans-power-and-thermal" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Fans (<span class="tl tl-measured">MEASURED</span>): six rotors at 17-41 %; fan 3 runs about twice as fast as fans 1 and 2 (3103/2450 RPM vs
+  1100-1595 RPM). Which components fan 3 cools and why it runs faster is <span class="tl tl-unknown">UNKNOWN</span> (<span class="tl tl-candidate">CANDIDATE</span>: zone temperature from
+  the PCIe/RAID area or the CPU location). Ambient 27 C is below the 38 C non-critical threshold.</li>
+<li>Fan control is done by the IMM; no documented user-level fan speed control exists in the local IMM v1 sources
+  (<span class="tl tl-unknown">UNKNOWN</span>). Recommendation: no fan change. Do not use undocumented raw IPMI fan commands on the host that runs the
+  lab. Acoustic mode (section 5.2) is the only documented lever and is not recommended (memory/QPI side effects).</li>
+<li>Airflow: keep the DIMM and microprocessor air baffles fitted (<span class="tl tl-documented">DOCUMENTED</span>); keep empty bays filled (<span class="tl tl-candidate">CANDIDATE</span>:
+  standard airflow practice; filler status of the bays is <span class="tl tl-unknown">UNKNOWN</span>).</li>
+<li>Power (<span class="tl tl-measured">MEASURED</span>): 80 W average, one PSU, Power Restore Policy "previous". The <a class="sref" href="../catalog/sources.html#s-002">S-002</a> table for 460 W supplies shows
+  normal operation below 400 W; 80 W is far from any limit. No power capping is needed (<code>uEFI.EnergyManager</code> stays
+  at default). Keep Power Restore Policy at Restore/previous so the lab returns after a power cut (<span class="tl tl-candidate">CANDIDATE</span>
+  operating preference).</li>
+<li>Redundancy: a second supply removes the single point of failure (R-C14). It must be the same type and wattage as
+  the installed one (no mixing of 460 W and 675 W, HE and non-HE, AC and DC; <span class="tl tl-documented">DOCUMENTED</span> <a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.123). The installed
+  wattage is <span class="tl tl-candidate">CANDIDATE</span> 460 W AC from the IMM VPD FRU 39Y7229 (confirm on the PSU label before ordering). IPMI
+  reports only "Power Supply 2" present while the IMM VPD names the supply "Power Supply 1"; <a class="sref" href="../catalog/sources.html#s-002">S-002</a> says the shipped
+  supply sits in bay 1 and "Power supply 1 is the default/primary" (conflict, section 14).</li>
+<li>CMOS battery (R-C1): VBAT 1.727 V critical (<span class="tl tl-measured">MEASURED</span>). Infocenter POST codes 0068002 "CMOS battery cleared" and
+  3108007 "System configuration restored to default settings" (<span class="tl tl-documented">DOCUMENTED</span>) show that a failing battery can reset
+  the UEFI configuration. Replace CRU 33F8354 before investing in UEFI tuning, ideally in the same power-off window
+  as the DIMM work.</li>
+</ul>
+<h2 id="10-firmware-upgrade-path-and-order">10. Firmware upgrade path and order <a class="anchor" href="#10-firmware-upgrade-path-and-order" aria-label="Link to this section">#</a></h2>
+<h3 id="101-installed-vs-latest-docsx3650m3_firmware_historymd-docsx3650m3_storage_raidmd-section-7">10.1 Installed vs latest (docs/X3650M3_FIRMWARE_HISTORY.md, docs/X3650M3_STORAGE_RAID.md section 7) <a class="anchor" href="#101-installed-vs-latest-docsx3650m3_firmware_historymd-docsx3650m3_storage_raidmd-section-7" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Installed (<span class="tl tl-measured">MEASURED</span>)</th>
+<th>Latest documented</th>
+<th>Binary in repository</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IMM</td>
+<td>1.30 YUOOC7E</td>
+<td>1.55 YUOOH5A (CVE-2017-17833 OpenSLP fix)</td>
+<td>no (changelog and README only; IBM Fix Central needs an IBM ID)</td>
+</tr>
+<tr>
+<td>UEFI</td>
+<td>1.13 build D6E154A</td>
+<td>1.22 D6E164A (microcode 0x1F for 0x206C2)</td>
+<td>1.22 Windows .exe only; 1.14 Linux .bin (microcode 0x15)</td>
+</tr>
+<tr>
+<td>DSA Preboot</td>
+<td>DSYT89P</td>
+<td>9.53 DSYTC5F (final release UNVERIFIED)</td>
+<td>no</td>
+</tr>
+<tr>
+<td>ServeRAID M1015</td>
+<td>20.10.1-0052</td>
+<td>20.11.1-0184</td>
+<td>no</td>
+</tr>
+<tr>
+<td>IBM 6Gb SAS HBA</td>
+<td>FW 10.00.05.00 (package 1.10.01, <span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>1.10.05 (FW 10.00.08.00)</td>
+<td>no</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="102-why-the-uefi-update-matters-for-a-kvm-host">10.2 Why the UEFI update matters for a KVM host <a class="anchor" href="#102-why-the-uefi-update-matters-for-a-kvm-host" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Microcode in UEFI (<span class="tl tl-extracted">EXTRACTED</span>, docs/X3650M3_UEFI.md section 9): 0x206C2 is 0x15 in UEFI 1.14 and 0x1F (2018-05-08)
+  in 1.22; the OS runs 0x14 (<span class="tl tl-measured">MEASURED</span>).</li>
+<li>UEFI 1.18 (D6E160A, Critical) incorporated microcode M03206C2_0000001A "to address Intel Erratum BD132 and AAK167
+  for System Resets with 32-bit (PAE Enabled) Guest OS and VT FlexPriority enabled" (RETAIN H21370) and BD131 for
+  X5675/X5687/X5690 (H21371) (UEFI .chg, <span class="tl tl-documented">DOCUMENTED</span>). The CPU reports the <code>flexpriority</code> VMX feature (<span class="tl tl-measured">MEASURED</span>). A
+  Proxmox host running 32-bit PAE guests on microcode 0x14 is therefore exposed to that documented reset erratum
+  (<span class="tl tl-candidate">CANDIDATE</span>: applicability of erratum AAK167 to stepping 2 is not stated in the local sources).</li>
+<li>UEFI 1.21 (CVE-2017-5715) and 1.22 (CVE-2018-3639/3640) add Spectre-era microcode (<span class="tl tl-documented">DOCUMENTED</span>). The OS currently
+  reports Spec store bypass "Vulnerable" (<span class="tl tl-measured">MEASURED</span>).</li>
+<li>MDS stays "no microcode" even with 0x1F (<span class="tl tl-candidate">CANDIDATE</span>: 0x1F is dated 2018-05-08, before the public MDS disclosure in
+  2019; no later 0x206C2 revision is in the repository).</li>
+</ul>
+<h3 id="103-order-documented-s-022-pp11-12-imm-155-readme-section-14">10.3 Order (<span class="tl tl-documented">DOCUMENTED</span>, S-022 pp.11-12; IMM 1.55 README section 1.4) <a class="anchor" href="#103-order-documented-s-022-pp11-12-imm-155-readme-section-14" aria-label="Link to this section">#</a></h3>
+<ol>
+<li>Prerequisites on this host: backup (R-A6), new CMOS battery (R-C1), SEL saved and cleared (R-C2), maintenance
+   window agreed with the owner (the agent container goes down), IMM reachable out of band.</li>
+<li>IMM first, then UEFI, then FPGA (not present), then DSA Preboot. UXSPI/BoMC are the preferred tools and may choose
+   their own order. "It is recommended that all firmware including IMM, UEFI, FPGA and DSA Preboot are updated
+   together as a matched set" (<a class="sref" href="../catalog/sources.html#s-022">S-022</a>).</li>
+<li>Adapter firmware (M1015, HBA, Broadcom) afterwards (<span class="tl tl-candidate">CANDIDATE</span>: not part of the documented system-firmware order).</li>
+</ol>
+<p>Constraints and risks (<span class="tl tl-documented">DOCUMENTED</span> unless marked):</p>
+<ul>
+<li>IMM 1.55 binary is not available, so the documented order cannot start today. UEFI 1.22 alone is permitted by its
+  prerequisites (IMM 1.07 per README, YUOO57H = 1.10 per XML; the installed 1.30 satisfies both, docs/X3650M3_UEFI.md
+  section 10), but it breaks the matched-set recommendation. Decision for the owner.</li>
+<li>In-band updates from Linux: disable C-states first (Intel erratum, <a class="sref" href="../catalog/sources.html#s-022">S-022</a> p.10; section 5.3). Updates through the
+  IMM web interface or CLI are not affected. They need LAN over USB for in-band packages (<a class="sref" href="../catalog/sources.html#s-022">S-022</a> p.8).</li>
+<li>An update takes at least 17 minutes; the IMM can need up to 17 minutes to be ready after its own update (<a class="sref" href="../catalog/sources.html#s-022">S-022</a>).</li>
+<li>After a UEFI update, reboot to let the CRTM update run; "Do not power off the system while the CRTM is being
+  updated; doing so will corrupt the system and require a system board replacement" (<a class="sref" href="../catalog/sources.html#s-022">S-022</a> p.10). Only power off
+  after the IBM UEFI splash screen.</li>
+<li>If an update fails, retry before rebooting (<a class="sref" href="../catalog/sources.html#s-022">S-022</a>).</li>
+<li>Recovery: the IMM has primary and backup banks (jumper J147), the UEFI has a backup bank (jumper J29)
+  (docs/X3650M3_IMM_ARCHITECTURE.md, docs/X3650M3_FIRMWARE_HISTORY.md). The "firmware architecture change from Q3
+  2011" makes mixed-bank IMM images unpredictable (IBM node 860842).</li>
+<li>The 1.22 package in the repository is a Windows .exe; whether its inner .upd can be applied through the IMM web
+  interface is <span class="tl tl-candidate">CANDIDATE</span> (docs/X3650M3_FIRMWARE_FORMATS.md describes the package structure; not tested).</li>
+<li>The M5000 firmware package in the repository must never be applied to the M1015 (docs/X3650M3_STORAGE_RAID.md).</li>
+</ul>
+<h3 id="104-no-flash-alternative-for-microcode-r-b1">10.4 No-flash alternative for microcode (R-B1) <a class="anchor" href="#104-no-flash-alternative-for-microcode-r-b1" aria-label="Link to this section">#</a></h3>
+<p>Load microcode from the OS at boot: Debian package <code>intel-microcode</code> (Proxmox VE 8 is Debian 12 based; package in
+the <code>non-free-firmware</code> component) installs files under /lib/firmware/intel-ucode/ and the early initramfs loader
+applies them at every boot (<span class="tl tl-candidate">CANDIDATE</span>: agent knowledge of Debian packaging, not in the repository sources). The
+host's Debian APT lines list only <code>main contrib</code> (<span class="tl tl-measured">MEASURED</span>, C-BA lines 92-94), so the package is not installable
+from the configured sources (<span class="tl tl-candidate">CANDIDATE</span> consequence: it lives only in non-free-firmware). Adding <code>non-free-firmware</code>
+to those lines is a persistent change of the host's package sources and needs owner approval; it is a
+precondition of R-B1. Which revision for 06-2c-02 the package carries is <span class="tl tl-unknown">UNKNOWN</span> offline (probe in section 13); if it is 0x1F or later it gives
+the same CPU fixes as UEFI 1.22 without touching flash. It does not update the UEFI code itself (CRTM, IMM
+interface fixes, VLAN, memory reference code). Reversible by removing the package and rebuilding the initramfs.
+Needs a host reboot to take effect, hence owner approval.</p>
+<h2 id="11-linux--proxmox-side-settings">11. Linux / Proxmox-side settings <a class="anchor" href="#11-linux--proxmox-side-settings" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Current (<span class="tl tl-measured">MEASURED</span> or <span class="tl tl-unknown">UNKNOWN</span>)</th>
+<th>Recommendation</th>
+<th>Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cpufreq governor</td>
+<td><code>performance</code> (acpi-cpufreq), <span class="tl tl-measured">MEASURED</span> C-W2</td>
+<td>Optional: <code>schedutil</code> or <code>ondemand</code> lets cores drop to 1197 MHz; <code>performance</code> keeps 2128 MHz. Without Turbo the throughput difference under load is nil (both reach 2128 MHz). Expected idle saving is small because idle cores already sit in C6 most of the time (<span class="tl tl-candidate">CANDIDATE</span>: frequency matters little while a core is in C6); measure <code>Avg Power</code> before and after (R-A2)</td>
+<td><span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>cpuidle</td>
+<td>intel_idle; POLL/C1/C1E/C3/C6 enabled and used, C6 dominant (<span class="tl tl-measured">MEASURED</span> C-W2)</td>
+<td>Keep intel_idle as is; do not set <code>intel_idle.max_cstate</code> or <code>processor.max_cstate</code> unless diagnosing a latency or stability issue. Because C-states are in use, disable them before any in-band firmware update (section 5.3)</td>
+<td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>intel_powerclamp</td>
+<td>module loaded (<span class="tl tl-measured">MEASURED</span>)</td>
+<td>leave; only acts when a user-space thermal daemon requests it (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td><span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>IOMMU</td>
+<td>active without kernel parameters (<span class="tl tl-measured">MEASURED</span>: cmdline has none, DMAR and IOMMU groups present)</td>
+<td>No <code>intel_iommu=on</code> needed. Optional <code>iommu=pt</code> when passthrough is used, to avoid DMA translation for host-owned devices (<span class="tl tl-candidate">CANDIDATE</span> benefit, not measured); needs reboot (R-B2)</td>
+<td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>VFIO</td>
+<td>not configured (no vfio in lsmod excerpt; the excerpt did not grep for it)</td>
+<td>Only when a passthrough device is installed in slots 1-4 or the HBA is passed through</td>
+<td><span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>KSM</td>
+<td>ksmtuned active, KSM run 0, pages_sharing 0 (<span class="tl tl-measured">MEASURED</span> C-W2)</td>
+<td>Keep ksmtuned; KSM is idle as expected at this memory load (<span class="tl tl-candidate">CANDIDATE</span>: ksmtuned starts merging only under memory pressure, agent knowledge). Useful when several similar VMs run; costs CPU on a 4-core host</td>
+<td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>Swap</td>
+<td>7.7 GiB LV on the RAID0 HDD, 0 B used; vm.swappiness 60 (<span class="tl tl-measured">MEASURED</span> C-W2)</td>
+<td><code>vm.swappiness</code> lower (for example 10) so guests are not paged to a slow single HDD (<span class="tl tl-candidate">CANDIDATE</span>, R-A4)</td>
+<td><span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>I/O scheduler</td>
+<td>mq-deadline on sda and sdb (<span class="tl tl-measured">MEASURED</span> C-W2)</td>
+<td>Keep; already the recommended scheduler for the rotational VDs (R-A5 closed)</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Transparent / static huge pages</td>
+<td>THP enabled <code>madvise</code>, defrag <code>madvise</code>; 0 kB anonymous huge pages in use; no static hugepages reserved (<span class="tl tl-measured">MEASURED</span> C-BA)</td>
+<td>Keep the Debian/Proxmox defaults; static hugepages for a guest would take memory away from an 8 GB host and are not recommended before the memory upgrade (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>ZFS ARC</td>
+<td>zfsutils installed; pool existence <span class="tl tl-unknown">UNKNOWN</span> (root is LVM)</td>
+<td>If a pool exists, cap <code>zfs_arc_max</code> on an 8 GB host (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td><span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>Microcode</td>
+<td>0x14; <code>intel-microcode</code> not installed (<span class="tl tl-measured">MEASURED</span> C-W2); its component non-free-firmware is not in the APT sources (<span class="tl tl-measured">MEASURED</span> C-BA)</td>
+<td>R-B1 (after an owner-approved APT source change) or R-C8</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>APT sources</td>
+<td>Debian main contrib; pve-no-subscription; ceph-reef <code>test</code> enabled; [remote-access service] and [remote-access service] repositories (<span class="tl tl-measured">MEASURED</span> C-BA lines 91-103)</td>
+<td>No change proposed. Flag for the owner: the Ceph repository line uses the <code>test</code> component (whether Ceph is in use on this host is not captured)</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>CPU mitigations</td>
+<td>see section 4</td>
+<td>Keep kernel defaults; do not use <code>mitigations=off</code> on a host with untrusted guests (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td><span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>EDAC / SMART monitoring</td>
+<td>EDAC CE/UE 0; smartctl works via <code>-d sat+megaraid,11</code></td>
+<td>Monitor both; start a SMART long self-test of the boot drive in a quiet period (R-A7)</td>
+<td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>Time</td>
+<td>M1015 clock 2 h behind system ("FW and Event Time in GMT = No"); the firmware-internal time scale is a further 1 h behind the storcli display (docs/X3650M3_STORAGE_RAID.md 14.1)</td>
+<td>informational; affects event-log correlation only</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="12-recommendation-register">12. Recommendation register <a class="anchor" href="#12-recommendation-register" aria-label="Link to this section">#</a></h2>
+<p>Fields: benefit | evidence | risk | reversibility | reboot | approval.</p>
+<h3 id="121-tier-a---no-risk-os-side">12.1 Tier A - no-risk, OS-side <a class="anchor" href="#121-tier-a---no-risk-os-side" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Action</th>
+<th>Expected benefit</th>
+<th>Evidence</th>
+<th>Risk</th>
+<th>Reversible</th>
+<th>Reboot</th>
+<th>Approval</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R-A1</td>
+<td>Run the read-only probes of section 13 (partly done 2026-10-20: governor, idle states, KSM, swappiness, scheduler, boot mode, microcode package, OS base)</td>
+<td>Closes the UNKNOWNs that gate R-A2..R-A5, R-B*, R-C5/C6</td>
+<td>section 4 <span class="tl tl-unknown">UNKNOWN</span> rows; C-W2</td>
+<td>none (read-only)</td>
+<td>n/a</td>
+<td>no</td>
+<td>not required</td>
+</tr>
+<tr>
+<td>R-A2</td>
+<td>Set cpufreq governor at runtime (<code>echo schedutil &gt; /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor</code>); current governor is <code>performance</code> (<span class="tl tl-measured">MEASURED</span>)</td>
+<td>Lower idle power (<span class="tl tl-candidate">CANDIDATE</span>, size unmeasured and expected small because C6 dominates idle)</td>
+<td>C-OS lscpu min/max; C-W2</td>
+<td>slightly higher latency on load bursts (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>yes, one command or reboot</td>
+<td>no</td>
+<td>not required</td>
+</tr>
+<tr>
+<td>R-A3</td>
+<td>KSM checked 2026-10-20: run 0, pages_sharing 0, ksmtuned active (C-W2); adjust /etc/ksmtuned.conf only if memory pressure appears</td>
+<td>More guest RAM when VMs are similar (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>C-OS package; free -h</td>
+<td>CPU time for scanning</td>
+<td>yes</td>
+<td>no</td>
+<td>not required</td>
+</tr>
+<tr>
+<td>R-A4</td>
+<td><code>sysctl vm.swappiness=10</code> (current 60, <span class="tl tl-measured">MEASURED</span> C-W2; persist in /etc/sysctl.d/ only after observing)</td>
+<td>Avoid paging to the RAID0 HDD (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>C-OS free/lsblk</td>
+<td>under real pressure the OOM killer may act earlier (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>yes</td>
+<td>no</td>
+<td>not required</td>
+</tr>
+<tr>
+<td>R-A5</td>
+<td>Closed 2026-10-20: sda and sdb already use mq-deadline (C-W2); no action</td>
+<td>Better HDD request ordering (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>C-OS lsblk ROTA 1; C-W2</td>
+<td>none known</td>
+<td>yes</td>
+<td>no</td>
+<td>not required</td>
+</tr>
+<tr>
+<td>R-A6</td>
+<td>Off-host backup of all guests (vzdump / proxmox-backup-client, installed) and of /etc/pve and host config. Current state (2026-10-20): weekly vzdump to hitachi-data, which is in the same chassis (not off-host; captures/2026-10-20_host_backup_setup.txt)</td>
+<td>Protects against loss of the single RAID0 HDD and against failed flashes</td>
+<td>C-STOR RAID0, 1 drive; C-DRV 14173 h</td>
+<td>I/O load during backup</td>
+<td>n/a</td>
+<td>no</td>
+<td>not required (target choice is the owner's)</td>
+</tr>
+<tr>
+<td>R-A7</td>
+<td>SMART long self-test of the boot drive (<code>smartctl -t long -d sat+megaraid,11 &lt;path&gt;</code>, path from <code>smartctl --scan-open</code>: /dev/bus/4 on 2026-10-19, /dev/bus/5 on 2026-10-20, docs/X3650M3_STORAGE_RAID.md 6.1) in a quiet period. State 2026-10-20: owner-approved and queued on the host for both drives after the initial backup; result pending</td>
+<td>First self-test ever; early warning</td>
+<td>C-DRV "no self-tests ever run"</td>
+<td>I/O slowdown during the test; drive aborts on host load (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>test can be aborted (<code>-X</code>)</td>
+<td>no</td>
+<td>not required</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="122-tier-b---os-side-needs-a-reboot">12.2 Tier B - OS-side, needs a reboot <a class="anchor" href="#122-tier-b---os-side-needs-a-reboot" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Action</th>
+<th>Expected benefit</th>
+<th>Evidence</th>
+<th>Risk</th>
+<th>Reversible</th>
+<th>Reboot</th>
+<th>Approval</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R-B1</td>
+<td>Add <code>non-free-firmware</code> to the Debian lines of /etc/apt/sources.list (today <code>main contrib</code> only, <span class="tl tl-measured">MEASURED</span> C-BA lines 92-94; APT source change), then install <code>intel-microcode</code> after checking that it carries a 06-2c-02 revision &gt; 0x14</td>
+<td>Westmere fixes for FlexPriority/PAE-guest resets (0x1A) and Spectre v2/SSB (0x1F) without flashing (<span class="tl tl-candidate">CANDIDATE</span>: depends on the packaged revision)</td>
+<td>C-CPU 0x14; UEFI .chg 1.18/1.21/1.22; docs/X3650M3_UEFI.md 9; C-BA</td>
+<td>mitigations may cost some performance (<span class="tl tl-candidate">CANDIDATE</span>); early load failure leaves 0x14; the added component also offers other non-free firmware packages at upgrades (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>yes: remove package, update-initramfs, revert the source lines, reboot</td>
+<td>yes</td>
+<td>owner approval required (APT source change and reboot)</td>
+</tr>
+<tr>
+<td>R-B2</td>
+<td>Add <code>iommu=pt</code> to the kernel command line only when passthrough is used. Boot mode UEFI (<span class="tl tl-measured">MEASURED</span> C-W2), proxmox-boot-tool not in use (<span class="tl tl-measured">MEASURED</span> C-BA line 11), boot loader GRUB (<span class="tl tl-candidate">CANDIDATE</span>, section 4): the edit goes to GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub followed by <code>update-grub</code> (<span class="tl tl-candidate">CANDIDATE</span>, agent knowledge of Debian GRUB), not to /etc/kernel/cmdline</td>
+<td>Lower DMA mapping overhead for host devices (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>C-OS cmdline; DMAR active; C-BA</td>
+<td>wrong edit can stop boot (recover via IMM remote console, <span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>yes</td>
+<td>yes</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-B3</td>
+<td>Do NOT set <code>intel_idle.max_cstate=0/1</code> or <code>processor.max_cstate</code></td>
+<td>-</td>
+<td>-</td>
+<td>would raise idle power</td>
+<td>-</td>
+<td>-</td>
+<td>(no action)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="123-tier-c---firmware-settings-power-hardware">12.3 Tier C - firmware, settings, power, hardware <a class="anchor" href="#123-tier-c---firmware-settings-power-hardware" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Action</th>
+<th>Expected benefit</th>
+<th>Evidence</th>
+<th>Risk</th>
+<th>Reversible</th>
+<th>Reboot / power</th>
+<th>Approval</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R-C1</td>
+<td>Replace CMOS battery (CRU 33F8354, 3.0 V)</td>
+<td>Prevents loss of UEFI settings and RTC errors</td>
+<td>C-IPMI VBAT 1.727 V cr; infocenter POST 0068002, 3108007, 305000A</td>
+<td>settings may reset to defaults during the swap (<span class="tl tl-documented">DOCUMENTED</span> effect of CMOS clear); record settings first (ASU show)</td>
+<td>yes (part swap)</td>
+<td>power-off</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-C2</td>
+<td>Save the SEL (already saved per STATUS) and clear it</td>
+<td>New events (during DIMM, battery, flash work) get logged again</td>
+<td>A-008; C-IPMI sel info</td>
+<td>loss of old entries if not saved</td>
+<td>no (entries gone)</td>
+<td>no</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-C3</td>
+<td>Install 2x 8 GB 2Rx4 1.5 V RDIMM in DIMM06, DIMM09 (same window as R-C1)</td>
+<td>24 GB total, all three channels, 1066 MHz</td>
+<td>docs/X3650M3_MEMORY.md 6, 11; <a class="sref" href="../catalog/sources.html#s-001">S-001</a>; <a class="sref" href="../catalog/sources.html#s-002">S-002</a></td>
+<td>wrong part or seating gives POST memory errors; host down for the work</td>
+<td>yes</td>
+<td>power-off, 10 s wait</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-C4</td>
+<td>Further memory: 48 GB (2 DPC, 1066) or 96 GB (6x 16 GB 1.35 V); avoid 3 DPC</td>
+<td>Capacity without speed loss</td>
+<td>same</td>
+<td>cost; third-party compatibility <span class="tl tl-unknown">UNKNOWN</span></td>
+<td>yes</td>
+<td>power-off</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-C5</td>
+<td>UEFI Custom mode: <code>uEFI.ProcessorCcxEnable=Enable</code>, keep <code>uEFI.ProcessorC1eEnable=Enable</code>, <code>uEFI.PerformanceStates=Enable</code>, <code>uEFI.PackageCState</code> = ACPI C3 (test C2 vs C3)</td>
+<td>Lower idle power (<span class="tl tl-candidate">CANDIDATE</span>, size unmeasured; possibly already realized: intel_idle uses C3/C6 with C6 at 95.9 % of idle time, <span class="tl tl-measured">MEASURED</span> C-W2)</td>
+<td>docs/X3650M3_UEFI.md 5-7; <a class="sref" href="../catalog/sources.html#s-035">S-035</a> C-state text; C-W2</td>
+<td>wake-up latency; must be disabled again before in-band firmware updates (<a class="sref" href="../catalog/sources.html#s-022">S-022</a> p.10)</td>
+<td>yes (set back)</td>
+<td>reboot</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-C6</td>
+<td>UEFI <code>uEFI.PatrolScrub=Enable</code></td>
+<td>Earlier detection of latent memory errors (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>docs/X3650M3_UEFI.md 7</td>
+<td>small background memory bandwidth use (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>yes</td>
+<td>reboot</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-C7</td>
+<td>Keep Operating Mode = Custom; do not select Performance, Efficiency or Acoustic</td>
+<td>Avoids useless (Turbo) or possibly harmful (memory/QPI speed) changes</td>
+<td>section 5.2</td>
+<td>none (no change)</td>
+<td>-</td>
+<td>-</td>
+<td>(no action)</td>
+</tr>
+<tr>
+<td>R-C8</td>
+<td>Firmware: IMM 1.55 -&gt; UEFI 1.22 -&gt; DSA, matched set, IMM web or UXSPI/BoMC; C-states off for in-band updates</td>
+<td>Microcode 0x1F, 0x1A erratum fix, Spectre-era fixes, IMM OpenSLP CVE fix</td>
+<td>docs/X3650M3_FIRMWARE_HISTORY.md; UEFI .chg; <a class="sref" href="../catalog/sources.html#s-022">S-022</a></td>
+<td>lab down &gt;= 17 min per update; CRTM power-off = system board replacement; IMM binary unavailable</td>
+<td>partial: backup banks (J147, J29); downgrade caveats in the IMM README</td>
+<td>reboot(s)</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-C9</td>
+<td>M1015 firmware 20.11.1-0184 and HBA package 1.10.05 (when binaries are obtained)</td>
+<td>Listed fixes (LEDs, key handling, rebuild, event log)</td>
+<td>docs/X3650M3_STORAGE_RAID.md 7</td>
+<td>M1015 hosts the boot VD; rollback path not documented for M1000 series</td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td>reboot</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-C10</td>
+<td>Done 2026-10-20 (owner request): RAID0 VD 1 "hitachi_data" on the Hitachi drive, Proxmox storage hitachi-data</td>
+<td>110 GB extra space</td>
+<td>C-STOR UGood; captures/2026-10-20_storage_hitachi_vd.txt</td>
+<td>old drive, 1.5 Gb/s link, 140 logged ATA read errors (SMART 2026-10-20, STORAGE_RAID 6.1); never the only backup copy</td>
+<td>yes (delete VD)</td>
+<td>no reboot for VD creation (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-C11</td>
+<td>Boot redundancy: two new identical drives &gt;= 250 GB as RAID 1 on the M1015, reinstall or restore from backup</td>
+<td>Removes the single-disk failure mode</td>
+<td>C-STOR; docs/X3650M3_STORAGE_RAID.md 11</td>
+<td>migration downtime; RAID0 -&gt; RAID1 online migration <span class="tl tl-unknown">UNKNOWN</span></td>
+<td>yes</td>
+<td>yes</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-C12</td>
+<td>New SSD/ZFS storage on the 9212-4i4e HBA (Slot 4), confirm IT firmware first</td>
+<td>5 GT/s x8 path, own IOMMU group, direct disk access for ZFS</td>
+<td>C-VVV; docs/X3650M3_STORAGE_RAID.md 4.2</td>
+<td>backplane cabling <span class="tl tl-unknown">UNKNOWN</span>; IR firmware would hide disks</td>
+<td>yes</td>
+<td>power-off for cabling</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-C13</td>
+<td>Put any passthrough card or 10 GbE NIC in Slot 1 or 3 (or 2 for low profile)</td>
+<td>Isolated IOMMU group, full x8 Gen2</td>
+<td>section 8</td>
+<td>none beyond the install</td>
+<td>yes</td>
+<td>power-off</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-C14</td>
+<td>Second PSU of the same type and wattage as the installed one</td>
+<td>Power redundancy</td>
+<td>C-IPMI one PSU; <a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.123 mixing rules</td>
+<td>wrong type triggers PS+CNFG error</td>
+<td>yes</td>
+<td>hot-swap (<span class="tl tl-documented">DOCUMENTED</span> supplies are hot-swap; <a class="sref" href="../catalog/sources.html#s-002">S-002</a>)</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-C15</td>
+<td>CPU upgrade to a 1333 MHz Xeon 5600 with Turbo/HT (after UEFI update; check PSU and heat sink)</td>
+<td>1333 MHz memory, Turbo, HT, more cores</td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 5; UEFI .chg 1.15/1.18</td>
+<td>technician FRU work; PSU sizing <span class="tl tl-unknown">UNKNOWN</span></td>
+<td>yes</td>
+<td>power-off</td>
+<td>owner approval required</td>
+</tr>
+<tr>
+<td>R-C16</td>
+<td>Disable the option ROM of the empty HBA in UEFI (Adapter Option ROM Support)</td>
+<td>Shorter POST (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+<td>C-VVV ROM 512K; docs/X3650M3_UEFI.md 5</td>
+<td>if later disks on the HBA must boot, re-enable; boot mode UEFI (<span class="tl tl-measured">MEASURED</span> C-W2)</td>
+<td>yes</td>
+<td>reboot</td>
+<td>owner approval required</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="13-read-only-probes-that-close-the-gaps">13. Read-only probes that close the gaps <a class="anchor" href="#13-read-only-probes-that-close-the-gaps" aria-label="Link to this section">#</a></h2>
+<p>All read-only; run on the host ([lab-ip]) by the owner or with the owner's go-ahead. None changes state.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Gap</th>
+<th>Probe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cpufreq driver, governor, frequency table</td>
+<td><code>cat /sys/devices/system/cpu/cpu0/cpufreq/{scaling_driver,scaling_governor,scaling_available_governors,scaling_available_frequencies}</code> (done 2026-10-20 except the frequency table, C-W2)</td>
+</tr>
+<tr>
+<td>Idle states and residency</td>
+<td><code>grep . /sys/devices/system/cpu/cpu0/cpuidle/state*/{name,desc,latency,usage,time,disable}</code> (done 2026-10-20, C-W2)</td>
+</tr>
+<tr>
+<td>Firmware C-state limit</td>
+<td><code>cat /sys/module/intel_idle/parameters/max_cstate</code>; <code>dmesg | grep -i intel_idle</code></td>
+</tr>
+<tr>
+<td>KSM</td>
+<td><code>grep . /sys/kernel/mm/ksm/*</code>; <code>systemctl is-active ksmtuned</code> (done 2026-10-20, C-W2)</td>
+</tr>
+<tr>
+<td>Swappiness, THP</td>
+<td><code>sysctl vm.swappiness</code> (done 2026-10-20: 60); <code>cat /sys/kernel/mm/transparent_hugepage/{enabled,defrag}</code> (done 2026-10-20: madvise / madvise, C-BA)</td>
+</tr>
+<tr>
+<td>I/O scheduler</td>
+<td><code>cat /sys/block/sda/queue/scheduler</code> (done 2026-10-20, sda and sdb, C-W2)</td>
+</tr>
+<tr>
+<td>Boot mode and boot loader</td>
+<td><code>ls /sys/firmware/efi 2&gt;&amp;1</code> (done 2026-10-20: UEFI); <code>proxmox-boot-tool status</code>, <code>efibootmgr -v</code> (done 2026-10-20: not in use, BootCurrent shim entry, C-BA)</td>
+</tr>
+<tr>
+<td>ZFS / loop0</td>
+<td><code>zpool list 2&gt;&amp;1</code>; <code>losetup -a</code></td>
+</tr>
+<tr>
+<td>VFIO</td>
+<td><code>lsmod | grep -i vfio</code></td>
+</tr>
+<tr>
+<td>Microcode package</td>
+<td><code>dpkg -l intel-microcode 2&gt;&amp;1</code> (done 2026-10-20: not installed); <code>apt-cache policy intel-microcode</code>; active APT source lines (done 2026-10-20: no non-free-firmware, C-BA); <code>apt-cache policy intel-microcode</code> (open; expected to show no candidate with the current sources, <span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>Live UEFI values (operating mode, C-states, VT-d, PatrolScrub, DdrSpeed, per-slot Gen, option ROMs)</td>
+<td>ASU <code>asu64 show all</code> (needs ASU on the host; <a class="sref" href="../catalog/sources.html#s-026">S-026</a>) - read-only</td>
+</tr>
+<tr>
+<td>Live idle power vs settings</td>
+<td><code>ipmitool sdr get "Avg Power"</code> repeated over time</td>
+</tr>
+<tr>
+<td>Fan zones</td>
+<td><code>ipmitool sdr elist full</code>; IMM CLI <code>fans</code>, <code>temps</code></td>
+</tr>
+<tr>
+<td>HBA mode and cabling</td>
+<td><code>sas2ircu list</code>, <code>sas2ircu 0 display</code> (Lenovo package DS117061); visual check of cables</td>
+</tr>
+<tr>
+<td>M1015 event log and patrol read</td>
+<td><code>storcli64 /c0 show events</code> (done 2026-10-20, docs/X3650M3_STORAGE_RAID.md 14), <code>storcli64 /c0 show patrolread</code> (open)</td>
+</tr>
+<tr>
+<td>Hitachi drive health</td>
+<td>done 2026-10-20: <code>smartctl -a</code> and <code>-l xerror -d sat+megaraid,12</code> (captures/2026-10-20_smart_both_drives.txt; the path is now /dev/bus/5, take it from <code>smartctl --scan-open</code>); SMART long self-tests of both drives queued after the initial backup, result pending (STORAGE_RAID 6.1)</td>
+</tr>
+<tr>
+<td>PSU wattage</td>
+<td>PSU label, or IMM web "Power Modules" view (not captured)</td>
+</tr>
+<tr>
+<td>IMM event log</td>
+<td>done 2026-10-20: IMM CLI <code>readlog</code>, 781 entries (captures/2026-10-20_imm_readlog.txt; decode in docs/X3650M3_ERROR_CODES.md 15.6-15.8)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="14-contradictions-between-sources">14. Contradictions between sources <a class="anchor" href="#14-contradictions-between-sources" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Topic</th>
+<th>Value A</th>
+<th>Value B</th>
+<th>Handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>C-state firmware-update erratum scope</td>
+<td><a class="sref" href="../catalog/sources.html#s-022">S-022</a> p.10: "Linux or VMware"</td>
+<td>IMM 1.55 README 1.4: 32-bit Linux command-line updates</td>
+<td>Follow the broader <a class="sref" href="../catalog/sources.html#s-022">S-022</a> rule on this 64-bit Linux host (<span class="tl tl-candidate">CANDIDATE</span>: conservative choice)</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>uEFI.PackageCState</code> default in 1.22</td>
+<td>setup XML and Processors form: ACPI C2</td>
+<td>Operating Modes form and mode summaries: ACPI C3</td>
+<td>Unresolved (docs/X3650M3_UEFI.md section 10); set the value explicitly in R-C5</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>uEFI.ProcessorCcxEnable</code> default in 1.14</td>
+<td>form: Enable</td>
+<td>XML: Disable</td>
+<td>Unresolved; live value on D6E154A <span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>4</td>
+<td>VT-d default vs live</td>
+<td>1.22 XML <code>uEFI.VTdSupport</code> default Disable</td>
+<td>DMAR table present and IOMMU active (<span class="tl tl-measured">MEASURED</span>)</td>
+<td>Not a source conflict: live setting differs from the 1.22 default or the D6E154A default differs (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Installed PSU bay</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a>: shipped supply in bay 1, "Power supply 1 is the default/primary"</td>
+<td>IPMI: only "Power Supply 2" present; IMM VPD 2026-10-21: "Power Supply 1" holds the VPD (<span class="tl tl-measured">MEASURED</span>)</td>
+<td>Unresolved; physical inspection</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Speed at 2 DPC</td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a>: 1333 MHz</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a>: 1066 MHz (1333 only for X5600 under conditions)</td>
+<td>No effect on the E5606 (1066 MHz at 1-2 DPC either way); matters after a CPU upgrade</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Maximum memory</td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a>/<a class="sref" href="../catalog/sources.html#s-002">S-002</a>: 288 GB</td>
+<td>SMBIOS: 192 GB</td>
+<td>Unresolved; irrelevant below 144 GB per CPU</td>
+</tr>
+<tr>
+<td>8</td>
+<td>UEFI 1.13 build</td>
+<td>SMBIOS D6E154A = 1.13 (<span class="tl tl-measured">MEASURED</span>)</td>
+<td>.chg lists 1.13 as D6E154B</td>
+<td>Unresolved (docs/X3650M3_FIRMWARE_HISTORY.md)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Microcode 0x14</td>
+<td>OS runs 0x14 (<span class="tl tl-measured">MEASURED</span>)</td>
+<td>UEFI 1.14 already ships 0x15</td>
+<td>Consistent with the older 1.13 build carrying 0x14 (<span class="tl tl-candidate">CANDIDATE</span>, not verified)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="15-open-questions--unknown">15. Open questions / <span class="tl tl-unknown">UNKNOWN</span> <a class="anchor" href="#15-open-questions--unknown" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Resolved 2026-10-20 (C-W2, section 4): acpi-cpufreq / performance, intel_idle POLL-C6 with C6 dominant, KSM idle
+   with ksmtuned active, swappiness 60, mq-deadline; THP madvise/madvise and no static hugepages (C-BA). Still open:
+   cpufreq frequency table.</li>
+<li>Live UEFI values on D6E154A: operating mode, C-states, PackageCState, VT-d, PatrolScrub, DdrSpeed, per-slot PCIe
+   generation, option ROM settings (ASU not available on the host).</li>
+<li>Effect of "Power Efficiency" / "Minimal Power" memory speed on an E5606 already at 1066 MHz.</li>
+<li>Idle power saved by C-states and by the governor on this machine; needs before/after <code>Avg Power</code> readings.</li>
+<li>Revision of 06-2c-02 microcode in the Debian bookworm <code>intel-microcode</code> package (package not installed, <span class="tl tl-measured">MEASURED</span>).
+   Partly resolved (C-BA): non-free-firmware is not in the APT sources, so the package is not installable from the
+   configured sources (<span class="tl tl-candidate">CANDIDATE</span> consequence); enabling it is an owner-approval change (R-B1).</li>
+<li>Whether erratum AAK167/BD132 applies to stepping 2 at microcode 0x14; whether any guest is 32-bit PAE.</li>
+<li>Resolved: boot mode is UEFI (<span class="tl tl-measured">MEASURED</span> C-W2), so the earlier <span class="tl tl-candidate">CANDIDATE</span> "legacy CSM with GRUB" from the 1007K
+   sda1 is withdrawn. Boot loader resolved 2026-10-20 (C-BA): proxmox-boot-tool is not in use (<span class="tl tl-measured">MEASURED</span>) and the
+   loader is GRUB via shim (<span class="tl tl-candidate">CANDIDATE</span>, section 4); R-B2 therefore edits /etc/default/grub.</li>
+<li>Purpose of loop0 (211G) and whether a ZFS pool exists.</li>
+<li>HBA IT/IR firmware, cabling of its internal and external ports, and whether drive bays can be moved to it.</li>
+<li>Installed PSU wattage and bay; filler status of empty drive bays and PCIe slots.</li>
+<li>Fan zone mapping and why fan 3 runs about twice as fast as fans 1-2.</li>
+<li>Availability of IMM 1.55, M1015 20.11.1-0184 and HBA 1.10.05 binaries; whether the UEFI 1.22 Windows package's
+    .upd can be applied through the IMM web interface.</li>
+<li>M1015 RAID0 -&gt; RAID1 online migration support on firmware 20.10.1-0052.</li>
+<li>Patrol Read: the past next-start time is explained by a missed 2026-10-17 slot and a pass still running at the
+   capture (docs/X3650M3_STORAGE_RAID.md 14.6); storcli's 0 completed iterations vs 139 completions in the event
+   log is still unexplained.</li>
+<li>Ceph repository with the <code>test</code> component enabled (C-BA line 96): why it was added and whether Ceph is used on
+    this host (owner decision; flagged only, no recommendation).</li>
+<li>UEFI entry Boot000F "Ubuntu" (second in BootOrder): which disk holds its GPT partition and whether it is still
+    wanted; the repeated firmware VenMedia entries Boot0010-0046 are unexplained (C-BA lines 15-86).</li>
+</ol>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="tools.html"><span>Previous</span>Management, Diagnostic and Update Tools</a>
+<a class="next" href="../catalog/firmware.html"><span>Next</span>Firmware packages</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary-and-priority-list">1. Summary and priority list</a></li><li class="l2"><a href="#2-sources-and-capture-keys">2. Sources and capture keys</a></li><li class="l2"><a href="#3-how-to-read-a-recommendation">3. How to read a recommendation</a></li><li class="l2"><a href="#4-measured-baseline">4. Measured baseline</a></li><li class="l2"><a href="#5-cpu-operating-mode-p-states-c-states-turbo-hyper-threading">5. CPU: operating mode, P-states, C-states, Turbo, Hyper-Threading</a></li><li class="l3"><a href="#51-what-the-cpu-can-and-cannot-do">5.1 What the CPU can and cannot do</a></li><li class="l3"><a href="#52-operating-modes-extracted-docsx3650m3_uefimd-section-6-mode-to-column-assignment-candidate">5.2 Operating modes (EXTRACTED, docs/X3650M3_UEFI.md section 6; mode-to-column assignment CANDIDATE)</a></li><li class="l3"><a href="#53-c-states-and-the-firmware-update-erratum">5.3 C-states and the firmware-update erratum</a></li><li class="l2"><a href="#6-memory">6. Memory</a></li><li class="l3"><a href="#61-current-state-and-the-cost-of-it">6.1 Current state and the cost of it</a></li><li class="l3"><a href="#62-rules-that-apply-documented-docsx3650m3_memorymd-sections-5-6-11">6.2 Rules that apply (DOCUMENTED, docs/X3650M3_MEMORY.md sections 5, 6, 11)</a></li><li class="l3"><a href="#63-upgrade-paths-applied-to-the-measured-cpu">6.3 Upgrade paths (applied to the measured CPU)</a></li><li class="l3"><a href="#64-cpu-swap-as-a-memory-and-compute-upgrade-hardware-candidate-option">6.4 CPU swap as a memory and compute upgrade (hardware, CANDIDATE option)</a></li><li class="l3"><a href="#65-uefi-memory-settings">6.5 UEFI memory settings</a></li><li class="l2"><a href="#7-storage">7. Storage</a></li><li class="l3"><a href="#71-current-path-and-its-limits">7.1 Current path and its limits</a></li><li class="l3"><a href="#72-storage-recommendations-all-candidate-reasoning">7.2 Storage recommendations (all CANDIDATE reasoning)</a></li><li class="l2"><a href="#8-pcie-slot-placement-and-iommu-groups">8. PCIe slot placement and IOMMU groups</a></li><li class="l3"><a href="#81-measured-groups-c-vvv">8.1 Measured groups (C-VVV)</a></li><li class="l3"><a href="#82-placement-rules-for-this-machine">8.2 Placement rules for this machine</a></li><li class="l2"><a href="#9-fans-power-and-thermal">9. Fans, power and thermal</a></li><li class="l2"><a href="#10-firmware-upgrade-path-and-order">10. Firmware upgrade path and order</a></li><li class="l3"><a href="#101-installed-vs-latest-docsx3650m3_firmware_historymd-docsx3650m3_storage_raidmd-section-7">10.1 Installed vs latest (docs/X3650M3_FIRMWARE_HISTORY.md, docs/X3650M3_STORAGE_RAID.md section 7)</a></li><li class="l3"><a href="#102-why-the-uefi-update-matters-for-a-kvm-host">10.2 Why the UEFI update matters for a KVM host</a></li><li class="l3"><a href="#103-order-documented-s-022-pp11-12-imm-155-readme-section-14">10.3 Order (DOCUMENTED, S-022 pp.11-12; IMM 1.55 README section 1.4)</a></li><li class="l3"><a href="#104-no-flash-alternative-for-microcode-r-b1">10.4 No-flash alternative for microcode (R-B1)</a></li><li class="l2"><a href="#11-linux--proxmox-side-settings">11. Linux / Proxmox-side settings</a></li><li class="l2"><a href="#12-recommendation-register">12. Recommendation register</a></li><li class="l3"><a href="#121-tier-a---no-risk-os-side">12.1 Tier A - no-risk, OS-side</a></li><li class="l3"><a href="#122-tier-b---os-side-needs-a-reboot">12.2 Tier B - OS-side, needs a reboot</a></li><li class="l3"><a href="#123-tier-c---firmware-settings-power-hardware">12.3 Tier C - firmware, settings, power, hardware</a></li><li class="l2"><a href="#13-read-only-probes-that-close-the-gaps">13. Read-only probes that close the gaps</a></li><li class="l2"><a href="#14-contradictions-between-sources">14. Contradictions between sources</a></li><li class="l2"><a href="#15-open-questions--unknown">15. Open questions / UNKNOWN</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

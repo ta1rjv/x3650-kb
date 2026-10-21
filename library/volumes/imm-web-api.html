@@ -1,0 +1,2667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IMM 1.30 Web UI and WS-Man API - x3650 M3 Library</title>
+<meta name="description" content="Engineering reference for the web interface of the owner&#x27;s IMM (first-generation IMM, firmware 1.30, build YUOOC7E, machine 7945KEG) and the WS-Management API that the web client uses. Written from ...">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="volume" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="../pages/reading-guide.html">Reading Guide</a></li>
+<li><a href="../pages/system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="../pages/firmware-guide.html">Firmware Guide</a></li>
+<li><a href="../pages/imm-guide.html">IMM Guide</a></li>
+<li><a href="../pages/uefi-guide.html">UEFI Guide</a></li>
+<li><a href="../pages/troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="../pages/tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="../pages/glossary.html">Glossary</a></li>
+<li><a href="../pages/faq.html">FAQ</a></li>
+<li><a href="../pages/timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="../pages/about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="system-architecture.html">System Architecture</a></li>
+<li><a href="hardware-components.html">Hardware Components</a></li>
+<li><a href="memory.html">Memory</a></li>
+<li><a href="storage-raid.html">Storage and RAID</a></li>
+<li><a href="power-thermal.html">Power and Thermal</a></li>
+<li><a href="sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="imm-web-api.html" aria-current="page">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="uefi.html">UEFI Firmware</a></li>
+<li><a href="firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Volumes</li><li>Integrated Management Module</li><li aria-current="page">IMM 1.30 Web UI and WS-Man API</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">Volume 10 - Integrated Management Module</p>
+<h1>IMM 1.30 Web UI and WS-Man API</h1>
+<p class="subtitle">IBM System x3650 M3 - IMM 1.30 Web UI and WS-Man API</p>
+<p class="lede">Engineering reference for the web interface of the owner&#x27;s IMM (first-generation IMM, firmware 1.30, build YUOOC7E, machine 7945KEG) and the WS-Management API that the web client uses. Written from repository material only (static UI files, WSDLs and captures ...</p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_IMM_WEB_API.md</code></span> <span>11 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">17</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">1</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">35</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">23</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">18</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-overview-sources-and-conventions">1. Overview, sources and conventions</a></li><li class="l3"><a href="#11-what-this-document-covers">1.1 What this document covers</a></li><li class="l3"><a href="#12-sources">1.2 Sources</a></li><li class="l3"><a href="#13-truth-levels-used-here-docsagentmd">1.3 Truth levels used here (docs/AGENT.md)</a></li><li class="l2"><a href="#2-server-stack">2. Server stack</a></li><li class="l3"><a href="#21-ami-megarac-lineage-evidence">2.1 AMI MegaRAC lineage evidence</a></li><li class="l2"><a href="#3-ui-architecture">3. UI architecture</a></li><li class="l3"><a href="#31-frames-and-page-loading">3.1 Frames and page loading</a></li><li class="l3"><a href="#32-javascript-libraries">3.2 JavaScript libraries</a></li><li class="l3"><a href="#33-navigation-tree-navobjjs-and-page-to-operation-map">3.3 Navigation tree (navobj.js) and page-to-operation map</a></li><li class="l3"><a href="#34-crawl-coverage-measured-crawl">3.4 Crawl coverage (MEASURED, CRAWL)</a></li><li class="l2"><a href="#4-login-and-session-flow-static-client-code">4. Login and session flow (static client code)</a></li><li class="l3"><a href="#41-sequence">4.1 Sequence</a></li><li class="l3"><a href="#42-session-token-handling">4.2 Session token handling</a></li><li class="l3"><a href="#43-http-endpoints-other-than-wsman-extracted-unless-marked">4.3 HTTP endpoints other than /wsman (EXTRACTED unless marked)</a></li><li class="l3"><a href="#44-firmware-update-sequence-description-only">4.4 Firmware update sequence (description only)</a></li><li class="l2"><a href="#5-ws-man-client">5. WS-Man client</a></li><li class="l3"><a href="#51-transport-extracted">5.1 Transport (EXTRACTED)</a></li><li class="l3"><a href="#52-envelope-shape-extracted-libwsmansoapjs213-276-libwsmanwsdloperationjs22-146">5.2 Envelope shape (EXTRACTED, lib/wsman/soap.js:213-276, lib/wsman/WSDLOperation.js:22-146)</a></li><li class="l3"><a href="#53-wsdl-retrieval-extracted-measured-by-the-2026-10-20-download">5.3 WSDL retrieval (EXTRACTED; MEASURED by the 2026-10-20 download)</a></li><li class="l2"><a href="#6-operation-catalogue-133-operations">6. Operation catalogue (133 operations)</a></li><li class="l3"><a href="#61-monitors-httpwwwibmcomibmcspmonitors-sourcesimm_web130wsdlmonitorswsdlxml">6.1 Monitors (http://www.ibm.com/iBMC/sp/Monitors, sources/imm_web/1.30/wsdl/Monitors.wsdl.xml)</a></li><li class="l3"><a href="#62-tasks-httpwwwibmcomibmcsptasks-sourcesimm_web130wsdltaskswsdlxml">6.2 Tasks (http://www.ibm.com/iBMC/sp/Tasks, sources/imm_web/1.30/wsdl/Tasks.wsdl.xml)</a></li><li class="l3"><a href="#63-ibmccontrol-httpwwwibmcomibmcspibmccontrol-sourcesimm_web130wsdlibmccontrolwsdlxml">6.3 iBMCControl (http://www.ibm.com/iBMC/sp/iBMCControl, sources/imm_web/1.30/wsdl/iBMCControl.wsdl.xml)</a></li><li class="l3"><a href="#64-ibmcnwprotocol-httpwwwibmcomibmcspibmcnwprotocol-sourcesimm_web130wsdlibmcnwprotocolwsdlxml">6.4 iBMCNWProtocol (http://www.ibm.com/iBMC/sp/iBMCNWProtocol, sources/imm_web/1.30/wsdl/iBMCNWProtocol.wsdl.xml)</a></li><li class="l3"><a href="#65-serviceadvisor-httpwwwibmcomibmcspserviceadvisor-sourcesimm_web130wsdlserviceadvisorwsdlxml">6.5 ServiceAdvisor (http://www.ibm.com/iBMC/sp/ServiceAdvisor, sources/imm_web/1.30/wsdl/ServiceAdvisor.wsdl.xml)</a></li><li class="l3"><a href="#66-scalability-httpwwwibmcomibmcspscalability-sourcesimm_web130wsdlscalabilitywsdlxml">6.6 Scalability (http://www.ibm.com/iBMC/sp/Scalability, sources/imm_web/1.30/wsdl/Scalability.wsdl.xml)</a></li><li class="l2"><a href="#7-mapping-web-function-ws-man-cli-asu-cim-profile">7. Mapping: web function, WS-Man, CLI, ASU, CIM profile</a></li><li class="l2"><a href="#9-read-only-use-from-the-proxmox-host-request-shapes-live-read-results-2026-10-21">9. Read-only use from the Proxmox host (request shapes; live READ results 2026-10-21)</a></li><li class="l3"><a href="#91-live-read-run-2026-10-21-measured-wsread">9.1 Live READ run 2026-10-21 (MEASURED, wsread)</a></li><li class="l2"><a href="#10-open-questions--unknown">10. Open questions / UNKNOWN</a></li><li class="l2"><a href="#11-source-conflicts">11. Source conflicts</a></li></ul></nav></details>
+<div class="prose">
+<p>Engineering reference for the web interface of the owner's IMM (first-generation IMM, firmware 1.30, build
+YUOOC7E, machine 7945KEG) and the WS-Management API that the web client uses. Written from repository material
+only (static UI files, WSDLs and captures already in the repository); no request was sent to the IMM or any other
+host while writing it. Scope approved by the owner in D-004 (c) (docs/DECISIONS.md). Live results of the
+owner-authorised read-only runs of 2026-10-21 (authentication matrix, 50 READ custom operations) are integrated in
+sections 6, 9 and 10.</p>
+<p>Related documents (not repeated here): docs/X3650M3_IMM_INTERFACES.md (all management interfaces, the documented
+web navigation map with CLI and ASU columns in section 3.2, CIM in section 8, SLP in section 9) and
+docs/X3650M3_IMM_ARCHITECTURE.md (ports, TLS state, firmware, security observation list in section 11).</p>
+<h2 id="contents">Contents <a class="anchor" href="#contents" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Overview, sources and conventions</li>
+<li>Server stack</li>
+<li>UI architecture</li>
+<li>Login and session flow (static client code)</li>
+<li>WS-Man client</li>
+<li>Operation catalogue (133 operations)</li>
+<li>Mapping: web function, WS-Man, CLI, ASU, CIM profile</li>
+<li>Read-only use from the Proxmox host (request shapes; live READ results 2026-10-21)</li>
+<li>Open questions / <span class="tl tl-unknown">UNKNOWN</span></li>
+<li>Source conflicts</li>
+</ol>
+<h2 id="1-overview-sources-and-conventions">1. Overview, sources and conventions <a class="anchor" href="#1-overview-sources-and-conventions" aria-label="Link to this section">#</a></h2>
+<h3 id="11-what-this-document-covers">1.1 What this document covers <a class="anchor" href="#11-what-this-document-covers" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>The IMM 1.30 web UI is a frameset application written in JavaScript. Almost every page reads and writes IMM
+  state through WS-Management custom operations: the client downloads six WSDLs at login and turns every WSDL
+  operation into a global JavaScript function <code>top.&lt;Operation&gt;(input, callback)</code> (<span class="tl tl-extracted">EXTRACTED</span>, home_imp.js:161-231).</li>
+<li>Besides <code>/wsman</code>, the client uses a small set of plain HTTP endpoints for the session (<code>/session/*</code>), file
+  transfer (<code>/br/*</code>, <code>/certs/*</code>, <code>/spevents.elg</code>), the KVM launcher (<code>/kvm/*</code>) and a few helpers (section 4.4).</li>
+</ul>
+<h3 id="12-sources">1.2 Sources <a class="anchor" href="#12-sources" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Path</th>
+<th>Content</th>
+<th>How obtained</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UI</td>
+<td>sources/imm_web/1.30/ (README.md, SHA256SUMS)</td>
+<td>129 static files (.html/.js/.css) of the IMM 1.30 web UI</td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td>CRAWL</td>
+<td>sources/imm_web/1.30/CRAWL_LOG.tsv</td>
+<td>235 lines: 129 GET 200, 60 ERR 404, 46 SKIP</td>
+<td>same crawl</td>
+</tr>
+<tr>
+<td>TSV</td>
+<td>sources/imm_web/1.30/WSMAN_OPERATIONS.tsv</td>
+<td>92 <code>top.&lt;Operation&gt;(</code> call names with a name-based class</td>
+<td>grep of the UI files (README.md)</td>
+</tr>
+<tr>
+<td>WSDL</td>
+<td>sources/imm_web/1.30/wsdl/*.wsdl.xml (SHA256SUMS)</td>
+<td>6 WS-Transfer GetResponse envelopes with the WSDLs, 133 operations</td>
+<td>owner-approved login 2026-10-20, one WS-Transfer Get per resource URI (README.md section "wsdl/")</td>
+</tr>
+<tr>
+<td>imm_web</td>
+<td>captures/2026-10-19_imm_web.txt</td>
+<td>HTTP :80 headers</td>
+<td>curl, 2026-10-19</td>
+</tr>
+<tr>
+<td>p443</td>
+<td>captures/2026-10-20_imm_port443_http.txt</td>
+<td>[not published]</td>
+<td>curl, 2026-10-20</td>
+</tr>
+<tr>
+<td>slp</td>
+<td>captures/2026-10-21_imm_slp_discovery.txt</td>
+<td>SLP service types and attributes incl. 52 registered CIM profiles</td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td>cim</td>
+<td>captures/2026-10-21_imm_slp_cim_snmpv3.txt</td>
+<td>[not published]</td>
+<td>2026-10-21</td>
+</tr>
+<tr>
+<td>asu</td>
+<td>captures/2026-10-20_asu_show_all/show_all.txt</td>
+<td><code>asu64 show all --kcs</code> (read-only)</td>
+<td>2026-10-20</td>
+</tr>
+<tr>
+<td>auth</td>
+<td>captures/2026-10-21_imm_auth_matrix.txt</td>
+<td>[not published]</td>
+<td>Python http.client from [lab-guest], 2026-10-21 06:09-06:10 UTC, owner-authorised</td>
+</tr>
+<tr>
+<td>wsread</td>
+<td>captures/2026-10-21_imm_wsman_read_inventory.txt</td>
+<td>[not published]</td>
+<td>scripts/imm_wsman_read_inventory.py, 2026-10-21 06:24 UTC, owner-authorised</td>
+</tr>
+<tr>
+<td>fwbid</td>
+<td>captures/2026-10-21_imm_wsman_firmware_buildid.txt</td>
+<td><code>Tasks/GetFirmwareBuildID</code> with 9 FirmwareType values</td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td>ciminv</td>
+<td>captures/2026-10-21_imm_cim_read_inventory.txt</td>
+<td>CIM-XML EnumerateClassNames / EnumerateInstances on 5988</td>
+<td>scripts/imm_cim_read_inventory.py, 2026-10-21 06:27 UTC</td>
+</tr>
+</tbody>
+</table></div>
+<p>File references in the form <code>impl/x_imp.js:12</code> are relative to sources/imm_web/1.30/. WSDL files are single-line
+XML; they are cited by file and element name instead of a line number.</p>
+<h3 id="13-truth-levels-used-here-docsagentmd">1.3 Truth levels used here (docs/AGENT.md) <a class="anchor" href="#13-truth-levels-used-here-docsagentmd" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-extracted">EXTRACTED</span>: read directly from a file served by the IMM firmware and stored in the repository (UI code and the
+  WSDL documents). The UI code is part of the firmware image, so its content is treated like extracted firmware
+  content. <span class="tl tl-extracted">EXTRACTED</span> states what the client code does or what the WSDL declares, not what the server enforces.</li>
+<li><span class="tl tl-measured">MEASURED</span>: observed in a live capture (HTTP headers, SLP replies, SOAP response headers, ASU output).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span>: vendor document, cited through docs/X3650M3_IMM_INTERFACES.md where the citation already exists.</li>
+<li><span class="tl tl-candidate">CANDIDATE</span>: inference, with the reason given. <span class="tl tl-unknown">UNKNOWN</span>: not established.</li>
+<li>"NOT TESTED" marks request shapes in section 9 that were never sent. Values quoted from wsread are <span class="tl tl-measured">MEASURED</span>;
+  the meaning of a numeric code is <span class="tl tl-extracted">EXTRACTED</span> when a stored UI file maps it to a display text (file:line given),
+  otherwise the raw value is given and its meaning is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+</ul>
+<h2 id="2-server-stack">2. Server stack <a class="anchor" href="#2-server-stack" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><span class="tl tl-measured">MEASURED</span>: <code>Server: lighttpd/1.4.13</code> on port 80, <code>200 OK</code>, <code>text/html</code>, 3616 bytes, <code>Last-Modified: Fri, 30 Sep
+  2011 07:37:35 GMT</code>, <code>ETag: "-1747512116"</code> (imm_web lines 8-15). The 3616-byte body is index.html (CRAWL line 1:
+  <code>GET index.html 200 3616</code>).</li>
+<li><span class="tl tl-measured">MEASURED</span>: the WS-Man endpoint is served by the same web server under <code>/wsman</code>: every WSDL GetResponse carries
+  <code>&lt;wsa:From&gt;&lt;wsa:Address&gt;http://[lab-ip]/wsman&lt;/wsa:Address&gt;&lt;/wsa:From&gt;</code> and a <code>uuid:</code> MessageID (WSDL,
+  Header of each file). <span class="tl tl-extracted">EXTRACTED</span>: the client builds the endpoint as <code>&lt;scheme&gt;://&lt;host&gt;/</code> + <code>wsman</code>
+  (home_imp.js:51).</li>
+<li><span class="tl tl-candidate">CANDIDATE</span>: the session, backup/restore and WS-Man handlers are lighttpd plugins (modules) rather than CGI
+  programs. Reason: client comments "Since lighttpd plugin is single threaded, the response of that request will
+  come only after the backup file response is received" (impl/ibmccontrol_configfile_imp.js:86-89), the callback
+  name <code>recvLightyLogin</code> for <code>/session/activate</code> (home_imp.js:471-475), "response from lighttpd contains an extra
+  html content after plugin specific error" (impl/ibmccontrol_restoremodify_imp.js:2040), and no <code>cgi</code> path in any
+  client URL (the crawler excluded paths containing "cgi" but none was referenced, CRAWL).</li>
+<li><span class="tl tl-measured">MEASURED</span>: the CIM server is a different process: <code>Server: sfcHttpd</code> on 5988, <code>501 Not Implemented</code> for GET and
+  OPTIONS, <code>401</code> with <code>WWW-Authenticate: Basic realm="cimom"</code> for a CIM-XML POST; 5989 closed (cim lines 5-49).
+  SLP names it "Small Footprint CIM Broker 1.2.5" (slp line 49).</li>
+</ul>
+<h3 id="21-ami-megarac-lineage-evidence">2.1 AMI MegaRAC lineage evidence <a class="anchor" href="#21-ami-megarac-lineage-evidence" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-extracted">EXTRACTED</span>: 106 of the 129 stored .html/.js/.css files carry the header "(C)Copyright 2007-2008, American
+  Megatrends Inc." (grep count over sources/imm_web/1.30), for example index.html:1-24 (with <code>Filename: home.html</code>
+  and author addresses at ami.com and amiindia.co.in) and navobj.js:1-24.</li>
+<li><span class="tl tl-extracted">EXTRACTED</span>: lib/xmit.js is a generic AMI transmission module that is not specific to the IMM: it posts to
+  <code>/RPC/ajaxgw.asp</code> with <code>FUNCTION</code> and <code>LIB</code> fields (lib/xmit.js:688-697), names server libraries
+  <code>libifc_flasher.so.1.0</code>, <code>libifc_ldap</code>, <code>libifc_ipmi</code>, <code>libifc_userm</code> (lib/xmit.js:669-684), parses a
+  <code>HAPI_STATUS</code> field (lib/xmit.js:22, 289-293) and references <code>/GUISE/xmit.css</code> (lib/xmit.js:876). The four
+  Service Advisor pages include it (page/serviceadv_main.html:39, page/serviceadv_exclusionlist.html:38,
+  page/serviceadv_manualemail.html:36, page/serviceadv_agreement.html:37), but no stored file calls an <code>xmit.*</code>
+  function outside lib/xmit.js (grep), and <code>/GUISE/xmit.css</code> returned 404 (CRAWL).</li>
+<li><span class="tl tl-extracted">EXTRACTED</span>: the navigation tree uses the third-party DOMAPI library (<code>lib/domapi/src/domapi.js?theme=IBM</code>,
+  page/frameTree.html:38; impl/wframeTree.js:77).</li>
+<li><span class="tl tl-candidate">CANDIDATE</span>: the web UI derives from the AMI MegaRAC BMC web stack, customised by IBM ("iBMC" names, IBM
+  resource URIs). Reason: AMI copyright and authors on 106 files plus the AMI gateway conventions above. The word
+  "MegaRAC" does not occur in any stored file, and no vendor document in the repository states the lineage.
+  docs/STATUS.md already calls the UI "AMI MegaRAC-based" without a separate source.</li>
+</ul>
+<h2 id="3-ui-architecture">3. UI architecture <a class="anchor" href="#3-ui-architecture" aria-label="Link to this section">#</a></h2>
+<h3 id="31-frames-and-page-loading">3.1 Frames and page loading <a class="anchor" href="#31-frames-and-page-loading" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-extracted">EXTRACTED</span>: <code>/</code> (index.html, internally named home.html) is a frameset: <code>frameHeader</code> (55 px row), and below it a
+  column set <code>frmSet</code> with <code>frameTree</code> and <code>frameMain</code>; all three start as page/blank.html (index.html:82-88).
+  <code>frmSet.cols</code> is "0,<em>" (tree hidden) during login and "200,</em>" once logged in (home_imp.js:501-509).</li>
+<li><span class="tl tl-extracted">EXTRACTED</span>: the top window loads lib/eExt.js, lib/wsman/wsman.js, lib/eLang.js, str/EN/global_str.js and
+  home_imp.js (index.html:39-51). The comment at index.html:41-45 states the design: the WS-Man library is loaded
+  in the top window so the operation functions it creates are reachable from every lower page.</li>
+<li><span class="tl tl-extracted">EXTRACTED</span>: content pages live in page/*.html and include their logic from impl/&lt;page&gt;_imp.js plus lib/ui.js,
+  lib/eLang.js and lib/pageinc.js (for example page/monitors_systemstatus.html:30-39). Pages call operations
+  as <code>top.&lt;Operation&gt;({...}, recv)</code>; several pages use tables of function references with
+  <code>invokeGetOperations</code> (lib/ui.js:549) and a page-local <code>invokeSetOperations</code>
+  (impl/ibmccontrol_systemsettings_imp.js:48, impl/ibmccontrol_networkprotocols_imp.js:59), for example
+  impl/ibmccontrol_systemsettings_imp.js:104-124 and 175-200.</li>
+<li><span class="tl tl-extracted">EXTRACTED</span>: lib/pageinc.js polls <code>GetAssertedEvents</code> 3 s after each page load to update the status icon
+  (lib/pageinc.js:8, 23) except on login/session/logoff/locked/upload-failure pages (lib/pageinc.js:15-20).</li>
+<li><span class="tl tl-extracted">EXTRACTED</span>: localisation strings come from str/&lt;lang&gt;/*.js; only str/EN/global_str.js was stored. Page-specific
+  string files such as <code>navobj_str.js</code> and <code>session_str.js</code> are written by <code>document.write</code> at run time
+  (page/frameTree.html:44, page/session.html:32) and were not fetched by the crawler.</li>
+<li><span class="tl tl-extracted">EXTRACTED</span>: the client targets Firefox and Internet Explorer and logs an error for other browsers
+  (lib/wsman/wsman.js:164-183).</li>
+</ul>
+<h3 id="32-javascript-libraries">3.2 JavaScript libraries <a class="anchor" href="#32-javascript-libraries" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Role (<span class="tl tl-extracted">EXTRACTED</span> from the file)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lib/eExt.js</td>
+<td>AMI helper library: DOM helpers, cookies (<code>createCookie</code>/<code>readCookie</code>/<code>eraseCookie</code>, lib/eExt.js:1423-1450), <code>makeXMLSafe</code>, URL variables</td>
+</tr>
+<tr>
+<td>lib/eLang.js</td>
+<td>string lookup <code>eLang.getString(file, id)</code></td>
+</tr>
+<tr>
+<td>lib/ui.js</td>
+<td>page helpers, <code>invokeGetOperations</code> (lib/ui.js:549)</td>
+</tr>
+<tr>
+<td>lib/pageinc.js</td>
+<td>per-page include: WS-Man result constants <code>WSMAN_OP_SUCCESS "0"</code>, <code>FAILURE "-1"</code>, <code>TRUE "1"</code>, <code>FALSE "0"</code> (lib/pageinc.js:71-76), asserted-event polling</td>
+</tr>
+<tr>
+<td>lib/xmit.js</td>
+<td>AMI AJAX/HAPI gateway module, unused by stored callers (section 2.1)</td>
+</tr>
+<tr>
+<td>lib/wsman/wsman.js</td>
+<td>WS-Man library root: loader, <code>WSMANException</code>, <code>FaultException</code> (lib/wsman/wsman.js:72-102)</td>
+</tr>
+<tr>
+<td>lib/wsman/network.js</td>
+<td>XMLHttpRequest wrapper <code>SendPOSTRequest</code> / <code>SendGETRequest</code>, session header (lib/wsman/network.js:26-34, 111-148)</td>
+</tr>
+<tr>
+<td>lib/wsman/soap.js</td>
+<td>WS-Addressing action URIs, SOAP envelope builder and parser (lib/wsman/soap.js:11-33, 196-302)</td>
+</tr>
+<tr>
+<td>lib/wsman/XML.js</td>
+<td>XML helpers and the namespace table (lib/wsman/XML.js:19-27)</td>
+</tr>
+<tr>
+<td>lib/wsman/wsdl.js</td>
+<td>WSDL retrieval via WS-Transfer Get and WSDL parser (lib/wsman/wsdl.js:11-34, 46-189)</td>
+</tr>
+<tr>
+<td>lib/wsman/WSDLOperation.js</td>
+<td>rpc/encoded request builder and response parser (lib/wsman/WSDLOperation.js:22-201)</td>
+</tr>
+<tr>
+<td>lib/wsman/schema.js</td>
+<td>XML Schema type parser used for WSDL types and for the restore XML</td>
+</tr>
+<tr>
+<td>lib/wsman/resource.js</td>
+<td>WS-Transfer Get/Put/Create/Delete (lib/wsman/resource.js:41-78)</td>
+</tr>
+<tr>
+<td>lib/wsman/Enumeration.js</td>
+<td>WS-Enumeration client (Enumerate/Pull/Release); no stored page uses enumeration (<span class="tl tl-candidate">CANDIDATE</span>: library code carried over)</td>
+</tr>
+<tr>
+<td>lib/wsman/xml_json.js, debug.js</td>
+<td>XML-to-object helper; debug output enabled by <code>?debug=yes</code> (lib/wsman/debug.js:1)</td>
+</tr>
+<tr>
+<td>impl/excanvas.js</td>
+<td>canvas emulation for Internet Explorer</td>
+</tr>
+<tr>
+<td>lib/domapi/src/domapi.js</td>
+<td>DOMAPI tree widget; not stored (URL with query string, CRAWL SKIP)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="33-navigation-tree-navobjjs-and-page-to-operation-map">3.3 Navigation tree (navobj.js) and page-to-operation map <a class="anchor" href="#33-navigation-tree-navobjjs-and-page-to-operation-map" aria-label="Link to this section">#</a></h3>
+<p><span class="tl tl-extracted">EXTRACTED</span>: navobj.js:26-55 defines <code>TREE.items</code> with <code>label</code> (string id), <code>level</code>, <code>page</code>, <code>enabled</code> and an
+<code>accessname</code>. impl/frameTree_imp.js:94-98 loads <code>page</code> into <code>frameMain</code>. The WS-Man operations column lists the
+operations referenced (call or function reference, comments excluded) by the page's impl file.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>navobj.js line</th>
+<th>Label id</th>
+<th>Page (page/)</th>
+<th>impl file</th>
+<th>WS-Man operations referenced</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>28-29</td>
+<td>STR_TREE_SYSTEM, STR_TREE_MONITORS</td>
+<td>(folders)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>30</td>
+<td>STR_TREE_SYSTEM_STATUS</td>
+<td>monitors_systemstatus.html</td>
+<td>monitors_systemstatus_imp.js</td>
+<td>GetSensorValues, GetAssertedEvents, GetSPNameSettings, SetIndicatorLEDStatus, ClearOSScreen</td>
+</tr>
+<tr>
+<td>31</td>
+<td>STR_TREE_VIRTUAL_LIGHT_PATH</td>
+<td>monitors_virtuallightpath.html</td>
+<td>monitors_virtuallightpath_imp.js</td>
+<td>GetVirtualLightPath</td>
+</tr>
+<tr>
+<td>32</td>
+<td>STR_TREE_EVENT_LOG</td>
+<td>monitors_eventlog.html</td>
+<td>monitors_eventlog_imp.js</td>
+<td>GetEventLog, ClearLog, IsAgreementAccepted; download <code>/spevents.elg</code> (624)</td>
+</tr>
+<tr>
+<td>33</td>
+<td>STR_TREE_VITAL_PRODUCT_DATA</td>
+<td>monitors_vitalproductdata.html</td>
+<td>monitors_vitalproductdata_imp.js</td>
+<td>GetVitalProductData, GetMemoryInfo, GetProcessorInfo, GetHostMacAddresses</td>
+</tr>
+<tr>
+<td>35</td>
+<td>STR_TREE_POWER_RESTART</td>
+<td>tasks_powercontrol.html</td>
+<td>tasks_powercontrol_imp.js, tasks_poweronatspecifictime_imp.js, tasks_powerrestartactions_imp.js</td>
+<td>GetServerPowerActivity, SetPowerRestartControl, Get/ClearPowerAtSpecifiedTime, GetSchedulePower, SchedulePower, ClearAllSchedules</td>
+</tr>
+<tr>
+<td>36</td>
+<td>STR_TREE_REMOTE_CONTROL</td>
+<td>tasks_remotecontrol.html</td>
+<td>tasks_remotecontrol_imp.js</td>
+<td>GetKVMStatus, GetKVMActiveSessions, IsKVMSessionAllowed, SetKVMEncryption, SetHighspeedPerformance; launcher <code>/kvm/kvm/jnlp</code> (245)</td>
+</tr>
+<tr>
+<td>37</td>
+<td>STR_TREE_PXE_NETWORK_BOOT</td>
+<td>tasks_pxenetworkboot.html</td>
+<td>tasks_pxenetworkboot_imp.js</td>
+<td>IsPXENetworkBootEnabled, SetPXENetworkBoot</td>
+</tr>
+<tr>
+<td>38</td>
+<td>STR_TREE_FIRMWARE_UPDATE</td>
+<td>tasks_updatefirmware.html (+ _verify, _buildid, _progress, _success)</td>
+<td>tasks_updatefirmware*_imp.js</td>
+<td>FirmwareRequestSpace, VerifyFirmwareImageFile, GetFirmwareBuildID, BeginUpdateFirmware, FirmwareUpdateStatus, CancelFirmwareUpgrade, GetScalableNodes</td>
+</tr>
+<tr>
+<td>40</td>
+<td>STR_TREE_SYSTEM_SETTINGS</td>
+<td>ibmccontrol_systemsettings.html (+ _timedate)</td>
+<td>ibmccontrol_systemsettings_imp.js, ibmccontrol_systemsettings_timedate_imp.js</td>
+<td>Get/SetSPNameSettings, Get/SetiBMCSystemSettings, Get/SetServerTimeouts, Get/SetiBMCDateAndTime, Get/SetUSBInterfaceStatus, Get/SetNTPSettings, SynchronizeNTPClockNow, IsIPv6Enabled</td>
+</tr>
+<tr>
+<td>41</td>
+<td>STR_TREE_LOGIN_PROFILES</td>
+<td>ibmccontrol_loginprofiles.html (+ groupprofilesaddedit)</td>
+<td>ibmccontrol_loginprofiles_imp.js, ibmccontrol_groupprofilesaddedit_imp.js</td>
+<td>GetLoginProfile, SetGlobalLoginSettings, GetGroupProfiles, CreateGroup, ModifyGroup, DeleteGroup</td>
+</tr>
+<tr>
+<td>42</td>
+<td>STR_TREE_ALERTS</td>
+<td>ibmccontrol_alerts.html</td>
+<td>ibmccontrol_alerts_imp.js</td>
+<td>GetAlertSettings, SetGlobalAlertSettings, GenerateTestAlert</td>
+</tr>
+<tr>
+<td>43</td>
+<td>STR_TREE_SERIAL_PORT</td>
+<td>ibmccontrol_serialport.html</td>
+<td>ibmccontrol_serialport_imp.js</td>
+<td>Get/SetSerialPortSettings</td>
+</tr>
+<tr>
+<td>44</td>
+<td>STR_TREE_PORT_ASSIGNMENTS</td>
+<td>ibmccontrol_portassignments.html</td>
+<td>ibmccontrol_portassignments_imp.js</td>
+<td>Get/SetPortAssignments</td>
+</tr>
+<tr>
+<td>45</td>
+<td>STR_TREE_NETWORK_INTERFACES</td>
+<td>ibmccontrol_networkinterface.html (+ advanced, configdhcp, configipv6)</td>
+<td>ibmccontrol_networkinterface*_imp.js</td>
+<td>Get/SetNetworkSettings, Get/SetAdvanceEthernet, GetDHCPv4AssignedConfig, GetIPv6AutoConfig</td>
+</tr>
+<tr>
+<td>46</td>
+<td>STR_TREE_NETWORK_PROTOCOLS</td>
+<td>ibmccontrol_networkprotocols.html</td>
+<td>ibmccontrol_networkprotocols_imp.js</td>
+<td>Get/Set SNMP, DNS, Telnet, SMTP, LDAP, SLP settings; IsIPv6Enabled</td>
+</tr>
+<tr>
+<td>47</td>
+<td>STR_TREE_SECURITY</td>
+<td>ibmccontrol_security.html (+ import, importsignedcertificate, downloadCSR, ssl_csr_gen)</td>
+<td>ibmccontrol_security*_imp.js, ssl_csr_gen_imp.js</td>
+<td>GetSSLSettings, SetSSLServerSettings, SetSSHServerSettings, GenerateSSHPrivateKey, GenerateCSR, ImportSignedCertificate, ImportCACertificate, RemoveCACertificate</td>
+</tr>
+<tr>
+<td>48</td>
+<td>STR_TREE_CONFIGURATION_FILE</td>
+<td>ibmccontrol_configfile.html (+ restoremodify, restored)</td>
+<td>ibmccontrol_configfile_imp.js, ibmccontrol_restoremodify_imp.js</td>
+<td>none for the active path: backup is <code>GET /br/backup</code> (99), restore is <code>POST /br/restore</code> (restoremodify 2035); <code>GenerateBackupFile</code> only in the unused <code>backupold()</code> (configfile 102-117)</td>
+</tr>
+<tr>
+<td>49</td>
+<td>STR_TREE_RESTORE_DEFAULTS</td>
+<td>ibmccontrol_restoredefaults.html</td>
+<td>ibmccontrol_restoredefaults_imp.js</td>
+<td>RestoreDefaults (78)</td>
+</tr>
+<tr>
+<td>50</td>
+<td>STR_TREE_RESTART_IBMC</td>
+<td>ibmccontrol_restartibmc.html</td>
+<td>ibmccontrol_restartibmc_imp.js</td>
+<td>none; loads <code>/page/ibmccontrol_restartedibmc.html?reboot=yes</code> (70), file not stored</td>
+</tr>
+<tr>
+<td>51-52</td>
+<td>STR_TREE_SCALABILITY, STR_TREE_PARTITION (<code>enabled:0</code>)</td>
+<td>scalability_partition.html</td>
+<td>scalability_partition_imp.js, scalability_partition_control_imp.js</td>
+<td>GetScalableNodes, ReorderPartition, AutoPartition, WritePartition, DeletePartition, ResetPartition, SetPartitionControl, SetStandaloneMode</td>
+</tr>
+<tr>
+<td>53</td>
+<td>STR_TREE_SERVICE_ADVISOR</td>
+<td>serviceadv_main.html (+ exclusionlist, manualemail, agreement)</td>
+<td>serviceadv_*_imp.js</td>
+<td>IsAgreementAccepted, AcceptAgreement, GetSupportCenterStatus/Settings, GetFTPorTFTPServerStatus, exclusion list operations, SendManualEmail</td>
+</tr>
+</tbody>
+</table></div>
+<p>Pages outside the tree (<span class="tl tl-extracted">EXTRACTED</span>): page/login.html, page/session.html, page/locked.html, page/logoff.html,
+page/ibmccontrol_loginchangepwd.html (forced password change), page/ibmccontrol_configsummary.html (popup opened
+by <code>displayCfgSummary</code>, home_imp.js:513-519; impl/ibmccontrol_configsummary_imp.js calls 31 Get/Is operations,
+the largest read-only set in the UI), page/monitors_systemstatus_thresholds.html (popup).</p>
+<p>Feature gating (<span class="tl tl-extracted">EXTRACTED</span>): Scalability and Partition are enabled only if <code>HEAD ../mnc.cap</code> returns 200, Service
+Advisor only if <code>HEAD ../service_advisor.cap</code> returns 200 (impl/frameTree_imp.js:227-312). The crawler did not
+request these files, so the state on this unit is <span class="tl tl-unknown">UNKNOWN</span> (<span class="tl tl-candidate">CANDIDATE</span>: both absent on an x3650 M3, see the
+<span class="tl tl-candidate">CANDIDATE</span> note in docs/X3650M3_IMM_INTERFACES.md section 3.2).</p>
+<h3 id="34-crawl-coverage-measured-crawl">3.4 Crawl coverage (<span class="tl tl-measured">MEASURED</span>, CRAWL) <a class="anchor" href="#34-crawl-coverage-measured-crawl" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>129 files returned 200 without any login: every page, impl and library file listed above. 60 requests got 404;
+  most are retries of page names at the web root or under impl/ (README.md: pages that 404 at the root were
+  retried under page/ and impl/). Real 404s for referenced files: lib/wsman/debug.html, lib/wsman/PullResp.xml,
+  lib/wsman/SubscribePullResp.xml, impl/locked_imp.js, impl/tasks_updatefirmware_uploaded_imp.js (referenced at
+  page/tasks_updatefirmware_buildid.html:39), lib/uploadfail.html, GUISE/xmit.css.</li>
+<li>46 SKIP: images, URLs with a query string (domapi.js, add/edit pages with <code>?action=</code> or <code>?WEBINDEX=</code>,
+  <code>ibmccontrol_observedst.html?gmt=</code>, <code>ssl_ss_gen.html?installed=</code>), certificate downloads (certs/<em>.der,
+  ipsec.certs/</em>.der), <code>.ssi</code> pages (private/nwi.ssi, private/adv_flashopt.ssi, res/rc_*.ssi), and download
+  endpoints (br/backup, backupxml, todownload.file, spevents.elg). These were not requested, so their
+  authentication behaviour is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>Not stored, therefore <span class="tl tl-unknown">UNKNOWN</span> in content: ibmccontrol_loginaddedit.html and ibmccontrol_alertsaddedit.html with
+  their impl files (user and alert-recipient editing), ibmccontrol_restartedibmc.html, sessionexp.html,
+  help_<em>.html, the per-page str/EN/</em>_str.js files, and domapi.</li>
+</ul>
+<h2 id="4-login-and-session-flow-static-client-code">4. Login and session flow (static client code) <a class="anchor" href="#4-login-and-session-flow-static-client-code" aria-label="Link to this section">#</a></h2>
+<p>Described from the client code only. No credential was used for this document. The only authenticated
+interaction recorded in the repository is the owner-approved WSDL download of 2026-10-20 (README.md section
+"wsdl/"), which used the same <code>/session/create</code>, WS-Transfer Get and <code>/session/deactivate</code> requests described here.</p>
+<h3 id="41-sequence">4.1 Sequence <a class="anchor" href="#41-sequence" aria-label="Link to this section">#</a></h3>
+<p>The comment at home_imp.js:25-33 lists the steps: login page, create session, load WSDLs, check password, session
+page, main page. In detail (all <span class="tl tl-extracted">EXTRACTED</span>):</p>
+<ol>
+<li><code>doInit</code> (home_imp.js:45-92): sets <code>wsmanURI</code> (51); takes a session id from the URL fragment
+   <code>#sessionid:&lt;id&gt;</code> (53-58) or the <code>session_id</code> cookie, where the value <code>none</code> means no session (60-62). With a
+   session it reloads the WSDLs and opens the main frame; otherwise it loads page/login.html (84-88). It also
+   requests <code>GET /hostname.txt?time=&lt;ms&gt;</code> for the window title (102-104).</li>
+<li>Login form: two text inputs <code>_txtiUsername</code> and <code>_txtiPassword</code> and a button <code>_btnLogin</code>; there is no HTML
+   form element (page/login.html, line 16, form commented out). <code>startLogin</code> rejects an empty user name and calls
+   <code>top.login(user, password)</code> (impl/login_imp.js:38-51).</li>
+<li><code>login</code> sends <code>POST /session/create</code> with the raw body <code>&lt;user&gt;,&lt;password&gt;</code> (comma-separated, no encoding,
+   no extra header) (home_imp.js:348-353). Response handling (home_imp.js:356-402):<ul>
+<li>body starting with <code>ok</code>: authenticated. If the browser did not receive a usable <code>session_id</code> cookie, the
+ client takes <code>resp.substr(3)</code> as the session id, stores it in <code>top.gSessionID</code> and in the URL fragment
+ (365-372). <span class="tl tl-candidate">CANDIDATE</span>: the body is <code>ok</code> plus one separator character plus the id; the separator is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li><code>unauthorized</code>: alert, form cleared (385-392); <code>locked</code>: page/locked.html (394-397); <code>existing</code>: page reload
+ (398-401).</li>
+</ul>
+</li>
+<li>The client loads the six WSDLs one after the other (home_imp.js:376-382, 161-194; section 5.3).</li>
+<li><code>GetPasswordStatus</code> (home_imp.js:236-266): <code>Status</code> 1 = expired, 2 = required -&gt; page
+   ibmccontrol_loginchangepwd.html, <code>BlankPasswordAllowed</code> decides whether an empty new password is accepted
+   (234-235, 247-251). <code>ChangePassword</code> sends <code>Using: "1"</code> ("changing via PAM") and <code>NewPassword</code> (268-271).</li>
+<li>Otherwise <code>UserLogOniBMC</code> with <code>DestIPAndPort: "[&lt;hostname&gt;]:&lt;port&gt;"</code> and <code>LogInForcefully: "0"</code>
+   (home_imp.js:255-261). The response gives <code>UserLogOniBMCResponse</code> (0 = success), <code>SessionTimeout</code>,
+   <code>UserIDAndIP</code>, <code>SystemName</code>, <code>DisplayName</code> (300-324; WSDL Monitors message UserLogOniBMCResponse). The user
+   name is stored in a <code>username</code> cookie when the cookie session is in use (318-320).</li>
+<li>page/session.html: if <code>SessionTimeout</code> is <code>-1</code> the user picks the inactivity timeout from <code>cmbSession</code>;
+   otherwise the fixed value is shown (impl/session_imp.js:31-43). <code>startSession</code> converts minutes to seconds; for
+   "no timeout" it uses 120 s and starts a keep-alive <code>GET /page/blank.html?&lt;ms&gt;</code> every 45 s
+   (home_imp.js:451-499). It then sends <code>POST /session/activate</code> with body <code>session_expiry=&lt;seconds&gt;</code> (471) and
+   opens page/frameMain.html with the tree (481).</li>
+<li>Log off: <code>POST /session/deactivate</code> with an empty body, then page/login.html (home_imp.js:522-570). The
+   <code>UserLogOffiBMC</code> call is commented out with the note "Not calling logoffibmc as it is called during
+   deactivate" (553-560). <code>cleanup</code> sets cookie <code>session_id=none</code>, clears the fragment, erases <code>username</code> and
+   stops the keep-alive (573-601).</li>
+</ol>
+<p><span class="tl tl-measured">MEASURED</span>/configured context: ASU <code>IMM.WebTimeout=User Picks timeout</code> (asu line 50). <span class="tl tl-candidate">CANDIDATE</span>: this is the
+setting that makes <code>SessionTimeout</code> -1 and shows the timeout selection on the session page. Reason: the WSDL
+type GlobalLoginSettings has <code>WebInactivitySessionTimeout</code> (WSDL iBMCControl), and the session page branches on
+-1 (impl/session_imp.js:34).</p>
+<h3 id="42-session-token-handling">4.2 Session token handling <a class="anchor" href="#42-session-token-handling" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-extracted">EXTRACTED</span>: two mechanisms coexist. (a) A <code>session_id</code> cookie, read by the client (home_imp.js:61, 366); the
+  client itself only ever writes the value <code>none</code> to it (home_imp.js:588). <span class="tl tl-candidate">CANDIDATE</span>: the server sets the real
+  value with Set-Cookie on <code>/session/create</code>; reason: the client reads but never writes a real value. (b) When no
+  cookie is available the id is kept in <code>top.gSessionID</code> and the URL fragment, and every request then carries an
+  HTTP header <code>session_id: &lt;id&gt;</code> (POST: lib/wsman/network.js:31-34; GET: lib/wsman/network.js:142-145).</li>
+<li><span class="tl tl-extracted">EXTRACTED</span>: download and launcher URLs carry the id as a query parameter: <code>/br/backup?session_id=</code>
+  (impl/ibmccontrol_configfile_imp.js:99), <code>/br/restore?session_id=</code> (impl/ibmccontrol_restoremodify_imp.js:2035),
+  <code>/spevents.elg?session_id=</code> (impl/monitors_eventlog_imp.js:624), <code>../certs/csr_*.der?session_id=</code> and
+  <code>../ipsec.certs/csr_ikeservice.der?session_id=</code> (impl/ibmccontrol_security_downloadCSR_imp.js:34-37),
+  <code>/kvm/kvm/jnlp?session_id=</code>, <code>/kvm/kvm/activx?session_id=</code>, <code>/kvm/kvm/activx64?session_id=</code>
+  (impl/tasks_remotecontrol_imp.js:245-252).</li>
+<li><span class="tl tl-extracted">EXTRACTED</span>: session expiry handling. Any WS-Man reply with HTTP 404 or 403 is treated as an expired session and
+  loads <code>/page/sessionexp.html</code> (home_imp.js:143-147). A SOAP fault whose detail starts with "Empty session" is
+  shown as "Session terminated" (lib/wsman/wsman.js:94-96). The comment at home_imp.js:584-587 says the server
+  answers WS-Man requests without any session cookie with <code>401 Unauthorized</code>, which makes the browser show a
+  user/password popup. <span class="tl tl-candidate">CANDIDATE</span>: <code>/wsman</code> also accepts HTTP authentication as an alternative to a session;
+  reason: that comment; not tested.</li>
+<li><span class="tl tl-extracted">EXTRACTED</span>: some pages set <code>top.gNoSessionUpdate</code>, which adds the HTTP header <code>NoSessionUpdate: yes</code> to WS-Man
+  requests (lib/wsman/soap.js:70-72; set in impl/monitors_systemstatus_imp.js:365, impl/tasks_powercontrol_imp.js:81,
+  impl/tasks_remotecontrol_imp.js:279). <span class="tl tl-candidate">CANDIDATE</span>: periodic refresh calls do not extend the inactivity timer;
+  reason: header name.</li>
+<li><span class="tl tl-extracted">EXTRACTED</span>: the firmware update page uses <code>POST /session/expiry/increase</code> before the upload and
+  <code>POST /session/expiry/resume</code> afterwards, body = current time in ms (impl/tasks_updatefirmware_imp.js:79, 200).</li>
+</ul>
+<h3 id="43-http-endpoints-other-than-wsman-extracted-unless-marked">4.3 HTTP endpoints other than /wsman (<span class="tl tl-extracted">EXTRACTED</span> unless marked) <a class="anchor" href="#43-http-endpoints-other-than-wsman-extracted-unless-marked" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method and path</th>
+<th>Purpose</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET / (index.html)</td>
+<td>frameset and top-level code</td>
+<td>index.html</td>
+</tr>
+<tr>
+<td>POST /session/create</td>
+<td>login, body <code>&lt;user&gt;,&lt;password&gt;</code></td>
+<td>home_imp.js:351</td>
+</tr>
+<tr>
+<td>POST /session/activate</td>
+<td>start session, body <code>session_expiry=&lt;s&gt;</code></td>
+<td>home_imp.js:471</td>
+</tr>
+<tr>
+<td>POST /session/deactivate</td>
+<td>log off</td>
+<td>home_imp.js:563</td>
+</tr>
+<tr>
+<td>POST /session/expiry/increase, /session/expiry/resume</td>
+<td>extend / restore timeout around firmware upload</td>
+<td>impl/tasks_updatefirmware_imp.js:79, 200</td>
+</tr>
+<tr>
+<td>GET /username</td>
+<td>user name after page refresh</td>
+<td>home_imp.js:94-100</td>
+</tr>
+<tr>
+<td>GET /hostname.txt?time=&lt;ms&gt;</td>
+<td>window title</td>
+<td>home_imp.js:103</td>
+</tr>
+<tr>
+<td>GET /page/blank.html?&lt;ms&gt;</td>
+<td>keep-alive ping</td>
+<td>home_imp.js:493</td>
+</tr>
+<tr>
+<td>GET /br/backup?session_id=</td>
+<td>download configuration backup</td>
+<td>impl/ibmccontrol_configfile_imp.js:99</td>
+</tr>
+<tr>
+<td>GET /iBMCSchema.xsd?&lt;ms&gt;</td>
+<td>schema used to build the restore XML</td>
+<td>impl/ibmccontrol_restoremodify_imp.js:37</td>
+</tr>
+<tr>
+<td>POST /page/ibmccontrol_restoremodify.html (multipart)</td>
+<td>upload a backup file for restore</td>
+<td>page/ibmccontrol_configfile.html:83</td>
+</tr>
+<tr>
+<td>POST /br/restore?session_id=</td>
+<td>restore configuration (XML body <code>BackupData</code>)</td>
+<td>impl/ibmccontrol_restoremodify_imp.js:2025-2035</td>
+</tr>
+<tr>
+<td>GET /backupxml, /todownload.file</td>
+<td>older backup path, only in <code>backupold()</code> / a comment</td>
+<td>impl/ibmccontrol_configfile_imp.js:104, 115</td>
+</tr>
+<tr>
+<td>GET /spevents.elg?session_id=</td>
+<td>event log download</td>
+<td>impl/monitors_eventlog_imp.js:624</td>
+</tr>
+<tr>
+<td>GET /certs/{cert,csr}_{https,cohs,ldapclient}.der, /ipsec.certs/{cert,csr}_ikeservice.der</td>
+<td>certificate / CSR download</td>
+<td>page/ibmccontrol_security.html:147-586</td>
+</tr>
+<tr>
+<td>POST /page/ibmccontrol_security_import.html, /page/ibmccontrol_security_importsignedcertificate.html (multipart)</td>
+<td>certificate upload</td>
+<td>page/ibmccontrol_security_import.html:66, page/ibmccontrol_security_importsignedcertificate.html:66</td>
+</tr>
+<tr>
+<td>POST /page/tasks_updatefirmware_verify.html (multipart)</td>
+<td>firmware image upload</td>
+<td>page/tasks_updatefirmware.html:66</td>
+</tr>
+<tr>
+<td>GET /kvm/kvm/jnlp, /kvm/kvm/activx, /kvm/kvm/activx64 (?session_id=)</td>
+<td>remote control viewer launcher (Java / ActiveX)</td>
+<td>impl/tasks_remotecontrol_imp.js:245-252</td>
+</tr>
+<tr>
+<td>GET /kvm/vm/jnlp</td>
+<td>virtual media launcher, commented out ("VM script need not be launched from Web")</td>
+<td>impl/tasks_remotecontrol_imp.js:255-260</td>
+</tr>
+<tr>
+<td>HEAD ../mnc.cap, ../service_advisor.cap</td>
+<td>feature gating</td>
+<td>impl/frameTree_imp.js:229, 264; impl/tasks_updatefirmware_imp.js:104</td>
+</tr>
+<tr>
+<td>GET /private/nwi.ssi, /private/adv_flashopt.ssi, /private/sysinfo.ssi</td>
+<td>legacy SSI pages referenced by links or hidden fields</td>
+<td>page/ibmccontrol_networkinterfaceconfigdhcp.html:55, page/tasks_updatefirmware_buildid.html:110, page/ibmccontrol_systemsettings_timedate.html:143</td>
+</tr>
+<tr>
+<td>POST /RPC/ajaxgw.asp</td>
+<td>AMI gateway in lib/xmit.js, no stored caller</td>
+<td>lib/xmit.js:690</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="44-firmware-update-sequence-description-only">4.4 Firmware update sequence (description only) <a class="anchor" href="#44-firmware-update-sequence-description-only" aria-label="Link to this section">#</a></h3>
+<p><span class="tl tl-extracted">EXTRACTED</span>, for understanding the update path documented in docs/X3650M3_IMM_ARCHITECTURE.md section 9; not a
+procedure: <code>FirmwareRequestSpace</code> with <code>FirmwareType: "web"</code> and <code>RequestedFileSize: "131072"</code> (comment
+"hardcoding for 128MB", so the unit is <span class="tl tl-candidate">CANDIDATE</span> KiB) returns <code>ImageFilePath</code>, which becomes the name of the file
+input (impl/tasks_updatefirmware_imp.js:184-197); <code>/session/expiry/increase</code>; multipart upload to
+/page/tasks_updatefirmware_verify.html (200-206; page/tasks_updatefirmware.html:66); <code>VerifyFirmwareImageFile</code>
+returns <code>BuildInfo</code> with four <code>_</code>-separated fields, the first being the firmware type
+(impl/tasks_updatefirmware_verify_imp.js:33-49); <code>GetFirmwareBuildID</code> shows the current build
+(impl/tasks_updatefirmware_buildid_imp.js:47); <code>BeginUpdateFirmware</code> returns a process id that
+<code>FirmwareUpdateStatus</code> polls every 3 s for <code>Status</code> and <code>Percentage</code> (impl/tasks_updatefirmware_progress_imp.js:34-75);
+<code>CancelFirmwareUpgrade</code> when the page is re-entered with <code>?cancel=yes</code> (impl/tasks_updatefirmware_imp.js:86-89).</p>
+<h2 id="5-ws-man-client">5. WS-Man client <a class="anchor" href="#5-ws-man-client" aria-label="Link to this section">#</a></h2>
+<h3 id="51-transport-extracted">5.1 Transport (<span class="tl tl-extracted">EXTRACTED</span>) <a class="anchor" href="#51-transport-extracted" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Endpoint: <code>POST &lt;scheme&gt;://&lt;host&gt;/wsman</code> (home_imp.js:51, 207). The WSDL <code>soap:address</code> is the literal
+  "No Target Adress" in every WSDL (WSDL, element service/port), so the client overrides it with <code>wsmanURI</code>.</li>
+<li>HTTP headers: <code>Content-Type: text/xml</code>, <code>Connection: close</code> (lib/wsman/soap.js:64-66), plus <code>session_id</code> when the
+  header session is used (lib/wsman/network.js:31-34) and optionally <code>NoSessionUpdate: yes</code>. No <code>SOAPAction</code>
+  header is sent (the code is commented out, lib/wsman/WSDLOperation.js:150-154).</li>
+<li>XMLHttpRequest is asynchronous; timeout <code>5 * 3600 * 1000</code> ms, i.e. 5 hours, although the comment says 5
+  minutes (lib/wsman/network.js:12); up to 2 retries for HTTP status codes outside
+  200, 400, 401, 403, 405, 415, 404, 500 (lib/wsman/network.js:13-15, 66-71).</li>
+<li>HTTP 400 and 500 responses are parsed as SOAP faults (lib/wsman/soap.js:109-113).</li>
+</ul>
+<h3 id="52-envelope-shape-extracted-libwsmansoapjs213-276-libwsmanwsdloperationjs22-146">5.2 Envelope shape (<span class="tl tl-extracted">EXTRACTED</span>, lib/wsman/soap.js:213-276, lib/wsman/WSDLOperation.js:22-146) <a class="anchor" href="#52-envelope-shape-extracted-libwsmansoapjs213-276-libwsmanwsdloperationjs22-146" aria-label="Link to this section">#</a></h3>
+<p>Namespaces (lib/wsman/XML.js:19-27): <code>SOAP-ENV</code> = <a href="http://www.w3.org/2003/05/soap-envelope" rel="noopener">http://www.w3.org/2003/05/soap-envelope</a>, <code>wsa</code> =
+<a href="http://schemas.xmlsoap.org/ws/2004/08/addressing" rel="noopener">http://schemas.xmlsoap.org/ws/2004/08/addressing</a>, <code>wsman</code> = <a href="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd" rel="noopener">http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd</a>. Header
+elements in this order: <code>wsa:To</code> (endpoint), <code>wsa:ReplyTo/wsa:Address</code> (anonymous role), <code>wsman:ResourceURI</code>,
+optional <code>wsman:SelectorSet</code> with <code>wsman:Selector name="..."</code> (lib/wsman/soap.js:424-438), <code>wsa:Action</code>,
+<code>wsa:MessageID</code> = <code>dt:&lt;milliseconds&gt;</code>. Body: one element named after the operation with
+<code>xmlns</code> = the WSDL <code>soap:body</code> namespace (lib/wsman/wsdl.js:171-173), and one child per input part; simple parts
+carry <code>xsi:type="xsd:&lt;type&gt;"</code> (WSDLOperation.js:139-144), complex parts are built from the WSDL schema.</p>
+<p>Generic custom-operation request as the client builds it (structure <span class="tl tl-extracted">EXTRACTED</span>; values are placeholders):</p>
+<pre><code>&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://www.w3.org/2003/05/soap-envelope&quot;
+    xmlns:wsa=&quot;http://schemas.xmlsoap.org/ws/2004/08/addressing&quot;
+    xmlns:wsman=&quot;http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd&quot;&gt;
+  &lt;SOAP-ENV:Header&gt;
+    &lt;wsa:To&gt;http://&lt;IMM&gt;/wsman&lt;/wsa:To&gt;
+    &lt;wsa:ReplyTo&gt;&lt;wsa:Address&gt;http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous&lt;/wsa:Address&gt;&lt;/wsa:ReplyTo&gt;
+    &lt;wsman:ResourceURI&gt;http://www.ibm.com/iBMC/sp/&lt;Service&gt;&lt;/wsman:ResourceURI&gt;
+    &lt;wsa:Action&gt;http://www.ibm.com/iBMC/sp/&lt;Service&gt;/&lt;Operation&gt;&lt;/wsa:Action&gt;
+    &lt;wsa:MessageID&gt;dt:&lt;ms&gt;&lt;/wsa:MessageID&gt;
+  &lt;/SOAP-ENV:Header&gt;
+  &lt;SOAP-ENV:Body&gt;
+    &lt;Operation xmlns=&quot;http://www.ibm.com/iBMC/sp/&lt;Service&gt;&quot;
+        xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+      &lt;SimplePart xsi:type=&quot;xsd:int&quot;&gt;0&lt;/SimplePart&gt;
+    &lt;/Operation&gt;
+  &lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</code></pre>
+<ul>
+<li>Resource URI = the service namespace without a selector: <code>createOp</code> binds every operation to the resource URI
+  it was loaded from and passes <code>selectorSet = null</code> (home_imp.js:213-224). The action URI comes from the
+  portType input <code>wsa:Action</code> attribute (lib/wsman/wsdl.js:189), which in every WSDL is
+  <code>http://www.ibm.com/iBMC/sp/&lt;Service&gt;/&lt;Operation&gt;</code> (WSDL, portType).</li>
+<li>The client accepts only rpc/encoded operations (lib/wsman/WSDLOperation.js:24-25); all six WSDLs declare
+  <code>style="rpc"</code> and <code>use="encoded"</code> (WSDL, binding).</li>
+<li>Response: the first child of the SOAP Body is the operation response; its children are mapped by part name to
+  a JavaScript object, and the part count must equal the WSDL output message (lib/wsman/WSDLOperation.js:181-201).
+  Many Set operations return an int where <code>"0"</code> is success and <code>"-1"</code> failure (lib/pageinc.js:71-72).</li>
+</ul>
+<h3 id="53-wsdl-retrieval-extracted-measured-by-the-2026-10-20-download">5.3 WSDL retrieval (<span class="tl tl-extracted">EXTRACTED</span>; <span class="tl tl-measured">MEASURED</span> by the 2026-10-20 download) <a class="anchor" href="#53-wsdl-retrieval-extracted-measured-by-the-2026-10-20-download" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><code>wsman.getWSDLFromURI(&lt;resourceURI&gt;/wsdl, wsmanURI, cb)</code> sends a WS-Transfer Get
+  (<code>http://schemas.xmlsoap.org/ws/2004/09/transfer/Get</code>, lib/wsman/soap.js:13) with ResourceURI
+  <code>wsman:system/catalog/2005/06/WSDL1.1</code> and one selector <code>WSDL1.1 = &lt;resourceURI&gt;/wsdl</code>
+  (lib/wsman/wsdl.js:11, 20-34; home_imp.js:174).</li>
+<li>The six resource URIs (home_imp.js:74-79, 376-381): <code>http://www.ibm.com/iBMC/sp/Monitors</code>, <code>.../Tasks</code>,
+  <code>.../iBMCControl</code>, <code>.../iBMCNWProtocol</code>, <code>.../Scalability</code>, <code>.../ServiceAdvisor</code>.</li>
+<li>The WS-Transfer Put/Create/Delete and WS-Enumeration/Eventing action URIs exist in the library
+  (lib/wsman/soap.js:11-33) but the stored pages use only Get (for WSDLs) and custom operations.</li>
+</ul>
+<h2 id="6-operation-catalogue-133-operations">6. Operation catalogue (133 operations) <a class="anchor" href="#6-operation-catalogue-133-operations" aria-label="Link to this section">#</a></h2>
+<p>Source of operation names, parts and grouping: the six WSDL files (<span class="tl tl-extracted">EXTRACTED</span>; portType and message elements).
+"UI reference" is the first one or two non-comment lines in the stored UI code that call the operation or pass it
+as a function reference (grep for the whole word, comments excluded); "not referenced" means no stored file uses
+it. Purposes are derived from the operation name, its parts and the calling page; they are <span class="tl tl-candidate">CANDIDATE</span> where the
+UI code does not show more.</p>
+<p>Classification (<span class="tl tl-candidate">CANDIDATE</span>, name-based, refined):</p>
+<ul>
+<li>READ: name starts with Get, Is or Verify. No write is expected from the name and the parts.
+  <code>VerifyFirmwareImageFile</code> is READ by this rule but works on an image staged by the update flow (section 4.4) and
+  is only meaningful inside it.</li>
+<li>READ*: <code>FirmwareUpdateStatus</code>. Name and parts (type and process id in, <code>Status</code>/<code>Percentage</code> out) indicate a
+  progress poll; TSV classifies it STATE-CHANGING because of the name rule (conflict 3 in section 11).</li>
+<li>STATE-CHANGING: everything else, including session registration (<code>UserLogOniBMC</code>, <code>UserLogOffiBMC</code>), file
+  generation on the IMM (<code>GenerateBackupFile</code>, <code>SaveLogAsText</code>, <code>GenerateCSR</code>), outbound messages
+  (<code>GenerateTestAlert</code>, <code>SendManualEmail</code>, call-home operations), power, firmware and restart operations.</li>
+</ul>
+<p>Summary:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Service (resource URI <a href="http://www.ibm.com/iBMC/sp/" rel="noopener">http://www.ibm.com/iBMC/sp/</a>...)</th>
+<th>Operations</th>
+<th>READ</th>
+<th>READ*</th>
+<th>STATE-CHANGING</th>
+<th>Referenced by UI</th>
+<th>Not referenced</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monitors</td>
+<td>17</td>
+<td>10</td>
+<td>0</td>
+<td>7</td>
+<td>14</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Tasks</td>
+<td>20</td>
+<td>9</td>
+<td>1</td>
+<td>10</td>
+<td>20</td>
+<td>0</td>
+</tr>
+<tr>
+<td>iBMCControl</td>
+<td>54</td>
+<td>18</td>
+<td>0</td>
+<td>36</td>
+<td>44</td>
+<td>10</td>
+</tr>
+<tr>
+<td>iBMCNWProtocol</td>
+<td>13</td>
+<td>6</td>
+<td>0</td>
+<td>7</td>
+<td>12</td>
+<td>1</td>
+</tr>
+<tr>
+<td>ServiceAdvisor</td>
+<td>21</td>
+<td>9</td>
+<td>0</td>
+<td>12</td>
+<td>13</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Scalability</td>
+<td>8</td>
+<td>1</td>
+<td>0</td>
+<td>7</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>133</td>
+<td>53</td>
+<td>1</td>
+<td>79</td>
+<td>111</td>
+<td>22</td>
+</tr>
+</tbody>
+</table></div>
+<p>"Not referenced" counts <code>UserLogOffiBMC</code> (only in a comment, home_imp.js:556). The 21 operations with no reference
+at all: SaveLogAsText, GetPlatformLimitations, CreateiBMCUser, DeleteiBMCUser, ModifyiBMCUser,
+ModifyiBMCUserPassword, ModifyiBMCUserPrivilege, ModifyiBMCUserSNMPv3, SetRemoteAlertRecipient,
+ClearRemoteAlertRecipient, GenSelfSignedCert, ReStartiBMC, BackupiBMCConfiguration, SetSupportCenterStatus,
+SetSupportCenterSettings, SetFTPorTFTPServerStatus, SetFTPorTFTPServerSettings, GenerateManualCallHome,
+GenerateTestCallHome, GetServiceAdvisorActivityLogs, SetCallHomeEventCorrectedState. <span class="tl tl-candidate">CANDIDATE</span>: the user and
+alert-recipient operations are called from the add/edit pages that were not crawled (section 3.4); reason: the
+Login Profiles and Alerts pages link to ibmccontrol_loginaddedit.html and ibmccontrol_alertsaddedit.html
+(page/ibmccontrol_loginprofiles.html:93, page/ibmccontrol_alerts.html:95).</p>
+<p>WSDL details worth knowing (<span class="tl tl-extracted">EXTRACTED</span>, Monitors.wsdl.xml): schema element names contain typos that a client must
+reproduce (<code>Temperatue</code> in SensorInfoArray, <code>LowerThresholdNonCritcal</code> in SensorInfo); messages
+<code>GetLatestOFailureScreenURIRequest/Response</code> exist without an operation; the operation <code>GetHostMacAddresses</code> uses
+messages named <code>GetHostMacAddressRequest/Response</code>. In iBMCControl.wsdl.xml the type <code>LoginProfile</code> (used as
+<code>LoginProfiles</code> output of <code>GetLoginProfile</code>, up to 32 entries) contains <code>UserPassword</code> and <code>SNMPv3Config</code>
+elements (section 8).</p>
+<h3 id="61-monitors-httpwwwibmcomibmcspmonitors-sourcesimm_web130wsdlmonitorswsdlxml">6.1 Monitors (<code>http://www.ibm.com/iBMC/sp/Monitors</code>, sources/imm_web/1.30/wsdl/Monitors.wsdl.xml) <a class="anchor" href="#61-monitors-httpwwwibmcomibmcspmonitors-sourcesimm_web130wsdlmonitorswsdlxml" aria-label="Link to this section">#</a></h3>
+<p>Operations: 17; READ 10, READ* 0, STATE-CHANGING 7; referenced by the static UI code: 14.
+Live 2026-10-21 (wsread, section 9.1): all 10 READ operations sent; 9 answered HTTP 200, <code>GetPlatformLimitations</code> returned HTTP 500 wsman:InternalError ("Unable To Process Request").</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Purpose (from name, parts and calling page)</th>
+<th>Input parts</th>
+<th>Output parts</th>
+<th>Class</th>
+<th>UI reference (file:line, path under sources/imm_web/1.30/)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GetPasswordStatus</td>
+<td>password expired/required check after login</td>
+<td>-</td>
+<td>Status, BlankPasswordAllowed</td>
+<td>READ</td>
+<td>home_imp.js:238</td>
+</tr>
+<tr>
+<td>ChangePassword</td>
+<td>change own password (Using=1 "via PAM", home_imp.js:269)</td>
+<td>Using, NewPassword</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>home_imp.js:269</td>
+</tr>
+<tr>
+<td>UserLogOniBMC</td>
+<td>register web login with the IMM after /session/create</td>
+<td>LogInForcefully, DestIPAndPort</td>
+<td>UserLogOniBMCResponse, UserIDAndIP, SessionTimeout, SystemName, DisplayName</td>
+<td>STATE-CHANGING</td>
+<td>home_imp.js:260, home_imp.js:291</td>
+</tr>
+<tr>
+<td>UserLogOffiBMC</td>
+<td>register web logoff</td>
+<td>-</td>
+<td>UserLogOffiBMCResponse</td>
+<td>STATE-CHANGING</td>
+<td>only commented: home_imp.js:556</td>
+</tr>
+<tr>
+<td>GetSensorValues</td>
+<td>System Status: power/state, voltage/temperature/fan sensors, last OS failure, logged users, locator LED, host name</td>
+<td>-</td>
+<td>SystemHealthInfo, SensorInfo, LatestOSScreenFailure, UserInfo, SystemLocatorLED, iBMCHostName</td>
+<td>READ</td>
+<td>impl/monitors_systemstatus_imp.js:125</td>
+</tr>
+<tr>
+<td>ClearOSScreen</td>
+<td>delete the stored last OS-failure screen</td>
+<td>-</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/monitors_systemstatus_imp.js:515</td>
+</tr>
+<tr>
+<td>GetAssertedEvents</td>
+<td>currently asserted events (status icon polling)</td>
+<td>-</td>
+<td>AssertedInfo</td>
+<td>READ</td>
+<td>impl/monitors_systemstatus_imp.js:143, lib/pageinc.js:23</td>
+</tr>
+<tr>
+<td>SetIndicatorLEDStatus</td>
+<td>set the locator LED</td>
+<td>SystemLocatorLED</td>
+<td>SetIndicatorLEDStatusResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/monitors_systemstatus_imp.js:490</td>
+</tr>
+<tr>
+<td>GetEventLog</td>
+<td>IMM event log (up to 1500 entries)</td>
+<td>-</td>
+<td>EvtLog</td>
+<td>READ</td>
+<td>impl/monitors_eventlog_imp.js:209</td>
+</tr>
+<tr>
+<td>SaveLogAsText</td>
+<td>save event log as text file on the IMM</td>
+<td>TextFileName</td>
+<td>result</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>ClearLog</td>
+<td>clear the IMM event log</td>
+<td>-</td>
+<td>ClearLogResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/monitors_eventlog_imp.js:617, page/monitors_eventlog.html:228</td>
+</tr>
+<tr>
+<td>GetVitalProductData</td>
+<td>machine/component VPD, activity log, firmware VPD</td>
+<td>-</td>
+<td>GetVitalProductDataResponse</td>
+<td>READ</td>
+<td>impl/monitors_vitalproductdata_imp.js:260</td>
+</tr>
+<tr>
+<td>GetMemoryInfo</td>
+<td>DIMM inventory</td>
+<td>-</td>
+<td>Memory</td>
+<td>READ</td>
+<td>impl/monitors_vitalproductdata_imp.js:306</td>
+</tr>
+<tr>
+<td>GetProcessorInfo</td>
+<td>CPU inventory</td>
+<td>-</td>
+<td>Processor</td>
+<td>READ</td>
+<td>impl/monitors_vitalproductdata_imp.js:353</td>
+</tr>
+<tr>
+<td>GetHostMacAddresses</td>
+<td>host NIC MAC addresses</td>
+<td>-</td>
+<td>HostMACaddress</td>
+<td>READ</td>
+<td>impl/monitors_vitalproductdata_imp.js:389</td>
+</tr>
+<tr>
+<td>GetPlatformLimitations</td>
+<td>max users/telnet users/certificates/alert recipients</td>
+<td>-</td>
+<td>MaxUserAccounts, MaxTelnetUsers, MaxCertificates, MaxRemoteAlertRecipients</td>
+<td>READ</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>GetVirtualLightPath</td>
+<td>light path LED states</td>
+<td>-</td>
+<td>VirtualLightPathArray</td>
+<td>READ</td>
+<td>impl/monitors_virtuallightpath_imp.js:89</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="62-tasks-httpwwwibmcomibmcsptasks-sourcesimm_web130wsdltaskswsdlxml">6.2 Tasks (<code>http://www.ibm.com/iBMC/sp/Tasks</code>, sources/imm_web/1.30/wsdl/Tasks.wsdl.xml) <a class="anchor" href="#62-tasks-httpwwwibmcomibmcsptasks-sourcesimm_web130wsdltaskswsdlxml" aria-label="Link to this section">#</a></h3>
+<p>Operations: 20; READ 9, READ* 1, STATE-CHANGING 10; referenced by the static UI code: 20.
+Live 2026-10-21 (wsread, section 9.1): the 6 parameterless READ operations answered HTTP 200; <code>VerifyFirmwareImageFile</code> and <code>IsKVMSessionAllowed</code> (input parts) were not sent. <code>GetFirmwareBuildID</code> was sent separately with FirmwareType imm, dsa, uefi, bios, preboot, backup, IMM, DSA, UEFI: every call returned HTTP 500 wsman:InternalError "unable to open FMGetInformation api" (<span class="tl tl-measured">MEASURED</span>, fwbid; <span class="tl tl-candidate">CANDIDATE</span>: the firmware-manager API is open only inside an update flow after the STATE-CHANGING <code>FirmwareRequestSpace</code>, which was not sent). Installed build IDs are available from <code>GetVitalProductData</code> instead (section 9.1).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Purpose (from name, parts and calling page)</th>
+<th>Input parts</th>
+<th>Output parts</th>
+<th>Class</th>
+<th>UI reference (file:line, path under sources/imm_web/1.30/)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GetServerPowerActivity</td>
+<td>power state, state string, reset count, power-on hours</td>
+<td>-</td>
+<td>GetServerPowerActivityResponse</td>
+<td>READ</td>
+<td>impl/tasks_powercontrol_imp.js:89</td>
+</tr>
+<tr>
+<td>SetPowerRestartControl</td>
+<td>power on/off/restart/shutdown (powerState code), optionally at a time</td>
+<td>powerState, SpecifiedTime</td>
+<td>SetPowerRestartControlResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/tasks_powercontrol_imp.js:141, impl/tasks_powercontrol_imp.js:161</td>
+</tr>
+<tr>
+<td>ClearPowerAtSpecifiedTime</td>
+<td>clear the one-shot power-on time</td>
+<td>-</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/tasks_poweronatspecifictime_imp.js:192</td>
+</tr>
+<tr>
+<td>IsPXENetworkBootEnabled</td>
+<td>one-shot PXE flag</td>
+<td>-</td>
+<td>PXENetworkBootResponse</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:382, impl/tasks_pxenetworkboot_imp.js:67</td>
+</tr>
+<tr>
+<td>SetPXENetworkBoot</td>
+<td>set one-shot PXE boot</td>
+<td>PXENetworkBoot</td>
+<td>SetPXENetworkBootResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/tasks_pxenetworkboot_imp.js:83</td>
+</tr>
+<tr>
+<td>GetPowerOnAtSpecifiedTime</td>
+<td>current time and scheduled power-on time</td>
+<td>-</td>
+<td>CurrentTime, SpecifiedTime</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:362, impl/tasks_poweronatspecifictime_imp.js:41</td>
+</tr>
+<tr>
+<td>SchedulePower</td>
+<td>set daily/weekly power schedules</td>
+<td>PowerSchedules</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/tasks_powerrestartactions_imp.js:205</td>
+</tr>
+<tr>
+<td>GetSchedulePower</td>
+<td>read power schedules</td>
+<td>-</td>
+<td>PowerSchedules</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:377, impl/tasks_powerrestartactions_imp.js:46</td>
+</tr>
+<tr>
+<td>ClearAllSchedules</td>
+<td>clear power schedules</td>
+<td>-</td>
+<td>ClearAllSchedulesResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/tasks_powerrestartactions_imp.js:125</td>
+</tr>
+<tr>
+<td>FirmwareRequestSpace</td>
+<td>reserve upload space, returns ImageFilePath</td>
+<td>FirmwareType, RequestedFileSize</td>
+<td>ImageFilePath, FirmwareRequestSpaceResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/tasks_updatefirmware_imp.js:185</td>
+</tr>
+<tr>
+<td>VerifyFirmwareImageFile</td>
+<td>verify uploaded image, returns BuildInfo</td>
+<td>Filename</td>
+<td>BuildInfo</td>
+<td>READ</td>
+<td>impl/tasks_updatefirmware_verify_imp.js:33</td>
+</tr>
+<tr>
+<td>GetFirmwareBuildID</td>
+<td>current build ID for a firmware type</td>
+<td>FirmwareType</td>
+<td>CurrentBuildID, GetFirmwareBuildIDResponse</td>
+<td>READ</td>
+<td>impl/tasks_updatefirmware_buildid_imp.js:47</td>
+</tr>
+<tr>
+<td>BeginUpdateFirmware</td>
+<td>start flashing the uploaded image</td>
+<td>FirmwareType</td>
+<td>BeginUpdateFirmwareResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/tasks_updatefirmware_progress_imp.js:34</td>
+</tr>
+<tr>
+<td>FirmwareUpdateStatus</td>
+<td>poll flash progress (Status, Percentage)</td>
+<td>FirmwareType, FirmwareUpdateStatusPid</td>
+<td>Status, Percentage</td>
+<td>READ*</td>
+<td>impl/tasks_updatefirmware_progress_imp.js:60</td>
+</tr>
+<tr>
+<td>CancelFirmwareUpgrade</td>
+<td>cancel a pending upload/update</td>
+<td>FirmwareType</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/tasks_updatefirmware_imp.js:87</td>
+</tr>
+<tr>
+<td>GetKVMStatus</td>
+<td>remote control sessions, encryption, license, privilege</td>
+<td>-</td>
+<td>ActiveSessions, MaxSessions, Encrypted, HasLicense, HasPrivilege, DisableHighSpeed</td>
+<td>READ</td>
+<td>impl/tasks_remotecontrol_imp.js:77</td>
+</tr>
+<tr>
+<td>GetKVMActiveSessions</td>
+<td>active KVM session count</td>
+<td>-</td>
+<td>Active</td>
+<td>READ</td>
+<td>impl/tasks_remotecontrol_imp.js:280</td>
+</tr>
+<tr>
+<td>SetKVMEncryption</td>
+<td>remote control encryption on/off</td>
+<td>Encrypt</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/tasks_remotecontrol_imp.js:311</td>
+</tr>
+<tr>
+<td>IsKVMSessionAllowed</td>
+<td>check before launching the KVM viewer</td>
+<td>Mode</td>
+<td>Allowed, IsVMAllowed</td>
+<td>READ</td>
+<td>impl/tasks_remotecontrol_imp.js:229</td>
+</tr>
+<tr>
+<td>SetHighspeedPerformance</td>
+<td>remote control high-speed mode</td>
+<td>SpeedStatus</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/tasks_remotecontrol_imp.js:329</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="63-ibmccontrol-httpwwwibmcomibmcspibmccontrol-sourcesimm_web130wsdlibmccontrolwsdlxml">6.3 iBMCControl (<code>http://www.ibm.com/iBMC/sp/iBMCControl</code>, sources/imm_web/1.30/wsdl/iBMCControl.wsdl.xml) <a class="anchor" href="#63-ibmccontrol-httpwwwibmcomibmcspibmccontrol-sourcesimm_web130wsdlibmccontrolwsdlxml" aria-label="Link to this section">#</a></h3>
+<p>Operations: 54; READ 18, READ* 0, STATE-CHANGING 36; referenced by the static UI code: 44.
+Live 2026-10-21 (wsread, section 9.1): all 18 READ operations sent, all HTTP 200.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Purpose (from name, parts and calling page)</th>
+<th>Input parts</th>
+<th>Output parts</th>
+<th>Class</th>
+<th>UI reference (file:line, path under sources/imm_web/1.30/)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GetSPNameSettings</td>
+<td>IMM name</td>
+<td>-</td>
+<td>SPName</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:342, impl/ibmccontrol_systemsettings_imp.js:106</td>
+</tr>
+<tr>
+<td>SetSPNameSettings</td>
+<td>set IMM name</td>
+<td>SPName</td>
+<td>SetSPNameSettingsResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_systemsettings_imp.js:180</td>
+</tr>
+<tr>
+<td>GetiBMCSystemSettings</td>
+<td>contact and location</td>
+<td>-</td>
+<td>iBMCInfo</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:347, impl/ibmccontrol_systemsettings_imp.js:110</td>
+</tr>
+<tr>
+<td>SetiBMCSystemSettings</td>
+<td>set contact and location</td>
+<td>iBMCInfo</td>
+<td>SetiBMCSystemSettingsResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_systemsettings_imp.js:185</td>
+</tr>
+<tr>
+<td>GetServerTimeouts</td>
+<td>OS watchdog, loader watchdog, power-off delay</td>
+<td>-</td>
+<td>SrvTimeouts</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:352, impl/ibmccontrol_systemsettings_imp.js:114</td>
+</tr>
+<tr>
+<td>SetServerTimeouts</td>
+<td>set server timeouts</td>
+<td>SrvTimeouts</td>
+<td>SetServerTimeoutsResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_systemsettings_imp.js:189</td>
+</tr>
+<tr>
+<td>GetiBMCDateAndTime</td>
+<td>IMM date/time</td>
+<td>-</td>
+<td>iBMCDT</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:357, impl/ibmccontrol_systemsettings_imp.js:118</td>
+</tr>
+<tr>
+<td>SetiBMCDateAndTime</td>
+<td>set IMM date/time</td>
+<td>iBMCDT, TimeChanged</td>
+<td>SetiBMCDateAndTimeResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_systemsettings_imp.js:193, impl/ibmccontrol_systemsettings_timedate_imp.js:342</td>
+</tr>
+<tr>
+<td>GetUSBInterfaceStatus</td>
+<td>LAN-over-USB (in-band USB interface) disabled flag</td>
+<td>-</td>
+<td>InterfaceDisabled</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:372, impl/ibmccontrol_systemsettings_imp.js:122</td>
+</tr>
+<tr>
+<td>SetUSBInterfaceStatus</td>
+<td>enable/disable the in-band USB interface</td>
+<td>InterfaceDisabled</td>
+<td>SetUSBInterfaceStatusResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_systemsettings_imp.js:198</td>
+</tr>
+<tr>
+<td>GetLoginProfile</td>
+<td>login profiles and global login settings</td>
+<td>-</td>
+<td>LP, GLS</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:387, impl/ibmccontrol_loginprofiles_imp.js:87</td>
+</tr>
+<tr>
+<td>SetGlobalLoginSettings</td>
+<td>auth method, lockout, web inactivity timeout, security level</td>
+<td>GLS</td>
+<td>SetGlobalLoginSettingsResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_loginprofiles_imp.js:427</td>
+</tr>
+<tr>
+<td>CreateiBMCUser</td>
+<td>create a local account</td>
+<td>CreateiBMCUserInfo</td>
+<td>CreateiBMCUserResponse</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>DeleteiBMCUser</td>
+<td>delete a local account</td>
+<td>DeleteiBMCUserInfo</td>
+<td>DeleteiBMCUserResponse</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>ModifyiBMCUser</td>
+<td>modify a local account</td>
+<td>OldUserID, ModifyiBMCUserInfo</td>
+<td>ModifyiBMCUserResponse</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>ModifyiBMCUserPassword</td>
+<td>set an account password</td>
+<td>UserName, NewPassword</td>
+<td>ModifyiBMCUserPasswordResponse</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>ModifyiBMCUserPrivilege</td>
+<td>set an account role</td>
+<td>UserName, NewRole</td>
+<td>ModifyiBMCUserPrivilegeResponse</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>ModifyiBMCUserSNMPv3</td>
+<td>set an account SNMPv3 settings</td>
+<td>UserIndex, UserName, SNMPv3Settings</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>GetAlertSettings</td>
+<td>remote alert recipients and global alert settings</td>
+<td>-</td>
+<td>RAR, GRAS</td>
+<td>READ</td>
+<td>impl/ibmccontrol_alerts_imp.js:320, impl/ibmccontrol_configsummary_imp.js:397</td>
+</tr>
+<tr>
+<td>GenerateTestAlert</td>
+<td>send a test alert</td>
+<td>-</td>
+<td>GenerateTestAlertResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_alerts_imp.js:490</td>
+</tr>
+<tr>
+<td>SetGlobalAlertSettings</td>
+<td>set global alert retry/delay</td>
+<td>GRAS</td>
+<td>SetGlobalAlertSettingsResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_alerts_imp.js:466</td>
+</tr>
+<tr>
+<td>SetRemoteAlertRecipient</td>
+<td>set one alert recipient</td>
+<td>RAR, AlertRecepientIndex</td>
+<td>SetRemoteAlertRecipientResponse</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>ClearRemoteAlertRecipient</td>
+<td>clear one alert recipient</td>
+<td>AlertRecepientIndex</td>
+<td>ClearRemoteAlertRecipientResponse</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>GetPortAssignments</td>
+<td>service port numbers</td>
+<td>-</td>
+<td>PA</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:407, impl/ibmccontrol_portassignments_imp.js:135</td>
+</tr>
+<tr>
+<td>SetPortAssignments</td>
+<td>change service port numbers</td>
+<td>PA</td>
+<td>SetPortAssignmentsResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_portassignments_imp.js:180, impl/ibmccontrol_portassignments_imp.js:253</td>
+</tr>
+<tr>
+<td>GetNetworkSettings</td>
+<td>interface, DNS, IPv4, IPv6</td>
+<td>-</td>
+<td>Interface, DNS, IPv4, IPv6</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:412, impl/ibmccontrol_networkinterface_imp.js:113</td>
+</tr>
+<tr>
+<td>SetNetworkSettings</td>
+<td>change network settings</td>
+<td>Interface, DNS, IPv4, IPv6</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_networkinterface_imp.js:254</td>
+</tr>
+<tr>
+<td>IsIPv6Enabled</td>
+<td>IPv6 flag</td>
+<td>-</td>
+<td>IPv6Enabled</td>
+<td>READ</td>
+<td>impl/ibmccontrol_networkprotocols_imp.js:249, impl/ibmccontrol_networkprotocols_imp.js:622</td>
+</tr>
+<tr>
+<td>GetDHCPv4AssignedConfig</td>
+<td>DHCP-assigned IPv4 config</td>
+<td>-</td>
+<td>DHCP4Config</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:417, impl/ibmccontrol_networkinterfaceconfigdhcp_imp.js:74</td>
+</tr>
+<tr>
+<td>GetIPv6AutoConfig</td>
+<td>IPv6 autoconfiguration</td>
+<td>-</td>
+<td>IPv6AutoConfig</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:422, impl/ibmccontrol_networkinterfaceconfigipv6_imp.js:55</td>
+</tr>
+<tr>
+<td>GetAdvanceEthernet</td>
+<td>speed/duplex/MTU/LAA</td>
+<td>-</td>
+<td>AdvEthernet</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:427, impl/ibmccontrol_networkinterfaceadvanced_imp.js:110</td>
+</tr>
+<tr>
+<td>SetAdvanceEthernet</td>
+<td>change advanced Ethernet</td>
+<td>AdvEthernet</td>
+<td>SetAdvanceEthernetResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_networkinterfaceadvanced_imp.js:137</td>
+</tr>
+<tr>
+<td>GetSSLSettings</td>
+<td>HTTPS, CIM-over-HTTPS, LDAP client, IPsec certificate state; SSH server state</td>
+<td>-</td>
+<td>HTTPSServer, CIMXMLOverHTTPSServer, LDAPClient, SSLClientTrustedCert1URI, SSLClientTrustedCert2URI, SSLClientTrustedCert3URI, SSHServer, SSHServerKeyInstalled, IPSEC, IPSECTrustedCert1URI</td>
+<td>READ</td>
+<td>impl/ibmccontrol_security_imp.js:124</td>
+</tr>
+<tr>
+<td>SetSSLServerSettings</td>
+<td>enable/disable an SSL server or client</td>
+<td>ProtocolType, Status</td>
+<td>SetSSLServerSettingsResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_security_imp.js:409, impl/ibmccontrol_security_imp.js:461</td>
+</tr>
+<tr>
+<td>SetSSHServerSettings</td>
+<td>enable/disable SSH server</td>
+<td>SetSSHServerSettingsRequest</td>
+<td>SetSSHServerSettingsResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_security_imp.js:488</td>
+</tr>
+<tr>
+<td>GenSelfSignedCert</td>
+<td>generate self-signed certificate</td>
+<td>ProtocolType, SSLCertReqData, SSLCertOptData</td>
+<td>SelfSignedCertResponse</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>GenerateCSR</td>
+<td>generate a CSR</td>
+<td>ProtocolType, SSLCertReqData, SSLCertOptData, SSLCSRAttr</td>
+<td>GenerateCSRResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ssl_csr_gen_imp.js:135</td>
+</tr>
+<tr>
+<td>GenerateSSHPrivateKey</td>
+<td>generate SSH host key</td>
+<td>-</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_security_imp.js:503</td>
+</tr>
+<tr>
+<td>ImportSignedCertificate</td>
+<td>import a signed certificate</td>
+<td>ProtocolType, CertficatePath</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_security_importsignedcertificate_imp.js:34</td>
+</tr>
+<tr>
+<td>ImportCACertificate</td>
+<td>import a trusted CA certificate</td>
+<td>ProtocolType, Index, CertficatePath</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_security_import_imp.js:34</td>
+</tr>
+<tr>
+<td>RemoveCACertificate</td>
+<td>remove a trusted CA certificate</td>
+<td>Index</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_security_imp.js:521</td>
+</tr>
+<tr>
+<td>ReStartiBMC</td>
+<td>restart the IMM</td>
+<td>-</td>
+<td>ReStartiBMCResponse</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>GetNTPSettings</td>
+<td>NTP settings</td>
+<td>-</td>
+<td>NTPSettings</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:367, impl/ibmccontrol_systemsettings_timedate_imp.js:66</td>
+</tr>
+<tr>
+<td>SetNTPSettings</td>
+<td>set NTP</td>
+<td>NTPSettings</td>
+<td>SetNTPSettingsResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_systemsettings_timedate_imp.js:162</td>
+</tr>
+<tr>
+<td>SynchronizeNTPClockNow</td>
+<td>sync clock now</td>
+<td>-</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_systemsettings_timedate_imp.js:200</td>
+</tr>
+<tr>
+<td>GetSerialPortSettings</td>
+<td>COM2 CLI mode, key sequence, baud</td>
+<td>-</td>
+<td>SerialPortSettings</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:402, impl/ibmccontrol_serialport_imp.js:45</td>
+</tr>
+<tr>
+<td>SetSerialPortSettings</td>
+<td>set serial port</td>
+<td>SerialPortSettings</td>
+<td>SetSerialPortSettingsResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_serialport_imp.js:88</td>
+</tr>
+<tr>
+<td>RestoreDefaults</td>
+<td>factory defaults</td>
+<td>-</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_restoredefaults_imp.js:78</td>
+</tr>
+<tr>
+<td>GenerateBackupFile</td>
+<td>create configuration backup file on the IMM</td>
+<td>-</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_configfile_imp.js:107</td>
+</tr>
+<tr>
+<td>GetIPSecuritySettings</td>
+<td>IPsec global settings and connections</td>
+<td>-</td>
+<td>Global, Connections</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:462</td>
+</tr>
+<tr>
+<td>GetGroupProfiles</td>
+<td>LDAP group profiles</td>
+<td>-</td>
+<td>Profiles</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:392, impl/ibmccontrol_loginprofiles_imp.js:88</td>
+</tr>
+<tr>
+<td>CreateGroup</td>
+<td>create group profile</td>
+<td>Create_group</td>
+<td>CreateResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_groupprofilesaddedit_imp.js:210</td>
+</tr>
+<tr>
+<td>DeleteGroup</td>
+<td>delete group profile</td>
+<td>Delete_group</td>
+<td>DeleteResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_loginprofiles_imp.js:165</td>
+</tr>
+<tr>
+<td>ModifyGroup</td>
+<td>modify group profile</td>
+<td>Modify_group</td>
+<td>ModifyResponse</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_groupprofilesaddedit_imp.js:230</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="64-ibmcnwprotocol-httpwwwibmcomibmcspibmcnwprotocol-sourcesimm_web130wsdlibmcnwprotocolwsdlxml">6.4 iBMCNWProtocol (<code>http://www.ibm.com/iBMC/sp/iBMCNWProtocol</code>, sources/imm_web/1.30/wsdl/iBMCNWProtocol.wsdl.xml) <a class="anchor" href="#64-ibmcnwprotocol-httpwwwibmcomibmcspibmcnwprotocol-sourcesimm_web130wsdlibmcnwprotocolwsdlxml" aria-label="Link to this section">#</a></h3>
+<p>Operations: 13; READ 6, READ* 0, STATE-CHANGING 7; referenced by the static UI code: 12.
+Live 2026-10-21 (wsread, section 9.1): all 6 READ operations sent, all HTTP 200.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Purpose (from name, parts and calling page)</th>
+<th>Input parts</th>
+<th>Output parts</th>
+<th>Class</th>
+<th>UI reference (file:line, path under sources/imm_web/1.30/)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GetSNMPSettings</td>
+<td>SNMPv1/v3 agent, traps, communities</td>
+<td>-</td>
+<td>GetSNMPSettingsResponse</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:432, impl/ibmccontrol_networkprotocols_imp.js:222</td>
+</tr>
+<tr>
+<td>GetDNSSettings</td>
+<td>DNS</td>
+<td>-</td>
+<td>DNSSettings</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:437, impl/ibmccontrol_networkprotocols_imp.js:226</td>
+</tr>
+<tr>
+<td>GetTelnetSettings</td>
+<td>Telnet session count</td>
+<td>-</td>
+<td>TelnetSessions</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:442, impl/ibmccontrol_networkprotocols_imp.js:229</td>
+</tr>
+<tr>
+<td>GetSMTPSettings</td>
+<td>SMTP server and port</td>
+<td>-</td>
+<td>ServerHost, PortNo</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:447, impl/ibmccontrol_networkprotocols_imp.js:233</td>
+</tr>
+<tr>
+<td>GetLDAPSettings</td>
+<td>LDAP client</td>
+<td>-</td>
+<td>LDAPSettings</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:452, impl/ibmccontrol_networkprotocols_imp.js:237</td>
+</tr>
+<tr>
+<td>GetSLPSettings</td>
+<td>SLP address type and multicast address</td>
+<td>-</td>
+<td>AddressType, MulticastAddress</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:457, impl/ibmccontrol_networkprotocols_imp.js:241</td>
+</tr>
+<tr>
+<td>SetSNMPSettings</td>
+<td>set SNMP</td>
+<td>SetSNMPSettingsRequest</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_networkprotocols_imp.js:522</td>
+</tr>
+<tr>
+<td>SetDNSSettings</td>
+<td>set DNS</td>
+<td>DNSSettings</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_networkprotocols_imp.js:527</td>
+</tr>
+<tr>
+<td>SetTelnetSettings</td>
+<td>set Telnet sessions (0 disables)</td>
+<td>TelnetSessions</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_networkprotocols_imp.js:532</td>
+</tr>
+<tr>
+<td>SetSMTPSettings</td>
+<td>set SMTP</td>
+<td>ServerHost, PortNo</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_networkprotocols_imp.js:536</td>
+</tr>
+<tr>
+<td>SetLDAPSettings</td>
+<td>set LDAP</td>
+<td>LDAPSettings</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_networkprotocols_imp.js:541</td>
+</tr>
+<tr>
+<td>SetSLPSettings</td>
+<td>set SLP</td>
+<td>AddressType, MulticastAddress</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_networkprotocols_imp.js:546</td>
+</tr>
+<tr>
+<td>BackupiBMCConfiguration</td>
+<td>configuration backup</td>
+<td>-</td>
+<td>BackupiBMCConfigurationResponse</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="65-serviceadvisor-httpwwwibmcomibmcspserviceadvisor-sourcesimm_web130wsdlserviceadvisorwsdlxml">6.5 ServiceAdvisor (<code>http://www.ibm.com/iBMC/sp/ServiceAdvisor</code>, sources/imm_web/1.30/wsdl/ServiceAdvisor.wsdl.xml) <a class="anchor" href="#65-serviceadvisor-httpwwwibmcomibmcspserviceadvisor-sourcesimm_web130wsdlserviceadvisorwsdlxml" aria-label="Link to this section">#</a></h3>
+<p>Operations: 21; READ 9, READ* 0, STATE-CHANGING 12; referenced by the static UI code: 13.
+Live 2026-10-21 (wsread, section 9.1): all 9 READ operations sent; <code>GetServiceAdvisorActivityLogs</code> answered HTTP 200 with an empty log, the other 8 returned HTTP 500 wsman:InternalError (fault details "unable to get ...", for example "unable to get license agreement status").</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Purpose (from name, parts and calling page)</th>
+<th>Input parts</th>
+<th>Output parts</th>
+<th>Class</th>
+<th>UI reference (file:line, path under sources/imm_web/1.30/)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AcceptAgreement</td>
+<td>accept Service Advisor terms</td>
+<td>-</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/ibmccontrol_restoremodify_imp.js:1046, impl/serviceadv_main_imp.js:92</td>
+</tr>
+<tr>
+<td>IsAgreementAccepted</td>
+<td>Service Advisor terms state</td>
+<td>-</td>
+<td>Status</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:467, impl/ibmccontrol_configsummary_imp.js:501</td>
+</tr>
+<tr>
+<td>GetSupportCenterStatus</td>
+<td>call-home enabled state</td>
+<td>-</td>
+<td>Status</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:472, impl/ibmccontrol_configsummary_imp.js:506</td>
+</tr>
+<tr>
+<td>SetSupportCenterStatus</td>
+<td>enable/disable call home</td>
+<td>Status</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>GetSupportCenterSettings</td>
+<td>call-home contact settings</td>
+<td>-</td>
+<td>SupportCenterConfiguration</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:477, impl/ibmccontrol_configsummary_imp.js:511</td>
+</tr>
+<tr>
+<td>SetSupportCenterSettings</td>
+<td>set call-home settings</td>
+<td>SupportCenterConfiguration</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>GetFTPorTFTPServerStatus</td>
+<td>FTP/TFTP forwarding state</td>
+<td>-</td>
+<td>Status</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:482, impl/ibmccontrol_configsummary_imp.js:516</td>
+</tr>
+<tr>
+<td>SetFTPorTFTPServerStatus</td>
+<td>enable/disable FTP/TFTP forwarding</td>
+<td>Status</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>GetFTPorTFTPServerSettings</td>
+<td>FTP/TFTP forwarding settings</td>
+<td>-</td>
+<td>FTPorTFTPConfiguration</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:487, impl/ibmccontrol_configsummary_imp.js:521</td>
+</tr>
+<tr>
+<td>SetFTPorTFTPServerSettings</td>
+<td>set FTP/TFTP forwarding</td>
+<td>FTPorTFTPConfiguration</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>GetMaxExclusionEvents</td>
+<td>exclusion list size</td>
+<td>-</td>
+<td>MaxExclusionEvents</td>
+<td>READ</td>
+<td>impl/serviceadv_exclusionlist_imp.js:38</td>
+</tr>
+<tr>
+<td>GetAvailableExclusionEvents</td>
+<td>free exclusion slots</td>
+<td>-</td>
+<td>AvailableExclusionEvents</td>
+<td>READ</td>
+<td>impl/serviceadv_exclusionlist_imp.js:47</td>
+</tr>
+<tr>
+<td>GetExclusionEventList</td>
+<td>excluded event IDs</td>
+<td>-</td>
+<td>ExclusionEventIDs</td>
+<td>READ</td>
+<td>impl/ibmccontrol_configsummary_imp.js:492, impl/ibmccontrol_configsummary_imp.js:526</td>
+</tr>
+<tr>
+<td>AddEventIDInExclusionEventList</td>
+<td>add excluded event ID</td>
+<td>EventID</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/serviceadv_exclusionlist_imp.js:124</td>
+</tr>
+<tr>
+<td>RemoveEventIDsFromExclusionEventList</td>
+<td>remove excluded IDs</td>
+<td>ExclusionEventIDs</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/serviceadv_exclusionlist_imp.js:157</td>
+</tr>
+<tr>
+<td>RemoveAllEventIDsFromExclusionEventList</td>
+<td>clear exclusion list</td>
+<td>-</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/serviceadv_exclusionlist_imp.js:175</td>
+</tr>
+<tr>
+<td>GenerateManualCallHome</td>
+<td>send a manual call-home</td>
+<td>ProblemDescription</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>GenerateTestCallHome</td>
+<td>send a test call-home</td>
+<td>-</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>SendManualEmail</td>
+<td>send service data by e-mail</td>
+<td>EmailConfiguration</td>
+<td>Status</td>
+<td>STATE-CHANGING</td>
+<td>impl/serviceadv_manualemail_imp.js:39</td>
+</tr>
+<tr>
+<td>GetServiceAdvisorActivityLogs</td>
+<td>call-home activity log</td>
+<td>-</td>
+<td>ServiceAdvisorActivityEventLogs</td>
+<td>READ</td>
+<td>not referenced</td>
+</tr>
+<tr>
+<td>SetCallHomeEventCorrectedState</td>
+<td>mark a call-home event corrected</td>
+<td>CallhomeCorrectedStatus</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>not referenced</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="66-scalability-httpwwwibmcomibmcspscalability-sourcesimm_web130wsdlscalabilitywsdlxml">6.6 Scalability (<code>http://www.ibm.com/iBMC/sp/Scalability</code>, sources/imm_web/1.30/wsdl/Scalability.wsdl.xml) <a class="anchor" href="#66-scalability-httpwwwibmcomibmcspscalability-sourcesimm_web130wsdlscalabilitywsdlxml" aria-label="Link to this section">#</a></h3>
+<p>Operations: 8; READ 1, READ* 0, STATE-CHANGING 7; referenced by the static UI code: 8.
+Live 2026-10-21 (wsread, section 9.1): <code>GetScalableNodes</code> returned HTTP 500 wsman:InternalError ("Unknown error.").</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Purpose (from name, parts and calling page)</th>
+<th>Input parts</th>
+<th>Output parts</th>
+<th>Class</th>
+<th>UI reference (file:line, path under sources/imm_web/1.30/)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GetScalableNodes</td>
+<td>scalable complex nodes</td>
+<td>-</td>
+<td>ScalableNodes</td>
+<td>READ</td>
+<td>impl/scalability_partition_imp.js:57, impl/tasks_updatefirmware_imp.js:140</td>
+</tr>
+<tr>
+<td>SetPartitionControl</td>
+<td>partition power control</td>
+<td>PrimaryNodeChecksum, PowerState</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/scalability_partition_control_imp.js:642</td>
+</tr>
+<tr>
+<td>SetStandaloneMode</td>
+<td>standalone/partition mode</td>
+<td>PrimaryNodeChecksum, StandaloneMode</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/scalability_partition_control_imp.js:574</td>
+</tr>
+<tr>
+<td>AutoPartition</td>
+<td>automatic partition</td>
+<td>PrimaryNodeChecksum</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/scalability_partition_control_imp.js:490, page/scalability_partition.html:130</td>
+</tr>
+<tr>
+<td>WritePartition</td>
+<td>write partition configuration</td>
+<td>PartitionNodeCount, PartitionNodes</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/scalability_partition_control_imp.js:227, impl/scalability_partition_control_imp.js:316</td>
+</tr>
+<tr>
+<td>DeletePartition</td>
+<td>delete partition</td>
+<td>PrimaryNodeChecksum</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/scalability_partition_control_imp.js:131, page/scalability_partition.html:133</td>
+</tr>
+<tr>
+<td>ResetPartition</td>
+<td>reset partition</td>
+<td>-</td>
+<td>-</td>
+<td>STATE-CHANGING</td>
+<td>impl/scalability_partition_control_imp.js:85</td>
+</tr>
+<tr>
+<td>ReorderPartition</td>
+<td>reorder nodes (returns nodes)</td>
+<td>TopNodeChecksum</td>
+<td>ScalableNodes</td>
+<td>STATE-CHANGING</td>
+<td>impl/scalability_partition_imp.js:53</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="7-mapping-web-function-ws-man-cli-asu-cim-profile">7. Mapping: web function, WS-Man, CLI, ASU, CIM profile <a class="anchor" href="#7-mapping-web-function-ws-man-cli-asu-cim-profile" aria-label="Link to this section">#</a></h2>
+<p>The documented page list with CLI and ASU columns is in docs/X3650M3_IMM_INTERFACES.md section 3.2 and is not
+repeated. This table adds the evidence from this document: the WS-Man operations (<span class="tl tl-extracted">EXTRACTED</span>, section 3.3), the
+measured ASU value where <code>asu show all</code> has the setting (<span class="tl tl-measured">MEASURED</span>, asu line), and the CIM profiles advertised by
+SLP (slp line 49). The profile column is <span class="tl tl-candidate">CANDIDATE</span> throughout: it pairs names only; no CIM query was made, so no
+class or method is known to back a web function.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Web page</th>
+<th>WS-Man operations</th>
+<th>CLI (from INTERFACES 3.2)</th>
+<th>ASU setting = measured value (asu line)</th>
+<th>CIM registered profile(s), <span class="tl tl-candidate">CANDIDATE</span> by name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>System Status</td>
+<td>GetSensorValues, GetAssertedEvents, SetIndicatorLEDStatus, ClearOSScreen</td>
+<td>syshealth, temps, volts, fans, identify</td>
+<td>-</td>
+<td>DMTF:Sensors, DMTF:Fan, DMTF:Power Supply, DMTF:Indicator LED, DMTF:OS Status, IBM:Asserted Events</td>
+</tr>
+<tr>
+<td>Virtual Light Path</td>
+<td>GetVirtualLightPath</td>
+<td>-</td>
+<td>-</td>
+<td>DMTF:Indicator LED</td>
+</tr>
+<tr>
+<td>Event Log</td>
+<td>GetEventLog, ClearLog</td>
+<td>readlog, clearlog</td>
+<td>-</td>
+<td>IBM:Event Log</td>
+</tr>
+<tr>
+<td>Vital Product Data</td>
+<td>GetVitalProductData, GetMemoryInfo, GetProcessorInfo, GetHostMacAddresses</td>
+<td>vpd</td>
+<td>-</td>
+<td>DMTF:Physical Asset, DMTF:Software Inventory, DMTF:CPU, DMTF:System Memory, IBM:Component Activity Log</td>
+</tr>
+<tr>
+<td>Power/Restart</td>
+<td>GetServerPowerActivity, SetPowerRestartControl (powerState 2 on, 6 off, 8 OS shutdown then off, 5 OS shutdown then restart, 9 restart: impl/tasks_powercontrol_imp.js:126-221), power schedule operations</td>
+<td>power, reset</td>
+<td>-</td>
+<td>DMTF:Power State Management, DMTF:Power Scheduler</td>
+</tr>
+<tr>
+<td>Remote Control</td>
+<td>GetKVMStatus, IsKVMSessionAllowed, SetKVMEncryption, SetHighspeedPerformance</td>
+<td>-</td>
+<td>IMM.RemoteConsolePort=3900 (74)</td>
+<td>IBM:Remote Control</td>
+</tr>
+<tr>
+<td>PXE Network Boot</td>
+<td>IsPXENetworkBootEnabled, SetPXENetworkBoot</td>
+<td>- (1.30)</td>
+<td>IMM.PXE_NextBootEnabled=Disabled (21)</td>
+<td>DMTF:Boot Control</td>
+</tr>
+<tr>
+<td>Firmware Update</td>
+<td>FirmwareRequestSpace ... FirmwareUpdateStatus</td>
+<td>update</td>
+<td>-</td>
+<td>DMTF:Software Update</td>
+</tr>
+<tr>
+<td>System Settings</td>
+<td>Get/SetSPNameSettings, Get/SetiBMCSystemSettings, Get/SetServerTimeouts, Get/SetiBMCDateAndTime, Get/SetUSBInterfaceStatus, Get/SetNTPSettings</td>
+<td>timeouts, clock, ntp, usbeth</td>
+<td>IMM.IMMInfo_Name (24), IMM.OSWatchdog=Disabled (27), IMM.LoaderWatchdog=Disabled (28), IMM.PowerOffDelay=Disabled (29), IMM.NTPAutoSynchronization=Disabled (30), IMM.LanOverUsb=Enabled (75)</td>
+<td>IBM:Management Controller, DMTF:Platform Watchdog, IBM:NTP Client</td>
+</tr>
+<tr>
+<td>Login Profiles</td>
+<td>GetLoginProfile, SetGlobalLoginSettings, group operations; account operations not referenced</td>
+<td>users, passwordcfg, gprofile</td>
+<td>IMM.User_Authentication_Method=Local only (48), IMM.LockoutPeriod=2 (49), IMM.WebTimeout=User Picks timeout (50), IMM.AccountSecurity=Legacy security settings (51)</td>
+<td>DMTF:Simple Identity Management, DMTF:Role Based Authorization, DMTF:Authentication Method Configuration</td>
+</tr>
+<tr>
+<td>Alerts</td>
+<td>GetAlertSettings, SetGlobalAlertSettings, GenerateTestAlert</td>
+<td>-</td>
+<td>-</td>
+<td>IBM:Alert Configuration, DMTF:Indications</td>
+</tr>
+<tr>
+<td>Serial Port</td>
+<td>Get/SetSerialPortSettings</td>
+<td>portcfg, srcfg</td>
+<td>IMM.SerialBaudRate=115200 (65)</td>
+<td>DMTF:Text Console Redirection, IBM:SP Legacy CLI</td>
+</tr>
+<tr>
+<td>Port Assignments</td>
+<td>Get/SetPortAssignments (type PortAssignments: CimOverHTTP, CimOverHTTPS, HTTP, HTTPS, TelnetLegacy, TelnetSMASH, SSHLegacy, SSHSMASH, SNMPAgent, SNMPTraps, RemotePresence, OpenPorts; WSDL iBMCControl)</td>
+<td>-</td>
+<td>IMM.CIMOverHTTPPort=5988, IMM.CIMOverHTTPSPort=5989, IMM.HTTPPort=80, IMM.SSLPort=443, IMM.TelnetPort=23, IMM.SSHPort=22, IMM.SNMP_AgentPort=161, IMM.SNMP_TrapPort=162 (66-73)</td>
+<td>IBM:CIM-XML Port, IBM:SP Web Pages, DMTF:SSH Service, DMTF:Telnet Service</td>
+</tr>
+<tr>
+<td>Network Interfaces</td>
+<td>Get/SetNetworkSettings, Get/SetAdvanceEthernet, GetDHCPv4AssignedConfig, GetIPv6AutoConfig</td>
+<td>ifconfig, dhcpinfo</td>
+<td>IMM.DHCP1=Disabled (77), IMM.HostName1 (78), IMM.SharedNicMode=Dedicated (82)</td>
+<td>DMTF:Ethernet Port, IBM:Ethernet Configuration, DMTF:IP Interface, IBM:IPv6 Interface, DMTF:DHCP Client, IBM:DHCP Client For IPv6</td>
+</tr>
+<tr>
+<td>Network Protocols</td>
+<td>Get/Set SNMP, DNS, Telnet, SMTP, LDAP, SLP settings</td>
+<td>dns, ldap, slp</td>
+<td>IMM.SNMPv1Agent=Enabled (114), IMM.SNMPv3Agent=Enabled (115), IMM.DNS_Enable=Disabled (132), IMM.TelnetSessions=2 (140), IMM.SMTP_ServerName (141)</td>
+<td>IBM:SNMP Agent, DMTF:DNS Client, IBM:DNS Client For IPv6, DMTF:Telnet Service, IBM:SMTP Client, IBM:LDAP Client, IBM:SLP</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>GetSSLSettings, SetSSLServerSettings, SetSSHServerSettings, GenerateSSHPrivateKey, GenerateCSR, certificate import/remove</td>
+<td>ssl</td>
+<td>IMM.SSL_Server_Enable=Disabled (169), IMM.CIMXMLOverHTTPS_Enable=Disabled (170), IMM.SSL_Client_Enable=Disabled (171), IMM.SSH_Enable=Enabled (172)</td>
+<td>IBM:Security Management, IBM:IKE Service, DMTF:SSH Service</td>
+</tr>
+<tr>
+<td>Configuration File</td>
+<td>HTTP /br/backup, /br/restore (no WS-Man in the active path)</td>
+<td>-</td>
+<td>(ASU save/restore)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Restore Defaults</td>
+<td>RestoreDefaults</td>
+<td>clearcfg</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Restart IMM</td>
+<td>none found (page ibmccontrol_restartedibmc.html not stored); WSDL has ReStartiBMC</td>
+<td>resetsp</td>
+<td>-</td>
+<td>DMTF:Service Processor (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>Scalable Partitioning</td>
+<td>Scalability service (8 operations)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Service Advisor</td>
+<td>ServiceAdvisor service (21 operations)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+<p>Advertised profiles without a web page in this table: DMTF:Base Server, IBM:Host Server, DMTF:BIOS Management,
+DMTF:Profile Registration, DMTF:SMASH Collections, IBM:Memory Expansion Unit (slp line 49).</p>
+<h2 id="9-read-only-use-from-the-proxmox-host-request-shapes-live-read-results-2026-10-21">9. Read-only use from the Proxmox host (request shapes; live READ results 2026-10-21) <a class="anchor" href="#9-read-only-use-from-the-proxmox-host-request-shapes-live-read-results-2026-10-21" aria-label="Link to this section">#</a></h2>
+<p>Context: the Proxmox host [lab-ip] is this server; the agent container runs on it and reaches the IMM at
+[lab-ip] (docs/AGENT.md). ASU reports <code>IMM.SharedNicMode=Dedicated</code> (asu line 82). Read-only IMM commands
+are allowed by docs/AGENT.md; anything that changes settings, power, firmware or users needs explicit owner
+approval.</p>
+<p>Ground rules for any future run (derived from sections 4-8):</p>
+<ul>
+<li>Use only operations classified READ in section 6, and not <code>VerifyFirmwareImageFile</code> or <code>FirmwareUpdateStatus</code>.</li>
+<li>Credentials travel in cleartext (section 8 item 1); never write them into the repository, a capture or a
+  command line that is logged; read them from a file outside the repository with restrictive permissions.</li>
+<li>Always end with <code>/session/deactivate</code>, so the session does not hold a slot.</li>
+</ul>
+<p>Shapes (placeholders in angle brackets; the curl lines are NOT TESTED as written, the run used Python http.client):</p>
+<pre><code># 1. create session (body &quot;&lt;user&gt;,&lt;password&gt;&quot;; response &quot;ok&quot; + separator + id, or &quot;unauthorized&quot;/&quot;locked&quot;/&quot;existing&quot;)
+curl -s -c &lt;cookiejar&gt; -X POST --data-binary @&lt;file-with-user,password&gt; http://[lab-ip]/session/create
+
+# 2. (optional) fetch a WSDL: WS-Transfer Get, ResourceURI wsman:system/catalog/2005/06/WSDL1.1,
+#    selector WSDL1.1=http://www.ibm.com/iBMC/sp/Monitors/wsdl  (envelope as in section 5.2)
+
+# 3. call a READ custom operation, e.g. GetSensorValues (Monitors, no input parts)
+curl -s -b &lt;cookiejar&gt; -H 'Content-Type: text/xml' -H 'session_id: &lt;id&gt;' \
+     --data-binary @&lt;GetSensorValues-envelope.xml&gt; http://[lab-ip]/wsman
+
+# 4. end the session
+curl -s -b &lt;cookiejar&gt; -H 'session_id: &lt;id&gt;' -X POST --data-binary '' http://[lab-ip]/session/deactivate
+</code></pre>
+<p>Envelope for step 3 (structure from section 5.2):</p>
+<pre><code>&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://www.w3.org/2003/05/soap-envelope&quot;
+    xmlns:wsa=&quot;http://schemas.xmlsoap.org/ws/2004/08/addressing&quot;
+    xmlns:wsman=&quot;http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd&quot;&gt;
+  &lt;SOAP-ENV:Header&gt;
+    &lt;wsa:To&gt;http://[lab-ip]/wsman&lt;/wsa:To&gt;
+    &lt;wsa:ReplyTo&gt;&lt;wsa:Address&gt;http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous&lt;/wsa:Address&gt;&lt;/wsa:ReplyTo&gt;
+    &lt;wsman:ResourceURI&gt;http://www.ibm.com/iBMC/sp/Monitors&lt;/wsman:ResourceURI&gt;
+    &lt;wsa:Action&gt;http://www.ibm.com/iBMC/sp/Monitors/GetSensorValues&lt;/wsa:Action&gt;
+    &lt;wsa:MessageID&gt;dt:&lt;ms&gt;&lt;/wsa:MessageID&gt;
+  &lt;/SOAP-ENV:Header&gt;
+  &lt;SOAP-ENV:Body&gt;
+    &lt;GetSensorValues xmlns=&quot;http://www.ibm.com/iBMC/sp/Monitors&quot;
+        xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;/&gt;
+  &lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</code></pre>
+<p>Still open: the server's Set-Cookie
+attributes (the auth capture records that no Set-Cookie session id equal to the body id was seen).</p>
+<h3 id="91-live-read-run-2026-10-21-measured-wsread">9.1 Live READ run 2026-10-21 (<span class="tl tl-measured">MEASURED</span>, wsread) <a class="anchor" href="#91-live-read-run-2026-10-21-measured-wsread" aria-label="Link to this section">#</a></h3>
+<p>Values of
+elements whose name matches a secret pattern were replaced by <code>[REDACTED]</code> before storing; the pattern also hid
+non-secret password-policy values (wsread header). Result: 40 HTTP 200, 10 HTTP 500 <code>wsman:InternalError</code>
+(SOAP Receiver fault). Every password element the IMM returned (<code>UserPassword</code>, <code>PrivacyPassword</code>, LDAP
+<code>Password</code>) was empty (<span class="tl tl-measured">MEASURED</span>, wsread header and <code>GetLoginProfile</code>, <code>GetLDAPSettings</code>). Code meanings are
+<span class="tl tl-extracted">EXTRACTED</span> from the UI file named in the cell; codes without a file reference are raw values (meaning <span class="tl tl-unknown">UNKNOWN</span>).
+Account and contact values are not copied here ("owner's account").</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>HTTP</th>
+<th>Result (<span class="tl tl-measured">MEASURED</span>; meaning of codes as stated)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monitors/GetPasswordStatus</td>
+<td>200</td>
+<td>Status 0; BlankPasswordAllowed redacted</td>
+</tr>
+<tr>
+<td>Monitors/GetSensorValues</td>
+<td>200</td>
+<td>ServerPower 2, ServerState "Booting OS"; Planar 3.3V 3.35 V, 5V 4.99 V, 12V 12.20 V, VBAT 1.79 V (lower critical 2.10, lower non-critical 2.25); Ambient Temp "77.00/ 25.00" (deg F / deg C, <span class="tl tl-candidate">CANDIDATE</span> from the values) with thresholds 38/41/45; fans 1A 21 %, 1B 17 %, 2A 21 %, 2B 17 %, 3A 41 %, 3B 38 %; 0 logged-in users; locator LED 4 (Off per the light path state map, impl/monitors_virtuallightpath_imp.js:58-63, <span class="tl tl-candidate">CANDIDATE</span> that the same map applies); iBMCHostName "SN# [redacted-id]". Element typos <code>Temperatue</code>, <code>LowerThresholdNonCritcal</code> as in the WSDL</td>
+</tr>
+<tr>
+<td>Monitors/GetAssertedEvents</td>
+<td>200</td>
+<td>two asserted events: "Planar VBAT" lower non-critical (Severity 2) and lower critical (Severity 1)</td>
+</tr>
+<tr>
+<td>Monitors/GetEventLog</td>
+<td>200</td>
+<td>794 entries, oldest first, each with Severity, Source "-", DateTime, CallHome 0, 64-bit EventID and Text; the oldest 781 equal captures/2026-10-20_imm_readlog.txt one to one (time, text, severity 1 = E, 2 = I, 3 = W; impl/monitors_eventlog_imp.js:48-52 maps 1 E and 3 W); 13 newer entries 2026-10-20 18:04 to 2026-10-21 06:13 (IMM time). Decode: docs/X3650M3_ERROR_CODES.md 15.6-15.7</td>
+</tr>
+<tr>
+<td>Monitors/GetVitalProductData</td>
+<td>200</td>
+<td>machine: System x3650 M3, 7945KEG, serial [redacted-id], UUID [redacted-id]; components: DASD Backplane 1 FRU 94Y6670 serial [redacted-id] MOLX; Power Supply 1 FRU 39Y7229 serial [redacted-id] mfg ACBE; Power Supply 2 all fields "Not defined"; component activity log: Power Supply 1 and DASD Backplane 1 "Added" 04/23/2024 20:20:25, Power Supply 2 "Added" 07/23/2024 08:34:44; firmware: IMM YUOOC7E 09/30/2011, UEFI D6E154A 09/23/2011, DSA DSYT89P 10/28/2011</td>
+</tr>
+<tr>
+<td>Monitors/GetMemoryInfo</td>
+<td>200</td>
+<td>one entry: DIMM 3, HMT31GR7BFR4A-H9, serial [redacted-id], ManufactureDate 0512, DDR3, Size 8</td>
+</tr>
+<tr>
+<td>Monitors/GetProcessorInfo</td>
+<td>200</td>
+<td>empty <code>&lt;Processor&gt;</code> element (no CPU data)</td>
+</tr>
+<tr>
+<td>Monitors/GetHostMacAddresses</td>
+<td>200</td>
+<td>Host Ethernet MAC Address 1 [mac], 2 [mac]</td>
+</tr>
+<tr>
+<td>Monitors/GetPlatformLimitations</td>
+<td>500</td>
+<td>wsman:InternalError, "Unable To Process Request"</td>
+</tr>
+<tr>
+<td>Monitors/GetVirtualLightPath</td>
+<td>200</td>
+<td>48 LEDs; On: Fault (Orange), Battery (Orange), BRD (Orange), Power (Green); Blink: BMC Heartbeat (Green); all others Off (color/state maps impl/monitors_virtuallightpath_imp.js:47-63). The tool flagged the response as FAULT only because an LED is named "Fault"</td>
+</tr>
+<tr>
+<td>Scalability/GetScalableNodes</td>
+<td>500</td>
+<td>wsman:InternalError, "Unknown error."</td>
+</tr>
+<tr>
+<td>ServiceAdvisor/IsAgreementAccepted, GetSupportCenterStatus, GetSupportCenterSettings, GetFTPorTFTPServerStatus, GetFTPorTFTPServerSettings, GetMaxExclusionEvents, GetAvailableExclusionEvents, GetExclusionEventList</td>
+<td>500</td>
+<td>wsman:InternalError with an operation-specific detail "unable to get ..."</td>
+</tr>
+<tr>
+<td>ServiceAdvisor/GetServiceAdvisorActivityLogs</td>
+<td>200</td>
+<td>empty log</td>
+</tr>
+<tr>
+<td>Tasks/GetFirmwareBuildID (one input, fwbid, 06:38 UTC)</td>
+<td>500</td>
+<td>all 9 FirmwareType values: wsman:InternalError "unable to open FMGetInformation api"</td>
+</tr>
+<tr>
+<td>Tasks/GetServerPowerActivity</td>
+<td>200</td>
+<td>Power 2, State "Booting OS", ResetCount 136, PowerONHours 1539</td>
+</tr>
+<tr>
+<td>Tasks/IsPXENetworkBootEnabled</td>
+<td>200</td>
+<td>0 (Disabled, impl/ibmccontrol_configsummary_imp.js:873)</td>
+</tr>
+<tr>
+<td>Tasks/GetPowerOnAtSpecifiedTime</td>
+<td>200</td>
+<td>CurrentTime 2026-10-21 06:28:47 (IMM clock); SpecifiedTime all zero (not set)</td>
+</tr>
+<tr>
+<td>Tasks/GetSchedulePower</td>
+<td>200</td>
+<td>all three schedules Scheduled 0</td>
+</tr>
+<tr>
+<td>Tasks/GetKVMStatus</td>
+<td>200</td>
+<td>ActiveSessions 0, MaxSessions 0, Encrypted 0, HasLicense 0, HasPrivilege 1, DisableHighSpeed 0; HasLicense "0" makes the Remote Control page show "This advanced option requires the purchase and installation of a key" (impl/tasks_remotecontrol_imp.js:110-112; WSMAN_OP_FALSE = "0", lib/pageinc.js:74)</td>
+</tr>
+<tr>
+<td>Tasks/GetKVMActiveSessions</td>
+<td>200</td>
+<td>Active 0</td>
+</tr>
+<tr>
+<td>iBMCControl/GetSPNameSettings</td>
+<td>200</td>
+<td>SPName "SN# [redacted-id]"</td>
+</tr>
+<tr>
+<td>iBMCControl/GetiBMCSystemSettings</td>
+<td>200</td>
+<td>Contact and Location set (owner's name and city; values in wsread)</td>
+</tr>
+<tr>
+<td>iBMCControl/GetServerTimeouts</td>
+<td>200</td>
+<td>OSWatchdog, LoaderWatchdog, PowerOffDelay all 0.000000</td>
+</tr>
+<tr>
+<td>iBMCControl/GetiBMCDateAndTime</td>
+<td>200</td>
+<td>2026-10-21 06:28:52, GMT +180 (minutes), DST 0, DSTClockAdjustment -1</td>
+</tr>
+<tr>
+<td>iBMCControl/GetUSBInterfaceStatus</td>
+<td>200</td>
+<td>InterfaceDisabled 0 (LAN over USB enabled)</td>
+</tr>
+<tr>
+<td>iBMCControl/GetLoginProfile</td>
+<td>200</td>
+<td>one login profile (slot 2, the owner's account, Privilege 1 = Supervisor per impl/ibmccontrol_loginprofiles_imp.js:224-226) with SNMPv3Config (AuthenticationProtocol 3, PrivacyProtocol 2, AccessType 1, trap host [lab-ip]); UserPassword and PrivacyPassword empty; GLS: UserAuthenticationMethod 2 = "Local only", LockoutPeriod 2 (minutes), WebInactivitySessionTimeout -1 = "User picks timeout" (impl/ibmccontrol_configsummary_imp.js:892-910), SecurityLevel 1; password-policy fields redacted</td>
+</tr>
+<tr>
+<td>iBMCControl/GetAlertSettings</td>
+<td>200</td>
+<td>12 remote alert recipients, all Used 0; global: RetryLimit 5, EntriesDelay 0, RetryDelay 0.5; SNMP alert categories Critical, Warning and System each EnableX 0</td>
+</tr>
+<tr>
+<td>iBMCControl/GetPortAssignments</td>
+<td>200</td>
+<td>CIM HTTP 5988, CIM HTTPS 5989, HTTP 80, HTTPS 443, Telnet 23, Telnet SMASH 50023, SSH 22, SSH SMASH 50022, SNMP agent 161, traps 162, remote presence 3900; OpenPorts 3900, 443, 23, 22, 80, 8012, 5988, 161, 162</td>
+</tr>
+<tr>
+<td>iBMCControl/GetNetworkSettings</td>
+<td>200</td>
+<td>Interface 1 (displayed "Enabled", configsummary_imp.js:1485); hostname IMM-[mac], no domain, DDNSEnabled 1; IPv4 DHCP 0, [lab-ip]/255.255.255.0, gateway [lab-ip], CurrentConfig 3 (WSMAN_OP_CC_DHCP_DISABLE, configsummary_imp.js:54); IPv6 Enabled 0 (DHCPv6Enabled 1, StatelessEnabled 1 stored)</td>
+</tr>
+<tr>
+<td>iBMCControl/IsIPv6Enabled</td>
+<td>200</td>
+<td>0</td>
+</tr>
+<tr>
+<td>iBMCControl/GetDHCPv4AssignedConfig</td>
+<td>200</td>
+<td>all fields empty</td>
+</tr>
+<tr>
+<td>iBMCControl/GetIPv6AutoConfig</td>
+<td>200</td>
+<td>all addresses 0::0</td>
+</tr>
+<tr>
+<td>iBMCControl/GetAdvanceEthernet</td>
+<td>200</td>
+<td>AutoSense 1, DataRate 2 ("100 Mb"), Duplex 1 ("Full") (configsummary_imp.js:1277-1290), MTU 1500, LAA [mac], MAC [mac]</td>
+</tr>
+<tr>
+<td>iBMCControl/GetSSLSettings</td>
+<td>200</td>
+<td>HTTPS server, CIM-XML over HTTPS server, LDAP client and IPsec: Status 0, no self-signed certificate, CSR or signed certificate; no trusted client certificates; SSHServer 1; SSHServerKeyInstalled redacted</td>
+</tr>
+<tr>
+<td>iBMCControl/GetNTPSettings</td>
+<td>200</td>
+<td>NTPAutoSynchronization 0, server 127.0.0.1, frequency 80</td>
+</tr>
+<tr>
+<td>iBMCControl/GetSerialPortSettings</td>
+<td>200</td>
+<td>CLIMode 2 = "CLI with user defined keystroke sequences" (configsummary_imp.js:1185-1190), BaudRate 115200, key sequence redacted</td>
+</tr>
+<tr>
+<td>iBMCControl/GetIPSecuritySettings</td>
+<td>200</td>
+<td>State 0, ESP 3des-md5/3des-sha1, IKE 3des with modp1536/modp1024, RSASigStatus 0, no connections</td>
+</tr>
+<tr>
+<td>iBMCControl/GetGroupProfiles</td>
+<td>200</td>
+<td>one group profile, GroupID "administrator", Privileges 1 = Supervisor (loginprofiles_imp.js:105-107), slot 1</td>
+</tr>
+<tr>
+<td>iBMCNWProtocol/GetSNMPSettings</td>
+<td>200</td>
+<td>SNMPv1Agent 1, SNMPv3Agent 1, SNMPTraps 1; community 1 "public", AccessType 1 = "Get" (configsummary_imp.js:1310-1314), host [lab-ip] only; communities 2 and 3 empty</td>
+</tr>
+<tr>
+<td>iBMCNWProtocol/GetDNSSettings</td>
+<td>200</td>
+<td>DNSEnabled 0, PreferredDNS 2 (IPv6, configsummary_imp.js:1351), all servers 0.0.0.0 / 0::0</td>
+</tr>
+<tr>
+<td>iBMCNWProtocol/GetTelnetSettings</td>
+<td>200</td>
+<td>TelnetSessions 2</td>
+</tr>
+<tr>
+<td>iBMCNWProtocol/GetSMTPSettings</td>
+<td>200</td>
+<td>server 127.0.0.1, port 25</td>
+</tr>
+<tr>
+<td>iBMCNWProtocol/GetLDAPSettings</td>
+<td>200</td>
+<td>no LDAP servers configured; RootDN, UID attribute, ClientDN and group attribute hold IBM sample values; BindingMethod 2 = "Configured Credentials" (configsummary_imp.js:1404-1409); Password empty; RoleBasedSecurity 1</td>
+</tr>
+<tr>
+<td>iBMCNWProtocol/GetSLPSettings</td>
+<td>200</td>
+<td>AddressType 2 = "Multicast" (configsummary_imp.js:1472-1476), 239.255.255.253</td>
+</tr>
+</tbody>
+</table></div>
+<p>Observations (<span class="tl tl-measured">MEASURED</span> unless marked):</p>
+<ul>
+<li><code>GetPortAssignments</code> OpenPorts lists 8012, which the full TCP scan of 2026-10-19 did not find open (7 open ports,
+  docs/X3650M3_SECURITY_REVIEW.md section 2), and omits 427 (SLP) and 623 (IPMI), which are open. What OpenPorts
+  means for 8012 is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>The 8 ServiceAdvisor and the Scalability faults are consistent with the 404 answers for <code>/service_advisor.cap</code>
+  and <code>/mnc.cap</code> (auth): the UI enables those menus only when the <code>.cap</code> files exist (section 8 item 5). <span class="tl tl-candidate">CANDIDATE</span>:
+  both features are absent on this unit.</li>
+<li>IMM clock: <code>GetiBMCDateAndTime</code> 06:28:52 local with GMT +3:00, sent between 06:24:13 (run start) and 06:27:13
+  UTC (start of the CIM run, ciminv header), so the IMM local time is about 2-5 min ahead of UTC and the IMM's GMT
+  is about 2 h 55-58 min behind UTC. Consistent with the auth capture (06:09:24 UTC request, IMM <code>Date:</code> header
+  03:13:18 GMT). The capture host clock is [lab-guest]'s (not independently verified).</li>
+</ul>
+<h2 id="10-open-questions--unknown">10. Open questions / <span class="tl tl-unknown">UNKNOWN</span> <a class="anchor" href="#10-open-questions--unknown" aria-label="Link to this section">#</a></h2>
+<p>Items marked ANSWERED are closed by the 2026-10-21 captures (auth, wsread, fwbid); the rest stay open.</p>
+<ol>
+<li>ANSWERED (auth summary table): <code>/wsman</code> accepts HTTP Basic (realm "IMM") and a <code>/session/create</code> session;
+   without credentials 401. <code>/br/backup</code>: Basic or session 200 (19831 bytes), none 500. <code>/spevents.elg</code>,
+   <code>/kvm/kvm/jnlp</code>, <code>/username</code>: session only (200; Basic and none give 500/500/400). <code>/certs/cert_https.der</code> and
+   <code>csr_https.der</code>: 403 without a session and with Basic, 404 with a session (no certificate exists, section 9.1
+   <code>GetSSLSettings</code>). <code>/hostname.txt</code>: 200 without authentication. The <code>.ssi</code> page <code>/private/sysinfo.ssi</code>: 404
+   in all modes. Other <code>.ssi</code> pages: not tested.</li>
+<li>PARTLY ANSWERED (auth): the success body is <code>ok:&lt;id&gt;</code> with a 36-character id (39 bytes). Server Set-Cookie
+   attributes: none - <code>/session/create</code> sends no Set-Cookie header at all (<span class="tl tl-measured">MEASURED</span>, captures/2026-10-21_imm_port_endpoint_probes.txt); the
+   client sets the <code>session_id</code> cookie itself (section 4.2).</li>
+<li>PARTLY ANSWERED (auth, wsread): neither <code>UserLogOniBMC</code> nor <code>/session/activate</code> is needed for custom
+   operations. Meaning of <code>LogInForcefully</code> and of <code>DestIPAndPort</code> on the server side: <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>ANSWERED (wsread <code>GetLoginProfile</code>): <code>UserPassword</code> and <code>PrivacyPassword</code> are returned empty; the SNMPv3
+   settings without secrets are returned (section 8 item 6).</li>
+<li>How "Restart IMM" is triggered (page ibmccontrol_restartedibmc.html?reboot=yes not stored); whether it uses
+   <code>ReStartiBMC</code>. Open.</li>
+<li>Content of the uncrawled pages: login and alert add/edit, observed-DST, self-signed certificate, Scalability
+   create-partition, Service Advisor log and settings pages, help pages, per-page string files. Open.</li>
+<li>ANSWERED (auth): <code>/mnc.cap</code> and <code>/service_advisor.cap</code> return 404 (HEAD, all modes), so the UI keeps the
+   Scalability and Service Advisor menus disabled; matching faults of the READ operations of both services in
+   section 9.1.</li>
+<li>PARTLY ANSWERED (auth): <code>/RPC/ajaxgw.asp</code> and <code>/private/sysinfo.ssi</code> return 404 in all modes. Other <code>.ssi</code>
+   pages: not tested.</li>
+<li>ANSWERED for the 50 parameterless READ operations with HTTP Basic: no event-log entry was written (count 794
+   before and after, section 6). A <code>/session/create</code> login is logged. Other state effects: <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>Server-side implementation of the handlers (lighttpd module names, binaries) - needs the IMM firmware image
+    (D-004 (e), deferred).</li>
+<li>NEW: meaning of the codes without a UI mapping in section 9.1 (SNMPv3 AuthenticationProtocol 3 and
+    PrivacyProtocol 2, GLS SecurityLevel 1, GetPasswordStatus Status 0, ServerPower 2), and
+    why <code>GetPlatformLimitations</code> faults. OpenPorts 8012: listed but refused on TCP (no listener, <span class="tl tl-measured">MEASURED</span>,
+    captures/2026-10-21_imm_port_endpoint_probes.txt; purpose <span class="tl tl-unknown">UNKNOWN</span>). 623 and 427 missing from OpenPorts: 623 is UDP (IPMI), so the list is
+    <span class="tl tl-candidate">CANDIDATE</span> TCP-only.</li>
+</ol>
+<h2 id="11-source-conflicts">11. Source conflicts <a class="anchor" href="#11-source-conflicts" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Topic</th>
+<th>Values and sources</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Number of registered CIM profiles</td>
+<td>docs/X3650M3_IMM_INTERFACES.md section 2 (SLP row) and the task brief: 51; the <code>RegisteredProfilesSupported</code> attribute in slp line 49 has 52 comma-separated entries, no duplicates (count from the capture)</td>
+<td>Resolved 2026-10-21: CIM_RegisteredProfile enumeration returns 52 instances (captures/2026-10-21_imm_cim_read_inventory.txt; 30 DMTF, 22 IBM, docs/X3650M3_IMM_INTERFACES.md 8.1); 51 was a miscount</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Web page/script layout and WS-Man listener</td>
+<td>docs/X3650M3_IMM_INTERFACES.md section 3.1 ("The real page and script layout is <span class="tl tl-unknown">UNKNOWN</span>") and 3.2 notes ("frames, CGI/SSI URLs, JavaScript files <span class="tl tl-unknown">UNKNOWN</span>"); section 8 ("no separate WS-Man listener ... whether sfcHttpd on 5988 also answers WS-Management is <span class="tl tl-unknown">UNKNOWN</span>") vs this document: layout <span class="tl tl-extracted">EXTRACTED</span> (section 3) and WS-Man served by lighttpd at :80/wsman (<span class="tl tl-measured">MEASURED</span>, wsa:From in the WSDL replies)</td>
+<td>Resolved by newer evidence; the older documents still state <span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Operation list and classes in WSMAN_OPERATIONS.tsv</td>
+<td>TSV: 92 names, 90 live calls plus 2 only in comments (<code>GenrCSR</code> impl/ssl_csr_gen_imp.js:131, <code>UserLogOffiBMC</code> home_imp.js:556); <code>GenrCSR</code> is in no WSDL; 21 WSDL operations used through function references (for example <code>GetSNMPSettings</code>, impl/ibmccontrol_networkprotocols_imp.js:222) are missing from the TSV; TSV class STATE-CHANGING for <code>FirmwareUpdateStatus</code> vs READ* here</td>
+<td>TSV is a call-site grep, not a catalogue; section 6 is the full list</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Network timeout</td>
+<td>comment "5 minutes" vs value 5 * 3600 * 1000 ms = 5 h (lib/wsman/network.js:12)</td>
+<td>Code value is what runs; comment wrong</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Port used in <code>DestIPAndPort</code></td>
+<td>login path maps http/https to 80/443 (home_imp.js:255-259); password-change path falls back to "80" (home_imp.js:291)</td>
+<td>Client inconsistency; effect <span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Restart IMM</td>
+<td>web page exists (navobj.js:50) and the WSDL declares <code>ReStartiBMC</code>, but the stored restart page code does not call it (impl/ibmccontrol_restartibmc_imp.js:70)</td>
+<td>Open (section 10 item 5)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="imm-interfaces.html"><span>Previous</span>IMM (v1) Management Interfaces</a>
+<a class="next" href="serial-console.html"><span>Next</span>Serial Console Plan (remote console without the Virtual Media Key)</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-overview-sources-and-conventions">1. Overview, sources and conventions</a></li><li class="l3"><a href="#11-what-this-document-covers">1.1 What this document covers</a></li><li class="l3"><a href="#12-sources">1.2 Sources</a></li><li class="l3"><a href="#13-truth-levels-used-here-docsagentmd">1.3 Truth levels used here (docs/AGENT.md)</a></li><li class="l2"><a href="#2-server-stack">2. Server stack</a></li><li class="l3"><a href="#21-ami-megarac-lineage-evidence">2.1 AMI MegaRAC lineage evidence</a></li><li class="l2"><a href="#3-ui-architecture">3. UI architecture</a></li><li class="l3"><a href="#31-frames-and-page-loading">3.1 Frames and page loading</a></li><li class="l3"><a href="#32-javascript-libraries">3.2 JavaScript libraries</a></li><li class="l3"><a href="#33-navigation-tree-navobjjs-and-page-to-operation-map">3.3 Navigation tree (navobj.js) and page-to-operation map</a></li><li class="l3"><a href="#34-crawl-coverage-measured-crawl">3.4 Crawl coverage (MEASURED, CRAWL)</a></li><li class="l2"><a href="#4-login-and-session-flow-static-client-code">4. Login and session flow (static client code)</a></li><li class="l3"><a href="#41-sequence">4.1 Sequence</a></li><li class="l3"><a href="#42-session-token-handling">4.2 Session token handling</a></li><li class="l3"><a href="#43-http-endpoints-other-than-wsman-extracted-unless-marked">4.3 HTTP endpoints other than /wsman (EXTRACTED unless marked)</a></li><li class="l3"><a href="#44-firmware-update-sequence-description-only">4.4 Firmware update sequence (description only)</a></li><li class="l2"><a href="#5-ws-man-client">5. WS-Man client</a></li><li class="l3"><a href="#51-transport-extracted">5.1 Transport (EXTRACTED)</a></li><li class="l3"><a href="#52-envelope-shape-extracted-libwsmansoapjs213-276-libwsmanwsdloperationjs22-146">5.2 Envelope shape (EXTRACTED, lib/wsman/soap.js:213-276, lib/wsman/WSDLOperation.js:22-146)</a></li><li class="l3"><a href="#53-wsdl-retrieval-extracted-measured-by-the-2026-10-20-download">5.3 WSDL retrieval (EXTRACTED; MEASURED by the 2026-10-20 download)</a></li><li class="l2"><a href="#6-operation-catalogue-133-operations">6. Operation catalogue (133 operations)</a></li><li class="l3"><a href="#61-monitors-httpwwwibmcomibmcspmonitors-sourcesimm_web130wsdlmonitorswsdlxml">6.1 Monitors (http://www.ibm.com/iBMC/sp/Monitors, sources/imm_web/1.30/wsdl/Monitors.wsdl.xml)</a></li><li class="l3"><a href="#62-tasks-httpwwwibmcomibmcsptasks-sourcesimm_web130wsdltaskswsdlxml">6.2 Tasks (http://www.ibm.com/iBMC/sp/Tasks, sources/imm_web/1.30/wsdl/Tasks.wsdl.xml)</a></li><li class="l3"><a href="#63-ibmccontrol-httpwwwibmcomibmcspibmccontrol-sourcesimm_web130wsdlibmccontrolwsdlxml">6.3 iBMCControl (http://www.ibm.com/iBMC/sp/iBMCControl, sources/imm_web/1.30/wsdl/iBMCControl.wsdl.xml)</a></li><li class="l3"><a href="#64-ibmcnwprotocol-httpwwwibmcomibmcspibmcnwprotocol-sourcesimm_web130wsdlibmcnwprotocolwsdlxml">6.4 iBMCNWProtocol (http://www.ibm.com/iBMC/sp/iBMCNWProtocol, sources/imm_web/1.30/wsdl/iBMCNWProtocol.wsdl.xml)</a></li><li class="l3"><a href="#65-serviceadvisor-httpwwwibmcomibmcspserviceadvisor-sourcesimm_web130wsdlserviceadvisorwsdlxml">6.5 ServiceAdvisor (http://www.ibm.com/iBMC/sp/ServiceAdvisor, sources/imm_web/1.30/wsdl/ServiceAdvisor.wsdl.xml)</a></li><li class="l3"><a href="#66-scalability-httpwwwibmcomibmcspscalability-sourcesimm_web130wsdlscalabilitywsdlxml">6.6 Scalability (http://www.ibm.com/iBMC/sp/Scalability, sources/imm_web/1.30/wsdl/Scalability.wsdl.xml)</a></li><li class="l2"><a href="#7-mapping-web-function-ws-man-cli-asu-cim-profile">7. Mapping: web function, WS-Man, CLI, ASU, CIM profile</a></li><li class="l2"><a href="#9-read-only-use-from-the-proxmox-host-request-shapes-live-read-results-2026-10-21">9. Read-only use from the Proxmox host (request shapes; live READ results 2026-10-21)</a></li><li class="l3"><a href="#91-live-read-run-2026-10-21-measured-wsread">9.1 Live READ run 2026-10-21 (MEASURED, wsread)</a></li><li class="l2"><a href="#10-open-questions--unknown">10. Open questions / UNKNOWN</a></li><li class="l2"><a href="#11-source-conflicts">11. Source conflicts</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

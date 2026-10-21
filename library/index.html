@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>x3650 M3 Library</title>
+<meta name="description" content="An engineering library for the IBM System x3650 M3 (machine types 7945, 4255, 7376): hardware, IMM v1, UEFI, firmware, diagnostics and tools, every fact sourced and graded.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="home" data-root="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="index.html" aria-current="page">Library home</a></li><li><a href="search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="pages/reading-guide.html">Reading Guide</a></li>
+<li><a href="pages/system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="pages/firmware-guide.html">Firmware Guide</a></li>
+<li><a href="pages/imm-guide.html">IMM Guide</a></li>
+<li><a href="pages/uefi-guide.html">UEFI Guide</a></li>
+<li><a href="pages/troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="pages/tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="pages/glossary.html">Glossary</a></li>
+<li><a href="pages/faq.html">FAQ</a></li>
+<li><a href="pages/timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="pages/about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="volumes/knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="volumes/system-architecture.html">System Architecture</a></li>
+<li><a href="volumes/hardware-components.html">Hardware Components</a></li>
+<li><a href="volumes/memory.html">Memory</a></li>
+<li><a href="volumes/storage-raid.html">Storage and RAID</a></li>
+<li><a href="volumes/power-thermal.html">Power and Thermal</a></li>
+<li><a href="volumes/sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="volumes/imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="volumes/imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="volumes/imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="volumes/serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="volumes/uefi.html">UEFI Firmware</a></li>
+<li><a href="volumes/firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="volumes/firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="volumes/firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="volumes/error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="volumes/tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="volumes/optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="catalog/firmware.html">Firmware packages</a></li>
+<li><a href="catalog/sources.html">Source documents</a></li>
+<li><a href="catalog/tools.html">Scripts and tools</a></li>
+<li><a href="catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="about/requirements.html">Requirements</a></li>
+<li><a href="about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="about/decisions.html">Decisions</a></li>
+<li><a href="about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Library</a></li></ol></nav>
+<article>
+
+
+<div class="prose">
+<section class="hero">
+<p class="kicker">IBM System x3650 M3 - machine types 7945, 4255, 7376</p>
+<h1 id="ibm-system-x3650-m3-library">IBM System x3650 M3 Library <a class="anchor" href="#ibm-system-x3650-m3-library" aria-label="Link to this section">#</a></h1>
+<p class="lede">An engineering library for the IBM System x3650 M3 (machine types 7945, 4255, 7376): hardware, IMM v1, UEFI, firmware, diagnostics and tools, every fact sourced and graded.</p>
+<form class="hero-search" action="search.html" role="search"><label for="hero-q" class="vh">Search the library</label><input id="hero-q" name="q" type="search" placeholder="Search volumes, sections, firmware, sources ..." autocomplete="off"><button type="submit" class="btn">Search</button></form>
+<ul class="stats">
+<li><span class="n">18</span> volumes</li>
+<li><span class="n">244</span> sections</li>
+<li><span class="n">132</span> firmware packages</li>
+<li><span class="n">30</span> source documents</li>
+<li><span class="n">1370</span> files indexed</li>
+</ul>
+<p class="tl-stats home-tl"><span class="tl tl-measured">MEASURED</span><span class="n">729</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">464</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">206</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">572</span> <span class="tl tl-inferred">INFERRED</span><span class="n">2</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">326</span> <span class="tl tl-not-verified">NOT VERIFIED</span><span class="n">9</span> <span class="tl tl-planned">PLANNED</span><span class="n">4</span></p>
+</section>
+<section class="shelf"><h2 id="reading-room">Reading room <a class="anchor" href="#reading-room" aria-label="Link to this section">#</a></h2><div class="cards">
+<a class="card" href="pages/reading-guide.html"><span class="card-label">Start here</span><span class="card-title">Reading Guide</span><span class="card-sum">How to read the library - truth levels with examples, source ids, page conventions, how measurements and firmware analysis were done, and the limits of the evidence.</span></a>
+<a class="card" href="pages/system-at-a-glance.html"><span class="card-label">Start here</span><span class="card-title">System at a Glance</span><span class="card-sum">A dense one-page datasheet of the x3650 M3 platform - processors, chipset, memory, storage, I/O, power, cooling, management and environment - with the source of every value.</span></a>
+<a class="card" href="pages/firmware-guide.html"><span class="card-label">Guides</span><span class="card-title">Firmware Guide</span><span class="card-sum">Every firmware component of the x3650 M3 (IMM, UEFI, DSA Preboot, ServeRAID M1015, 6Gb SAS HBA, BCM5709) - versions, latest levels, package formats, how updates are delivered and the documented risks.</span></a>
+<a class="card" href="pages/imm-guide.html"><span class="card-label">Guides</span><span class="card-title">IMM Guide</span><span class="card-sum">The first-generation Integrated Management Module end to end - hardware and firmware internals, every interface (web, CLI, IPMI, SOL, SNMP, CIM/WS-Man, SLP, LAN over USB), users, Standard versus ...</span></a>
+<a class="card" href="pages/uefi-guide.html"><span class="card-label">Guides</span><span class="card-title">UEFI Guide</span><span class="card-sum">The x3650 M3 system firmware - POST flow, the F1 Setup tree, ASU setting names, operating modes, console redirection, flash banks and recovery jumpers, microcode and what changed between releases.</span></a>
+<a class="card" href="pages/troubleshooting-guide.html"><span class="card-label">Guides</span><span class="card-title">Troubleshooting Guide</span><span class="card-sum">How to diagnose an x3650 M3 - where errors are reported, light path LEDs, POST codes, IMM event ids, the SEL, sensors, DSA Preboot, and a symptom-to-source table.</span></a>
+<a class="card" href="pages/tools-guide.html"><span class="card-label">Guides</span><span class="card-title">Tools Guide</span><span class="card-sum">The management, diagnostic and update tools of the x3650 M3 era - ASU, DSA, UXSPI, BoMC, OneCLI, iflash, ipmitool, StorCLI, SAS2IRCU/SAS2FLASH - what each is for, how it reaches the hardware, and ...</span></a>
+<a class="card" href="pages/glossary.html"><span class="card-label">Reference</span><span class="card-title">Glossary</span><span class="card-sum">More than 100 terms of the x3650 M3 platform, its IMM, UEFI, firmware packaging, storage and tools, each with a one-line definition and a link to the volume section that explains it.</span></a>
+<a class="card" href="pages/faq.html"><span class="card-label">Reference</span><span class="card-title">FAQ</span><span class="card-sum">Practical questions about the x3650 M3, its IMM, UEFI, firmware, storage and tools, answered in a few lines each with links to the evidence.</span></a>
+<a class="card" href="pages/timeline.html"><span class="card-label">Reference</span><span class="card-title">Timeline</span><span class="card-sum">Dated history of the x3650 M3 platform, its documentation and its IMM, UEFI, diagnostics, storage and network firmware releases, with the source of every date.</span></a>
+<a class="card" href="pages/about.html"><span class="card-label">About</span><span class="card-title">About this library</span><span class="card-sum">What the x3650m3-kb project is, how its facts were collected, how the repository is organised, how this site is built, and what may and may not be published.</span></a>
+</div></section>
+<section class="shelf shelf-0"><h2 id="start-here">Start here <a class="anchor" href="#start-here" aria-label="Link to this section">#</a></h2><div class="books">
+<a class="book" href="volumes/knowledge-base.html"><span class="spine">Vol. 1</span><span class="book-body"><span class="book-title">Knowledge Base Index</span><span class="book-sum">master index and cross-reference of the x3650m3-kb knowledge base (Wave 3, docs/KB_PLAN.md). This document holds no facts of its own: every value below is copied from the detail ...</span><span class="book-meta">9 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:21.1%" title="MEASURED 8"></span><span class="seg tl-documented" style="width:2.6%" title="DOCUMENTED 1"></span><span class="seg tl-extracted" style="width:2.6%" title="EXTRACTED 1"></span><span class="seg tl-candidate" style="width:52.6%" title="CANDIDATE 20"></span><span class="seg tl-unknown" style="width:15.8%" title="UNKNOWN 6"></span><span class="seg tl-planned" style="width:5.3%" title="PLANNED 2"></span></span></span></a>
+</div></section>
+<section class="shelf shelf-1"><h2 id="platform-hardware">Platform hardware <a class="anchor" href="#platform-hardware" aria-label="Link to this section">#</a></h2><div class="books">
+<a class="book" href="volumes/system-architecture.html"><span class="spine">Vol. 2</span><span class="book-body"><span class="book-title">System Architecture</span><span class="book-sum">IBM System x3650 M3, machine type/model 7945KEG (the owner&#x27;s server). Platform: Intel Xeon 5600 (Westmere-EP) processors, Intel 5520 I/O Hub (IOH), Intel ICH10 southbridge ...</span><span class="book-meta">16 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:51.0%" title="MEASURED 78"></span><span class="seg tl-documented" style="width:15.7%" title="DOCUMENTED 24"></span><span class="seg tl-extracted" style="width:0.7%" title="EXTRACTED 1"></span><span class="seg tl-candidate" style="width:19.0%" title="CANDIDATE 29"></span><span class="seg tl-unknown" style="width:13.7%" title="UNKNOWN 21"></span></span></span></a>
+<a class="book" href="volumes/hardware-components.html"><span class="spine">Vol. 3</span><span class="book-body"><span class="book-title">Hardware Components</span><span class="book-sum">system board (connectors, jumpers, switches, LEDs), operator information panel and light path diagnostics, risers and PCI slots (reference only), backplanes (reference only) ...</span><span class="book-meta">18 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:25.4%" title="MEASURED 43"></span><span class="seg tl-documented" style="width:43.8%" title="DOCUMENTED 74"></span><span class="seg tl-extracted" style="width:0.6%" title="EXTRACTED 1"></span><span class="seg tl-candidate" style="width:15.4%" title="CANDIDATE 26"></span><span class="seg tl-unknown" style="width:14.8%" title="UNKNOWN 25"></span></span></span></a>
+<a class="book" href="volumes/memory.html"><span class="spine">Vol. 4</span><span class="book-body"><span class="book-title">Memory</span><span class="book-sum">DIMM slots and channels, population rules per mode, supported DIMM types, speed and voltage rules, RAS features, UEFI memory settings, the measured installed configuration and ...</span><span class="book-meta">15 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:20.5%" title="MEASURED 30"></span><span class="seg tl-documented" style="width:43.8%" title="DOCUMENTED 64"></span><span class="seg tl-extracted" style="width:12.3%" title="EXTRACTED 18"></span><span class="seg tl-candidate" style="width:14.4%" title="CANDIDATE 21"></span><span class="seg tl-unknown" style="width:8.9%" title="UNKNOWN 13"></span></span></span></a>
+<a class="book" href="volumes/storage-raid.html"><span class="spine">Vol. 5</span><span class="book-body"><span class="book-title">Storage and RAID</span><span class="book-sum">storage controllers (supported and installed), drive bays, backplanes, cabling, drives, firmware levels, configuration utilities, RAID levels and feature keys, OS-side view ...</span><span class="book-meta">15 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:34.2%" title="MEASURED 76"></span><span class="seg tl-documented" style="width:9.9%" title="DOCUMENTED 22"></span><span class="seg tl-extracted" style="width:4.1%" title="EXTRACTED 9"></span><span class="seg tl-candidate" style="width:33.3%" title="CANDIDATE 74"></span><span class="seg tl-unknown" style="width:17.6%" title="UNKNOWN 39"></span><span class="seg tl-not-verified" style="width:0.9%" title="NOT VERIFIED 2"></span></span></span></a>
+<a class="book" href="volumes/power-thermal.html"><span class="spine">Vol. 6</span><span class="book-body"><span class="book-title">Power and Thermal</span><span class="book-sum">power supplies (types, part numbers, efficiency, redundancy rules, installed state), a power budget for the installed configuration, power metering and capping (Active Energy ...</span><span class="book-meta">13 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:33.1%" title="MEASURED 58"></span><span class="seg tl-documented" style="width:23.4%" title="DOCUMENTED 41"></span><span class="seg tl-extracted" style="width:4.0%" title="EXTRACTED 7"></span><span class="seg tl-candidate" style="width:21.7%" title="CANDIDATE 38"></span><span class="seg tl-unknown" style="width:17.7%" title="UNKNOWN 31"></span></span></span></a>
+<a class="book" href="volumes/sensors-sdr.html"><span class="spine">Vol. 7</span><span class="book-body"><span class="book-title">Sensors and SDR Decode</span><span class="book-sum">decode of every sensor that the IMM (v1, build YUOOC7E, IPMI firmware 1.30) of the owner&#x27;s server exposes in its sensor data record (SDR) repository: name, sensor number, sensor ...</span><span class="book-meta">14 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:43.3%" title="MEASURED 77"></span><span class="seg tl-documented" style="width:9.6%" title="DOCUMENTED 17"></span><span class="seg tl-extracted" style="width:0.6%" title="EXTRACTED 1"></span><span class="seg tl-candidate" style="width:35.4%" title="CANDIDATE 63"></span><span class="seg tl-unknown" style="width:11.2%" title="UNKNOWN 20"></span></span></span></a>
+</div></section>
+<section class="shelf shelf-2"><h2 id="integrated-management-module">Integrated Management Module <a class="anchor" href="#integrated-management-module" aria-label="Link to this section">#</a></h2><div class="books">
+<a class="book" href="volumes/imm-architecture.html"><span class="spine">Vol. 8</span><span class="book-body"><span class="book-title">IMM (v1) Architecture</span><span class="book-sum">the Integrated Management Module, first generation (&quot;IMM&quot;, not IMM2 or XCC), of the owner&#x27;s x3650 M3, type 7945KEG. Covers internals, host interfaces, network services, users ...</span><span class="book-meta">13 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:37.6%" title="MEASURED 53"></span><span class="seg tl-documented" style="width:29.1%" title="DOCUMENTED 41"></span><span class="seg tl-extracted" style="width:7.8%" title="EXTRACTED 11"></span><span class="seg tl-candidate" style="width:12.8%" title="CANDIDATE 18"></span><span class="seg tl-unknown" style="width:12.8%" title="UNKNOWN 18"></span></span></span></a>
+<a class="book" href="volumes/imm-interfaces.html"><span class="spine">Vol. 9</span><span class="book-body"><span class="book-title">IMM (v1) Management Interfaces</span><span class="book-sum">every external and host-side management interface of the first-generation Integrated Management Module (IMM v1, not IMM2 or XCC) on the owner&#x27;s x3650 M3, type 7945KEG, IMM ...</span><span class="book-meta">16 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:19.1%" title="MEASURED 26"></span><span class="seg tl-documented" style="width:37.5%" title="DOCUMENTED 51"></span><span class="seg tl-extracted" style="width:5.9%" title="EXTRACTED 8"></span><span class="seg tl-candidate" style="width:19.9%" title="CANDIDATE 27"></span><span class="seg tl-unknown" style="width:17.6%" title="UNKNOWN 24"></span></span></span></a>
+<a class="book" href="volumes/imm-web-api.html"><span class="spine">Vol. 10</span><span class="book-body"><span class="book-title">IMM 1.30 Web UI and WS-Man API</span><span class="book-sum">Engineering reference for the web interface of the owner&#x27;s IMM (first-generation IMM, firmware 1.30, build YUOOC7E, machine 7945KEG) and the WS-Management API that the web client ...</span><span class="book-meta">11 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:18.1%" title="MEASURED 17"></span><span class="seg tl-documented" style="width:1.1%" title="DOCUMENTED 1"></span><span class="seg tl-extracted" style="width:37.2%" title="EXTRACTED 35"></span><span class="seg tl-candidate" style="width:24.5%" title="CANDIDATE 23"></span><span class="seg tl-unknown" style="width:19.1%" title="UNKNOWN 18"></span></span></span></a>
+<a class="book" href="volumes/serial-console.html"><span class="spine">Vol. 11</span><span class="book-body"><span class="book-title">Serial Console Plan (remote console without the Virtual Media Key)</span><span class="book-sum">reach the server console from power-on through UEFI setup, boot menu and an OS installer, remotely via [remote-access service], without the Virtual Media Key. Remote presence ...</span><span class="book-meta">9 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:35.0%" title="MEASURED 14"></span><span class="seg tl-documented" style="width:22.5%" title="DOCUMENTED 9"></span><span class="seg tl-extracted" style="width:2.5%" title="EXTRACTED 1"></span><span class="seg tl-candidate" style="width:25.0%" title="CANDIDATE 10"></span><span class="seg tl-inferred" style="width:2.5%" title="INFERRED 1"></span><span class="seg tl-unknown" style="width:7.5%" title="UNKNOWN 3"></span><span class="seg tl-not-verified" style="width:5.0%" title="NOT VERIFIED 2"></span></span></span></a>
+</div></section>
+<section class="shelf shelf-3"><h2 id="firmware">Firmware <a class="anchor" href="#firmware" aria-label="Link to this section">#</a></h2><div class="books">
+<a class="book" href="volumes/uefi.html"><span class="spine">Vol. 12</span><span class="book-body"><span class="book-title">UEFI Firmware</span><span class="book-sum">UEFI architecture and POST flow, the Setup menu tree and options, ASU setting names and values, operating modes, and an image analysis of UEFI 1.22 (D6E164A) against 1.14 ...</span><span class="book-meta">14 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:33.1%" title="MEASURED 39"></span><span class="seg tl-documented" style="width:6.8%" title="DOCUMENTED 8"></span><span class="seg tl-extracted" style="width:22.0%" title="EXTRACTED 26"></span><span class="seg tl-candidate" style="width:28.0%" title="CANDIDATE 33"></span><span class="seg tl-unknown" style="width:10.2%" title="UNKNOWN 12"></span></span></span></a>
+<a class="book" href="volumes/firmware-formats.html"><span class="spine">Vol. 13</span><span class="book-body"><span class="book-title">Firmware Package and Image Formats</span><span class="book-sum">how IBM firmware packages for the x3650 M3 are built (PKG SDK self-extractors, descriptor files, .upd archives, UEFI flash images, IMM packages, iflash) and how ...</span><span class="book-meta">13 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:5.0%" title="MEASURED 6"></span><span class="seg tl-documented" style="width:19.3%" title="DOCUMENTED 23"></span><span class="seg tl-extracted" style="width:37.8%" title="EXTRACTED 45"></span><span class="seg tl-candidate" style="width:17.6%" title="CANDIDATE 21"></span><span class="seg tl-unknown" style="width:19.3%" title="UNKNOWN 23"></span><span class="seg tl-not-verified" style="width:0.8%" title="NOT VERIFIED 1"></span></span></span></a>
+<a class="book" href="volumes/firmware-history.html"><span class="spine">Vol. 14</span><span class="book-body"><span class="book-title">Firmware History and Naming</span><span class="book-sum">Truth levels per docs/AGENT.md. Research pass P1, 2026-10-19.</span><span class="book-meta">8 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:22.2%" title="MEASURED 4"></span><span class="seg tl-documented" style="width:27.8%" title="DOCUMENTED 5"></span><span class="seg tl-extracted" style="width:27.8%" title="EXTRACTED 5"></span><span class="seg tl-inferred" style="width:5.6%" title="INFERRED 1"></span><span class="seg tl-unknown" style="width:11.1%" title="UNKNOWN 2"></span><span class="seg tl-planned" style="width:5.6%" title="PLANNED 1"></span></span></span></a>
+<a class="book" href="volumes/firmware-update-plan.html"><span class="spine">Vol. 15</span><span class="book-body"><span class="book-title">Firmware Update Plan</span><span class="book-sum"><span class="tl tl-planned">PLANNED</span>, NOT APPROVED. Owner decision D-006 (2026-10-21): no risky action, so none of the steps below is executed; the plan stays as reference only. Nothing in this document has ...</span><span class="book-meta">7 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:10.0%" title="MEASURED 1"></span><span class="seg tl-candidate" style="width:40.0%" title="CANDIDATE 4"></span><span class="seg tl-unknown" style="width:10.0%" title="UNKNOWN 1"></span><span class="seg tl-not-verified" style="width:30.0%" title="NOT VERIFIED 3"></span><span class="seg tl-planned" style="width:10.0%" title="PLANNED 1"></span></span></span></a>
+</div></section>
+<section class="shelf shelf-4"><h2 id="diagnostics-and-operations">Diagnostics and operations <a class="anchor" href="#diagnostics-and-operations" aria-label="Link to this section">#</a></h2><div class="books">
+<a class="book" href="volumes/error-codes.html"><span class="spine">Vol. 16</span><span class="book-body"><span class="book-title">Error Codes, Event Messages and Diagnostics</span><span class="book-sum">lookup tables for every documented error indication of the x3650 M3: IMM event-log messages, UEFI/POST error codes, checkpoint codes, beep codes, light path diagnostics and other ...</span><span class="book-meta">18 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:41.1%" title="MEASURED 53"></span><span class="seg tl-documented" style="width:16.3%" title="DOCUMENTED 21"></span><span class="seg tl-extracted" style="width:2.3%" title="EXTRACTED 3"></span><span class="seg tl-candidate" style="width:27.9%" title="CANDIDATE 36"></span><span class="seg tl-unknown" style="width:12.4%" title="UNKNOWN 16"></span></span></span></a>
+<a class="book" href="volumes/tools.html"><span class="spine">Vol. 17</span><span class="book-body"><span class="book-title">Management, Diagnostic and Update Tools</span><span class="book-sum">ASU, DSA (Portable, Preboot), UXSPI, BoMC, Lenovo XClarity Essentials OneCLI, iflash and the IBM flash packages, StorCLI, SAS2IRCU / SAS2FLASH, ipmitool and the project scripts in ...</span><span class="book-meta">19 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:21.6%" title="MEASURED 37"></span><span class="seg tl-documented" style="width:22.8%" title="DOCUMENTED 39"></span><span class="seg tl-extracted" style="width:16.4%" title="EXTRACTED 28"></span><span class="seg tl-candidate" style="width:24.6%" title="CANDIDATE 42"></span><span class="seg tl-unknown" style="width:14.0%" title="UNKNOWN 24"></span><span class="seg tl-not-verified" style="width:0.6%" title="NOT VERIFIED 1"></span></span></span></a>
+<a class="book" href="volumes/optimization.html"><span class="spine">Vol. 18</span><span class="book-body"><span class="book-title">Proxmox Host Optimization Guide</span><span class="book-sum">tuning of this exact machine as a Proxmox VE host: UEFI operating mode, P-states, C-states and the (absent) Turbo and Hyper-Threading, memory population and speed, storage path ...</span><span class="book-meta">16 sections</span><span class="tl-bar" aria-hidden="true"><span class="seg tl-measured" style="width:42.7%" title="MEASURED 109"></span><span class="seg tl-documented" style="width:9.0%" title="DOCUMENTED 23"></span><span class="seg tl-extracted" style="width:2.4%" title="EXTRACTED 6"></span><span class="seg tl-candidate" style="width:34.1%" title="CANDIDATE 87"></span><span class="seg tl-unknown" style="width:11.8%" title="UNKNOWN 30"></span></span></span></a>
+</div></section>
+<section class="shelf"><h2 id="catalogs">Catalogs <a class="anchor" href="#catalogs" aria-label="Link to this section">#</a></h2><div class="cards">
+<a class="card" href="catalog/firmware.html"><span class="card-label">Catalog</span><span class="card-title">Firmware packages</span><span class="card-sum">132 firmware and tool packages (448 files, 1.4 GB) mirrored from IBM and Lenovo download servers, with versions, build IDs, sizes and SHA256 hashes. Binaries are not published here; only their ...</span></a>
+<a class="card" href="catalog/sources.html"><span class="card-label">Catalog</span><span class="card-title">Source documents</span><span class="card-sum">30 catalogued vendor documents (S-xxx ids used throughout the volumes) with editions, dates and public URLs, plus a summary of the Lenovo download catalog for machine type 7945.</span></a>
+<a class="card" href="catalog/tools.html"><span class="card-label">Catalog</span><span class="card-title">Scripts and tools</span><span class="card-sum">Reference for the 10 analysis and capture tools in scripts/: purpose, command-line interface and public functions, generated from their docstrings and argparse definitions.</span></a>
+<a class="card" href="catalog/files.html"><span class="card-label">Catalog</span><span class="card-title">Repository file index</span><span class="card-sum">All 1370 files of the repository (1.6 GB) as a browsable tree with sizes and descriptions. Firmware binaries and server captures are listed by name only; their content is not published.</span></a>
+</div></section>
+<section class="shelf"><h2 id="about">About this project <a class="anchor" href="#about" aria-label="Link to this section">#</a></h2><div class="cards">
+<a class="card" href="about/requirements.html"><span class="card-label">About</span><span class="card-title">Requirements</span><span class="card-sum">Source: user requests of 2026-10-19. All requirements start as <span class="tl tl-planned">PLANNED</span>.</span></a>
+<a class="card" href="about/kb-plan.html"><span class="card-label">About</span><span class="card-title">Knowledge Base Plan</span><span class="card-sum">Target: the deepest practical engineering model of the IBM System x3650 M3 (7945KEG) - hardware, IMM, UEFI, firmware formats, management interfaces, error codes, security and optimization - every ...</span></a>
+<a class="card" href="about/decisions.html"><span class="card-label">About</span><span class="card-title">Decisions</span><span class="card-sum"></span></a>
+<a class="card" href="about/publication.html"><span class="card-label">About</span><span class="card-title">How this library is published</span><span class="card-sum">How the public library is generated from the private repository and what the publication filter removes.</span></a>
+</div></section>
+<section class="intro"><h2 id="about-this-library">About this library <a class="anchor" href="#about-this-library" aria-label="Link to this section">#</a></h2>
+<p>This library collects what is known about the <strong>IBM System x3650 M3</strong>, a two-socket 2U rack server of the
+Westmere-EP generation, sold as machine types 7945, 4255 and 7376 (the same Installation and User's Guide and
+Problem Determination and Service Guide also cover the IBM Smart Analytics System 5600, type 7949; the
+"x3650 M3 HF" type 5454 and the x3550 M3 type 7944 are different machines, see <code>sources/SOURCES.md</code>, "Machine
+types"). It is built from a private engineering knowledge base that combines three kinds of evidence:</p>
+<ul>
+<li>vendor documents (IBM and Lenovo guides, product guides, white papers, firmware readmes and changelogs),</li>
+<li>offline analysis of the vendor firmware packages themselves (nothing from a package was ever executed),</li>
+<li>read-only measurements taken on one reference unit (a machine type 7945 server).</li>
+</ul>
+<p>The goal is practical: to understand the management stack (Integrated Management Module, UEFI, IPMI, the firmware
+update path) well enough to maintain and optimize a machine that IBM and Lenovo no longer document actively. The
+x3650 M3 is a withdrawn product; much of its documentation now survives only in archived PDFs and in the retired
+infocenter, which this project mirrored.</p>
+<h2 id="how-the-library-is-organised">How the library is organised <a class="anchor" href="#how-the-library-is-organised" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Part</th>
+<th>What it contains</th>
+<th>Where to start</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Volumes</td>
+<td>The full knowledge documents, one per subject (system architecture, hardware components, memory, storage, power and thermal, sensors, error codes, IMM architecture, IMM interfaces, IMM web API, UEFI, firmware formats, firmware history, firmware update plan, tools, optimization). Each volume carries its own source table, truth levels, conflicts and open questions.</td>
+<td><a href="volumes/knowledge-base.html#2-document-map">Knowledge base index</a></td>
+</tr>
+<tr>
+<td>Guides</td>
+<td>Hand-written walk-throughs that cut across volumes: firmware, IMM, UEFI, troubleshooting, tools. They summarise and link; the volumes stay authoritative.</td>
+<td><a href="pages/firmware-guide.html">Firmware guide</a>, <a href="pages/imm-guide.html">IMM guide</a>, <a href="pages/uefi-guide.html">UEFI guide</a>, <a href="pages/troubleshooting-guide.html">Troubleshooting guide</a>, <a href="pages/tools-guide.html">Tools guide</a></td>
+</tr>
+<tr>
+<td>Reference</td>
+<td>Glossary, FAQ and a dated timeline of the platform and its firmware.</td>
+<td><a href="pages/glossary.html">Glossary</a>, <a href="pages/faq.html">FAQ</a>, <a href="pages/timeline.html">Timeline</a></td>
+</tr>
+<tr>
+<td>Catalogs</td>
+<td>Generated lists of the firmware packages held by the project (with SHA256), the vendor sources (S-xxx ids), the analysis scripts and every file of the repository.</td>
+<td>the Catalogs section of the navigation</td>
+</tr>
+<tr>
+<td>About</td>
+<td>Project, method, repository layout, licence and copyright notes.</td>
+<td><a href="pages/about.html">About</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>New readers should read the <a href="pages/reading-guide.html">reading guide</a> first: it explains the truth levels and source ids
+that appear on every page. For a one-page technical summary of the platform go to
+<a href="pages/system-at-a-glance.html">System at a glance</a>.</p>
+<h2 id="reading-truth-levels-in-one-minute">Reading truth levels in one minute <a class="anchor" href="#reading-truth-levels-in-one-minute" aria-label="Link to this section">#</a></h2>
+<p>Every fact in the library carries one of these labels (defined in <code>docs/AGENT.md</code>; explained with examples in the
+<a href="pages/reading-guide.html">reading guide</a>):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td>Stated in a vendor document; the source id (S-xxx) and page or section is given.</td>
+</tr>
+<tr>
+<td><span class="tl tl-extracted">EXTRACTED</span></td>
+<td>Read out of a vendor firmware binary or package by offline analysis.</td>
+</tr>
+<tr>
+<td><span class="tl tl-measured">MEASURED</span></td>
+<td>Captured read-only from the reference unit (command output kept in the repository).</td>
+</tr>
+<tr>
+<td><span class="tl tl-candidate">CANDIDATE</span></td>
+<td>An inference; the reason is always stated. Treat as a hypothesis.</td>
+</tr>
+<tr>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td>Not established by any source in the repository.</td>
+</tr>
+</tbody>
+</table></div>
+<p>When two sources disagree, both values are recorded and the conflict is listed instead of silently picking one
+(<a href="volumes/knowledge-base.html#4-contradictions-and-open-questions">Knowledge base index, section 4</a> consolidates 92
+conflict topics).</p>
+<h2 id="quick-facts-the-x3650-m3-platform">Quick facts: the x3650 M3 platform <a class="anchor" href="#quick-facts-the-x3650-m3-platform" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Level</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Form factor</td>
+<td>2U rack server</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="volumes/hardware-components.html#2-summary-what-is-installed-measured">Hardware 2</a></td>
+</tr>
+<tr>
+<td>Processors</td>
+<td>Up to 2 Intel Xeon 5500/5600 series (Nehalem-EP / Westmere-EP); QPI up to 6.4 GT/s</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="catalog/sources.html#s-001">S-001</a> Table 1, <a class="sref" href="catalog/sources.html#s-002">S-002</a> Table 1)</td>
+<td><a href="volumes/system-architecture.html#3-processor-complex">System architecture 3</a></td>
+</tr>
+<tr>
+<td>Chipset</td>
+<td>Intel 5520 I/O hub plus ICH10 southbridge (ICH10 identified by PCI ID only)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="catalog/sources.html#s-001">S-001</a>) / <span class="tl tl-measured">MEASURED</span></td>
+<td><a href="volumes/system-architecture.html#2-system-overview-and-block-diagram">System architecture 2</a>, <a href="volumes/system-architecture.html#4-intel-5520-ioh-and-the-esidmi-link">4</a></td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>18 DDR3 ECC DIMM sockets (9 per CPU, 3 channels of 3); RDIMM or UDIMM, never mixed; up to 288 GB RDIMM (a 192 GB figure also exists, recorded as a conflict)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="catalog/sources.html#s-001">S-001</a>, <a class="sref" href="catalog/sources.html#s-002">S-002</a> Table 9)</td>
+<td><a href="volumes/memory.html#1-summary">Memory 1</a>, <a href="volumes/memory.html#4-dimm-types-sizes-ranks-and-limits">4</a></td>
+</tr>
+<tr>
+<td>Memory RAS</td>
+<td>ECC, Chipkill (x4 DIMMs), mirroring, online spare (Xeon 5600 only)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a href="volumes/memory.html#6-population-rules-and-order-per-mode">Memory 6</a>, <a href="volumes/memory.html#7-ras-features">7</a></td>
+</tr>
+<tr>
+<td>Internal storage</td>
+<td>2.5-inch bays only: 4 simple-swap, or 8 hot-swap expandable to 16 (or 8 plus tape)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="catalog/sources.html#s-001">S-001</a>, <a class="sref" href="catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="volumes/storage-raid.html#51-bay-configurations-documented">Storage 5.1</a></td>
+</tr>
+<tr>
+<td>RAID</td>
+<td>ServeRAID BR10il v2, M1015, M5014, M5015 and others in a dedicated RAID slot on the SAS riser</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="catalog/sources.html#s-001">S-001</a> Table 8)</td>
+<td><a href="volumes/storage-raid.html#3-supported-controllers-documented">Storage 3</a></td>
+</tr>
+<tr>
+<td>Expansion</td>
+<td>Up to 5 PCIe 2.0 x8 slots (4 general purpose, 1 for RAID) on two risers</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="catalog/sources.html#s-001">S-001</a>)</td>
+<td><a href="volumes/system-architecture.html#5-pcie-topology-measured-and-slot-mapping">System architecture 5</a></td>
+</tr>
+<tr>
+<td>Network</td>
+<td>Dual Broadcom BCM5709 Gigabit Ethernet onboard; optional dual-port daughter card</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="catalog/sources.html#s-001">S-001</a>, <a class="sref" href="catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="volumes/system-architecture.html#10-network-interfaces">System architecture 10</a></td>
+</tr>
+<tr>
+<td>Power</td>
+<td>Up to 2 hot-swap supplies: 460 W AC, 675 W AC, 675 W high-efficiency AC, 675 W -48 V DC; types never mixed</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="catalog/sources.html#s-001">S-001</a> Table 16, <a class="sref" href="catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="volumes/hardware-components.html#101-documented-types-and-rules">Hardware 10.1</a></td>
+</tr>
+<tr>
+<td>Cooling</td>
+<td>3 hot-swap dual-rotor 60 mm fan modules with N+1 redundancy; altimeter-assisted fan control</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="catalog/sources.html#s-001">S-001</a>, <a class="sref" href="catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="volumes/hardware-components.html#111-documented-design">Hardware 11.1</a></td>
+</tr>
+<tr>
+<td>Service processor</td>
+<td>IMM (first generation, "IMM v1"): BMC, Matrox G200eV video and optional remote presence in one chip; IPMI 2.0, web, SSH/Telnet CLI, SNMP, CIM, SLP</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="catalog/sources.html#s-020">S-020</a>, <a class="sref" href="catalog/sources.html#s-001">S-001</a>)</td>
+<td><a href="pages/imm-guide.html">IMM guide</a></td>
+</tr>
+<tr>
+<td>IMM firmware internals</td>
+<td>Big-endian MIPS32 embedded Linux 2.6.16, U-Boot, JFFS2 file systems, two NAND/UBI sides</td>
+<td><span class="tl tl-extracted">EXTRACTED</span> (IMM 1.10 and 1.55 images)</td>
+<td><a href="volumes/imm-architecture.html#31-integration-and-soc">IMM architecture 3.1</a></td>
+</tr>
+<tr>
+<td>System firmware</td>
+<td>UEFI 2.1-compliant IBM firmware with legacy CSM, two flash banks, CRTM</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="catalog/sources.html#s-024">S-024</a>) / <span class="tl tl-extracted">EXTRACTED</span></td>
+<td><a href="pages/uefi-guide.html">UEFI guide</a></td>
+</tr>
+<tr>
+<td>Diagnostics</td>
+<td>Light path diagnostics panel, POST event log, SEL, IMM event log, DSA Preboot (F2); no beep codes</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="catalog/sources.html#s-004">S-004</a>)</td>
+<td><a href="pages/troubleshooting-guide.html">Troubleshooting guide</a></td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>Operating 10-35 deg C at 0-914 m, 20-80 percent RH; sound power 6.3 / 6.5 bel (idle / operating)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="catalog/sources.html#s-002">S-002</a> Table 1)</td>
+<td><a href="volumes/power-thermal.html#71-environmental-specification">Power and thermal 7.1</a>, <a href="volumes/power-thermal.html#8-acoustics">8</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="latest-documented-firmware-levels">Latest documented firmware levels <a class="anchor" href="#latest-documented-firmware-levels" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Latest level found</th>
+<th>Level</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IMM v1</td>
+<td>1.55, build YUOOH5A (image dated 2018-01-16)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-extracted">EXTRACTED</span></td>
+<td><a href="volumes/firmware-history.html#latest-available-documented">Firmware history, latest</a></td>
+</tr>
+<tr>
+<td>UEFI</td>
+<td>1.22, build D6E164A (2018)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-extracted">EXTRACTED</span></td>
+<td><a href="volumes/firmware-history.html#uefi-history-documented-uxsp-pages-uefi-122-chg">Firmware history, UEFI</a></td>
+</tr>
+<tr>
+<td>DSA Preboot</td>
+<td>9.53, build DSYTC5F (image dated 2014-02-17)</td>
+<td><span class="tl tl-extracted">EXTRACTED</span></td>
+<td><a href="volumes/tools.html#57-preboot-dsa-953-package-analysis-installed-348">Tools 5.7</a></td>
+</tr>
+<tr>
+<td>ServeRAID M1015 (M1000 series)</td>
+<td>package 20.13.1-0254</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a href="volumes/storage-raid.html#7-firmware-levels-installed-vs-available">Storage 7</a></td>
+</tr>
+<tr>
+<td>IBM 6Gb SAS HBA</td>
+<td>package 1.20 (IOC firmware 20.00.02.00 IT, BIOS 7.39.00.00, UEFI 7.27.04.00)</td>
+<td><span class="tl tl-extracted">EXTRACTED</span></td>
+<td><a href="volumes/storage-raid.html#71-hba-6gb-package-120-analysis-offline-2026-10-21">Storage 7.1</a></td>
+</tr>
+<tr>
+<td>Broadcom NetXtreme II (BCM5709)</td>
+<td>package 2.4.1c (bootcode 7.4.0, NC-SI 2.0.13)</td>
+<td><span class="tl tl-extracted">EXTRACTED</span></td>
+<td><a href="volumes/firmware-formats.html#12-broadcom-netxtreme-ii-nic-firmware-package-241c">Firmware formats 12</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>The full version history (IMM 1.00-1.55, UEFI 1.00-1.22) is on the <a href="pages/timeline.html">timeline</a> and in the
+<a href="pages/firmware-guide.html">firmware guide</a>.</p>
+<h2 id="the-reference-unit">The reference unit <a class="anchor" href="#the-reference-unit" aria-label="Link to this section">#</a></h2>
+<p>Measurements in the library come from one machine type 7945 server. Its configuration is described only
+generically: one Xeon E5606 (4 cores, 2.13 GHz, socket 2 empty), one 8 GB dual-rank RDIMM, a ServeRAID M1015 in the
+dedicated RAID slot, an IBM 6Gb SAS HBA in a riser slot, one drive backplane, one power supply, factory-level 2011
+firmware (IMM 1.30, UEFI 1.13, DSA Preboot 3.48). Everything measured on it was read-only; see the
+<a href="pages/reading-guide.html#how-measurements-were-made">reading guide</a>. Measured values describe that unit, not every
+x3650 M3.</p>
+<h2 id="where-to-go-next">Where to go next <a class="anchor" href="#where-to-go-next" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>I want to understand a firmware update: <a href="pages/firmware-guide.html">firmware guide</a>.</li>
+<li>I have a lit LED or an error code: <a href="pages/troubleshooting-guide.html">troubleshooting guide</a>.</li>
+<li>I want to reach or configure the management controller: <a href="pages/imm-guide.html">IMM guide</a>.</li>
+<li>I want to change a BIOS/UEFI setting from the OS: <a href="pages/uefi-guide.html">UEFI guide</a> and <a href="pages/tools-guide.html">tools guide</a>.</li>
+<li>I need a term explained: <a href="pages/glossary.html">glossary</a>. A quick answer: <a href="pages/faq.html">FAQ</a>.</li>
+</ul>
+</section>
+</div>
+</article>
+
+</main>
+<aside class="side-toc"></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="about/publication.html">how this library is published</a>.</p></footer>
+<script src="assets/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knowledge Base Index - x3650 M3 Library</title>
+<meta name="description" content="master index and cross-reference of the x3650m3-kb knowledge base (Wave 3, docs/KB_PLAN.md). This document holds no facts of its own: every value below is copied from the detail document it links to ...">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="volume" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="../pages/reading-guide.html">Reading Guide</a></li>
+<li><a href="../pages/system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="../pages/firmware-guide.html">Firmware Guide</a></li>
+<li><a href="../pages/imm-guide.html">IMM Guide</a></li>
+<li><a href="../pages/uefi-guide.html">UEFI Guide</a></li>
+<li><a href="../pages/troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="../pages/tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="../pages/glossary.html">Glossary</a></li>
+<li><a href="../pages/faq.html">FAQ</a></li>
+<li><a href="../pages/timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="../pages/about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="knowledge-base.html" aria-current="page">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="system-architecture.html">System Architecture</a></li>
+<li><a href="hardware-components.html">Hardware Components</a></li>
+<li><a href="memory.html">Memory</a></li>
+<li><a href="storage-raid.html">Storage and RAID</a></li>
+<li><a href="power-thermal.html">Power and Thermal</a></li>
+<li><a href="sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="uefi.html">UEFI Firmware</a></li>
+<li><a href="firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Volumes</li><li>Start here</li><li aria-current="page">Knowledge Base Index</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">Volume 1 - Start here</p>
+<h1>Knowledge Base Index</h1>
+<p class="subtitle">IBM System x3650 M3 (7945KEG) - Knowledge Base Index</p>
+<p class="lede">master index and cross-reference of the x3650m3-kb knowledge base (Wave 3, docs/KB_PLAN.md). This document holds no facts of its own: every value below is copied from the detail document it links to, and the linked document (with its sources and truth levels ...</p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_KNOWLEDGE_BASE.md</code></span> <span>9 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">8</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">1</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">1</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">20</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">6</span> <span class="tl tl-planned">PLANNED</span><span class="n">2</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-machine-overview-as-measured">1. Machine overview (as measured)</a></li><li class="l2"><a href="#2-document-map">2. Document map</a></li><li class="l2"><a href="#3-where-to-find-x">3. Where to find X</a></li><li class="l2"><a href="#4-contradictions-and-open-questions">4. Contradictions and open questions</a></li><li class="l3"><a href="#41-contradictions-consolidated-by-topic">4.1 Contradictions (consolidated by topic)</a></li><li class="l3"><a href="#42-open-questions-and-next-read-only-captures-deduplicated">4.2 Open questions and next read-only captures (deduplicated)</a></li><li class="l2"><a href="#5-owner-approval-required-actions">5. Owner-approval-required actions</a></li><li class="l2"><a href="#6-source-and-capture-index">6. Source and capture index</a></li><li class="l3"><a href="#61-vendor-sources">6.1 Vendor sources</a></li><li class="l3"><a href="#62-captures-captures">6.2 Captures (captures/)</a></li><li class="l3"><a href="#63-firmware-trees">6.3 Firmware trees</a></li><li class="l3"><a href="#64-scripts-and-tests">6.4 Scripts and tests</a></li><li class="l2"><a href="#7-security-review-status">7. Security review status</a></li><li class="l2"><a href="#8-index-maintenance-notes">8. Index maintenance notes</a></li></ul></nav></details>
+<div class="prose">
+<p>Scope: master index and cross-reference of the x3650m3-kb knowledge base (Wave 3, docs/KB_PLAN.md). This document
+holds no facts of its own: every value below is copied from the detail document it links to, and the linked
+document (with its sources and truth levels, docs/AGENT.md) is authoritative. When two documents disagree, the
+disagreement is listed in section 4, not resolved here. Compiled offline on 2026-10-20 from the repository state
+at commit 758cd44 and refreshed the same day against the working tree after commit dcb80e1, including the
+integration of the 2026-10-20 SMART, verbose SDR / M1015 slot detail and IMM CLI settings captures; no command was
+run against the server, the IMM or the internet.</p>
+<p>Abbreviations used for the detail documents: SYSARCH = X3650M3_SYSTEM_ARCHITECTURE, HW = X3650M3_HARDWARE_COMPONENTS,
+MEM = X3650M3_MEMORY, STOR = X3650M3_STORAGE_RAID, ERR = X3650M3_ERROR_CODES, IMMA = X3650M3_IMM_ARCHITECTURE,
+FMT = X3650M3_FIRMWARE_FORMATS, UEFI = X3650M3_UEFI, FWH = X3650M3_FIRMWARE_HISTORY, IMMI = X3650M3_IMM_INTERFACES,
+SDR = X3650M3_SENSORS_SDR, PWR = X3650M3_POWER_THERMAL, TOOLS = X3650M3_TOOLS, OPT = X3650M3_OPTIMIZATION.
+"HW 12" means section 12 of HW.</p>
+<h2 id="contents">Contents <a class="anchor" href="#contents" aria-label="Link to this section">#</a></h2>
+<ol>
+<li><a href="#1-machine-overview-as-measured">Machine overview (as measured)</a></li>
+<li><a href="#2-document-map">Document map</a></li>
+<li><a href="#3-where-to-find-x">Where to find X</a></li>
+<li><a href="#4-contradictions-and-open-questions">Contradictions and open questions</a></li>
+<li><a href="#5-owner-approval-required-actions">Owner-approval-required actions</a></li>
+<li><a href="#6-source-and-capture-index">Source and capture index</a></li>
+<li><a href="#7-security-review-status">Security review status</a></li>
+<li><a href="#8-index-maintenance-notes">Index maintenance notes</a></li>
+</ol>
+<h2 id="1-machine-overview-as-measured">1. Machine overview (as measured) <a class="anchor" href="#1-machine-overview-as-measured" aria-label="Link to this section">#</a></h2>
+<p>The owner's server is an IBM System x3650 M3, type-model 7945KEG, serial [redacted-id]
+(<a href="hardware-components.html#2-summary-what-is-installed-measured">HW 2</a>), and it is also the Proxmox VE 8.4.0
+host [lab-ip] (hostname [lab-host], pve-manager 8.4.21, kernel 6.8.12-43-pve) that runs the agent container
+(<a href="tools.html#2-host-environment-relevant-to-the-tools-measured">TOOLS 2</a>; ASSUMPTIONS A-007). It has one Intel
+Xeon E5606 2.13 GHz (4 cores, Westmere-EP, model 44 stepping 2) in socket 1 with socket 2 unpopulated
+(<a href="hardware-components.html#2-summary-what-is-installed-measured">HW 2</a>,
+<a href="system-architecture.html#3-processor-complex">SYSARCH 3</a>), running microcode 0x14
+(<a href="optimization.html#1-summary-and-priority-list">OPT 1</a>). Memory is one 8 GB RDIMM in slot DIMM03 (SK Hynix
+HMT31GR7BFR4A-H9, 2 ranks, x4) at 1067 MT/s, 17 of 18 slots empty (<a href="memory.html#1-summary">MEM 1</a>,
+<a href="memory.html#9-installed-configuration-measured">MEM 9</a>). Storage is a ServeRAID M1015 (LSI SAS2008, firmware
+package 20.10.1-0052, no Advanced Feature Key, no BBU) with VD 0 (RAID0, 231.898 GB, Toshiba MK2546GSX at 64:0,
+Proxmox boot disk /dev/sda) and, since 2026-10-20, VD 1 "hitachi_data" (RAID0, 110.827 GB, Hitachi HTS542512K9SA00
+at 64:1, /dev/sdb, ext4, Proxmox storage <code>hitachi-data</code>, target of the weekly vzdump job); neither VD is redundant;
+a second SAS2008 HBA (IBM 6Gb SAS HBA 9212-4i4e) has no devices attached
+(<a href="storage-raid.html#1-summary-of-the-installed-storage-subsystem">STOR 1</a>). SMART on 2026-10-20: Toshiba
+14179 power-on hours, no logged error; Hitachi 1311 power-on hours, 0 reallocated/pending, 140 logged ATA UNC read
+errors at 1189 h; no self-test has ever run on either drive, long self-tests are queued
+(<a href="storage-raid.html#61-smart-health-of-both-drives-measured-2026-10-20">STOR 6.1</a>). The IMM sees one power supply,
+named "Power Supply 2" in IPMI FRU/SDR but "Power Supply 1" in its own VPD (FRU 39Y7229, <span class="tl tl-candidate">CANDIDATE</span> 460 W AC)
+(<a href="hardware-components.html#10-power-supplies">HW 10</a>). Firmware is from 2011: IMM
+build YUOOC7E version 1.30 (2011-09-30), UEFI build D6E154A reported by SMBIOS as 1.13 (2011-09-23), DSA Preboot
+DSYT89P (2011-10-28); the latest documented levels are IMM 1.55 YUOOH5A and UEFI 1.22 D6E164A
+(<a href="firmware-history.html#installed-levels-measured">FWH installed levels</a>,
+<a href="firmware-history.html#latest-available-documented">FWH latest</a>,
+<a href="imm-architecture.html#2-identity-and-measured-configuration-summary">IMMA 2</a>). Measured problems: CMOS battery Planar VBAT below the
+2.095 V lower critical threshold (latest reading 1.791 V on 2026-10-20, 1.727 V on 2026-10-19;
+<a href="hardware-components.html#12-battery-cmos">HW 12</a>, <a href="sensors-sdr.html#10-abnormal-readings-and-findings">SDR 10</a>,
+<a href="sensors-sdr.html#41-full-threshold-records-c-v-measured-2026-10-20-2105">SDR 4.1</a>), SEL full since 2025-05-05 (ASSUMPTIONS A-008), and a boot-drive event: the M1015 failed
+the Toshiba drive (slot 0) on 2026-10-14 after write timeouts and found it again at the next start, and the IMM
+logged "Drive 0 disabled due to a detected fault" on 2026-10-17 while the controller now reports the drive Online
+with zero error counters (<a href="storage-raid.html#144-slot-0--slot-1-events-around-2026-08-24-2026-10-14-and-2026-10-17">STOR 14.4</a>,
+<a href="storage-raid.html#12-source-conflicts">STOR 12</a> C-10, open). Project state and known issues:
+<span class="unlinked">STATUS.md</span>.</p>
+<h2 id="2-document-map">2. Document map <a class="anchor" href="#2-document-map" aria-label="Link to this section">#</a></h2>
+<p>Project and governance documents:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="unlinked">STATUS.md</span></td>
+<td>Project state file: phase, recently completed, active and remaining work, next step, known issues</td>
+</tr>
+<tr>
+<td><span class="unlinked">AGENT.md</span></td>
+<td>Working method, truth levels (<span class="tl tl-documented">DOCUMENTED</span>, <span class="tl tl-extracted">EXTRACTED</span>, <span class="tl tl-measured">MEASURED</span>, <span class="tl tl-candidate">CANDIDATE</span>, <span class="tl tl-unknown">UNKNOWN</span>), repository and host rules</td>
+</tr>
+<tr>
+<td><a href="../about/kb-plan.html">KB_PLAN.md</a></td>
+<td>Wave 1-3 document plan and scope of each knowledge document</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-docs-assumptions-md">ASSUMPTIONS.md</a></td>
+<td>Assumptions and open questions A-001 to A-011</td>
+</tr>
+<tr>
+<td><a href="../about/decisions.html">DECISIONS.md</a></td>
+<td>D-001 private repository, D-002 stack</td>
+</tr>
+<tr>
+<td><a href="../about/requirements.html">REQUIREMENTS.md</a>, <a href="../catalog/files.html#f-docs-architecture-md">ARCHITECTURE.md</a>, <a href="../catalog/files.html#f-docs-test-plan-md">TEST_PLAN.md</a>, <span class="unlinked">PROGRESS.md</span></td>
+<td>Bootstrap project documents</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-docs-changelog-md">CHANGELOG.md</a></td>
+<td>Keep a Changelog history of the repository</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-readme-md">../README.md</a></td>
+<td>Repository overview</td>
+</tr>
+</tbody>
+</table></div>
+<p>Knowledge documents (Wave 1, Wave 2, firmware history):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Scope</th>
+<th>Main sections</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="system-architecture.html">X3650M3_SYSTEM_ARCHITECTURE.md</a></td>
+<td>CPU/QPI/IOH/ICH10 topology, measured PCIe topology, IMM attachment, video, USB, NICs, clocks, ACPI, interrupts</td>
+<td><a href="system-architecture.html#2-system-overview-and-block-diagram">2 Block diagram</a>, <a href="system-architecture.html#3-processor-complex">3 Processor</a>, <a href="system-architecture.html#4-intel-5520-ioh-and-the-esidmi-link">4 IOH/ESI</a>, <a href="system-architecture.html#5-pcie-topology-measured-and-slot-mapping">5 PCIe topology</a>, <a href="system-architecture.html#6-ich10-southbridge-functions">6 ICH10</a>, <a href="system-architecture.html#7-imm-attachment">7 IMM attachment</a>, <a href="system-architecture.html#12-acpi-tables-summary">12 ACPI</a>, <a href="system-architecture.html#13-interrupt-routing-highlights">13 Interrupts</a>, <a href="system-architecture.html#14-source-conflicts">14 Conflicts</a>, <a href="system-architecture.html#15-open-questions--unknown">15 Open</a></td>
+</tr>
+<tr>
+<td><a href="hardware-components.html">X3650M3_HARDWARE_COMPONENTS.md</a></td>
+<td>System board, connectors, jumpers/switches, LEDs, light path, PSUs, fans, battery, CRU/FRU tables, installed FRUs</td>
+<td><a href="hardware-components.html#2-summary-what-is-installed-measured">2 Installed</a>, <a href="hardware-components.html#3-system-board">3 Board</a>, <a href="hardware-components.html#4-jumpers-and-switches">4 Jumpers/switches</a>, <a href="hardware-components.html#6-operator-information-panel-and-light-path-diagnostics">6 Light path</a>, <a href="hardware-components.html#10-power-supplies">10 PSUs</a>, <a href="hardware-components.html#11-fans-and-cooling">11 Fans</a>, <a href="hardware-components.html#12-battery-cmos">12 Battery</a>, <a href="hardware-components.html#13-cru--fru-part-number-tables">13 CRU/FRU</a>, <a href="hardware-components.html#14-installed-frus-measured-from-ipmi-fru-and-sdr">14 Installed FRUs</a>, <a href="hardware-components.html#15-removal-and-replacement-notes-for-the-owner">15 Removal notes</a>, <a href="hardware-components.html#16-source-conflicts">16 Conflicts</a>, <a href="hardware-components.html#17-open-questions--unknown">17 Open</a></td>
+</tr>
+<tr>
+<td><a href="memory.html">X3650M3_MEMORY.md</a></td>
+<td>DIMM slots/channels, population rules per mode, DIMM types, speed/voltage, RAS, UEFI/ASU memory settings, installed config, upgrades</td>
+<td><a href="memory.html#3-dimm-slot-map">3 Slot map</a>, <a href="memory.html#4-dimm-types-sizes-ranks-and-limits">4 Types/limits</a>, <a href="memory.html#5-speed-and-voltage-rules">5 Speed/voltage</a>, <a href="memory.html#6-population-rules-and-order-per-mode">6 Population</a>, <a href="memory.html#7-ras-features">7 RAS</a>, <a href="memory.html#8-uefi-and-asu-memory-settings">8 UEFI/ASU</a>, <a href="memory.html#9-installed-configuration-measured">9 Installed</a>, <a href="memory.html#11-upgrade-paths-for-this-machine">11 Upgrades</a>, <a href="memory.html#13-source-conflicts">13 Conflicts</a>, <a href="memory.html#14-open-questions--unknown">14 Open</a></td>
+</tr>
+<tr>
+<td><a href="storage-raid.html">X3650M3_STORAGE_RAID.md</a></td>
+<td>Supported and installed controllers, bays, backplanes, cabling, drives and SMART health, firmware levels, utilities, RAID levels/keys, OS view, controller event log and termlog</td>
+<td><a href="storage-raid.html#1-summary-of-the-installed-storage-subsystem">1 Summary</a>, <a href="storage-raid.html#4-installed-controllers-measured">4 Installed controllers</a>, <a href="storage-raid.html#5-drive-bays-backplanes-sas-riser-and-cabling">5 Bays/backplanes</a>, <a href="storage-raid.html#6-installed-drives-and-drive-health-measured">6 Drives</a>, <a href="storage-raid.html#7-firmware-levels-installed-vs-available">7 Firmware</a>, <a href="storage-raid.html#9-raid-levels-feature-keys-and-limits">9 RAID/keys</a>, <a href="storage-raid.html#10-os-side-view-measured">10 OS view</a>, <a href="storage-raid.html#11-optimization-notes-mixed-documented--candidate">11 Optimization</a>, <a href="storage-raid.html#12-source-conflicts">12 Conflicts</a>, <a href="storage-raid.html#13-open-questions--unknown">13 Open</a>, <a href="storage-raid.html#61-smart-health-of-both-drives-measured-2026-10-20">6.1 SMART</a>, <a href="storage-raid.html#14-controller-event-log-and-termlog-measured-2026-10-20">14 Controller event log</a></td>
+</tr>
+<tr>
+<td><a href="error-codes.html">X3650M3_ERROR_CODES.md</a></td>
+<td>IMM event messages (655 event IDs), POST/UEFI codes, checkpoints, beep codes, LEDs, DSA messages, symptom tables, decode of the measured SEL and IMM event log</td>
+<td><a href="error-codes.html#3-imm-event-id-structure">3 Event ID structure</a>, <a href="error-codes.html#4-imm-event-log-messages-655-event-ids">4 IMM messages</a>, <a href="error-codes.html#5-imm-action-catalog-a01-a64">5 Actions A01-A64</a>, <a href="error-codes.html#6-post--uefi-error-codes">6 POST codes</a>, <a href="error-codes.html#7-checkpoint-codes">7 Checkpoints</a>, <a href="error-codes.html#9-light-path-diagnostics-and-other-leds">9 LEDs</a>, <a href="error-codes.html#10-dsa-preboot-diagnostic-messages">10 DSA</a>, <a href="error-codes.html#12-symptom-tables-troubleshooting">12 Symptoms</a>, <a href="error-codes.html#13-firmware-recovery-features-abr-nx-boot-failure">13 ABR</a>, <a href="error-codes.html#15-measured-events-on-the-owners-server-decode">15 Measured events</a>, <a href="error-codes.html#16-conflicts">16 Conflicts</a>, <a href="error-codes.html#17-open-questions--unknown">17 Open</a></td>
+</tr>
+<tr>
+<td><a href="imm-architecture.html">X3650M3_IMM_ARCHITECTURE.md</a></td>
+<td>IMM v1 internals, host interfaces, network services and ports, users, Standard vs Premium, update flow, event logging, security observations</td>
+<td><a href="imm-architecture.html#2-identity-and-measured-configuration-summary">2 Identity</a>, <a href="imm-architecture.html#3-imm-v1-internals">3 Internals</a>, <a href="imm-architecture.html#4-host-interfaces">4 Host interfaces</a>, <a href="imm-architecture.html#5-network-services-and-ports">5 Ports</a>, <a href="imm-architecture.html#6-users-authentication-ldap-ipmi-privileges">6 Users</a>, <a href="imm-architecture.html#7-standard-vs-premium-virtual-media-key">7 Premium</a>, <a href="imm-architecture.html#9-update-flow">9 Update flow</a>, <a href="imm-architecture.html#10-event-logging-sel-and-imm-event-log">10 Event logging</a>, <span class="unlinked">11 Security observations</span>, <a href="imm-architecture.html#12-source-conflicts">12 Conflicts</a>, <a href="imm-architecture.html#13-open-questions--unknown">13 Open</a></td>
+</tr>
+<tr>
+<td><a href="firmware-formats.html">X3650M3_FIRMWARE_FORMATS.md</a></td>
+<td>IBM PKG SDK packages, descriptors, .upd archives, UEFI image structure, IMM packages, iflash, unpack tooling and its bugs</td>
+<td><a href="firmware-formats.html#3-pkg-sdk-self-extractor-anatomy">3 PKG SDK</a>, <a href="firmware-formats.html#4-descriptor-files-xml-chg-txt">4 Descriptors</a>, <a href="firmware-formats.html#5-the-upd-archive-oem_ibmxml-and-image-tarball">5 .upd</a>, <a href="firmware-formats.html#6-uefi-flash-image-structure">6 UEFI image</a>, <a href="firmware-formats.html#7-imm-packages-upd">7 IMM packages</a>, <a href="firmware-formats.html#8-iflash-and-package-command-line">8 iflash</a>, <a href="firmware-formats.html#9-tool-usage-commands-actually-run">9 Tool usage</a>, <a href="firmware-formats.html#10-tool-limitations-and-bugs-found">10 Tool limits</a>, <a href="firmware-formats.html#11-open-questions--unknown">11 Open</a></td>
+</tr>
+<tr>
+<td><a href="uefi.html">X3650M3_UEFI.md</a></td>
+<td>UEFI architecture and POST flow, Setup menu tree and forms, operating modes, ASU settings, 1.22 vs 1.14 image analysis, microcode</td>
+<td><a href="uefi.html#2-architecture-and-post-flow">2 POST flow</a>, <a href="uefi.html#3-firmware-banks-recovery-and-jumpers">3 Banks/jumpers</a>, <a href="uefi.html#4-setup-utility-menu-tree">4 Menu tree</a>, <a href="uefi.html#5-setup-forms-and-options-from-extracted-hii-forms">5 Forms</a>, <a href="uefi.html#6-operating-modes">6 Operating modes</a>, <a href="uefi.html#7-asu-settings-s-026-and-the-setup-xml">7 ASU settings</a>, <a href="uefi.html#8-image-analysis-122-versus-114">8 1.22 vs 1.14</a>, <a href="uefi.html#9-microcode">9 Microcode</a>, <a href="uefi.html#10-source-conflicts">10 Conflicts</a>, <a href="uefi.html#11-open-questions--unknown">11 Open</a>, <a href="uefi.html#appendix-a-full-asu-setting-table-uefi-122">Appendix A ASU table</a></td>
+</tr>
+<tr>
+<td><a href="serial-console.html">X3650M3_SERIAL_CONSOLE.md</a></td>
+<td>Remote text console without the Virtual Media Key: UEFI redirection settings, COM/ttyS mapping, [remote-access service] paths, serial OS install (<span class="tl tl-planned">PLANNED</span>)</td>
+<td><a href="serial-console.html#1-uefi-settings-for-console-redirection">1 UEFI settings</a>, <a href="serial-console.html#8-ordered-steps">8 Steps</a></td>
+</tr>
+<tr>
+<td><a href="firmware-history.html">X3650M3_FIRMWARE_HISTORY.md</a></td>
+<td>Installed vs latest firmware, build naming, IMM 1.00-1.55 and UEFI 1.00-1.22 history, update order</td>
+<td><a href="firmware-history.html#installed-levels-measured">Installed</a>, <a href="firmware-history.html#naming-documented">Naming</a>, <a href="firmware-history.html#latest-available-documented">Latest</a>, <a href="firmware-history.html#imm-v1-history-documented-uxsp-500--750-pages-imm-155-chg">IMM history</a>, <a href="firmware-history.html#uefi-history-documented-uxsp-pages-uefi-122-chg">UEFI history</a>, <a href="firmware-history.html#update-order-and-safety-documented">Update order</a>, <a href="firmware-history.html#conflicts">Conflicts</a>, <a href="firmware-history.html#open-items">Open items</a></td>
+</tr>
+<tr>
+<td><a href="firmware-update-plan.html">X3650M3_FIRMWARE_UPDATE_PLAN.md</a></td>
+<td><span class="tl tl-planned">PLANNED</span> firmware update: installed vs target per component, delivery paths (IMM web vs boot media), preconditions, order, rollback, risks, owner decisions</td>
+<td><a href="firmware-update-plan.html#1-installed-versus-target">1 Installed vs target</a>, <a href="firmware-update-plan.html#4-order-and-steps">4 Steps</a>, <a href="firmware-update-plan.html#6-open-decisions-for-the-owner">6 Owner decisions</a></td>
+</tr>
+<tr>
+<td><a href="imm-interfaces.html">X3650M3_IMM_INTERFACES.md</a></td>
+<td>Web UI, legacy CLI (SSH/Telnet), IPMI KCS/LAN, SOL, SNMP, CIM/WS-Man, SLP, LAN over USB, ASU as interface</td>
+<td><a href="imm-interfaces.html#2-interface-summary">2 Summary</a>, <a href="imm-interfaces.html#3-web-interface-httphttps">3 Web</a>, <a href="imm-interfaces.html#4-legacy-cli-ssh-and-telnet">4 CLI</a>, <a href="imm-interfaces.html#5-ipmi-kcs-and-lan">5 IPMI</a>, <a href="imm-interfaces.html#6-serial-over-lan-and-serial-redirection">6 SOL</a>, <a href="imm-interfaces.html#7-snmp">7 SNMP</a>, <a href="imm-interfaces.html#8-cim--ibm-systems-director-5988-5989-and-ws-man">8 CIM</a>, <a href="imm-interfaces.html#9-slp-427">9 SLP</a>, <a href="imm-interfaces.html#10-lan-over-usb-in-band-network-interface">10 LAN over USB</a>, <a href="imm-interfaces.html#11-asu-as-a-configuration-interface">11 ASU</a>, <a href="imm-interfaces.html#12-port-assignments-and-service-enabledisable">12 Ports</a>, <a href="imm-interfaces.html#13-interface-relevant-firmware-changes-130-installed-vs-155-latest">13 1.30 vs 1.55</a>, <a href="imm-interfaces.html#14-source-conflicts">14 Conflicts</a>, <a href="imm-interfaces.html#15-open-questions--next-captures">15 Open</a></td>
+</tr>
+<tr>
+<td><a href="sensors-sdr.html">X3650M3_SENSORS_SDR.md</a></td>
+<td>SDR decode: sensors, numbers, thresholds, hysteresis, entities, fan zones, discrete states, light path and event mapping; full verbose SDR of all 135 sensors</td>
+<td><a href="sensors-sdr.html#3-how-to-read-the-values-columns-threshold-names-discrete-state-bytes">3 How to read</a>, <a href="sensors-sdr.html#4-threshold-analog-sensors">4 Threshold sensors</a>, <a href="sensors-sdr.html#5-fans-and-cooling-zones">5 Fans/zones</a>, <a href="sensors-sdr.html#6-discrete-sensors---decoding-reference">6 Discrete reference</a>, <a href="sensors-sdr.html#7-discrete-sensors---measured-states">7 Discrete states</a>, <a href="sensors-sdr.html#9-mapping-to-light-path-leds-and-imm-events">9 LED/event map</a>, <a href="sensors-sdr.html#10-abnormal-readings-and-findings">10 Findings</a>, <a href="sensors-sdr.html#11-contradictions">11 Contradictions</a>, <a href="sensors-sdr.html#12-open-questions--next-captures">12 Open</a>, <a href="sensors-sdr.html#41-full-threshold-records-c-v-measured-2026-10-20-2105">4.1 Threshold records</a>, <a href="sensors-sdr.html#13-verbose-sdr-dump-2026-10-20-all-135-sensors">13 Verbose SDR</a></td>
+</tr>
+<tr>
+<td><a href="power-thermal.html">X3650M3_POWER_THERMAL.md</a></td>
+<td>PSUs, power budget, metering/capping, fans and fan control, thermal limits, acoustics, operating-mode thermal effect</td>
+<td><a href="power-thermal.html#2-summary-of-measured-values">2 Measured</a>, <a href="power-thermal.html#3-power-supplies">3 PSUs</a>, <a href="power-thermal.html#4-power-budget-for-the-installed-configuration">4 Budget</a>, <a href="power-thermal.html#5-power-metering-and-capping">5 Metering/capping</a>, <a href="power-thermal.html#6-fans-and-fan-control">6 Fans</a>, <a href="power-thermal.html#7-thermal-thresholds-and-environmental-limits">7 Thermal</a>, <a href="power-thermal.html#8-acoustics">8 Acoustics</a>, <a href="power-thermal.html#9-uefi-powerperformance-modes-and-their-thermal-effect">9 Modes</a>, <a href="power-thermal.html#11-source-conflicts-and-discrepancies">11 Conflicts</a>, <a href="power-thermal.html#12-open-questions--next-captures">12 Open</a></td>
+</tr>
+<tr>
+<td><a href="tools.html">X3650M3_TOOLS.md</a></td>
+<td>ASU, DSA, UXSPI, BoMC, OneCLI, iflash, StorCLI, SAS2IRCU/SAS2FLASH, ipmitool, project scripts incl. the vzdump hook; read-only vs state-changing</td>
+<td><a href="tools.html#3-transports-kcs-lan-over-usb-imm-external-lan-bootable-media">3 Transports</a>, <a href="tools.html#4-asu---advanced-settings-utility">4 ASU</a>, <a href="tools.html#5-dsa---dynamic-system-analysis-portable-and-preboot">5 DSA</a>, <a href="tools.html#6-uxspi---updatexpress-system-pack-installer">6 UXSPI</a>, <a href="tools.html#7-bomc---bootable-media-creator">7 BoMC</a>, <a href="tools.html#8-lenovo-xclarity-essentials-onecli">8 OneCLI</a>, <a href="tools.html#9-iflash-and-the-ibm-firmware-update-packages">9 iflash</a>, <a href="tools.html#10-storcli-serveraid-m1015">10 StorCLI</a>, <a href="tools.html#11-sas2ircu-and-sas2flash-ibm-6gb-sas-hba">11 SAS2IRCU/SAS2FLASH</a>, <a href="tools.html#12-ipmitool">12 ipmitool</a>, <a href="tools.html#14-project-scripts-scripts">14 Scripts</a>, <a href="tools.html#16-practical-tool-matrix-for-this-host-candidate">16 Tool matrix</a>, <a href="tools.html#17-source-conflicts">17 Conflicts</a>, <a href="tools.html#18-open-questions--unknown">18 Open</a></td>
+</tr>
+<tr>
+<td><a href="optimization.html">X3650M3_OPTIMIZATION.md</a></td>
+<td>Proxmox host tuning: CPU modes and C-states, memory, storage, PCIe/IOMMU, fans/power, firmware path, Linux settings, recommendation register</td>
+<td><a href="optimization.html#1-summary-and-priority-list">1 Priority list</a>, <a href="optimization.html#4-measured-baseline">4 Baseline</a>, <a href="optimization.html#5-cpu-operating-mode-p-states-c-states-turbo-hyper-threading">5 CPU</a>, <a href="optimization.html#6-memory">6 Memory</a>, <a href="optimization.html#7-storage">7 Storage</a>, <a href="optimization.html#8-pcie-slot-placement-and-iommu-groups">8 PCIe/IOMMU</a>, <a href="optimization.html#10-firmware-upgrade-path-and-order">10 Firmware path</a>, <a href="optimization.html#11-linux--proxmox-side-settings">11 Linux</a>, <a href="optimization.html#12-recommendation-register">12 Register</a>, <a href="optimization.html#13-read-only-probes-that-close-the-gaps">13 Probes</a>, <a href="optimization.html#14-contradictions-between-sources">14 Contradictions</a>, <a href="optimization.html#15-open-questions--unknown">15 Open</a></td>
+</tr>
+<tr>
+<td><a href="imm-web-api.html">X3650M3_IMM_WEB_API.md</a></td>
+<td>IMM 1.30 web UI architecture, login/session flow, WS-Man client and 133-operation catalogue (read vs state-changing), web-CLI-ASU-CIM mapping</td>
+<td><a href="imm-web-api.html#6-operation-catalogue-133-operations">6 Operation catalogue</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-where-to-find-x">3. Where to find X <a class="anchor" href="#3-where-to-find-x" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Document and section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Installed configuration at a glance</td>
+<td><a href="hardware-components.html#2-summary-what-is-installed-measured">HW 2</a>, <a href="../catalog/files.html#f-docs-assumptions-md">ASSUMPTIONS</a> A-002</td>
+</tr>
+<tr>
+<td>Block diagram, CPU/QPI/IOH/ICH10</td>
+<td><a href="system-architecture.html#2-system-overview-and-block-diagram">SYSARCH 2-4</a></td>
+</tr>
+<tr>
+<td>PCIe topology and slot mapping (measured lspci)</td>
+<td><a href="system-architecture.html#5-pcie-topology-measured-and-slot-mapping">SYSARCH 5</a></td>
+</tr>
+<tr>
+<td>IOMMU groups and passthrough slot placement</td>
+<td><a href="optimization.html#8-pcie-slot-placement-and-iommu-groups">OPT 8</a></td>
+</tr>
+<tr>
+<td>ACPI tables, interrupt routing, clocks</td>
+<td><a href="system-architecture.html#12-acpi-tables-summary">SYSARCH 12</a>, <a href="system-architecture.html#13-interrupt-routing-highlights">13</a>, <a href="system-architecture.html#11-clocks-and-timers">11</a></td>
+</tr>
+<tr>
+<td>Network interfaces and MAC layout</td>
+<td><a href="system-architecture.html#10-network-interfaces">SYSARCH 10</a>, <a href="imm-architecture.html#2-identity-and-measured-configuration-summary">IMMA 2</a></td>
+</tr>
+<tr>
+<td>DIMM slot map and channels</td>
+<td><a href="memory.html#3-dimm-slot-map">MEM 3</a></td>
+</tr>
+<tr>
+<td>DIMM population rules (independent, mirroring, sparing)</td>
+<td><a href="memory.html#6-population-rules-and-order-per-mode">MEM 6</a></td>
+</tr>
+<tr>
+<td>DIMM speed vs DPC, voltage, CPU limit</td>
+<td><a href="memory.html#5-speed-and-voltage-rules">MEM 5</a></td>
+</tr>
+<tr>
+<td>Memory upgrade paths</td>
+<td><a href="memory.html#11-upgrade-paths-for-this-machine">MEM 11</a>, <a href="optimization.html#63-upgrade-paths-applied-to-the-measured-cpu">OPT 6.3</a></td>
+</tr>
+<tr>
+<td>Memory RAS (mirroring, sparing, Chipkill)</td>
+<td><a href="memory.html#7-ras-features">MEM 7</a></td>
+</tr>
+<tr>
+<td>Jumpers and switches (J29, J147, SW3, SW4)</td>
+<td><a href="hardware-components.html#4-jumpers-and-switches">HW 4</a>, <a href="uefi.html#3-firmware-banks-recovery-and-jumpers">UEFI 3</a>, <a href="imm-architecture.html#32-flash-and-banks">IMMA 3.2</a></td>
+</tr>
+<tr>
+<td>Light path diagnostics and LEDs</td>
+<td><a href="hardware-components.html#6-operator-information-panel-and-light-path-diagnostics">HW 6</a>, <a href="error-codes.html#9-light-path-diagnostics-and-other-leds">ERR 9</a>, <a href="sensors-sdr.html#9-mapping-to-light-path-leds-and-imm-events">SDR 9</a></td>
+</tr>
+<tr>
+<td>CRU/FRU part numbers</td>
+<td><a href="hardware-components.html#13-cru--fru-part-number-tables">HW 13</a>, installed FRUs <a href="hardware-components.html#14-installed-frus-measured-from-ipmi-fru-and-sdr">HW 14</a></td>
+</tr>
+<tr>
+<td>Removal and replacement procedures</td>
+<td><a href="hardware-components.html#15-removal-and-replacement-notes-for-the-owner">HW 15</a></td>
+</tr>
+<tr>
+<td>CMOS battery and VBAT sensor</td>
+<td><a href="hardware-components.html#12-battery-cmos">HW 12</a>, <a href="sensors-sdr.html#10-abnormal-readings-and-findings">SDR 10</a> (finding 1-2), <a href="sensors-sdr.html#11-contradictions">SDR 11</a> (SC-1, SC-2), <a href="error-codes.html#158-imm-event-log-history-analysis">ERR 15.8</a></td>
+</tr>
+<tr>
+<td>Power supplies (types, rules, installed)</td>
+<td><a href="hardware-components.html#10-power-supplies">HW 10</a>, <a href="power-thermal.html#3-power-supplies">PWR 3</a></td>
+</tr>
+<tr>
+<td>Power budget, metering, capping</td>
+<td><a href="power-thermal.html#4-power-budget-for-the-installed-configuration">PWR 4</a>, <a href="power-thermal.html#5-power-metering-and-capping">PWR 5</a></td>
+</tr>
+<tr>
+<td>Fans, zones, fan control</td>
+<td><a href="hardware-components.html#11-fans-and-cooling">HW 11</a>, <a href="sensors-sdr.html#5-fans-and-cooling-zones">SDR 5</a>, <a href="power-thermal.html#6-fans-and-fan-control">PWR 6</a></td>
+</tr>
+<tr>
+<td>Thermal thresholds and environmental limits</td>
+<td><a href="power-thermal.html#7-thermal-thresholds-and-environmental-limits">PWR 7</a>, <a href="sensors-sdr.html#4-threshold-analog-sensors">SDR 4</a></td>
+</tr>
+<tr>
+<td>All sensors, thresholds, entity IDs</td>
+<td><a href="sensors-sdr.html#4-threshold-analog-sensors">SDR 4-7</a>; every record of the verbose SDR (numbers, entities, masks, hysteresis) <a href="sensors-sdr.html#41-full-threshold-records-c-v-measured-2026-10-20-2105">SDR 4.1</a>, <a href="sensors-sdr.html#13-verbose-sdr-dump-2026-10-20-all-135-sensors">SDR 13</a></td>
+</tr>
+<tr>
+<td>Storage controllers, drives, VD 0 and VD 1 hitachi_data</td>
+<td><a href="storage-raid.html#1-summary-of-the-installed-storage-subsystem">STOR 1</a>, <a href="storage-raid.html#4-installed-controllers-measured">STOR 4</a>, <a href="storage-raid.html#6-installed-drives-and-drive-health-measured">STOR 6</a></td>
+</tr>
+<tr>
+<td>Drive SMART health (both drives, 2026-10-20), smartctl device path</td>
+<td><a href="storage-raid.html#61-smart-health-of-both-drives-measured-2026-10-20">STOR 6.1</a></td>
+</tr>
+<tr>
+<td>M1015 controller event log and termlog (2013-2026)</td>
+<td><a href="storage-raid.html#14-controller-event-log-and-termlog-measured-2026-10-20">STOR 14</a></td>
+</tr>
+<tr>
+<td>Bays, backplanes, SAS riser, cabling</td>
+<td><a href="storage-raid.html#5-drive-bays-backplanes-sas-riser-and-cabling">STOR 5</a>, <a href="hardware-components.html#9-drive-bays-and-backplanes-reference">HW 9</a></td>
+</tr>
+<tr>
+<td>RAID levels and feature keys</td>
+<td><a href="storage-raid.html#9-raid-levels-feature-keys-and-limits">STOR 9</a></td>
+</tr>
+<tr>
+<td>IMM ports and services (measured vs documented)</td>
+<td><a href="imm-architecture.html#51-measured-vs-documented">IMMA 5.1</a>, <a href="imm-interfaces.html#12-port-assignments-and-service-enabledisable">IMMI 12</a></td>
+</tr>
+<tr>
+<td>IMM web UI map</td>
+<td><a href="imm-interfaces.html#3-web-interface-httphttps">IMMI 3</a></td>
+</tr>
+<tr>
+<td>IMM legacy CLI commands</td>
+<td><a href="imm-interfaces.html#42-command-reference-s-020-chapter-7-vs-measured-help-on-130">IMMI 4.2</a>, <a href="imm-architecture.html#2-identity-and-measured-configuration-summary">IMMA 2</a></td>
+</tr>
+<tr>
+<td>IMM settings (SSL, password policy, NTP, DNS, LDAP, serial, timeouts, LAN over USB)</td>
+<td><a href="imm-interfaces.html#42-command-reference-s-020-chapter-7-vs-measured-help-on-130">IMMI 4.2</a>, <a href="imm-interfaces.html#31-transport-and-login">IMMI 3.1</a>, <a href="imm-architecture.html#56-slp-cim-ntp-e-mail">IMMA 5.6</a>, <a href="imm-architecture.html#6-users-authentication-ldap-ipmi-privileges">IMMA 6</a></td>
+</tr>
+<tr>
+<td>IPMI commands, users, LAN channel, cipher suites</td>
+<td><a href="imm-interfaces.html#5-ipmi-kcs-and-lan">IMMI 5</a>, <span class="unlinked">IMMA 5.5</span>, <a href="tools.html#12-ipmitool">TOOLS 12</a></td>
+</tr>
+<tr>
+<td>SNMP</td>
+<td><a href="imm-architecture.html#54-snmp">IMMA 5.4</a>, <a href="imm-interfaces.html#7-snmp">IMMI 7</a>, <a href="../catalog/files.html#f-docs-assumptions-md">ASSUMPTIONS</a> A-010</td>
+</tr>
+<tr>
+<td>Serial over LAN</td>
+<td><a href="imm-interfaces.html#6-serial-over-lan-and-serial-redirection">IMMI 6</a>, <a href="imm-architecture.html#44-serial-and-sol">IMMA 4.4</a></td>
+</tr>
+<tr>
+<td>LAN over USB</td>
+<td><a href="imm-architecture.html#42-lan-over-usb">IMMA 4.2</a>, <a href="imm-interfaces.html#10-lan-over-usb-in-band-network-interface">IMMI 10</a></td>
+</tr>
+<tr>
+<td>Standard vs Premium (Virtual Media Key)</td>
+<td><a href="imm-architecture.html#7-standard-vs-premium-virtual-media-key">IMMA 7</a></td>
+</tr>
+<tr>
+<td>IMM firmware update flow and risks</td>
+<td><a href="imm-architecture.html#9-update-flow">IMMA 9</a>, <a href="firmware-history.html#update-order-and-safety-documented">FWH update order</a>, <a href="optimization.html#10-firmware-upgrade-path-and-order">OPT 10</a></td>
+</tr>
+<tr>
+<td>Firmware versions installed vs latest</td>
+<td><a href="firmware-history.html#installed-levels-measured">FWH</a>, <a href="storage-raid.html#7-firmware-levels-installed-vs-available">STOR 7</a> (M1015/HBA), <a href="imm-interfaces.html#13-interface-relevant-firmware-changes-130-installed-vs-155-latest">IMMI 13</a></td>
+</tr>
+<tr>
+<td>Firmware package and image formats</td>
+<td><a href="firmware-formats.html#3-pkg-sdk-self-extractor-anatomy">FMT</a> sections 3-8</td>
+</tr>
+<tr>
+<td>UEFI Setup menu tree and options</td>
+<td><a href="uefi.html#4-setup-utility-menu-tree">UEFI 4</a>, <a href="uefi.html#5-setup-forms-and-options-from-extracted-hii-forms">UEFI 5</a></td>
+</tr>
+<tr>
+<td>UEFI operating modes</td>
+<td><a href="uefi.html#6-operating-modes">UEFI 6</a>, <a href="optimization.html#52-operating-modes-extracted-docsx3650m3_uefimd-section-6-mode-to-column-assignment-candidate">OPT 5.2</a>, <a href="power-thermal.html#9-uefi-powerperformance-modes-and-their-thermal-effect">PWR 9</a></td>
+</tr>
+<tr>
+<td>ASU setting names (UEFI)</td>
+<td><a href="uefi.html#7-asu-settings-s-026-and-the-setup-xml">UEFI 7</a>, <a href="uefi.html#appendix-a-full-asu-setting-table-uefi-122">UEFI Appendix A</a>, memory subset <a href="memory.html#82-asu-setting-names-s-026-asu-v930-guide-vmware-esxivsphere-section-uefi-settings-in-an-immv1-system">MEM 8.2</a></td>
+</tr>
+<tr>
+<td>ASU setting names (IMM)</td>
+<td><a href="imm-interfaces.html#73-asu-names-immv1-list-s-026-printed-p22-24">IMMI 7.3</a>, <a href="imm-interfaces.html#11-asu-as-a-configuration-interface">IMMI 11</a></td>
+</tr>
+<tr>
+<td>ASU usage on this host</td>
+<td><a href="tools.html#4-asu---advanced-settings-utility">TOOLS 4</a></td>
+</tr>
+<tr>
+<td>Microcode (UEFI images and running CPU)</td>
+<td><a href="uefi.html#9-microcode">UEFI 9</a>, <a href="optimization.html#104-no-flash-alternative-for-microcode-r-b1">OPT 10.4</a></td>
+</tr>
+<tr>
+<td>IMM event ID structure and messages</td>
+<td><a href="error-codes.html#3-imm-event-id-structure">ERR 3</a>, <a href="error-codes.html#4-imm-event-log-messages-655-event-ids">ERR 4</a>, actions <a href="error-codes.html#5-imm-action-catalog-a01-a64">ERR 5</a></td>
+</tr>
+<tr>
+<td>POST / UEFI error codes, checkpoints, beep codes</td>
+<td><a href="error-codes.html#6-post--uefi-error-codes">ERR 6</a>, <a href="error-codes.html#7-checkpoint-codes">ERR 7</a>, <a href="error-codes.html#8-beep-codes">ERR 8</a></td>
+</tr>
+<tr>
+<td>DSA diagnostic messages</td>
+<td><a href="error-codes.html#10-dsa-preboot-diagnostic-messages">ERR 10</a>, <a href="error-codes.html#11-dsa-action-catalog-d01-d28">ERR 11</a></td>
+</tr>
+<tr>
+<td>Measured SEL and IMM event log decode</td>
+<td><a href="error-codes.html#15-measured-events-on-the-owners-server-decode">ERR 15</a>, <a href="imm-architecture.html#10-event-logging-sel-and-imm-event-log">IMMA 10</a></td>
+</tr>
+<tr>
+<td>Drive 0 fault event (2026-10-17) and controller failure of slot 0 (2026-10-14)</td>
+<td><a href="storage-raid.html#12-source-conflicts">STOR 12</a> C-10, <a href="storage-raid.html#13-open-questions--unknown">STOR 13</a> item 13, <a href="storage-raid.html#144-slot-0--slot-1-events-around-2026-08-24-2026-10-14-and-2026-10-17">STOR 14.4</a>, <a href="error-codes.html#155-top-issues-and-recommended-actions">ERR 15.5</a></td>
+</tr>
+<tr>
+<td>Vendor tools (ASU, DSA, UXSPI, BoMC, OneCLI, iflash)</td>
+<td><a href="tools.html#4-asu---advanced-settings-utility">TOOLS 4-9</a></td>
+</tr>
+<tr>
+<td>StorCLI, SAS2IRCU, ipmitool</td>
+<td><a href="tools.html#10-storcli-serveraid-m1015">TOOLS 10</a>, <a href="tools.html#11-sas2ircu-and-sas2flash-ibm-6gb-sas-hba">TOOLS 11</a>, <a href="tools.html#12-ipmitool">TOOLS 12</a></td>
+</tr>
+<tr>
+<td>Read-only vs state-changing commands</td>
+<td><a href="tools.html#1-summary">TOOLS</a> (per-tool "Commands" subsections), <a href="imm-interfaces.html#15-open-questions--next-captures">IMMI 15</a> ("Not to be run" list)</td>
+</tr>
+<tr>
+<td>Project scripts</td>
+<td><a href="tools.html#14-project-scripts-scripts">TOOLS 14</a>, section 6 below</td>
+</tr>
+<tr>
+<td>Optimization recommendations (R-A<em>, R-B</em>, R-C*)</td>
+<td><a href="optimization.html#12-recommendation-register">OPT 12</a></td>
+</tr>
+<tr>
+<td>Backup setup (hitachi-data, weekly job, verify-then-prune hook)</td>
+<td><a href="tools.html#14-project-scripts-scripts">TOOLS 14</a> (hook), <a href="optimization.html#1-summary-and-priority-list">OPT 1</a> rank 1 and R-A6 (target is in the same chassis), <span class="unlinked">STATUS.md</span> (Recently Completed, Active Work), <a href="../catalog/files.html#f-captures-2026-10-20-host-backup-setup-txt">../captures/2026-10-20_host_backup_setup.txt</a>, <a href="../catalog/tools.html#tool-vzdump-verify-prune">../scripts/vzdump-verify-prune.sh</a></td>
+</tr>
+<tr>
+<td>Vendor document IDs (S-xxx)</td>
+<td><a href="../catalog/sources.html">../sources/SOURCES.md</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="4-contradictions-and-open-questions">4. Contradictions and open questions <a class="anchor" href="#4-contradictions-and-open-questions" aria-label="Link to this section">#</a></h2>
+<h3 id="41-contradictions-consolidated-by-topic">4.1 Contradictions (consolidated by topic) <a class="anchor" href="#41-contradictions-consolidated-by-topic" aria-label="Link to this section">#</a></h3>
+<p>Conflict IDs are local to their document; the same ID can mean different things in different documents (for
+example C-1 exists in HW, MEM and STOR), so every ID below is prefixed with its owning document. Status is copied
+from the owning document ("open" = not resolved there).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Topic</th>
+<th>IDs (owning doc)</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Installed UEFI build D6E154A reported as 1.13, while the 1.22 .chg lists 1.13 as D6E154B</td>
+<td>FWH Conflicts bullet 1; IMMA 12 #8; OPT 14 #8; UEFI 10 bullet 5</td>
+<td>version 1.13 resolved (SMBIOS, NVRAM, and since 2026-10-21 IMM VPD and CIM_SoftwareIdentity); NVRAM System_Data D6CP54AUS identified as the CRTM build (SMBIOS <code>$CR</code>, UEFI 10); build identity vs .chg open</td>
+</tr>
+<tr>
+<td>2</td>
+<td>UEFI 1.11 build D6E150C vs D6E150D</td>
+<td>FWH Conflicts bullet 2</td>
+<td>open</td>
+</tr>
+<tr>
+<td>3</td>
+<td>IMM build letters "YU00" (zero) vs measured <code>YUOOC7E</code></td>
+<td>FWH Conflicts bullet 3; IMMA 12 #8</td>
+<td>recorded</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Chipset 5520 vs "5600 chipset"</td>
+<td>ASSUMPTIONS A-011; MEM 13 C-5; IMMA 12 #12 (out of scope there)</td>
+<td>open</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Maximum memory 288 GB vs SMBIOS 192 GB</td>
+<td>ASSUMPTIONS A-011; MEM 13 C-1; OPT 14 #7; IMMA 12 #12</td>
+<td>open</td>
+</tr>
+<tr>
+<td>6</td>
+<td>PSU "460 W" vs "465W" (81Y6558)</td>
+<td>ASSUMPTIONS A-011; IMMA 12 #12</td>
+<td>open</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Minimum DIMM in slot 3: 2 GB vs 1 GB</td>
+<td>MEM 13 C-2</td>
+<td>open</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Memory speed at 2 DPC: 1066 MHz (<a class="sref" href="../catalog/sources.html#s-002">S-002</a>) vs 1333 MHz (<a class="sref" href="../catalog/sources.html#s-001">S-001</a>)</td>
+<td>MEM 13 C-3; OPT 14 #6</td>
+<td>open</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Mirroring layout prose vs tables</td>
+<td>MEM 13 C-4</td>
+<td>resolved in favour of the tables</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Installed DIMM device width x4 (SPD) vs x8 (EDAC)</td>
+<td>MEM 13 C-6</td>
+<td>resolved (x4)</td>
+</tr>
+<tr>
+<td>11</td>
+<td>DIMM part number family / option vs service numbers</td>
+<td>MEM 13 C-7, C-8</td>
+<td>not a conflict</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Power-channel DIMM ranges (channel B/C)</td>
+<td>ERR 16 C-06; HW 16 C-2</td>
+<td>open (real mapping <span class="tl tl-unknown">UNKNOWN</span>)</td>
+</tr>
+<tr>
+<td>13</td>
+<td>System board FRU 00AM528 / 81Y6625 / 69Y5082 vs measured 94Y7614</td>
+<td>HW 16 C-1</td>
+<td>open</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Delay before the power button works (40 s / 3 min / 2.5 min)</td>
+<td>HW 16 C-3</td>
+<td>open</td>
+</tr>
+<tr>
+<td>15</td>
+<td>8-drive SAS backplane part 46W9187 vs 69Y0650 / 94Y6670; measured 81Y4592 + 94Y6670</td>
+<td>HW 16 C-4; STOR 12 C-3</td>
+<td>open</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Bay of the installed supply: standard supply in bay 1 vs IPMI sees only "Power Supply 2"; since 2026-10-21 also IMM VPD/CIM "Power Supply 1" (FRU 39Y7229) for the same supply</td>
+<td>HW 16 C-5; PWR 11 D-6; OPT 14 #5</td>
+<td>open (physical inspection); IMM-internal numbering conflict added</td>
+</tr>
+<tr>
+<td>17</td>
+<td>VBAT severity wording in STATUS.md</td>
+<td>HW 16 C-6; SDR 11 SC-10</td>
+<td>resolved</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Part 69Y5909 listed as 675 W DC and 675 W AC</td>
+<td>HW 16 C-7</td>
+<td>open</td>
+</tr>
+<tr>
+<td>19</td>
+<td>PSU provisioning (one vs one or two)</td>
+<td>HW 16 C-8</td>
+<td>not a hardware contradiction</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Option numbers vs service numbers (risers, PSUs)</td>
+<td>HW 16 C-9</td>
+<td>different number spaces</td>
+</tr>
+<tr>
+<td>21</td>
+<td>SEL full behavior (no overwrite vs FIFO)</td>
+<td>ERR 16 C-01</td>
+<td>SEL no-overwrite <span class="tl tl-measured">MEASURED</span>; IMM log capacity 1500 <span class="tl tl-measured">MEASURED</span> 2026-10-21 (CIM_RecordLog), its wrap behavior <span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>22</td>
+<td>Fan tach event IDs (six instances vs A/B sharing an ID)</td>
+<td>ERR 16 C-02; SDR 11 SC-7</td>
+<td>open; measurement supports 15th/16th ed. (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>23</td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> names IMM2 for call home</td>
+<td>ERR 16 C-03</td>
+<td>IMM v1 <span class="tl tl-measured">MEASURED</span>; call home <span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>24</td>
+<td>"UEFI diagnostic code" section missing</td>
+<td>ERR 16 C-04</td>
+<td>open</td>
+</tr>
+<tr>
+<td>25</td>
+<td>IMMA 10 cites "p70" for 40000029; printed page is p.52</td>
+<td>ERR 16 C-05</td>
+<td>resolved (IMMA 10 gives PDF p70, printed 52; verified against <a class="sref" href="../catalog/sources.html#s-004">S-004</a>)</td>
+</tr>
+<tr>
+<td>26</td>
+<td>DSA 405-901-xxx printed twice</td>
+<td>ERR 16 C-07</td>
+<td>kept both</td>
+</tr>
+<tr>
+<td>27</td>
+<td>User response for CMOS Battery lower critical (PSU text vs replace battery)</td>
+<td>ERR 16 C-08</td>
+<td>battery replacement applies</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Severity of login-failure messages (Info in catalog vs E in IMM 1.30 log)</td>
+<td>ERR 16 C-09</td>
+<td>recorded (<span class="tl tl-candidate">CANDIDATE</span> explanation)</td>
+</tr>
+<tr>
+<td>29</td>
+<td>VBAT critical without soft shutdown</td>
+<td>SDR 11 SC-1</td>
+<td>open (<span class="tl tl-candidate">CANDIDATE</span> explanation)</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Battery sensor name/entity ("Planar VBAT" 7.1 vs "CMOS Battery" 0x28)</td>
+<td>SDR 11 SC-2; ERR 15.7</td>
+<td>partly resolved; the logged VBAT event IDs carry entity/instance 0701 (WS-Man <code>GetEventLog</code>, 2026-10-21), consistent with 7.1</td>
+</tr>
+<tr>
+<td>31</td>
+<td>SEL Fullness sensor state vs full SEL</td>
+<td>SDR 11 SC-3</td>
+<td>open (verbose SDR adds the enable mask; no state asserted)</td>
+</tr>
+<tr>
+<td>32</td>
+<td>Power Unit redundancy state with one supply</td>
+<td>SDR 11 SC-4</td>
+<td>open (verbose SDR: non-redundant offsets not even enabled)</td>
+</tr>
+<tr>
+<td>33</td>
+<td>Drive sensors vs storcli vs IMM log (Drive 1 presence)</td>
+<td>SDR 11 SC-5; STOR 12 C-9</td>
+<td>resolved (Hitachi inserted 2026-10-20, owner statement and controller log); why the IMM logged no removal/insertion stays <span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>34</td>
+<td>Fault sensors of the absent supply read OK</td>
+<td>SDR 11 SC-6</td>
+<td>open</td>
+</tr>
+<tr>
+<td>35</td>
+<td>IMM state "Booting OS" while the OS runs</td>
+<td>SDR 11 SC-8; IMMA 12 #10; ASSUMPTIONS A-009</td>
+<td>open (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>36</td>
+<td>Idle state of severity sensors (0x0180 vs 0x0080)</td>
+<td>SDR 11 SC-9</td>
+<td>not a fault indication</td>
+</tr>
+<tr>
+<td>37</td>
+<td>Drive 0 fault event (2026-10-17) vs controller Online/Optimal</td>
+<td>STOR 12 C-10</td>
+<td>open, partly explained (controller failed slot 0 on 2026-10-14; counters 0 afterwards, reset on re-add <span class="tl tl-candidate">CANDIDATE</span>; no drive-side SMART error)</td>
+</tr>
+<tr>
+<td>38</td>
+<td>M1015 RAID levels (0/1/10, 5/50 with key vs "0, 1, 5, and 10" vs "1E")</td>
+<td>STOR 12 C-1</td>
+<td>open</td>
+</tr>
+<tr>
+<td>39</td>
+<td>M1015 max drives / arrays</td>
+<td>STOR 12 C-2</td>
+<td>array limit <span class="tl tl-measured">MEASURED</span>; document conflict recorded</td>
+</tr>
+<tr>
+<td>40</td>
+<td>BR10il v2 PCIe generation</td>
+<td>STOR 12 C-4</td>
+<td>open (not installed)</td>
+</tr>
+<tr>
+<td>41</td>
+<td>RAID slot numbering (lspci Slot 5 vs SMBIOS slots 1-4)</td>
+<td>STOR 12 C-5</td>
+<td>recorded (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>42</td>
+<td>M1015 PCIe width x8 vs x4</td>
+<td>STOR 12 C-6</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> and measurement agree</td>
+</tr>
+<tr>
+<td>43</td>
+<td>Controller "Rev" 2.12 vs firmware 20.10.1-0052</td>
+<td>STOR 12 C-7</td>
+<td>resolved</td>
+</tr>
+<tr>
+<td>44</td>
+<td>LSI Configuration Utility scope (integrated controller)</td>
+<td>STOR 12 C-8</td>
+<td>recorded</td>
+</tr>
+<tr>
+<td>45</td>
+<td>Video resolution 1280x1024 vs 1600x1200 (local and remote presence)</td>
+<td>IMMA 12 #2; SYSARCH 14 #1, #6</td>
+<td>open</td>
+</tr>
+<tr>
+<td>46</td>
+<td>Optional video adapter limit 75 Hz vs 60 Hz</td>
+<td>SYSARCH 14 #7</td>
+<td>open</td>
+</tr>
+<tr>
+<td>47</td>
+<td>SMBIOS IPMI I2C address 0x10 vs 0x20</td>
+<td>SYSARCH 14 #2</td>
+<td><span class="tl tl-candidate">CANDIDATE</span> 7-bit vs 8-bit</td>
+</tr>
+<tr>
+<td>48</td>
+<td>Kernel driver label mpt3sas vs mpt2sas</td>
+<td>SYSARCH 14 #3</td>
+<td>not a conflict</td>
+</tr>
+<tr>
+<td>49</td>
+<td>Number of USB ports</td>
+<td>SYSARCH 14 #4</td>
+<td>same hardware, different description</td>
+</tr>
+<tr>
+<td>50</td>
+<td>Dedicated RAID slot behind ICH10</td>
+<td>SYSARCH 14 #5</td>
+<td>not a conflict</td>
+</tr>
+<tr>
+<td>51</td>
+<td>Processors in standard models</td>
+<td>SYSARCH 14 #8</td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.12 sentence contradicted</td>
+</tr>
+<tr>
+<td>52</td>
+<td>LAN-over-USB host address</td>
+<td>IMMA 12 #1; TOOLS 17 T-8</td>
+<td>open</td>
+</tr>
+<tr>
+<td>53</td>
+<td>IMM network port (dedicated plus shared vs shared only)</td>
+<td>IMMA 12 #3</td>
+<td>open</td>
+</tr>
+<tr>
+<td>54</td>
+<td>IMM password rules and length</td>
+<td>IMMA 12 #4; IMMI 14 I-10</td>
+<td>open</td>
+</tr>
+<tr>
+<td>55</td>
+<td>Update-method support (<a class="sref" href="../catalog/sources.html#s-023">S-023</a> vs README/<a class="sref" href="../catalog/sources.html#s-020">S-020</a>)</td>
+<td>IMMA 12 #5</td>
+<td>open</td>
+</tr>
+<tr>
+<td>56</td>
+<td>SNMP agent vs IPMI "SNMP Community String: public"</td>
+<td>IMMA 12 #6; ASSUMPTIONS A-010</td>
+<td>explained as <span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>57</td>
+<td>Port 5988 label "SuperMicro" vs IBM Systems Director</td>
+<td>IMMA 12 #7</td>
+<td><span class="tl tl-candidate">CANDIDATE</span> fingerprint mislabel</td>
+</tr>
+<tr>
+<td>58</td>
+<td>[not published]</td>
+<td>IMMA 12 #9; IMMI 14 I-7, I-8</td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td>59</td>
+<td>SSH host keys RSA and DSA vs only ssh-rsa</td>
+<td>IMMA 12 #11</td>
+<td>open</td>
+</tr>
+<tr>
+<td>60</td>
+<td>Minimum IMM level before UEFI/DSA updates (1.07 vs 1.14; XML preReq yuoo57h = 1.10)</td>
+<td>IMMA 12 #13; UEFI 10 bullet 4</td>
+<td>open</td>
+</tr>
+<tr>
+<td>61</td>
+<td>IMM 1.15 named in <a class="sref" href="../catalog/sources.html#s-022">S-022</a> but absent from the 1.55 changelog</td>
+<td>IMMA 12 #14</td>
+<td>open</td>
+</tr>
+<tr>
+<td>62</td>
+<td>C-state firmware-update erratum scope (32-bit Linux vs Linux or VMware)</td>
+<td>IMMA 12 #15; OPT 14 #1</td>
+<td>open; OPT follows <a class="sref" href="../catalog/sources.html#s-022">S-022</a> (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>63</td>
+<td><code>vpd bios</code> documented vs unknown on 1.30</td>
+<td>IMMI 14 I-1</td>
+<td>open</td>
+</tr>
+<tr>
+<td>64</td>
+<td>CLI command set (portcontrol, tcpcmdmode vs ipsec)</td>
+<td>IMMI 14 I-2</td>
+<td><span class="tl tl-candidate">CANDIDATE</span>: later firmware</td>
+</tr>
+<tr>
+<td>65</td>
+<td>syshealth output lacks software-status line</td>
+<td>IMMI 14 I-3</td>
+<td>open (minor)</td>
+</tr>
+<tr>
+<td>66</td>
+<td>Serial exit key "^[Q" vs "^[("</td>
+<td>IMMI 14 I-4</td>
+<td>resolved: measured <code>^[(</code> = documented default</td>
+</tr>
+<tr>
+<td>67</td>
+<td>SNMPv3 privacy protocol wording</td>
+<td>IMMI 14 I-5</td>
+<td>same algorithms</td>
+</tr>
+<tr>
+<td>68</td>
+<td>SNMPv3 password source reveals a Linux account</td>
+<td>IMMI 14 I-6</td>
+<td>not a conflict</td>
+</tr>
+<tr>
+<td>69</td>
+<td>IPMI user count 12 vs 13 IDs</td>
+<td>IMMI 14 I-9</td>
+<td>resolved</td>
+</tr>
+<tr>
+<td>70</td>
+<td><code>uEFI.PackageCState</code> default in 1.22 (ACPI C2 vs C3)</td>
+<td>UEFI 10 bullet 1; OPT 14 #2</td>
+<td>open</td>
+</tr>
+<tr>
+<td>71</td>
+<td><code>uEFI.ProcessorCcxEnable</code> default in 1.14 (form Enable vs XML Disable)</td>
+<td>UEFI 10 bullet 2; OPT 14 #3</td>
+<td>open</td>
+</tr>
+<tr>
+<td>72</td>
+<td>Setup label ICH10 vs XML group ICH9Devices</td>
+<td>UEFI 10 bullet 3</td>
+<td><span class="tl tl-candidate">CANDIDATE</span> naming inconsistency</td>
+</tr>
+<tr>
+<td>73</td>
+<td>VT-d 1.22 default Disable vs IOMMU active</td>
+<td>OPT 14 #4</td>
+<td>not a source conflict</td>
+</tr>
+<tr>
+<td>74</td>
+<td>Microcode 0x14 running vs UEFI 1.14 ships 0x15</td>
+<td>OPT 14 #9</td>
+<td><span class="tl tl-candidate">CANDIDATE</span> consistent with 1.13</td>
+</tr>
+<tr>
+<td>75</td>
+<td>System heat output (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> vs <a class="sref" href="../catalog/sources.html#s-001">S-001</a>)</td>
+<td>PWR 11 D-1</td>
+<td>open</td>
+</tr>
+<tr>
+<td>76</td>
+<td>Measured Avg Power 80 W vs documented idle/minimum</td>
+<td>PWR 11 D-2</td>
+<td>not a hardware contradiction</td>
+</tr>
+<tr>
+<td>77</td>
+<td>Input kVA</td>
+<td>PWR 11 D-3</td>
+<td>open</td>
+</tr>
+<tr>
+<td>78</td>
+<td>Altitude derating per 1000 ft</td>
+<td>PWR 11 D-4</td>
+<td>open (irrelevant at 40 ft)</td>
+</tr>
+<tr>
+<td>79</td>
+<td>AEM capping mechanism (T-state vs P-state)</td>
+<td>PWR 11 D-5</td>
+<td>open</td>
+</tr>
+<tr>
+<td>80</td>
+<td>Thermal Mode options (form vs XML)</td>
+<td>PWR 11 D-7</td>
+<td>open</td>
+</tr>
+<tr>
+<td>81</td>
+<td>IMM CLI temps rows (example vs measured)</td>
+<td>PWR 11 D-8</td>
+<td>not a conflict</td>
+</tr>
+<tr>
+<td>82</td>
+<td>ASU 10.3 readme header says 10.1</td>
+<td>TOOLS 17 T-1</td>
+<td><span class="tl tl-candidate">CANDIDATE</span> stale header</td>
+</tr>
+<tr>
+<td>83</td>
+<td>SGBoMC 10.2 XML says 10.1</td>
+<td>TOOLS 17 T-2</td>
+<td>open</td>
+</tr>
+<tr>
+<td>84</td>
+<td>DSA DS121668 vs DS121674 same SHA256</td>
+<td>TOOLS 17 T-3</td>
+<td>not an error</td>
+</tr>
+<tr>
+<td>85</td>
+<td>StorCLI 1.14.12 Linux readme is a different product's readme</td>
+<td>TOOLS 17 T-4</td>
+<td>vendor attached wrong file</td>
+</tr>
+<tr>
+<td>86</td>
+<td>ASU support for x3650 M3 (10.1/10.3 XML vs 10.6 guide)</td>
+<td>TOOLS 17 T-5</td>
+<td>recorded</td>
+</tr>
+<tr>
+<td>87</td>
+<td>IMM level for ASU certificate management (yuoo78m vs yuoo71a)</td>
+<td>TOOLS 17 T-6</td>
+<td>open</td>
+</tr>
+<tr>
+<td>88</td>
+<td>BoMC legacy-only boot mode removal version</td>
+<td>TOOLS 17 T-7</td>
+<td>recorded</td>
+</tr>
+<tr>
+<td>89</td>
+<td>SAS2IRCU driver dependency mpt2sas.ko vs host mpt3sas</td>
+<td>TOOLS 17 T-9</td>
+<td>compatibility <span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>90</td>
+<td>Settable voltage thresholds in the SDR vs "thresholds are preset and cannot be changed" (<a class="sref" href="../catalog/sources.html#s-020">S-020</a>)</td>
+<td>SDR 11 SC-11</td>
+<td>open (not tested; setting a threshold is excluded)</td>
+</tr>
+<tr>
+<td>91</td>
+<td><code>srcfg</code> option name <code>-entercliseq</code> (1.30) vs <code>-exitcliseq</code> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a>)</td>
+<td>IMMI 14 I-11</td>
+<td>recorded</td>
+</tr>
+<tr>
+<td>92</td>
+<td><code>passwordcfg</code> display fields <code>-min</code>, <code>-complex</code> not in <a class="sref" href="../catalog/sources.html#s-020">S-020</a></td>
+<td>IMMI 14 I-12</td>
+<td>recorded</td>
+</tr>
+</tbody>
+</table></div>
+<p>Counts: 92 topics; 117 conflict entries across the documents (FWH 3, HW 9, MEM 8, STOR 10, ERR 9, IMMA 15,
+UEFI 5, IMMI 12, SDR 11, PWR 8, TOOLS 9, OPT 9, SYSARCH 8, ASSUMPTIONS A-011 1). Topics whose status is open, partly
+resolved, pending, <span class="tl tl-unknown">UNKNOWN</span> or only <span class="tl tl-candidate">CANDIDATE</span>-explained: 57 (the other 35 are resolved, recorded, kept or not a
+conflict). Changes in the 2026-10-20 refresh: #25, #33 and #66 resolved; #90-#92 added. 2026-10-21 (authenticated read-only
+WS-Man/CIM captures): #1, #16, #21 and #30 updated, no status count changed.</p>
+<h3 id="42-open-questions-and-next-read-only-captures-deduplicated">4.2 Open questions and next read-only captures (deduplicated) <a class="anchor" href="#42-open-questions-and-next-read-only-captures-deduplicated" aria-label="Link to this section">#</a></h3>
+<p>Every probe listed here is described as read-only by its owning document; running any of them still needs the
+owner's go-ahead for the session (docs/AGENT.md), and IMM logins use the owner's credential, never stored.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Owning doc(s)</th>
+<th>Read-only probe named there</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Installed PSU physical bay; second supply or filler in the other bay (part: IMM VPD FRU 39Y7229 / 39Y7228, wattage <span class="tl tl-candidate">CANDIDATE</span> 460 W AC, 2026-10-21)</td>
+<td>HW 17 #2-3; PWR 12 #1; OPT 15 #10; IMMA 13 #12; SDR 12 Q-S9</td>
+<td>rear label and bay visual check; IMM web "Power Modules" view</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Fan zone mapping and why fan 3 runs about twice as fast as fans 1-2</td>
+<td>HW 17 #7; PWR 12 #5; OPT 15 #11; SDR 12 Q-S7</td>
+<td>repeated <code>ipmitool sensor</code> and CLI <code>fans</code>/<code>temps</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Live UEFI setting values on D6E154A (operating mode, C-states, PackageCState, VT-d, PatrolScrub, DdrSpeed, QPI speed, option ROMs, memory mode)</td>
+<td>MEM 14 #2, #4; PWR 12 #3-4; OPT 15 #2; SYSARCH 15 #1; IMMI 15 #8; IMMA 13 #13; TOOLS 18 #3</td>
+<td>ASU <code>show all</code> / <code>showvalues</code> with <code>--kcs</code> (ASU not installed on the host)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>cpufreq frequency table (governor, idle states, KSM, swappiness, I/O scheduler answered 2026-10-20; THP madvise/madvise and no hugepages answered by captures/2026-10-20_host_probes_boot_apt.txt, integrated in OPT 4)</td>
+<td>OPT 15 #1; PWR 12 #7</td>
+<td>sysfs reads in OPT 13</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Resolved 2026-10-20: boot mode UEFI and proxmox-boot-tool not in use are <span class="tl tl-measured">MEASURED</span>, boot loader GRUB via shim is <span class="tl tl-candidate">CANDIDATE</span> (captures/2026-10-20_host_probes_boot_apt.txt, integrated in OPT 4, R-B2). New: purpose of the Ubuntu UEFI entry and the repeated firmware boot entries</td>
+<td>OPT 15 #7, #16</td>
+<td><code>efibootmgr -v</code> (captured); no probe named yet for locating the Ubuntu partition</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Revision of 06-2c-02 microcode in Debian <code>intel-microcode</code> (package not installed; APT sources have no non-free-firmware component, <span class="tl tl-measured">MEASURED</span>, integrated in OPT 4/10.4/R-B1); erratum AAK167/BD132 applicability; 32-bit PAE guests; Ceph <code>test</code> repository flagged for the owner</td>
+<td>OPT 15 #5-6, #15</td>
+<td><code>apt-cache policy intel-microcode</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td>libcrypt.so.1 for asu64 (Debian 12, no i386 architecture, ipmitool 1.8.19 and kernel CONFIG_IA32_EMULATION=y not default-disabled are <span class="tl tl-measured">MEASURED</span>; IA32 integrated in TOOLS 2, 18 #1)</td>
+<td>TOOLS 18 #1</td>
+<td>none named in TOOLS (TOOLS 4.3: presence not checked)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Raw SDR fields not printed by ipmitool (discrete event/reading type codes, M/B/R factors, initialization flags) and the 69 unprinted records; SDR diff after battery or firmware change. Sensor numbers, entities, masks, hysteresis and event-only records are resolved (verbose SDR 2026-10-20)</td>
+<td>SDR 12 Q-S2, Q-S3, Q-S10 (Q-S1, Q-S4, Q-S5 resolved); ERR 17 Q-05 and HW 17 #4 closed; IMMI 15 #16 closed</td>
+<td><code>ipmitool sdr dump</code> (local file)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Avg Power basis (AC/DC, averaging window), true wall power, component power (<code>-v</code> record captured: no thresholds, no window field)</td>
+<td>PWR 12 #2, #9; SDR 12 Q-S8; OPT 15 #4</td>
+<td>time series; wall meter</td>
+</tr>
+<tr>
+<td>10</td>
+<td>CPU, IOH and DIMM temperatures and thresholds; DIMM temperature sensor meaning</td>
+<td>PWR 12 #6; MEM 14 #6</td>
+<td>IMM web System Status; <code>sensors</code> / hwmon</td>
+</tr>
+<tr>
+<td>11</td>
+<td>IMM event-log wrap behavior (capacity 1500 and event IDs answered 2026-10-21, ERR Q-02, Q-11)</td>
+<td>ERR 17 Q-02, Q-11; SDR 11 SC-2; IMMI 15 #6</td>
+<td>IMM web Event Log page or DSA ASM event log</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Drive 0 fault event: mechanism and cause (controller log, slot-0 detail and SMART captured 2026-10-20); IMM logging of drive changes; bay numbering</td>
+<td>STOR 13 #4, #13; STOR 12 C-10</td>
+<td>SMART long self-test (owner-approved, queued, result pending); IMM web drive view</td>
+</tr>
+<tr>
+<td>13</td>
+<td>M1015 Patrol Read 0 iterations; controller event log; RAID0 -&gt; RAID1 migration support</td>
+<td>STOR 13 #2; OPT 15 #13-14</td>
+<td><code>storcli64 /c0 show patrolread</code>, <code>show events</code></td>
+</tr>
+<tr>
+<td>14</td>
+<td>9212-4i4e IT or IR firmware, cabling, purpose</td>
+<td>STOR 13 #6; OPT 15 #9; STATUS Remaining Work</td>
+<td><code>sas2ircu list</code>, <code>sas2ircu 0 display</code></td>
+</tr>
+<tr>
+<td>15</td>
+<td>Hitachi drive origin; when and where its 140 ATA UNC errors occurred and whether LBA 6284676 is still unreadable (SMART captured 2026-10-20)</td>
+<td>STOR 13 #3, #15</td>
+<td>SMART long self-test result (queued); <code>smartctl -l selftest -d sat+megaraid,12</code> (path from <code>smartctl --scan-open</code>)</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Firmware binaries: IMM 1.55 and installed 1.30, M1015 20.11.1-0184, HBA 1.10.05</td>
+<td>FWH Open items; STOR 13 #1, #6; OPT 15 #12; IMMA 13 #1; STATUS Remaining Work</td>
+<td>IBM Fix Central (IBM ID needed) - not a host probe</td>
+</tr>
+<tr>
+<td>17</td>
+<td>IMM SoC, kernel, flash size, partition map; .upd format and signing</td>
+<td>IMMA 13 #1; FWH Open items; FMT 11</td>
+<td>offline analysis of an IMM .upd once obtained</td>
+</tr>
+<tr>
+<td>18</td>
+<td>[not published]</td>
+<td>IMMI 15 #1, #5, #7; IMMA 13 #3, #7; IMMA 12 #9</td>
+<td>CLI <code>ipsec show -status</code>, <code>clock</code> with a reference time; web Security and Alerts pages (read-only views)</td>
+</tr>
+<tr>
+<td>19</td>
+<td>WS-Man on 5988 (web URL tree, SLP, CIM namespaces/classes, SNMPv3 engine ID and SNMP configuration answered by 2026-10-20/21 captures, IMMI 8.1, 7.4)</td>
+<td>IMMI 15 #9-13; IMMA 13 #4</td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td>20</td>
+<td>IPMI PET destinations and channel/cipher access</td>
+<td>IMMI 15 #14-15</td>
+<td><code>ipmitool lan alert print 1</code>, <code>ipmitool channel getaccess 1</code>, <code>getciphers</code></td>
+</tr>
+<tr>
+<td>21</td>
+<td>IBM OEM IPMI NetFn/commands; MIB files</td>
+<td>IMMI 15 #17</td>
+<td>offline string scan of iflash64/ASU; obtain imm.mib/immalert.mib</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Remote presence protocol (key state answered 2026-10-21: no license, IMMA 7)</td>
+<td>IMMI 15 #19; IMMA 13 #2; SYSARCH 15 #6; HW 17 #5</td>
+<td>web login, Remote Control link or <code>vpd</code> page</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Active IMM flash bank, backup bank level, J147 position</td>
+<td>IMMA 13 #6</td>
+<td>no safe read-only query found</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Dedicated vs shared management NIC mode</td>
+<td>IMMA 13 #8</td>
+<td>not specified</td>
+</tr>
+<tr>
+<td>25</td>
+<td>LAN-over-USB DHCP behavior and host reachability</td>
+<td>IMMA 13 #9; IMMI 15 #18</td>
+<td>needs host network change (approval, section 5)</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Firmware update history before 2024-04-23 / factory firmware</td>
+<td>IMMA 13 #11</td>
+<td>none named</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Meaning of IPMI Aux Firmware Rev bytes and protocol vendor ID 7154; <a class="sref" href="../catalog/sources.html#s-023">S-023</a> applicability</td>
+<td>IMMA 13 #5, #10</td>
+<td>none named</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Meaning of syshealth "Restarts" (133 on 2026-10-19, 134 on 2026-10-20, WS-Man ResetCount 136 on 2026-10-21)</td>
+<td>ERR 17 Q-04</td>
+<td>compare after a controlled reboot</td>
+</tr>
+<tr>
+<td>29</td>
+<td>SEL raw data of firmware-progress events; events hidden by the full SEL</td>
+<td>ERR 17 Q-09; HW 17 #10; MEM 14 #12; PWR 12 #10</td>
+<td><code>ipmitool sel get &lt;id&gt;</code> after clearing the SEL (approval)</td>
+</tr>
+<tr>
+<td>30</td>
+<td>B-fan tach event ID; call-home support; power-channel to DIMM mapping</td>
+<td>ERR 17 Q-06, Q-07, Q-08</td>
+<td>observe a real event; <a class="sref" href="../catalog/sources.html#s-020">S-020</a>/<a class="sref" href="../catalog/sources.html#s-021">S-021</a>; schematic not available</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Per-code UEFI checkpoint table; IPMI v2.0 / DSP8007 specification in sources/; messages added after 1.30</td>
+<td>ERR 17 Q-01, Q-03, Q-10; SDR 12 (other open points)</td>
+<td>document search; IMM 1.55 package tables</td>
+</tr>
+<tr>
+<td>32</td>
+<td>Physical details: board positions, riser and SAS riser parts, heat sink/CPU/DIMM/bezel/DVD parts, Board Extra fields, battery chemistry, baffles and fillers</td>
+<td>HW 17 #1, #5, #6, #8, #9; SYSARCH 15 #4; PWR 12 #8; STOR 13 #7</td>
+<td>owner visual inspection</td>
+</tr>
+<tr>
+<td>33</td>
+<td>Memory: connector distances, mirroring and Chipkill on the E5606, Hynix-to-IBM part mapping, E5606 Intel specification, SPD "1.2X V", third-party RDIMMs, 1-channel bandwidth</td>
+<td>MEM 14 #1, #3, #5, #7-#11</td>
+<td>documents; ServerProven (<a class="sref" href="../catalog/sources.html#s-037">S-037</a> unavailable)</td>
+</tr>
+<tr>
+<td>34</td>
+<td>Platform: QPI link, ESI link, root port 00:02.0, USB root hub mapping, full DSDT/SSDT decode, clock tree, missing ACPI tables, SATA mode setting, video maximum, IMM PCI identification, IPMB path, second-CPU behavior</td>
+<td>SYSARCH 15 #1-#3, #5, #7-#14</td>
+<td><code>lspci -xxx</code> / <code>setpci</code> reads; documents</td>
+</tr>
+<tr>
+<td>35</td>
+<td>Storage: SFF-8087 cabling, backplane FRU 81Y4592, DDF reserve, UEFI HII per controller, remote battery, IMM RAID view, M5014/M5015 fit</td>
+<td>STOR 13 #4, #5, #8-#12</td>
+<td>documents; IMM web storage view</td>
+</tr>
+<tr>
+<td>36</td>
+<td>Tools: cdc_interface.sh on Debian, OneCLI for IMM v1, ASU out-of-band port, DSA Portable on Debian, SAS2IRCU syntax and SAS2FLASH source, BoMC/UXSPI CLI syntax (Preboot DSA version answered: 3.48)</td>
+<td>TOOLS 18 #4-#7, #9-#11</td>
+<td>documents; static inspection</td>
+</tr>
+<tr>
+<td>37</td>
+<td>Firmware formats: manuf_id/product_id 12345678, XML bank addresses to SPI offsets, wrapper DMI matching, capsule signature details, Lenovo bios-uefi folders</td>
+<td>FMT 11</td>
+<td>offline analysis</td>
+</tr>
+<tr>
+<td>38</td>
+<td>UEFI image: <code>protected="true"</code>, IFR OR operators, 1.14 forms, SecureCapsule and 30 leaf files, PciRootPortURE[4] name, live microcode platform ID</td>
+<td>UEFI 11</td>
+<td>offline analysis; live check not verified</td>
+</tr>
+<tr>
+<td>39</td>
+<td>AEM availability and <code>uEFI.EnergyManager</code>; effect of memory speed settings; loop0 and ZFS</td>
+<td>PWR 12 #3; OPT 15 #3, #8</td>
+<td>ASU show; <code>zpool list</code>, <code>losetup -a</code></td>
+</tr>
+<tr>
+<td>40</td>
+<td>Availability of x3650 M3 firmware and documents from Lenovo</td>
+<td>ASSUMPTIONS A-006</td>
+<td>catalog sources/lenovo/CATALOG.md</td>
+</tr>
+</tbody>
+</table></div>
+<p>Count: 40 deduplicated open-question groups.</p>
+<h2 id="5-owner-approval-required-actions">5. Owner-approval-required actions <a class="anchor" href="#5-owner-approval-required-actions" aria-label="Link to this section">#</a></h2>
+<p>List only, as recorded in the owning documents; this index adds no recommendation. The server is the Proxmox host
+that runs the agent (ASSUMPTIONS A-007): any flash, reset, power action or setting change takes down the lab.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Action</th>
+<th>Owning doc(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Replace the CMOS battery (CRU 33F8354, 3.0 V), power-off; record UEFI settings first</td>
+<td>OPT 12.3 R-C1; HW 12, HW 15; ERR 15.5 #2; SDR 10 finding 1; STATUS Known Issues</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Save and clear the SEL</td>
+<td>OPT 12.3 R-C2; ASSUMPTIONS A-008; IMMA 10, IMMA 13 #14; ERR 15.5 #1; SDR 10 finding 5; PWR 12 #10</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Firmware updates IMM 1.55 -&gt; UEFI 1.22 -&gt; DSA (C-states off for in-band updates)</td>
+<td>OPT 12.3 R-C8; FWH Update order; IMMA 9.5; TOOLS 9, 16; PWR 10; ERR 15.5 #4</td>
+</tr>
+<tr>
+<td>4</td>
+<td>M1015 firmware 20.11.1-0184 and HBA package 1.10.05</td>
+<td>OPT 12.3 R-C9; STOR 7, STOR 11</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Use of recovery jumpers J29 / J147 or SW3-1 (clear CMOS)</td>
+<td>HW 4 (notes for the owner)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>UEFI settings: C-states in Custom mode (R-C5), PatrolScrub (R-C6), adapter option ROM (R-C16); memory settings; ASU <code>set</code> / <code>setenc</code> / <code>loaddefault</code></td>
+<td>OPT 12.3; MEM 8; TOOLS 4.5; PWR 9.2</td>
+</tr>
+<tr>
+<td>7</td>
+<td>OS changes that need a reboot: <code>intel-microcode</code> (R-B1), <code>iommu=pt</code> (R-B2)</td>
+<td>OPT 12.2</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Add RAM: 2x 8 GB in DIMM06/DIMM09 (R-C3); larger configurations (R-C4)</td>
+<td>OPT 12.3; MEM 11</td>
+</tr>
+<tr>
+<td>9</td>
+<td>CPU upgrade to a 1333 MHz Xeon 5600 (R-C15)</td>
+<td>OPT 12.3</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Second PSU of the same type and wattage (R-C14)</td>
+<td>OPT 12.3; HW 10</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Storage: RAID0 VD on the Hitachi drive (R-C10; VD 1 was created at the owner's request on 2026-10-20, STOR 1); boot RAID 1 (R-C11); SSD/ZFS on the 9212-4i4e (R-C12); card placement in slots 1-3 (R-C13)</td>
+<td>OPT 12.3; STOR 1, STOR 11</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Telnet off (session count 0; IMM restart required) and any other IMM protocol/network change or IMM restart</td>
+<td>IMMI 4.4, IMMI 12; STATUS Known Issues</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Bring up LAN over USB on the host (host network change)</td>
+<td>IMMI 15 #18</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Install ASU on the host or run a vendor binary as root; load <code>coretemp</code></td>
+<td>PWR 12 (probe table); TOOLS 18 #3</td>
+</tr>
+<tr>
+<td>15</td>
+<td>IMM CLI / web logins for the read-only probes</td>
+<td>IMMI 15; PWR 12; SDR 12</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Component removal or cover removal on the running host; power-off maintenance</td>
+<td>HW 15; PWR 12 #8</td>
+</tr>
+<tr>
+<td>17</td>
+<td>ipmitool power/bootdev/<code>mc reset</code>/<code>sel clear</code>/<code>raw</code> writes; IMM <code>clearlog</code>, <code>clearcfg</code>, <code>resetsp</code>, <code>reset</code>, <code>power</code>, <code>update</code>; storcli <code>set</code>/<code>start</code>/<code>delete</code>/<code>clear</code></td>
+<td>IMMI 15 ("Not to be run"); PWR 12; SDR 12; STOR 13 #13; TOOLS 12</td>
+</tr>
+<tr>
+<td>18</td>
+<td>DSA upload/update network transfers</td>
+<td>TOOLS 5.5</td>
+</tr>
+</tbody>
+</table></div>
+<p>Count: 18 action groups.</p>
+<h2 id="6-source-and-capture-index">6. Source and capture index <a class="anchor" href="#6-source-and-capture-index" aria-label="Link to this section">#</a></h2>
+<h3 id="61-vendor-sources">6.1 Vendor sources <a class="anchor" href="#61-vendor-sources" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><a href="../catalog/sources.html">../sources/SOURCES.md</a>: inventory of vendor documents with IDs S-xxx used by every
+  knowledge document.</li>
+<li>../sources/pdf/: mirrored vendor PDFs with SHA256SUMS; ../sources/text/: <code>pdftotext -layout</code> extracts.</li>
+<li><a href="../catalog/files.html#f-sources-infocenter-7945-index-md">../sources/infocenter/7945/INDEX.md</a>: Wayback mirror of the retired
+  Lenovo/IBM infocenter (MANIFEST.tsv, FAILED.tsv, CDX.tsv, IMAGES.tsv, html/, text/, images/).</li>
+<li><a href="../catalog/sources.html#lenovo-download-catalog">../sources/lenovo/CATALOG.md</a> and catalog-7945.json: Lenovo download catalog for
+  machine type 7945.</li>
+<li><a href="../catalog/files.html#f-sources-imm-web-1-30-readme-md">../sources/imm_web/1.30/README.md</a>: static web UI files and WS-Man WSDLs of the
+  installed IMM 1.30, retrieved without login over HTTP on 2026-10-20 (added after the index was compiled; not yet
+  integrated into the knowledge documents).</li>
+</ul>
+<h3 id="62-captures-captures">6.2 Captures (captures/) <a class="anchor" href="#62-captures-captures" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-hw-acpi-hexdump-txt">2026-10-19_hw_acpi_hexdump.txt</a></td>
+<td>Hex dumps of ACPI tables (DSDT, SSDT1-3, DMAR, APIC, MCFG, HPET, FACP)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-hw-acpi-tables-txt">2026-10-19_hw_acpi_tables.txt</a></td>
+<td>ACPI table list and dmesg ACPI lines</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-hw-cpuinfo-txt">2026-10-19_hw_cpuinfo.txt</a></td>
+<td>/proc/cpuinfo</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-hw-lspci-tvnn-txt">2026-10-19_hw_lspci_tvnn.txt</a></td>
+<td><code>lspci -tvnn</code> PCI tree</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-hw-lspci-vvv-txt">2026-10-19_hw_lspci_vvv.txt</a></td>
+<td><code>lspci -vvv -nn</code> full PCI detail</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-hw-lsusb-v-txt">2026-10-19_hw_lsusb_v.txt</a></td>
+<td><code>lsusb -tv</code> and <code>lsusb -v</code></td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-hw-pci-sysfs-txt">2026-10-19_hw_pci_sysfs.txt</a></td>
+<td>PCI devices and slots from sysfs</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-hw-pnp-irq-txt">2026-10-19_hw_pnp_irq.txt</a></td>
+<td>PnP devices, resources and /proc/interrupts</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-hw-resources-txt">2026-10-19_hw_resources.txt</a></td>
+<td>USB devices, hwmon names, /proc/iomem, /proc/ioports</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-imm-cli-baseline-txt">2026-10-19_imm_cli_baseline.txt</a></td>
+<td>IMM legacy CLI read-only commands (vpd, syshealth, ifconfig, help, sensors)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-imm-lanoverusb-host-txt">2026-10-19_imm_lanoverusb_host.txt</a></td>
+<td>Host-side LAN-over-USB device (lsusb, ip addr, ip route)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-imm-nmap-ssh-txt">2026-10-19_imm_nmap_ssh.txt</a></td>
+<td>nmap SSH algorithm and host key enumeration (22)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-imm-nmap-tcp-txt">2026-10-19_imm_nmap_tcp.txt</a></td>
+<td>nmap full TCP port scan of the IMM</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-imm-nmap-tls-txt">2026-10-19_imm_nmap_tls.txt</a></td>
+<td>nmap TLS certificate and cipher enumeration (443)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-imm-nmap-udp-txt">2026-10-19_imm_nmap_udp.txt</a></td>
+<td>nmap UDP scan 161/623/427</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-imm-snmp-txt">2026-10-19_imm_snmp.txt</a></td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-imm-tls-openssl-txt">2026-10-19_imm_tls_openssl.txt</a></td>
+<td>openssl s_client TLS probes against the IMM</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-imm-web-txt">2026-10-19_imm_web.txt</a></td>
+<td>Unauthenticated web UI probing and SSH banner</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-ipmi-inband-txt">2026-10-19_ipmi_inband.txt</a></td>
+<td>In-band ipmitool: mc info, FRU, SDR, sensors, SEL, LAN, SOL, chassis</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-mem-storage-drives-txt">2026-10-19_mem_storage_drives.txt</a></td>
+<td>SCSI hosts, dmesg, block devices, SAS PHYs, SMART</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-mem-storage-memory-txt">2026-10-19_mem_storage_memory.txt</a></td>
+<td>SMBIOS memory types 16/17/19/20, EDAC, meminfo</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-mem-storage-pci-txt">2026-10-19_mem_storage_pci.txt</a></td>
+<td>Storage controllers on PCI</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-19-os-inventory-txt">2026-10-19_os_inventory.txt</a></td>
+<td>OS-side inventory of the Proxmox host (dmidecode, lscpu, lsblk, dmesg, versions)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-20-host-backup-setup-txt">2026-10-20_host_backup_setup.txt</a></td>
+<td>Proxmox backup job and hook setup on hitachi-data (STATE-CHANGING, owner-requested)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-20-host-probes-boot-apt-txt">2026-10-20_host_probes_boot_apt.txt</a></td>
+<td>Read-only host probes: IA32 emulation, boot loader, EFI boot entries, THP, APT sources, memory, NUMA; integrated (OPT 2 C-BA, OPT 4, TOOLS 2, TOOLS 18)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-20-host-probes-wave2-txt">2026-10-20_host_probes_wave2.txt</a></td>
+<td>Read-only probes for Wave 2 open questions (ipmitool, SDR info, sensor get, cpufreq/cpuidle, KSM, swappiness, schedulers, EFI, microcode, os-release); integrated (SDR C-W2, OPT 4, TOOLS 18)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-20-imm-cli-settings-txt">2026-10-20_imm_cli_settings.txt</a></td>
+<td>IMM legacy CLI display reads: ssl, portcfg, srcfg, timeouts, usbeth, dns, ntp, ldap, passwordcfg, gprofile, slp, <code>ipsec -h</code>, ifconfig, users, clock, syshealth, sensors, vpd, help (IMMI 4.2, IMMA 2/5/6)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-20-imm-port443-http-txt">2026-10-20_imm_port443_http.txt</a></td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-20-imm-readlog-txt">2026-10-20_imm_readlog.txt</a></td>
+<td>Complete IMM event log via legacy CLI <code>readlog</code> (781 entries)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-20-m1015-eventlog-events-txt">2026-10-20_m1015_eventlog/events.txt</a>, <a href="../catalog/files.html#f-captures-2026-10-20-m1015-eventlog-termlog-txt">termlog.txt</a></td>
+<td>M1015 controller event log (2013-2026) and termlog (STOR 14)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-20-sdr-verbose-and-pd0-txt">2026-10-20_sdr_verbose_and_pd0.txt</a></td>
+<td><code>ipmitool sdr elist event</code> (empty), <code>ipmitool -v sdr list all</code> (135 sensors) and storcli slot 0/1 detail (SDR 4.1, 13; STOR 6)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-20-smart-both-drives-txt">2026-10-20_smart_both_drives.txt</a></td>
+<td>smartctl <code>-a</code> and <code>-l xerror</code> of both M1015 drives (STOR 6.1)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-20-storage-hitachi-vd-txt">2026-10-20_storage_hitachi_vd.txt</a></td>
+<td>Creation of VD 1 on the Hitachi drive and storage hitachi-data (STATE-CHANGING, owner-requested)</td>
+</tr>
+<tr>
+<td><a href="../catalog/files.html#f-captures-2026-10-20-storage-storcli-txt">2026-10-20_storage_storcli.txt</a></td>
+<td>storcli read-only <code>show</code> output of the M1015</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="63-firmware-trees">6.3 Firmware trees <a class="anchor" href="#63-firmware-trees" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>../firmware/ibm/ (SOURCE.txt): IBM-hosted packages - imm/1.55-yuooh5a (changelog and README),
+  uefi/1.22-d6e164a and uefi/1.14-d6e156b, serveraid-m5000/12.15.0-0248, broadcom-nic/2.1.5b and 2.3.1e, uxsp/.</li>
+<li>../firmware/lenovo/: Lenovo catalog downloads per category (bios-uefi, diagnostic, management-module, raid-sas-hba,
+  lenovo-xclarity-essentials (OneCLI, BoMC, UpdateXpress), software-and-utilities, and others), one DSxxxxxx folder per
+  package; catalog in ../sources/lenovo/CATALOG.md. Analysis of the packages: FMT 2, TOOLS 4-11.</li>
+</ul>
+<h3 id="64-scripts-and-tests">6.4 Scripts and tests <a class="anchor" href="#64-scripts-and-tests" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Script</th>
+<th>Purpose</th>
+<th>Documented in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../catalog/tools.html#tool-ibm-fw-unpack">../scripts/ibm_fw_unpack.py</a></td>
+<td>Offline analysis of IBM packages, .upd images, descriptors, UEFI FVs, microcode, HII forms</td>
+<td>FMT 9-10; TOOLS 14</td>
+</tr>
+<tr>
+<td><a href="../catalog/tools.html#tool-uefi-fv">../scripts/uefi_fv.py</a></td>
+<td>UEFI PI firmware volume / FFS / section parser</td>
+<td>FMT 9-10; TOOLS 14; UEFI</td>
+</tr>
+<tr>
+<td><a href="../catalog/tools.html#tool-lenovo-downloads">../scripts/lenovo_downloads.py</a></td>
+<td>Lenovo catalog and fetcher for machine type 7945</td>
+<td>TOOLS 14; sources/lenovo/CATALOG.md</td>
+</tr>
+<tr>
+<td><a href="../catalog/tools.html#tool-wayback-mirror">../scripts/wayback_mirror.py</a></td>
+<td>Infocenter mirror from the Internet Archive</td>
+<td>TOOLS 14; sources/infocenter/7945/INDEX.md</td>
+</tr>
+<tr>
+<td><a href="../catalog/tools.html#tool-vzdump-verify-prune">../scripts/vzdump-verify-prune.sh</a></td>
+<td>bash vzdump hook that deletes older backups only after the new one is verified (44 tests in tests/test_vzdump_verify_prune.py)</td>
+<td>TOOLS 14; captures/2026-10-20_host_backup_setup.txt</td>
+</tr>
+</tbody>
+</table></div>
+<p>Tests: <code>python3 -m unittest discover -s tests -v</code> (../tests/, CI in ../.github/workflows/ci.yml).</p>
+<h2 id="7-security-review-status">7. Security review status <a class="anchor" href="#7-security-review-status" aria-label="Link to this section">#</a></h2>
+<p>X3650M3_SECURITY_REVIEW.md (KB_PLAN Wave 2) was written on 2026-10-21 after owner decision D-004.
+Until then the security-relevant facts are in:</p>
+<ul>
+<li><a href="imm-interfaces.html#44-telnet-specifics">IMMI 4.4 Telnet</a>,
+  <a href="imm-interfaces.html#5-ipmi-kcs-and-lan">IMMI 5 IPMI</a>, <a href="imm-interfaces.html#7-snmp">IMMI 7 SNMP</a>,
+  <a href="imm-interfaces.html#12-port-assignments-and-service-enabledisable">IMMI 12 Ports</a>,
+  <a href="imm-interfaces.html#13-interface-relevant-firmware-changes-130-installed-vs-155-latest">IMMI 13 1.30 vs 1.55</a>.</li>
+<li>IMM account and service settings (password policy Legacy, NTP/DNS disabled, LDAP defaults):
+  <a href="imm-interfaces.html#42-command-reference-s-020-chapter-7-vs-measured-help-on-130">IMMI 4.2</a>, IMMA 11 items 15-17.</li>
+<li>Firmware-level fixes and CVEs: <a href="firmware-history.html#latest-available-documented">FWH latest</a>.</li>
+</ul>
+<h2 id="8-index-maintenance-notes">8. Index maintenance notes <a class="anchor" href="#8-index-maintenance-notes" aria-label="Link to this section">#</a></h2>
+<p>Status of the inconsistencies found when this index was first compiled, after the 2026-10-20 refresh:</p>
+<ol>
+<li>Hitachi drive state in STATUS.md and ASSUMPTIONS A-002: resolved (both record VD 1 hitachi_data).</li>
+<li>hitachi-data content types: resolved (STATUS.md lists backup, images, rootdir, iso, vztmpl, snippets, as STOR 1).</li>
+<li>IMM open ports: resolved (A-004 lists 427/tcp, as IMMA 5.1).</li>
+<li>IMM <code>readlog</code> pending in OPT 13 and PWR 12, R-C10 as a proposal: resolved (marked done; the IMM log has no
+   thermal, fan or PSU event, PWR 12 item 10).</li>
+<li>Off-host backup (OPT 1 rank 1, R-A6) vs the hitachi-data target: resolved as a note in OPT; the current backup
+   target is a drive in the same chassis, not off-host. No new recommendation was added.</li>
+<li>ERR 17 Q-05 and SDR 12 Q-S8 calling SENSORS_SDR / IMM_INTERFACES "planned": resolved (Q-05 closed, Q-S8
+   reworded).</li>
+<li>ERR 16 C-05 page citation: resolved (IMMA 10 gives PDF p70, printed p52; verified in
+   sources/text/S-004_00kc219.txt).</li>
+<li>Conflict IDs collide across documents (C-1..C-10 in HW, MEM and STOR; C-01..C-09 in ERR); IMMA, SYSARCH, OPT
+   use plain numbers and FWH and UEFI use unnumbered bullets. Cross-references therefore need the document prefix.
+   Still open (structural).</li>
+<li>vzdump hook missing from TOOLS 14: resolved (TOOLS 14 lists scripts/vzdump-verify-prune.sh and its tests).</li>
+<li>captures/2026-10-20_host_probes_wave2.txt not reflected: resolved (SDR C-W2, OPT 4, TOOLS 18, STOR C-9).</li>
+</ol>
+<p>Open notes from the refresh:</p>
+<ol start="11">
+<li><a class="sref" href="../catalog/sources.html#s-020">S-020</a> page convention: SENSORS_SDR cites <a class="sref" href="../catalog/sources.html#s-020">S-020</a> printed page numbers (PDF index = printed + 8), the IMM
+    documents cite the PDF index. The SDR source table states the convention.</li>
+<li>captures/2026-10-20_host_probes_boot_apt.txt: integrated 2026-10-20 (OPT 2 C-BA, OPT 4, TOOLS 2, TOOLS 18;
+    section 4.2 #4-#7 updated). sources/imm_web/1.30/ (IMM web UI files and WSDLs): integrated 2026-10-21 (IMMI 3.3).</li>
+</ol>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../pages/about.html"><span>Previous</span>About this library</a>
+<a class="next" href="system-architecture.html"><span>Next</span>System Architecture</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-machine-overview-as-measured">1. Machine overview (as measured)</a></li><li class="l2"><a href="#2-document-map">2. Document map</a></li><li class="l2"><a href="#3-where-to-find-x">3. Where to find X</a></li><li class="l2"><a href="#4-contradictions-and-open-questions">4. Contradictions and open questions</a></li><li class="l3"><a href="#41-contradictions-consolidated-by-topic">4.1 Contradictions (consolidated by topic)</a></li><li class="l3"><a href="#42-open-questions-and-next-read-only-captures-deduplicated">4.2 Open questions and next read-only captures (deduplicated)</a></li><li class="l2"><a href="#5-owner-approval-required-actions">5. Owner-approval-required actions</a></li><li class="l2"><a href="#6-source-and-capture-index">6. Source and capture index</a></li><li class="l3"><a href="#61-vendor-sources">6.1 Vendor sources</a></li><li class="l3"><a href="#62-captures-captures">6.2 Captures (captures/)</a></li><li class="l3"><a href="#63-firmware-trees">6.3 Firmware trees</a></li><li class="l3"><a href="#64-scripts-and-tests">6.4 Scripts and tests</a></li><li class="l2"><a href="#7-security-review-status">7. Security review status</a></li><li class="l2"><a href="#8-index-maintenance-notes">8. Index maintenance notes</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

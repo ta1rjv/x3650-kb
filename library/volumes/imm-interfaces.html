@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IMM (v1) Management Interfaces - x3650 M3 Library</title>
+<meta name="description" content="every external and host-side management interface of the first-generation Integrated Management Module (IMM v1, not IMM2 or XCC) on the owner&#x27;s x3650 M3, type 7945KEG, IMM firmware 1.30 (YUOOC7E) ...">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="volume" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="../pages/reading-guide.html">Reading Guide</a></li>
+<li><a href="../pages/system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="../pages/firmware-guide.html">Firmware Guide</a></li>
+<li><a href="../pages/imm-guide.html">IMM Guide</a></li>
+<li><a href="../pages/uefi-guide.html">UEFI Guide</a></li>
+<li><a href="../pages/troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="../pages/tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="../pages/glossary.html">Glossary</a></li>
+<li><a href="../pages/faq.html">FAQ</a></li>
+<li><a href="../pages/timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="../pages/about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="system-architecture.html">System Architecture</a></li>
+<li><a href="hardware-components.html">Hardware Components</a></li>
+<li><a href="memory.html">Memory</a></li>
+<li><a href="storage-raid.html">Storage and RAID</a></li>
+<li><a href="power-thermal.html">Power and Thermal</a></li>
+<li><a href="sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="imm-interfaces.html" aria-current="page">IMM (v1) Management Interfaces</a></li>
+<li><a href="imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="uefi.html">UEFI Firmware</a></li>
+<li><a href="firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Volumes</li><li>Integrated Management Module</li><li aria-current="page">IMM (v1) Management Interfaces</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">Volume 9 - Integrated Management Module</p>
+<h1>IMM (v1) Management Interfaces</h1>
+<p class="subtitle">IBM System x3650 M3 - IMM (v1) Management Interfaces</p>
+<p class="lede">every external and host-side management interface of the first-generation Integrated Management Module (IMM v1, not IMM2 or XCC) on the owner&#x27;s x3650 M3, type 7945KEG, IMM firmware 1.30 (YUOOC7E): web interface, legacy CLI (SSH and Telnet), IPMI (KCS and ...</p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_IMM_INTERFACES.md</code></span> <span>16 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">26</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">51</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">8</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">27</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">24</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-scope-and-conventions">1. Scope and conventions</a></li><li class="l2"><a href="#2-interface-summary">2. Interface summary</a></li><li class="l2"><a href="#3-web-interface-httphttps">3. Web interface (HTTP/HTTPS)</a></li><li class="l3"><a href="#31-transport-and-login">3.1 Transport and login</a></li><li class="l3"><a href="#32-navigation-map-left-pane-imm-v1">3.2 Navigation map (left pane, IMM v1)</a></li><li class="l3"><a href="#33-implementation-on-firmware-130-captured-web-ui">3.3 Implementation on firmware 1.30 (captured web UI)</a></li><li class="l2"><a href="#4-legacy-cli-ssh-and-telnet">4. Legacy CLI (SSH and Telnet)</a></li><li class="l3"><a href="#41-access-and-limits">4.1 Access and limits</a></li><li class="l3"><a href="#42-command-reference-s-020-chapter-7-vs-measured-help-on-130">4.2 Command reference (S-020 Chapter 7 vs measured help on 1.30)</a></li><li class="l3"><a href="#43-documented-vs-measured-command-set">4.3 Documented vs measured command set</a></li><li class="l3"><a href="#44-telnet-specifics">4.4 Telnet specifics</a></li><li class="l3"><a href="#45-ssh-specifics">4.5 SSH specifics</a></li><li class="l2"><a href="#5-ipmi-kcs-and-lan">5. IPMI (KCS and LAN)</a></li><li class="l3"><a href="#51-channels-and-access-paths">5.1 Channels and access paths</a></li><li class="l3"><a href="#52-users-and-privileges">5.2 Users and privileges</a></li><li class="l3"><a href="#53-standard-ipmi-commands-measured-support-ipmitool-in-band-2026-10-19">5.3 Standard IPMI commands: measured support (ipmitool in-band, 2026-10-19)</a></li><li class="l3"><a href="#55-ibm-oem-netfn-and-commands">5.5 IBM OEM NetFn and commands</a></li><li class="l3"><a href="#56-alerting-pet-and-the-ipmi-snmp-community-string">5.6 Alerting (PET) and the IPMI &quot;SNMP Community String&quot;</a></li><li class="l2"><a href="#6-serial-over-lan-and-serial-redirection">6. Serial over LAN and serial redirection</a></li><li class="l3"><a href="#61-two-serial-paths">6.1 Two serial paths</a></li><li class="l3"><a href="#62-measured-sol-configuration-ipmitool-sol-info-1">6.2 Measured SOL configuration (ipmitool sol info 1)</a></li><li class="l3"><a href="#63-uefi-side">6.3 UEFI side</a></li><li class="l2"><a href="#7-snmp">7. SNMP</a></li><li class="l3"><a href="#71-agents-and-access-control">7.1 Agents and access control</a></li><li class="l3"><a href="#72-traps-alert-categories-mibs">7.2 Traps, alert categories, MIBs</a></li><li class="l3"><a href="#73-asu-names-immv1-list-s-026-printed-p22-24">7.3 ASU names (IMMv1 list, S-026 printed p22-24)</a></li><li class="l2"><a href="#8-cim--ibm-systems-director-5988-5989-and-ws-man">8. CIM / IBM Systems Director (5988, 5989) and WS-Man</a></li><li class="l3"><a href="#81-live-cim-inventory-measured-captures2026-10-21_imm_cim_read_inventorytxt">8.1 Live CIM inventory (MEASURED, captures/2026-10-21_imm_cim_read_inventory.txt)</a></li><li class="l2"><a href="#9-slp-427">9. SLP (427)</a></li><li class="l2"><a href="#10-lan-over-usb-in-band-network-interface">10. LAN over USB (in-band network interface)</a></li><li class="l2"><a href="#11-asu-as-a-configuration-interface">11. ASU as a configuration interface</a></li><li class="l2"><a href="#12-port-assignments-and-service-enabledisable">12. Port assignments and service enable/disable</a></li><li class="l2"><a href="#13-interface-relevant-firmware-changes-130-installed-vs-155-latest">13. Interface-relevant firmware changes (1.30 installed vs 1.55 latest)</a></li><li class="l2"><a href="#14-source-conflicts">14. Source conflicts</a></li><li class="l2"><a href="#15-open-questions--next-captures">15. Open questions / next captures</a></li></ul></nav></details>
+<div class="prose">
+<p>Scope: every external and host-side management interface of the first-generation Integrated Management Module
+(IMM v1, not IMM2 or XCC) on the owner's x3650 M3, type 7945KEG, IMM firmware 1.30 (YUOOC7E): web interface,
+legacy CLI (SSH and Telnet), IPMI (KCS and LAN), Serial over LAN and serial redirection, SNMP, CIM / IBM Systems
+Director (ports 5988/5989), SLP, LAN over USB and ASU as a configuration path. For each interface: port,
+authentication, what it can read and change, measured state on this server and documented behavior.</p>
+<p>IMM internals, the port scan summary, users, Standard vs Premium, update flow and the security observation list
+live in docs/X3650M3_IMM_ARCHITECTURE.md and are linked, not repeated. Sensor details belong to
+X3650M3_SENSORS_SDR.md and the security assessment to X3650M3_SECURITY_REVIEW.md (both Wave 2, not yet written).</p>
+<h2 id="contents">Contents <a class="anchor" href="#contents" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Scope and conventions</li>
+<li>Interface summary</li>
+<li>Web interface (HTTP/HTTPS)</li>
+<li>Legacy CLI (SSH and Telnet)</li>
+<li>IPMI (KCS and LAN)</li>
+<li>Serial over LAN and serial redirection</li>
+<li>SNMP</li>
+<li>CIM / IBM Systems Director (5988, 5989) and WS-Man</li>
+<li>SLP (427)</li>
+<li>LAN over USB (in-band network interface)</li>
+<li>ASU as a configuration interface</li>
+<li>Port assignments and service enable/disable</li>
+<li>Interface-relevant firmware changes (1.30 installed vs 1.55 latest)</li>
+<li>Source conflicts</li>
+<li>Open questions / next captures</li>
+</ol>
+<h2 id="1-scope-and-conventions">1. Scope and conventions <a class="anchor" href="#1-scope-and-conventions" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Truth levels (docs/AGENT.md): <span class="tl tl-documented">DOCUMENTED</span> (vendor document), <span class="tl tl-extracted">EXTRACTED</span> (firmware binary), <span class="tl tl-measured">MEASURED</span> (capture from
+  the owner's server), <span class="tl tl-candidate">CANDIDATE</span> (inference, reason given), <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>Page convention (same as docs/X3650M3_IMM_ARCHITECTURE.md section 1): pN = PDF page index of the file under
+  sources/text/ (form-feed count). <a class="sref" href="../catalog/sources.html#s-020">S-020</a> printed page = PDF page minus 8 (for example <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p44 = printed 36).
+  <a class="sref" href="../catalog/sources.html#s-002">S-002</a>: printed = PDF page minus 14. <a class="sref" href="../catalog/sources.html#s-026">S-026</a> (ASU 9.30 IBM edition, sources/text/S-026_ibm_util_asu_asu79n_9.30_
+  anyos_noarch.txt) is cited by printed page. <a class="sref" href="../catalog/sources.html#s-027">S-027</a> (IMM2 configurations with ASU) is an IMM2 document; only its
+  "Difference from IMM1" notes and Appendix I (IMM1 column) are used as IMM1 facts. <a class="sref" href="../catalog/sources.html#s-025">S-025</a> is a .doc read by
+  <code>strings</code> and cited by section. Infocenter pages are cited by file name under sources/infocenter/7945/text/.</li>
+<li>Changelog = firmware/ibm/imm/1.55-yuooh5a/ibm_fw_imm_yuooh5a-1.55_anyos_noarch.chg (SHA256
+  6e268e8b0b58c706c72a72a8037b3dc70d35d50c96726cfc2a834b299eafdaf1). README = ibm_fw_imm_yuooh5a-1.55_linux_32-64.txt
+  in the same directory (SHA256 836ae25b76610bbc6d641cb8b9dc0ec63dcd7c4e4da05dd4553d3346f44676d2).</li>
+<li>Captures: captures/2026-10-19_imm_cli_baseline.txt (cli_baseline), 2026-10-19_ipmi_inband.txt (ipmi_inband),
+  2026-10-19_imm_nmap_tcp.txt / <em>nmap_udp.txt / _nmap_ssh.txt / _nmap_tls.txt (nmap</em>*), 2026-10-19_imm_snmp.txt
+  (imm_snmp), 2026-10-19_imm_web.txt (imm_web), 2026-10-19_imm_tls_openssl.txt (tls_openssl),
+  2026-10-19_imm_lanoverusb_host.txt (lanoverusb_host), 2026-10-20_imm_port443_http.txt (port443_http),
+  2026-10-20_imm_readlog.txt (imm_readlog; "#N" = entry index, 1 = newest), 2026-10-20_imm_cli_settings.txt
+  (cli_settings: display-only CLI reads of ssl, portcfg, srcfg, timeouts, usbeth, dns, ntp, ldap, passwordcfg,
+  gprofile, slp, <code>ipsec -h</code>, <code>ifconfig eth0</code>, snmp, snmpalerts, alertcfg, users, clock, syshealth, led, fans, temps,
+  volts, vpd, help; 2026-10-20 ~18:05 IMM clock; "line N" = line in that file).</li>
+<li>Generation rule: only IMM v1 facts are used as facts. IMM2 material (<a class="sref" href="../catalog/sources.html#s-027">S-027</a> main text, ASU FoD sections) is
+  marked as such and never used to state IMM1 behavior.</li>
+<li>Credentials: never recorded. The vendor guides document a factory-default account (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p22, p33, p34,
+  p133; <a class="sref" href="../catalog/sources.html#s-025">S-025</a> examples); it is not reproduced here and it is not present on this unit (<span class="tl tl-measured">MEASURED</span>, cli_baseline
+  and cli_settings <code>users</code>). The local account name visible in the captures is not copied into this document; it
+  is called "the owner's account" here.</li>
+<li>Offline only: nothing in this document was run against the server ([lab-ip]), the IMM ([lab-ip]) or the
+  internet. Read-only probes that would close gaps are listed in section 15.</li>
+</ul>
+<h2 id="2-interface-summary">2. Interface summary <a class="anchor" href="#2-interface-summary" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>Port / path</th>
+<th>Authentication (documented)</th>
+<th>Can read</th>
+<th>Can change</th>
+<th>Measured state (this unit, IMM 1.30)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Web (HTTP)</td>
+<td>80/tcp</td>
+<td>IMM login profile or LDAP (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p22, p37)</td>
+<td>everything in section 3</td>
+<td>everything in section 3 (per authority)</td>
+<td>open, lighttpd/1.4.13, 200 OK on / (imm_web)</td>
+</tr>
+<tr>
+<td>Web (HTTPS)</td>
+<td>443/tcp</td>
+<td>as HTTP over SSL/TLS (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p85)</td>
+<td>as HTTP</td>
+<td>as HTTP</td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td>Legacy CLI over SSH</td>
+<td>22/tcp</td>
+<td>password only, local or LDAP; no public key (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p92)</td>
+<td>section 4 commands</td>
+<td>section 4 commands</td>
+<td>open, OpenSSH 4.2, prompt <code>system&gt;</code> (nmap_tcp, cli_baseline)</td>
+</tr>
+<tr>
+<td>Legacy CLI over Telnet</td>
+<td>23/tcp</td>
+<td>same login database, cleartext (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p42, p134)</td>
+<td>as SSH</td>
+<td>as SSH</td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td>IPMI KCS (system interface)</td>
+<td>I/O 0xCA2, /dev/ipmi0 on the host</td>
+<td>none on the host side (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed p16; <span class="tl tl-candidate">CANDIDATE</span> for raw IPMI, see 5.1)</td>
+<td>SDR, sensors, SEL, FRU, LAN/user/SOL config</td>
+<td>IPMI configuration, power, SEL</td>
+<td>working from the Proxmox host as root without IMM credentials (ipmi_inband)</td>
+</tr>
+<tr>
+<td>IPMI over LAN (RMCP/RMCP+)</td>
+<td>623/udp</td>
+<td>IPMI users = IMM login profiles (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p33); IPMI never uses LDAP (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p37-38)</td>
+<td>as KCS</td>
+<td>as KCS (per IPMI privilege)</td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td>Serial over LAN (IPMI payload)</td>
+<td>623/udp, COM1</td>
+<td>IPMI session; SOL privilege USER (<span class="tl tl-measured">MEASURED</span>)</td>
+<td>host serial console</td>
+<td>host console input</td>
+<td>enabled, forced encryption, 115.2 kbps (ipmi_inband)</td>
+</tr>
+<tr>
+<td>Serial redirection (CLI <code>console 1</code>)</td>
+<td>via SSH/Telnet, COM2</td>
+<td>CLI login</td>
+<td>host COM2</td>
+<td>host console input</td>
+<td>COM2 115200 baud, CLI mode 2 "CLI with user defined keystroke sequences", key sequence <code>^[(</code> (cli_settings <code>portcfg</code>, <code>srcfg</code>, lines 14-19); <code>console 1</code> not run</td>
+</tr>
+<tr>
+<td>SNMPv1 / SNMPv3 agent</td>
+<td>161/udp</td>
+<td>v1 community + host list; v3 per login profile (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p36, p50-51)</td>
+<td>IMM MIB objects</td>
+<td>MIB objects with Set access (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p36, p51)</td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td>SNMP traps</td>
+<td>162/udp outbound (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p44)</td>
+<td>community or v3 user trap host</td>
+<td>-</td>
+<td>-</td>
+<td><span class="tl tl-unknown">UNKNOWN</span>; not readable through the 1.30 CLI (<code>snmp</code>, <code>snmpalerts</code>, <code>alertcfg</code> "Command not recognized", cli_settings lines 151-164)</td>
+</tr>
+<tr>
+<td>CIM over HTTP (Systems Director)</td>
+<td>5988/tcp</td>
+<td>[not published]</td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td>open, sfcHttpd (SFCB); Basic credentials would travel in clear text because 5989 is closed (captures/2026-10-21_imm_slp_cim_snmpv3.txt)</td>
+</tr>
+<tr>
+<td>CIM over HTTPS (Systems Director)</td>
+<td>5989/tcp</td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td>closed (nmap_tcp; connection refused again 2026-10-21)</td>
+</tr>
+<tr>
+<td>SLP</td>
+<td>427/tcp+udp</td>
+<td>none documented</td>
+<td>service advertisements</td>
+<td>-</td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td>Remote presence</td>
+<td>3900/tcp</td>
+<td>web login with Supervisor (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p113)</td>
+<td>host video</td>
+<td>host keyboard/mouse, virtual media</td>
+<td>port open; Premium key presence <span class="tl tl-unknown">UNKNOWN</span> (see architecture doc section 7)</td>
+</tr>
+<tr>
+<td>LAN over USB</td>
+<td>IMM 169.254.95.118/16 (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p129)</td>
+<td>ASU over this link needs credentials (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed p16)</td>
+<td>IMM services in-band</td>
+<td>IMM settings, firmware (in-band flash)</td>
+<td>IMM side enabled (<code>usbeth -en enabled</code>, cli_settings line 26); host device present (04b3:4010), interface DOWN, no address (lanoverusb_host)</td>
+</tr>
+<tr>
+<td>SMTP alerts</td>
+<td>outbound, port configurable since 1.28</td>
+<td>optional SMTP auth (changelog 1.35 adds secure SMTP auth)</td>
+<td>-</td>
+<td>-</td>
+<td>not configured: SMTP server 127.0.0.1 port 25, all 12 alert recipients unused (<span class="tl tl-measured">MEASURED</span> 2026-10-21, captures/2026-10-21_imm_wsman_read_inventory.txt <code>GetSMTPSettings</code>, <code>GetAlertSettings</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Port numbers, the full TCP scan and the measured-vs-documented port table are in
+docs/X3650M3_IMM_ARCHITECTURE.md section 5.1; they are not repeated here.</p>
+<h2 id="3-web-interface-httphttps">3. Web interface (HTTP/HTTPS) <a class="anchor" href="#3-web-interface-httphttps" aria-label="Link to this section">#</a></h2>
+<h3 id="31-transport-and-login">3.1 Transport and login <a class="anchor" href="#31-transport-and-login" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span>: the web interface is reached by typing the IMM IP address or host name; after login a Welcome page
+  asks for an inactivity timeout (fixed when the global login settings say so), then opens System Status
+  (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p22, printed 14). All login attempts are written to the event log (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p22).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span>: HTTP default port 80, HTTPS default 443, both changeable to 1-65535 on the Port Assignments page
+  (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p43). If the HTTP port changes, the URL needs <code>http://host:port/</code> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p43).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span>: the secure web server needs a certificate (self-signed or CA-signed) before SSL can be enabled;
+  enabling or disabling the HTTPS server takes effect only after an IMM restart (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p84-87, p90).
+  The client must use SSL3 or TLS (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p87). Cryptography mode Basic Compatible (default) or High Security
+  (disables SSL, TLS key at least 128 bits) applies to the HTTPS server and to Systems Director over HTTPS
+  (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p91-92).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (IMM1 default): IMM.SSL_Server_Enable default value Disabled on IMM1 (Enabled on IMM2), and the
+  HTTPS server certificate default "Private Key and Cert/CSR not available" on IMM1 (<a class="sref" href="../catalog/sources.html#s-027">S-027</a> Appendix I, IMM1
+  column). This gives a documented reason why an IMM1 that was never configured has no working TLS on 443.</li>
+</ul>
+<h3 id="32-navigation-map-left-pane-imm-v1">3.2 Navigation map (left pane, IMM v1) <a class="anchor" href="#32-navigation-map-left-pane-imm-v1" aria-label="Link to this section">#</a></h3>
+<p>Source for links and actions: <a class="sref" href="../catalog/sources.html#s-020">S-020</a> Table 2 "IMM actions" p23-25 (printed 15-17) and the Chapter 3 overview
+p27-28. Authority column from <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p35-36 (custom authority levels) and the page-specific notes cited.
+CLI and ASU columns: <a class="sref" href="../catalog/sources.html#s-020">S-020</a> Chapter 7 and <a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed p22-24 (IMMv1 setting list); "-" means no documented
+equivalent.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Web link (<a class="sref" href="../catalog/sources.html#s-020">S-020</a>)</th>
+<th>What it reads</th>
+<th>What it changes</th>
+<th>Required authority (documented)</th>
+<th>CLI equivalent</th>
+<th>ASU settings (examples)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>System Status</td>
+<td>power and health state, temperatures, voltages, fans, last OS-failure screen, logged-in users, locator LED (p23, p101)</td>
+<td>locator LED</td>
+<td>any login</td>
+<td>syshealth, temps, volts, fans, identify</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Virtual Light Path</td>
+<td>name, color, status of every light path LED (p23, p105)</td>
+<td>-</td>
+<td>any login</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Event Log</td>
+<td>IMM event log incl. remote access attempts and configuration changes; sort/filter (p23, p105)</td>
+<td>clear log</td>
+<td>Ability to Clear Event Logs to clear (p35)</td>
+<td>readlog, clearlog</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Vital Product Data</td>
+<td>server, firmware and component VPD (p23, p109)</td>
+<td>-</td>
+<td>any login</td>
+<td>vpd</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Power/Restart</td>
+<td>power state, State, restart count, power-on hours (p111-112)</td>
+<td>power on/off, OS shutdown then off/restart, immediate restart, scheduled daily/weekly actions (p112-113)</td>
+<td>Supervisor per p112; Remote Server Power/Restart Access custom right (p35)</td>
+<td>power, reset</td>
+<td>IMM.PowerOnServer, IMM.ShutdownAndPowerOff, IMM.ShutdownAndRestart</td>
+</tr>
+<tr>
+<td>Remote Control (Premium)</td>
+<td>host video</td>
+<td>keyboard/mouse, virtual media, diskette image upload (p24, p113, p121)</td>
+<td>Supervisor (p113)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>PXE Network Boot</td>
+<td>-</td>
+<td>one-shot PXE boot at next restart unless under PAP (p24, p123)</td>
+<td>Adapter Configuration - Advanced (p35)</td>
+<td>none in 1.30 help (a CLI command was added in 1.33, changelog)</td>
+<td>IMM.PXE_NextBootEnabled (name from <a class="sref" href="../catalog/sources.html#s-026">S-026</a>; IMM1 applicability not verified)</td>
+</tr>
+<tr>
+<td>Firmware Update</td>
+<td>-</td>
+<td>IMM, UEFI, DSA firmware (p24, p123-124)</td>
+<td>Adapter Configuration - Advanced (p35)</td>
+<td>update (TFTP)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>System Settings</td>
+<td>IMM name (16 chars), contact and location (47 chars each), server timeouts, IMM clock and NTP, USB in-band setting (p24, p28-32)</td>
+<td>same</td>
+<td>Adapter Configuration - Basic (p35)</td>
+<td>timeouts, clock, ntp, usbeth</td>
+<td>IMM.IMMInfo_Name, IMM.IMMInfo_Contact, IMM.IMMInfo_Location, IMM.OSWatchdog, IMM.LoaderWatchdog, IMM.PowerOffDelay, IMM.NTPHost, IMM.LanOverUsb</td>
+</tr>
+<tr>
+<td>Login Profiles</td>
+<td>12 profiles, global login settings, account security level (p24, p33-38)</td>
+<td>add/modify/delete users, SNMPv3 user settings, LDAP/local order, lockout, web timeout</td>
+<td>User Account Management (p35)</td>
+<td>users, passwordcfg, gprofile</td>
+<td>IMM.LoginId.n, IMM.AuthorityLevel.n, IMM.SNMPv3_*.n, IMM.User_Authentication_Method, IMM.LockoutPeriod, IMM.WebTimeout, IMM.AccountSecurity</td>
+</tr>
+<tr>
+<td>Alerts</td>
+<td>12 remote alert recipients, global retry settings, SNMP alert categories (p24, p38-41)</td>
+<td>same</td>
+<td>Adapter Configuration - Basic (p35)</td>
+<td>- (no alert command in the measured help)</td>
+<td>IMM.RemoteAlertRecipient_*.n, IMM.RetryLimit, IMM.EntriesDelay, IMM.RetryDelay, IMM.SNMPTraps</td>
+</tr>
+<tr>
+<td>Serial Port</td>
+<td>COM2 baud rate, CLI mode / exit key sequence (p24, p41-43)</td>
+<td>same</td>
+<td>Networking &amp; Security (p35)</td>
+<td>portcfg, srcfg</td>
+<td>IMM.SerialBaudRate, IMM.SerialRedirectionCLIMode1, IMM.SerialExitCLIKeySequence</td>
+</tr>
+<tr>
+<td>Port Assignments</td>
+<td>port numbers of HTTP, HTTPS, Telnet, SSH, SNMP agent, SNMP traps, remote presence, Systems Director HTTP/HTTPS (p24, p43-44)</td>
+<td>same</td>
+<td>Networking &amp; Security (p35)</td>
+<td>-</td>
+<td>IMM.HTTPPort, IMM.SSLPort, IMM.TelnetPort, IMM.SSHPort, IMM.SNMP_AgentPort, IMM.SNMP_TrapPort, IMM.CIMOverHTTPPort, IMM.CIMOverHTTPSPort</td>
+</tr>
+<tr>
+<td>Network Interfaces</td>
+<td>Ethernet, IPv4, IPv6, advanced (rate, duplex, MTU 68-1500, LAA) (p25, p44-49)</td>
+<td>same; changes after IMM restart (<a class="sref" href="../catalog/sources.html#s-027">S-027</a> IMM1 notes)</td>
+<td>Networking &amp; Security (p35)</td>
+<td>ifconfig, dhcpinfo</td>
+<td>IMM.HostIPAddress1, IMM.HostIPSubnet1, IMM.GatewayIPAddress1, IMM.DHCP1, IMM.HostName1, IMM.SharedNicMode</td>
+</tr>
+<tr>
+<td>Network Protocols</td>
+<td>SNMP, DNS, Telnet, SMTP, LDAP, SLP (p25, p27, p49-53)</td>
+<td>same; IMM restart required (p49-50)</td>
+<td>Networking &amp; Security (p35)</td>
+<td>dns, ldap, slp (no snmp/smtp/telnet command in the measured help)</td>
+<td>IMM.SNMPv1Agent, IMM.SNMPv3Agent, IMM.Community_Name.n, IMM.DNS_Enable, IMM.TelnetSessions, IMM.SMTP_ServerName</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>data encryption, HTTPS server, Systems Director over HTTPS, LDAP client SSL, certificates, cryptography mode, SSH server and key (p25, p84-93)</td>
+<td>same; SSL server changes need IMM restart (p85)</td>
+<td>Networking &amp; Security (p35)</td>
+<td>ssl (SSH has no CLI command in the measured help)</td>
+<td>IMM.SSL_Server_Enable, IMM.CIMXMLOverHTTPS_Enable, IMM.SSL_Client_Enable, IMM.SSH_Enable</td>
+</tr>
+<tr>
+<td>Configuration File</td>
+<td>configuration summary; backup excludes Security page settings and SSH private key (p94, p92)</td>
+<td>restore / modify-and-restore</td>
+<td>Adapter Configuration - Advanced (p35)</td>
+<td>-</td>
+<td>(ASU save/restore)</td>
+</tr>
+<tr>
+<td>Restore Default Settings</td>
+<td>-</td>
+<td>factory defaults (p25, p95-96)</td>
+<td>Adapter Configuration - Advanced (p35)</td>
+<td>clearcfg</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Restart IMM</td>
+<td>-</td>
+<td>IMM restart; Ethernet dropped (p96)</td>
+<td>Supervisor (p96)</td>
+<td>resetsp</td>
+<td>(ASU rebootimm, <a class="sref" href="../catalog/sources.html#s-026">S-026</a>)</td>
+</tr>
+<tr>
+<td>Scalable Partitioning</td>
+<td>partition state (p25, p96)</td>
+<td>partition config</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Service Advisor</td>
+<td>-</td>
+<td>forward serviceable events to IBM (p25, p96)</td>
+<td>-</td>
+<td>autoftp, chconfig, ... (not in the measured help)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Log off</td>
+<td>-</td>
+<td>ends session (p25)</td>
+<td>-</td>
+<td>exit</td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+<p>Notes:</p>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span>: "View Configuration Summary" link at the top right of most pages (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p25).</li>
+<li><span class="tl tl-candidate">CANDIDATE</span>: Scalable Partitioning and Service Advisor do not apply to the x3650 M3. Reason: the changelog adds
+  Service Advisor only for x3850/x3950 X5 and x3690 X5 (1.32) and scalable complexes are an X5 multi-node feature
+  (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p129 names x3850/x3950 X5 for multi-node); <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p25 says to check the server documentation. Whether the
+  links appear on this unit's web page is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>The documented page names above come from <a class="sref" href="../catalog/sources.html#s-020">S-020</a>; the implemented page structure (frames, URLs, JavaScript
+  files) of firmware 1.30 is summarised in section 3.3. The CLI is documented as a subset of the web functions
+  (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p133).</li>
+</ul>
+<h3 id="33-implementation-on-firmware-130-captured-web-ui">3.3 Implementation on firmware 1.30 (captured web UI) <a class="anchor" href="#33-implementation-on-firmware-130-captured-web-ui" aria-label="Link to this section">#</a></h3>
+<p>Summary only; the full analysis, the endpoint table and the 133-operation WS-Man catalogue are in
+<a href="imm-web-api.html">X3650M3_IMM_WEB_API.md</a> and are not repeated here. Sources: the static UI files and
+WSDLs under <a href="../catalog/files.html#f-sources-imm-web-1-30-readme-md">sources/imm_web/1.30/</a> (UI = file under that directory, cited as
+<code>file:line</code>; retrieval method, SHA256SUMS and CRAWL_LOG.tsv in its README) and the captures named in section 1.</p>
+<ul>
+<li><span class="tl tl-extracted">EXTRACTED</span> (code base): 106 of the 129 files carry the header "(C)Copyright 2007-2008, American Megatrends Inc."
+  (grep over sources/imm_web/1.30; for example index.html:1-24). <span class="tl tl-candidate">CANDIDATE</span>: the UI derives from the AMI MegaRAC
+  BMC web stack, customised by IBM ("iBMC" names, IBM resource URIs). Reason: AMI copyright and authors plus AMI
+  gateway code in lib/xmit.js; the word "MegaRAC" occurs in no stored file and no vendor document in the
+  repository states the lineage (<a href="imm-web-api.html#21-ami-megarac-lineage-evidence">WEB_API 2.1</a>).</li>
+<li><span class="tl tl-extracted">EXTRACTED</span> (UI architecture): <code>/</code> (index.html) is a JavaScript frameset with frameHeader, frameTree and
+  frameMain (index.html:82-88). Content pages are page/*.html with logic in impl/&lt;page&gt;_imp.js. The top window
+  loads the WS-Man library (lib/wsman/wsman.js, index.html:39-51), downloads six WSDLs after login and turns
+  every WSDL operation into a global function <code>top.&lt;Operation&gt;(input, callback)</code> (home_imp.js:161-231). Almost
+  every page reads and writes IMM state through these calls
+  (<a href="imm-web-api.html#3-ui-architecture">WEB_API 3</a>).</li>
+<li><span class="tl tl-extracted">EXTRACTED</span> (WS-Man client): <code>POST &lt;scheme&gt;://&lt;host&gt;/wsman</code> (home_imp.js:51), <code>Content-Type: text/xml</code>, no
+  SOAPAction header (lib/wsman/soap.js:64-66, lib/wsman/WSDLOperation.js:150-154). The WSDLs are fetched by
+  WS-Transfer Get with ResourceURI wsman:system/catalog/2005/06/WSDL1.1 for the six IBM resource URIs
+  <a href="http://www.ibm.com/iBMC/sp/{Monitors" rel="noopener">http://www.ibm.com/iBMC/sp/{Monitors</a>, Tasks, iBMCControl, iBMCNWProtocol, ServiceAdvisor, Scalability}
+  (sources/imm_web/1.30/README.md). <span class="tl tl-measured">MEASURED</span>: every WSDL GetResponse names <code>http://[lab-ip]/wsman</code> as
+  wsa:From, i.e. WS-Man is served by the web server on port 80 (wsdl/*.wsdl.xml headers). Together the six WSDLs
+  declare 133 operations (Monitors 17, Tasks 20, iBMCControl 54, iBMCNWProtocol 13, ServiceAdvisor 21,
+  Scalability 8; README.md); the stored UI calls 92 of the names (WSMAN_OPERATIONS.tsv). Operation list:
+  <a href="imm-web-api.html#6-operation-catalogue-133-operations">WEB_API 6</a>; mapping to <a class="sref" href="../catalog/sources.html#s-020">S-020</a> pages, CLI, ASU
+  and CIM profiles:
+  <a href="imm-web-api.html#7-mapping-web-function-ws-man-cli-asu-cim-profile">WEB_API 7</a>.</li>
+<li><span class="tl tl-extracted">EXTRACTED</span> (main endpoints besides /wsman): <code>/session/create</code>, <code>/session/activate</code>, <code>/session/deactivate</code>,
+  <code>/session/expiry/{increase,resume}</code> (session); <code>/br/backup</code>, <code>/br/restore</code> (configuration backup/restore);
+  <code>/spevents.elg</code> (event log download); <code>/certs/*.der</code>, <code>/ipsec.certs/*.der</code> (certificates and CSRs);
+  multipart uploads to page/tasks_updatefirmware_verify.html (firmware image); <code>/kvm/kvm/{jnlp,activx,activx64}</code>
+  (remote control launcher). Paths, purposes and file:line sources:
+  <a href="imm-web-api.html#43-http-endpoints-other-than-wsman-extracted-unless-marked">WEB_API 4.3</a>. No client URL
+  contains "cgi"; <span class="tl tl-candidate">CANDIDATE</span>: the handlers are lighttpd plugins (reason in WEB_API 2).</li>
+<li><span class="tl tl-extracted">EXTRACTED</span> (authentication and session, client side): login is <code>POST /session/create</code> with the raw body
+  <code>&lt;user&gt;,&lt;password&gt;</code>, comma-joined and unencoded (home_imp.js:348-353); the reply starts with <code>ok</code>,
+  <code>unauthorized</code>, <code>locked</code> or <code>existing</code> (home_imp.js:356-402). After <code>GetPasswordStatus</code> and <code>UserLogOniBMC</code>
+  the session page sets the inactivity timeout and sends <code>POST /session/activate</code> with
+  <code>session_expiry=&lt;seconds&gt;</code> (home_imp.js:451-499). The session id travels as a <code>session_id</code> cookie or, without
+  a cookie, as an HTTP header <code>session_id</code> (lib/wsman/network.js:31-34, 142-145), in the URL fragment and as a
+  <code>?session_id=</code> query parameter on download and KVM URLs. WS-Man HTTP 403/404 is treated as an expired session
+  (home_imp.js:143-147). This complements the <span class="tl tl-documented">DOCUMENTED</span> login behaviour in section 3.1 (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p22). Server-side
+  enforcement and server-set cookie attributes are <span class="tl tl-unknown">UNKNOWN</span> (client code only; no Set-Cookie captured). Full
+  sequence: <a href="imm-web-api.html#4-login-and-session-flow-static-client-code">WEB_API 4</a>; security
+  observations: <span class="unlinked">WEB_API 8</span>.</li>
+</ul>
+<h2 id="4-legacy-cli-ssh-and-telnet">4. Legacy CLI (SSH and Telnet) <a class="anchor" href="#4-legacy-cli-ssh-and-telnet" aria-label="Link to this section">#</a></h2>
+<h3 id="41-access-and-limits">4.1 Access and limits <a class="anchor" href="#41-access-and-limits" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p133-135): reached through Telnet or SSH to the IMM IP address; IMM authentication first;
+  prompt <code>system&gt;</code>; session ends with <code>exit</code>. Syntax <code>command [arguments] [-options]</code>, case sensitive, one
+  command per line, 160-character line limit, no continuation, Backspace is the only editing key, Up/Down and
+  <code>history</code> give the last eight commands (<code>!n</code> re-runs one). Command output is limited to 2048 characters and is
+  shown only after the command finishes (not in serial redirect mode). Every command accepts <code>-h</code>, <code>-help</code>
+  and <code>?</code>.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span>: multiple concurrent CLI sessions are allowed across Telnet and SSH; at most two Telnet sessions;
+  the Telnet session count is 0, 1 or 2 and 0 disables Telnet (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p134, p42, p52).</li>
+<li><span class="tl tl-measured">MEASURED</span> (cli_baseline, over SSH): banner lines "Legacy CLI Authorization" and "Legacy CLI Application", prompt
+  <code>system&gt;</code>; <code>help</code> lists 34 commands (section 4.2). SSH client requirements (legacy algorithms, <code>-tt</code>) are in
+  docs/X3650M3_IMM_ARCHITECTURE.md section 5.2 and assumption A-004.</li>
+</ul>
+<h3 id="42-command-reference-s-020-chapter-7-vs-measured-help-on-130">4.2 Command reference (S-020 Chapter 7 vs measured help on 1.30) <a class="anchor" href="#42-command-reference-s-020-chapter-7-vs-measured-help-on-130" aria-label="Link to this section">#</a></h3>
+<p>"In help" = present in the measured <code>help</code> output (cli_baseline). "R/W" = R for read-only display, W when the
+command changes state. Authority from the <a class="sref" href="../catalog/sources.html#s-020">S-020</a> page cited.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose (documented)</th>
+<th>Syntax / options (documented)</th>
+<th>R/W</th>
+<th>Authority</th>
+<th>In help</th>
+<th>Measured output / note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>? , help</td>
+<td>command list (p135)</td>
+<td><code>help</code>, <code>?</code></td>
+<td>R</td>
+<td>any</td>
+<td>yes</td>
+<td>34 commands listed</td>
+</tr>
+<tr>
+<td>exit</td>
+<td>log off (p135)</td>
+<td><code>exit</code></td>
+<td>R</td>
+<td>any</td>
+<td>yes</td>
+<td>used to end the capture</td>
+</tr>
+<tr>
+<td>history</td>
+<td>last 8 commands (p135)</td>
+<td><code>history</code>, <code>!n</code></td>
+<td>R</td>
+<td>any</td>
+<td>yes</td>
+<td>-</td>
+</tr>
+<tr>
+<td>clearlog</td>
+<td>clear IMM event log (p136)</td>
+<td><code>clearlog</code></td>
+<td>W</td>
+<td>Ability to Clear Event Logs</td>
+<td>yes</td>
+<td>not run (forbidden without approval)</td>
+</tr>
+<tr>
+<td>fans</td>
+<td>fan speed per fan (p136)</td>
+<td><code>fans</code></td>
+<td>R</td>
+<td>any</td>
+<td>yes</td>
+<td>six "Fan nX Tach" rows in % (21, 17, 21, 17, 41, 38)</td>
+</tr>
+<tr>
+<td>readlog</td>
+<td>IMM event log, 5 entries per call, newest first (p136-137)</td>
+<td><code>readlog [-f]</code></td>
+<td>R</td>
+<td>any</td>
+<td>yes</td>
+<td>full log captured 2026-10-20 (imm_readlog): 781 entries, 5 per call, newest first; after the oldest entry the next call wraps to entry 1; <code>readlog -a</code> rejected ("Illegal option: a"); decode in docs/X3650M3_ERROR_CODES.md 15.6-15.8</td>
+</tr>
+<tr>
+<td>syshealth</td>
+<td>power, state, restart count, "IMM software status" (p137)</td>
+<td><code>syshealth</code></td>
+<td>R</td>
+<td>any</td>
+<td>yes</td>
+<td>Power On, State "Booting OS", Restarts 133 on 2026-10-19 and 134 on 2026-10-20 18:05 (cli_settings lines 174-177; no software-status line)</td>
+</tr>
+<tr>
+<td>temps</td>
+<td>temperatures with WR/W/T/SS/HS columns (p137)</td>
+<td><code>temps</code></td>
+<td>R</td>
+<td>any</td>
+<td>yes</td>
+<td>only "Ambient Temp": WR *, W 38 C, T 27 C, SS 41 C, HS 45 C (2026-10-20: T 26 C, same thresholds, line 202)</td>
+</tr>
+<tr>
+<td>volts</td>
+<td>voltages with HSL..HSH columns (p138)</td>
+<td><code>volts</code></td>
+<td>R</td>
+<td>any</td>
+<td>yes</td>
+<td>Planar 3.3V/5V/12V/VBAT; VBAT 1.73 V below SSL 2.10 V (2026-10-20: 1.79 V; 3.35/4.99/12.20 V, lines 208-211; values agree with the SDR, docs/X3650M3_SENSORS_SDR.md 4.1)</td>
+</tr>
+<tr>
+<td>vpd</td>
+<td>VPD for sys, IMM, bios, dsa (p138)</td>
+<td><code>vpd sys|IMM|bios|dsa</code></td>
+<td>R</td>
+<td>any</td>
+<td>yes</td>
+<td><code>vpd sys</code>, <code>vpd fw</code>, <code>vpd imm</code>, <code>vpd dsa</code> work; <code>vpd bios</code> = "Unknown argument: bios"; <code>vpd fw</code> is undocumented but works</td>
+</tr>
+<tr>
+<td>power</td>
+<td>on, off [-s], state, cycle [-s] (p138-139)</td>
+<td><code>power on|off [-s]|state|cycle [-s]</code></td>
+<td>W (state: R)</td>
+<td>Remote Server Power/Restart</td>
+<td>yes</td>
+<td><code>power state</code>: Power On, State Booting OS</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>restart server, -s shuts down OS first (p139)</td>
+<td><code>reset [-s]</code></td>
+<td>W</td>
+<td>Remote Server Power/Restart</td>
+<td>yes</td>
+<td>not run</td>
+</tr>
+<tr>
+<td>console</td>
+<td>serial redirect to the IMM serial port (p139, p42)</td>
+<td><code>console 1</code></td>
+<td>W (attaches console)</td>
+<td>not stated</td>
+<td>yes</td>
+<td>not run</td>
+</tr>
+<tr>
+<td>dhcpinfo</td>
+<td>DHCP-assigned config of eth0 (p140)</td>
+<td><code>dhcpinfo eth0</code></td>
+<td>R</td>
+<td>any</td>
+<td>yes</td>
+<td>not captured (unit is static)</td>
+</tr>
+<tr>
+<td>dns</td>
+<td>DNS configuration (p140-141)</td>
+<td><code>dns</code> (display; options per table p141)</td>
+<td>R/W</td>
+<td>not stated</td>
+<td>yes</td>
+<td><code>-state disabled</code>, IPv4 and IPv6 servers 0.0.0.0 / 0::0, <code>-ddns enabled</code>, <code>-dnsrc dhcp</code>, <code>-p ipv6</code> (cli_settings lines 27-37)</td>
+</tr>
+<tr>
+<td>gprofile</td>
+<td>LDAP group profiles 1-16 (p141-142)</td>
+<td><code>gprofile [1-16] -n name -a level -clear</code></td>
+<td>W</td>
+<td>not stated</td>
+<td>yes</td>
+<td>one group profile: 1 "administrator", Role supervisor (lines 75-77); effective only for LDAP logins (LDAP not in use, see <code>ldap</code>)</td>
+</tr>
+<tr>
+<td>ifconfig</td>
+<td>Ethernet config (p142-143)</td>
+<td><code>ifconfig eth0 [-state -c -i -g -s -n -dn -ipv6 -ipv6static -i6 -p6 -g6 -dhcp6 -sa6 -auto -r -d -m -l]</code></td>
+<td>R/W</td>
+<td>Networking &amp; Security to change</td>
+<td>yes</td>
+<td>full output captured (static [lab-ip], 100 Mb full, IPv6 off); changes apply after next IMM reset (p143)</td>
+</tr>
+<tr>
+<td>ldap</td>
+<td>LDAP client config (p144-145)</td>
+<td><code>ldap [-aom -a -b -c -d -fn -f -g -l -p -pc -r -rbs -s1ip..-s4ip -s1pn..-s4pn -t -u -v]</code></td>
+<td>R/W</td>
+<td>not stated</td>
+<td>yes</td>
+<td><code>-aom disabled</code>, <code>-a loc</code> (local only), <code>-b client</code> (bind with client DN and password), client DN and root DN with the IBM example domain dc=us,dc=ibm,dc=com, <code>-g memberOf</code>, <code>-rbs enabled</code>, <code>-t *</code>, <code>-u sAMAccountName</code>, <code>-v on</code> (server from DNS), no server address or port set; the client password is not displayed (lines 43-65). <span class="tl tl-candidate">CANDIDATE</span>: factory defaults, LDAP not in use (reason: no server set, local-only authentication, example domain)</td>
+</tr>
+<tr>
+<td>ntp</td>
+<td>NTP (SNTP) config (p145-146)</td>
+<td><code>ntp [-en -i -f -synch]</code></td>
+<td>R/W</td>
+<td>not stated</td>
+<td>yes</td>
+<td><code>-en disabled</code>, <code>-i 127.0.0.1</code>, <code>-f 80 minute</code> (lines 39-42) = the ASU defaults IMM.NTPHost 127.0.0.1 / IMM.NTPFrequency 80 (section 11); the IMM clock is not synchronized</td>
+</tr>
+<tr>
+<td>passwordcfg</td>
+<td>account security level and password rules (p146)</td>
+<td><code>passwordcfg [-legacy|-high|-exp -cnt -nul]</code></td>
+<td>R/W</td>
+<td>not stated</td>
+<td>yes</td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td>portcfg</td>
+<td>IMM serial port (p147)</td>
+<td><code>portcfg [-b baud] [-climode none|cliems|cliuser] [-cliauth]</code></td>
+<td>R/W</td>
+<td>Networking &amp; Security</td>
+<td>yes</td>
+<td><code>-b 115200</code>, <code>-climode 2 (CLI with user defined keystroke sequences)</code> (lines 14-16), identical to the <a class="sref" href="../catalog/sources.html#s-020">S-020</a> example</td>
+</tr>
+<tr>
+<td>portcontrol</td>
+<td>open/close IPMI port (p147-148)</td>
+<td><code>portcontrol [-ipmi on|off]</code></td>
+<td>R/W</td>
+<td>Networking &amp; Security</td>
+<td>no</td>
+<td>absent on 1.30 (see 4.3)</td>
+</tr>
+<tr>
+<td>slp</td>
+<td>listed as configuration command, no section in <a class="sref" href="../catalog/sources.html#s-020">S-020</a> (p139)</td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td>R/W</td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td>yes</td>
+<td>help text "View/edit SLP parameters"; display <code>-t multicast</code> (line 80; meaning of <code>-t</code> <span class="tl tl-candidate">CANDIDATE</span>: address type for SLP discovery, reason: value name only)</td>
+</tr>
+<tr>
+<td>srcfg</td>
+<td>serial redirection exit key sequence (p148)</td>
+<td><code>srcfg [-exitcliseq seq]</code></td>
+<td>R/W</td>
+<td>Networking &amp; Security</td>
+<td>yes</td>
+<td>displays <code>-entercliseq : ^[(</code> (lines 18-19): option name differs from <a class="sref" href="../catalog/sources.html#s-020">S-020</a>, value = the documented default (I-4, I-11)</td>
+</tr>
+<tr>
+<td>ssl</td>
+<td>SSL client/server enable and key status (p148-149)</td>
+<td><code>ssl [-ce on|off] [-se on|off]</code></td>
+<td>R/W</td>
+<td>not stated</td>
+<td>yes</td>
+<td>server off, client off, no key/certificate/CSR for Systems Director, server and LDAP client (lines 7-12; section 3.1)</td>
+</tr>
+<tr>
+<td>tcpcmdmode</td>
+<td>listed as configuration command, no section (p139)</td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td>-</td>
+<td>-</td>
+<td>no</td>
+<td>absent on 1.30</td>
+</tr>
+<tr>
+<td>timeouts</td>
+<td>OS and loader watchdog (p149-150)</td>
+<td><code>timeouts [-o disabled|2.5|3|3.5|4] [-l disabled|0.5..120]</code></td>
+<td>R/W</td>
+<td>Adapter Configuration</td>
+<td>yes</td>
+<td><code>-o disabled</code>, <code>-l disabled</code>, <code>-f disabled</code> (lines 20-23); <code>-f</code> is not in <a class="sref" href="../catalog/sources.html#s-020">S-020</a> (<span class="tl tl-candidate">CANDIDATE</span>: power off delay, reason: the web Server Timeouts page has exactly OS watchdog, loader watchdog and power off delay, <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p29-30)</td>
+</tr>
+<tr>
+<td>usbeth</td>
+<td>LAN over USB enable/disable (p150)</td>
+<td><code>usbeth [-en enabled|disabled]</code></td>
+<td>R/W</td>
+<td>not stated</td>
+<td>yes</td>
+<td><code>-en enabled</code> (line 26)</td>
+</tr>
+<tr>
+<td>users</td>
+<td>user accounts 1-12 (p150-151)</td>
+<td><code>users [-user n] [-n name] [-p pw] [-a super|ro|custom flags]</code></td>
+<td>R/W</td>
+<td>User Account Management</td>
+<td>yes</td>
+<td>one account, the owner's account (Account 2, Read/Write, password does not expire); unchanged on 2026-10-20 (cli_settings lines 166-170)</td>
+</tr>
+<tr>
+<td>ipsec</td>
+<td>"ip security configurations"</td>
+<td>not documented in <a class="sref" href="../catalog/sources.html#s-020">S-020</a>; <code>ipsec -h</code> (cli_settings lines 81-124): set options -state, -secret, -esp, -ike, -conn, -name, -auth psk</td>
+<td>rsasig, -proto (default tcp), -port (default telnet), -local, -localid, -remote, -remoteid, -remotenet, -mode tunnel</td>
+<td>transport, -enabledstate; sub-commands <code>ipsec show [-rsasigactive -activeconnections -connections -status]</code> (read-only), <code>ipsec delete -name</code>, <code>ipsec update</code>, <code>ipsec setkey</code></td>
+<td>R/W</td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>clearcfg</td>
+<td>factory defaults, then IMM restart (p151)</td>
+<td><code>clearcfg</code></td>
+<td>W</td>
+<td>Advanced Adapter Configuration</td>
+<td>yes</td>
+<td>not run (destructive)</td>
+</tr>
+<tr>
+<td>clock</td>
+<td>IMM date, time, GMT offset, DST (p152)</td>
+<td><code>clock [-d -t -g -dst]</code></td>
+<td>R/W</td>
+<td>not stated</td>
+<td>yes</td>
+<td><code>10/20/2026 18:05:08 GMT +3:00 dst off</code> (line 173); offset to real time not measured (no reference clock in the capture)</td>
+</tr>
+<tr>
+<td>identify</td>
+<td>locator LED on/off/blink (p152)</td>
+<td><code>identify [-s on|off|blink] [-d seconds]</code></td>
+<td>R/W</td>
+<td>not stated</td>
+<td>yes</td>
+<td>not captured</td>
+</tr>
+<tr>
+<td>resetsp</td>
+<td>restart the IMM (p152)</td>
+<td><code>resetsp</code></td>
+<td>W</td>
+<td>Advanced Adapter Configuration</td>
+<td>yes</td>
+<td>not run (takes the IMM down)</td>
+</tr>
+<tr>
+<td>update</td>
+<td>flash IMM/UEFI/DSA from a TFTP server (p153)</td>
+<td><code>update -i tftp_ip -l file [-v]</code></td>
+<td>W</td>
+<td>Advanced Adapter Configuration</td>
+<td>yes</td>
+<td>not run (forbidden)</td>
+</tr>
+<tr>
+<td>autoftp, chconfig, chlog, chmanual, events, sdemail</td>
+<td>Service Advisor (p153-157)</td>
+<td>per <a class="sref" href="../catalog/sources.html#s-020">S-020</a> tables</td>
+<td>R/W</td>
+<td>not stated</td>
+<td>no</td>
+<td>absent on 1.30</td>
+</tr>
+<tr>
+<td>info</td>
+<td>-</td>
+<td>not documented</td>
+<td>-</td>
+<td>-</td>
+<td>no</td>
+<td>"Command not recognized"</td>
+</tr>
+<tr>
+<td>snmp, snmpalerts, alertcfg, led</td>
+<td>-</td>
+<td>not in <a class="sref" href="../catalog/sources.html#s-020">S-020</a> (no match in the text)</td>
+<td>-</td>
+<td>-</td>
+<td>no</td>
+<td>each "Error: Command not recognized" on 1.30 (cli_settings lines 151-164, 179-182)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Authority flags used by <code>users -a</code> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p150): super, ro, or custom combination of am, rca, rcvma, pr, cel, bc,
+nsc, ac. <code>gprofile -a</code> uses a different set: ns, uam, rca, rcrda, rpr, bac, ce, aac (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p141-142).
+CLI password rule (more than 5 and fewer than 16 characters, alphabetic and non-alphabetic) differs from the web
+rule (conflict 4 in docs/X3650M3_IMM_ARCHITECTURE.md section 12).</p>
+<h3 id="43-documented-vs-measured-command-set">4.3 Documented vs measured command set <a class="anchor" href="#43-documented-vs-measured-command-set" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-measured">MEASURED</span> vs <span class="tl tl-documented">DOCUMENTED</span>: present on 1.30 but not documented in <a class="sref" href="../catalog/sources.html#s-020">S-020</a>: <code>ipsec</code>, and the <code>vpd fw</code> argument.
+  Documented but absent on 1.30: <code>portcontrol</code>, <code>tcpcmdmode</code>, the six Service Advisor commands, the <code>vpd bios</code>
+  argument. <code>readlog -a</code> (an option <a class="sref" href="../catalog/sources.html#s-020">S-020</a> does not document either; <code>-f</code> is the only documented option, p136) is
+  rejected on 1.30 with "Illegal option: a" (<span class="tl tl-measured">MEASURED</span>, imm_readlog); reading the whole log takes repeated <code>readlog</code>
+  calls (781 entries = 157 calls of 5, arithmetic). <a class="sref" href="../catalog/sources.html#s-020">S-020</a> (2015 edition) describes later firmware; <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p135 itself warns that some commands might not
+  be available and that <code>help</code> is authoritative.</li>
+<li><span class="tl tl-measured">MEASURED</span> (cli_settings): <code>snmp</code>, <code>snmpalerts</code>, <code>alertcfg</code> and <code>led</code> are not recognized on 1.30; SNMP and alert
+  settings therefore cannot be read through the legacy CLI (web or ASU only). The 2026-10-20 <code>help</code> output lists the
+  same 34 commands as on 2026-10-19 (lines 245-279).</li>
+<li><span class="tl tl-candidate">CANDIDATE</span>: <code>portcontrol</code> appeared with 1.32. Reason: changelog 1.32 "Changed the IMM firmware to allow every
+  service port to be Enabled or Disabled"; the measured 1.30 has no such command and no web/CLI way to close
+  individual ports is documented for 1.30.</li>
+<li><span class="tl tl-candidate">CANDIDATE</span>: the one-time PXE CLI command added in 1.33 ("Added an IMM command line (CLI) command for one time
+  PXE boot option setting", changelog) is not present on 1.30; its name is <span class="tl tl-unknown">UNKNOWN</span>; no source links it to
+  <code>tcpcmdmode</code>.</li>
+</ul>
+<h3 id="44-telnet-specifics">4.4 Telnet specifics <a class="anchor" href="#44-telnet-specifics" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span>: default port 23, configurable 1-65535 (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p43); Network Protocols page sets the maximum number
+  of concurrent Telnet users or disables Telnet; IMM restart required (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p52). ASU IMM.TelnetPort (<a class="sref" href="../catalog/sources.html#s-026">S-026</a>
+  printed p22-24, IMMv1 list); IMM.TelnetSessions values disable, 1, 2 (<a class="sref" href="../catalog/sources.html#s-027">S-027</a> section 3.9.6, IMM2 document;
+  <span class="tl tl-candidate">CANDIDATE</span> for IMM1 because <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p134 gives the same 0/1/2 range).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (changelog 1.28, present in 1.30): "Changed the firmware to completely shut down the telnet sevice
+  when the telnet max user count is set to 0". So setting the count to 0 on this unit should close 23/tcp
+  (<span class="tl tl-candidate">CANDIDATE</span>, untested).</li>
+</ul>
+<h3 id="45-ssh-specifics">4.5 SSH specifics <a class="anchor" href="#45-ssh-specifics" aria-label="Link to this section">#</a></h3>
+<p>Password-only authentication, RSA/DSA host key generation, key not included in configuration backup (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p92);
+measured algorithm list, 1024-bit RSA host key and the hardening changes in 1.50/1.52 are in
+docs/X3650M3_IMM_ARCHITECTURE.md section 5.2. No SSH enable/disable command is in the measured CLI help; SSH is
+switched on the web Security page (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p92-93) or with ASU IMM.SSH_Enable (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed p24; changelog 1.10
+"Permit the Adavnced Setting Utility to enable or disable ssh").</p>
+<h2 id="5-ipmi-kcs-and-lan">5. IPMI (KCS and LAN) <a class="anchor" href="#5-ipmi-kcs-and-lan" aria-label="Link to this section">#</a></h2>
+<h3 id="51-channels-and-access-paths">5.1 Channels and access paths <a class="anchor" href="#51-channels-and-access-paths" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-measured">MEASURED</span>: system interface KCS at I/O 0xCA2 (SMBIOS type 38), /dev/ipmi0 on the Proxmox host; details in
+  docs/X3650M3_IMM_ARCHITECTURE.md section 4.1.</li>
+<li><span class="tl tl-measured">MEASURED</span> (<code>channel info 1</code>): channel 1 is 802.3 LAN, protocol IPMB-1.0, multi-session, 0 active sessions,
+  alerting, per-message auth and user-level auth enabled, access mode "always available" (volatile and
+  non-volatile identical).</li>
+<li><span class="tl tl-candidate">CANDIDATE</span>: the "Protocol Vendor ID 7154" is the IANA enterprise number of the IPMI Forum, which the IPMI 2.0
+  Get Channel Info response uses for standard protocols. Reason: external knowledge of the IPMI 2.0 specification,
+  which is not in the local sources; this replaces "meaning not established" in the architecture doc only once
+  the specification is added as a source.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span>: in-band ASU over KCS needs no authentication; LAN over USB and remote LAN connections need IMM
+  credentials (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed p16). <a class="sref" href="../catalog/sources.html#s-025">S-025</a> BMC configuration section ("New Method", ServerGuide Scripting Toolkit -- ASU): with the IPMI driver ASU
+  accesses settings in-band without a user ID and password.</li>
+<li><span class="tl tl-measured">MEASURED</span>: the in-band ipmitool captures (ipmi_inband) were taken as root on the host with no IMM credentials,
+  including user list, LAN and SOL configuration. Any root process on the host therefore has IPMI access to the
+  IMM; write commands were not tested.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (changelog 1.48, not in 1.30): "Fixed the issue where password may become empty if it's updated by ASU
+  tool through KCS interface." Installed 1.30 is affected (<span class="tl tl-candidate">CANDIDATE</span>: the bug existed before 1.48; first
+  affected version not stated).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> tools: ipmitool in-band (needs OpenIPMI drivers) or out-of-band; OSA SMBridge (IPMI 1.5 and SOL);
+  ASU 3.0.0 or later (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p125-126; <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p133). iflash/update packages talk to the IMM over KCS or IPMI LAN
+  (README sections 2.1.1, 2.4.3: <code>--user</code> disables "the IPMI KCS authentication failover"; iflash64 strings in
+  docs/X3650M3_IMM_ARCHITECTURE.md section 9.3).</li>
+</ul>
+<h3 id="52-users-and-privileges">5.2 Users and privileges <a class="anchor" href="#52-users-and-privileges" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p33): IMM login profiles and IPMI users are one database; IPMI user ID 1 is the null user,
+  IPMI ID n+1 = login ID n; IMM allows 12 accounts (IPMI allows 64), no anonymous login, no duplicate names, IPMI
+  password at most 16 bytes; restricted names list on p33.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p35-36): authority to IPMI privilege mapping: Supervisor -&gt; Administrator; Read Only -&gt; User;
+  custom with User Account Management, Remote Console, Remote Console and Remote Disk, Networking &amp; Security or
+  Advanced -&gt; Administrator; Remote Power/Restart or Clear Event Logs -&gt; Operator; Basic only -&gt; User.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span>: only local accounts work for IPMI, even with LDAP only (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p37-38).</li>
+<li><span class="tl tl-measured">MEASURED</span> (<code>user list 1</code>): 13 user IDs reported (ID 1 null plus IDs 2-13 = 12 profiles, consistent with p33);
+  only ID 3 is populated, Callin true, Link Auth false, IPMI Msg true, privilege ADMINISTRATOR; all others NO ACCESS.
+  This matches CLI Account 2 (Read/Write).</li>
+</ul>
+<h3 id="53-standard-ipmi-commands-measured-support-ipmitool-in-band-2026-10-19">5.3 Standard IPMI commands: measured support (ipmitool in-band, 2026-10-19) <a class="anchor" href="#53-standard-ipmi-commands-measured-support-ipmitool-in-band-2026-10-19" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ipmitool command (IPMI function)</th>
+<th>Result</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mc info (Get Device ID)</td>
+<td>OK</td>
+<td>Device ID 32, rev 0, firmware 1.30, IPMI 2.0, manufacturer 2 (IBM), product 220 (0x00DC, name unknown to ipmitool); supports Sensor, SDR Repository, SEL, FRU Inventory, IPMB Event Receiver/Generator, Chassis; "Provides Device SDRs: no"; Aux 0x00 0x00 0x1b 0x41</td>
+</tr>
+<tr>
+<td>mc guid (Get System GUID)</td>
+<td>OK</td>
+<td>[redacted-id], "Random or pseudo-random"</td>
+</tr>
+<tr>
+<td>mc getenables (Get BMC Global Enables)</td>
+<td>OK</td>
+<td>event message buffer and system event logging enabled; receive-queue and buffer-full interrupts disabled; OEM 0/1/2 disabled</td>
+</tr>
+<tr>
+<td>mc getsysinfo system_fw_version (Get System Info Parameters)</td>
+<td>Invalid command</td>
+<td>not implemented on 1.30</td>
+</tr>
+<tr>
+<td>fru print (FRU Inventory)</td>
+<td>OK</td>
+<td>builtin FRU 0, PSU 1/2, DASD backplanes 1-4, DIMM 1-18; ipmitool also printed "unexpected ID" warnings on two reads</td>
+</tr>
+<tr>
+<td>sdr elist full, sdr type list, sensor</td>
+<td>OK</td>
+<td>13 full sensor records with readings plus discrete sensors (see future X3650M3_SENSORS_SDR.md)</td>
+</tr>
+<tr>
+<td>sel info, sel elist (SEL)</td>
+<td>OK</td>
+<td>SEL v1.5, 512 entries, full, overflow; supported cmds "Reserve" only (no partial add / delete listed)</td>
+</tr>
+<tr>
+<td>chassis status</td>
+<td>OK</td>
+<td>power on, restore policy "previous", no faults, intrusion inactive, front-panel lockout inactive</td>
+</tr>
+<tr>
+<td>lan print 1 (Get LAN Configuration Parameters)</td>
+<td>OK</td>
+<td>section 5.4</td>
+</tr>
+<tr>
+<td>channel info 1</td>
+<td>OK</td>
+<td>section 5.1</td>
+</tr>
+<tr>
+<td>user list 1</td>
+<td>OK</td>
+<td>section 5.2</td>
+</tr>
+<tr>
+<td>sol info 1 (Get SOL Configuration Parameters)</td>
+<td>OK, with warning</td>
+<td>parameter 7 "Payload Channel" not supported (ipmitool defaulted to 0x01); section 6</td>
+</tr>
+<tr>
+<td>dcmi discover (DCMI)</td>
+<td>Invalid command (0xC1)</td>
+<td>DCMI not implemented</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>SEL clearing, <code>chassis power</code>, <code>mc reset</code>, user/LAN/SOL set commands were not run (forbidden without owner
+  approval, docs/AGENT.md).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (infocenter c_using_integrated_management_module.txt): the IMM supports IPMI 2.0 and IPMB;
+  Automatic Server Restart (OS watchdog) "is supported by IPMI"; power/reset control including hard and soft
+  shutdown/reset; boot sequence manipulation; alerts in-band and out-of-band including "PET traps - IPMI style".</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (changelog 1.19, included in 1.30): "Fixed IPMI multi-session handling when sessions fail".</li>
+</ul>
+<h3 id="55-ibm-oem-netfn-and-commands">5.5 IBM OEM NetFn and commands <a class="anchor" href="#55-ibm-oem-netfn-and-commands" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-unknown">UNKNOWN</span>: no local source documents IBM OEM IPMI network functions or command codes for the IMM v1. <a class="sref" href="../catalog/sources.html#s-020">S-020</a>,
+  <a class="sref" href="../catalog/sources.html#s-025">S-025</a>, <a class="sref" href="../catalog/sources.html#s-026">S-026</a>, the README and the changelog describe only tool-level use (ipmitool, SMBridge, ASU, iflash).</li>
+<li>Known from measurement: Manufacturer ID 2 (IBM) and Product ID 0x00DC identify the IMM to OEM-aware tools;
+  <code>mc getenables</code> reports OEM 0/1/2 disabled (these are BMC global enable bits, not a statement about OEM command
+  support). DCMI and Get System Info are not implemented (5.3).</li>
+<li><span class="tl tl-extracted">EXTRACTED</span> (indirect, docs/X3650M3_IMM_ARCHITECTURE.md section 9.3): iflash64 strings show a "flash manager"
+  transaction API (create, open, set_transaction_attribute, activate, close, destroy, FMRC_* codes) reached over
+  KCS or IPMI LAN. <span class="tl tl-candidate">CANDIDATE</span>: these are carried as IBM OEM IPMI commands. Reason: the same binary uses only IPMI
+  transports (KCS, RMCP/RAKP) besides FTP/TFTP for the image; the NetFn/command bytes were not extracted.</li>
+<li>Next step (offline): disassemble or string-scan iflash64 / ASU binaries for OEM NetFn values (for example
+  look for 0x2E/0x2F or 0x30-0x3F request bytes near the FM API strings). Live read-only option: Get Device ID
+  only; do not send unknown OEM commands to the IMM (risk of state change).</li>
+</ul>
+<h3 id="56-alerting-pet-and-the-ipmi-snmp-community-string">5.6 Alerting (PET) and the IPMI "SNMP Community String" <a class="anchor" href="#56-alerting-pet-and-the-ipmi-snmp-community-string" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span> (infocenter c_using_integrated_management_module.txt): alerts include "PET traps - IPMI style",
+  SNMP and e-mail.</li>
+<li><span class="tl tl-candidate">CANDIDATE</span> (strengthened from the architecture doc): "public" is the community used for IPMI PET traps, separate
+  from the IMM SNMP agent communities. Reason: the infocenter documents IPMI-style PET traps as a distinct alert
+  type, and the SNMP agent does not answer v1 "public" (section 7.5). The PET destination table (<code>lan alert print</code>)
+  was not captured, so whether any PET destination is set is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+</ul>
+<h2 id="6-serial-over-lan-and-serial-redirection">6. Serial over LAN and serial redirection <a class="anchor" href="#6-serial-over-lan-and-serial-redirection" aria-label="Link to this section">#</a></h2>
+<h3 id="61-two-serial-paths">6.1 Two serial paths <a class="anchor" href="#61-two-serial-paths" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p41): the IMM provides two serial ports for redirection. On System x, COM1 is used for IPMI
+  Serial over LAN and is configurable only through IPMI; COM2 is used for serial redirection through Telnet or
+  SSH, is not IPMI-configurable and on rack servers is internal with no external connector. Both use 8 data bits,
+  no parity, 1 stop bit; baud 9600, 19200, 38400, 57600, 115200 or 230400.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> p32, printed 18): the rear serial connector is shared with the IMM; the IMM can take control
+  of it for text console redirection and SOL.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p42-43): <code>console 1</code> in the CLI starts redirection; all COM2 traffic goes to the Telnet/SSH
+  session; the exit key sequence returns to the CLI ("ESC Q" example, press Esc then q). Up to two Telnet sessions
+  can view a redirected port concurrently.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span>: the Serial Port web page sets the COM2 baud rate and the CLI mode (EMS-compatible keystrokes or
+  user-defined keystrokes) (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p41-42); CLI <code>portcfg -b -climode</code> and <code>srcfg -exitcliseq</code> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p147-148).
+  Exit key default changed to "^[(" in 1.19 (changelog, included in 1.30); <a class="sref" href="../catalog/sources.html#s-027">S-027</a> section 3.10 also gives default
+  "^[(" and baud 115200 (IMM2 document, consistent). <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p148 example shows "^[Q".</li>
+<li><span class="tl tl-measured">MEASURED</span> (cli_settings lines 14-19): <code>portcfg</code> -b 115200, -climode 2 (CLI with user-defined keystroke sequences);
+  <code>srcfg</code> -entercliseq <code>^[(</code>. The sequence equals the documented default; the option is named <code>-entercliseq</code> on 1.30
+  but <code>-exitcliseq</code> in <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p148 (I-11).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (infocenter c_using_integrated_management_module.txt): OSA SMBridge offers an IPMI shell and SOL;
+  "Any standard Telnet client application can access the SOL connection" (via SMBridge).</li>
+</ul>
+<h3 id="62-measured-sol-configuration-ipmitool-sol-info-1">6.2 Measured SOL configuration (ipmitool <code>sol info 1</code>) <a class="anchor" href="#62-measured-sol-configuration-ipmitool-sol-info-1" aria-label="Link to this section">#</a></h3>
+<p>Enabled true; Force Encryption true; Force Authentication false; Privilege Level USER; Character Accumulate
+Level 150 ms; Character Send Threshold 220; Retry Count 7; Retry Interval 480 ms; volatile and non-volatile bit
+rate 115.2 kbps; payload channel 1; payload port 623; parameter 7 (Payload Channel) not supported.</p>
+<h3 id="63-uefi-side">6.3 UEFI side <a class="anchor" href="#63-uefi-side" aria-label="Link to this section">#</a></h3>
+<p>The host must redirect its console to COM1 for SOL to show anything. UEFI settings (Serial Port Sharing, Serial
+Port Access Mode, Remote Console Redirection, SP Redirection, COM1/COM2 attributes, Legacy Option ROM Display) are
+listed with ASU names in docs/X3650M3_UEFI.md Appendix A.1 (DeviceConfiguration/ConsoleRedirection). <a class="sref" href="../catalog/sources.html#s-025">S-025</a> section
+5.1.2.1 (as referenced in its own text) gives the ASU example sequence (uEFI.SerialPortSharing, uEFI.SPRedirection,
+uEFI.Com1BaudRate 115200 and so on). <a class="sref" href="../catalog/sources.html#s-024">S-024</a> p24: the system summary is always shown on text remote consoles
+including SOL. The current UEFI console redirection values on this unit are <span class="tl tl-unknown">UNKNOWN</span> (ASU <code>show</code> not captured).</p>
+<h2 id="7-snmp">7. SNMP <a class="anchor" href="#7-snmp" aria-label="Link to this section">#</a></h2>
+<h3 id="71-agents-and-access-control">7.1 Agents and access control <a class="anchor" href="#71-agents-and-access-control" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span>: the IMM supports SNMPv1 and SNMPv3 (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p41, p50); SNMPv1 agent and SNMPv3 agent are enabled
+  separately on the Network Protocols page; IMM restart required (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p50-51). Default agent port 161, trap port
+  162, both changeable (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p43-44).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p50-51): enabling the agent requires system contact and location set (System Settings), at
+  least one community name and at least one valid IP address or host name for that community. Each community =
+  name, access type, host list; "If any of these parameters is not correct, SNMP management access is not
+  granted." Access types: Trap (receive traps), Get (traps and query), Set (traps, query and set MIB objects).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p36): SNMPv3 is configured per login profile ("Configure SNMPv3 User"): authentication
+  HMAC-MD5, HMAC-SHA or None; privacy DES or AES (only with authentication); privacy password; access Get or Set
+  ("With the access type Set, SNMPv3 users can both perform query operations and modify settings (for example,
+  setting the password for an user)"); per-user trap host. The login password is the SNMPv3 authentication
+  password ("The password for the Linux account will be used for authentication", p36).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (IMM1 defaults, <a class="sref" href="../catalog/sources.html#s-027">S-027</a> Appendix I): IMM.SNMPv3_AuthenticationProtocol default HMAC-MD5 on IMM1 (NONE
+  on IMM2).</li>
+<li><span class="tl tl-candidate">CANDIDATE</span>: IMM1 defaults of IMM.SNMPv1Agent, IMM.SNMPv3Agent and IMM.SNMPTraps are Disabled. Reason: <a class="sref" href="../catalog/sources.html#s-027">S-027</a>
+  section 3.9.2 gives Disabled for IMM2 and Appendix I, which lists every IMM1/IMM2 default difference, does not
+  list these three settings.</li>
+<li><span class="tl tl-candidate">CANDIDATE</span>: at most three SNMPv1 communities. Reason: <a class="sref" href="../catalog/sources.html#s-027">S-027</a> section 3.9.2 (IMM2 document) says "Maximum is 3";
+  <a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed p23 (IMMv1 list) shows instance IMM.Community_Name.1 only; <a class="sref" href="../catalog/sources.html#s-020">S-020</a> gives no number.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (changelog, all before 1.30 and therefore present): 1.05 restored the ability of the SNMP interface
+  to add or remove user accounts and set the account security level, and added host names for SNMPv3 traps;
+  1.24 added IPv6 configuration via SNMP and SNMP trap definitions; 1.24 fixed setting the SNMP configuration with
+  ASU. So an SNMP manager with Set access can change accounts and network settings.</li>
+</ul>
+<h3 id="72-traps-alert-categories-mibs">7.2 Traps, alert categories, MIBs <a class="anchor" href="#72-traps-alert-categories-mibs" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p38-41): SNMP trap categories Critical, Warning, System, global for all traps; no traps are
+  sent unless the agent and the SNMP Traps field are enabled; the remote alert retry limit does not apply to
+  SNMP alerts. Trap recipients: SNMPv1 communities (Trap access) and SNMPv3 users (trap host field).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p41, p50; README 1.55 package contents): two MIB files, imm.mib and immalert.mib, ship in
+  the IMM update packages. Neither file is available locally (only the .chg and README are in
+  firmware/ibm/imm/1.55-yuooh5a/), so the enterprise OID tree and trap definitions are <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (changelog): 1.28 "Fixed the MIB mismatch issue" and "Fixed the incorrect OID in MIB"; 1.14 (YUOO73M)
+  "Corrected the MIB file to address a compiling problem"; 1.30 "Fixed the problem
+  that SNMP remote alert doesn't work"; 1.35 "Fixed the problem about SNMP drops intermittently and SNMP data
+  cannot be accessed in a period of time" (not in 1.30); 1.43 "Fixed the problem that the SNMP engine ID is
+  changed after IMM reset" (not in 1.30); 1.35 "Enabled ASU to control each sub-category for ... SNMP alerts
+  setting".</li>
+</ul>
+<h3 id="73-asu-names-immv1-list-s-026-printed-p22-24">7.3 ASU names (IMMv1 list, S-026 printed p22-24) <a class="anchor" href="#73-asu-names-immv1-list-s-026-printed-p22-24" aria-label="Link to this section">#</a></h3>
+<p>IMM.SNMP_AgentPort, IMM.SNMP_TrapPort, IMM.SNMPTraps, IMM.Community_Name.1, IMM.SNMPv3_AuthenticationProtocol.1,
+IMM.SNMPv3_PrivacyProtocol.1, IMM.SNMPv3_PrivacyPassword.1, IMM.SNMPv3_AccessType.1, IMM.SNMPv3_TrapHostname.1.
+IMM.SNMPv1Agent, IMM.SNMPv3Agent, IMM.Community_AccessType.n, IMM.Community_HostIPAddress<em>.</em> and
+IMM.SNMPAlerts_* are named in <a class="sref" href="../catalog/sources.html#s-027">S-027</a> (IMM2 document; <a class="sref" href="../catalog/sources.html#s-027">S-027</a> says "Difference from IMM1: No special setting
+restriction" for the host-address settings, which implies they exist on IMM1).</p>
+<h2 id="8-cim--ibm-systems-director-5988-5989-and-ws-man">8. CIM / IBM Systems Director (5988, 5989) and WS-Man <a class="anchor" href="#8-cim--ibm-systems-director-5988-5989-and-ws-man" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span>: Port Assignments: "IBM Systems Director over HTTP" default 5988, "IBM Systems Director over HTTPS"
+  default 5989 (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p44). Security page: "IBM Systems Director over HTTPS Server Configuration" enable/disable
+  and its own certificate management; the IMM is the SSL server for the "Secure IBM Systems Director connection"
+  (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p84-85 Table 14, p90). The HTTPS variant needs a valid certificate and an IMM restart (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p90).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span>: the IMM provides "Standard CIM and WS-Man interfaces" (<a class="sref" href="../catalog/sources.html#s-025">S-025</a>, section "What is changing?"); CIM is
+  one of the industry-standard IMM interfaces (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> p28).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> ASU names (IMMv1 list, <a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed p22-24): IMM.CIMOverHTTPPort, IMM.CIMOverHTTPSPort,
+  IMM.CIMXMLOverHTTPS_Enable. <a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed p74 (certificate management procedure) shows
+  <code>asu show IMM.CIMXMLOverHTTPS_Enable</code> and disabling it before managing the Director certificate.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (IMM1 default, <a class="sref" href="../catalog/sources.html#s-027">S-027</a> Appendix I): the IMM.CIMXMLOverHTTPS_Enable row is grouped with
+  IMM.SSL_Server_Enable whose IMM1 default is Disabled. <span class="tl tl-candidate">CANDIDATE</span>: CIM over HTTPS is disabled by default on IMM1.
+  Reason: table layout (rows share one value cell).</li>
+<li><span class="tl tl-measured">MEASURED</span> (cli_settings <code>ssl</code>, line 10): "SSL IBM Systems Director CSR key status: Private Key and Cert/CSR not
+  available". No Director certificate exists, and the HTTPS variant needs a valid certificate (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p90), which is
+  consistent with the closed 5989.</li>
+<li><span class="tl tl-measured">MEASURED</span>: 5988/tcp open, nmap "http sfcHttpd" (Small Footprint CIM Broker); 5989/tcp closed (nmap_tcp). nmap's
+  "SuperMicro" product label is a fingerprint guess (architecture doc conflict 7).</li>
+<li><span class="tl tl-measured">MEASURED</span> (2026-10-21, section 8.1): 5988 serves CIM-XML over HTTP (DMTF CIM operations over HTTP) via SFCB;
+  the earlier <span class="tl tl-candidate">CANDIDATE</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p44 port name, <a class="sref" href="../catalog/sources.html#s-026">S-026</a> setting name, sfcHttpd banner) is confirmed.</li>
+<li><span class="tl tl-measured">MEASURED</span> (negative): the full TCP scan shows no other open port, so there is no separate WS-Man listener
+  (common WS-Man ports would show up). WS-Management is served by lighttpd at <a href="http://&lt;IMM&gt;/wsman" rel="noopener">http://&lt;IMM&gt;/wsman</a> (<span class="tl tl-measured">MEASURED</span>,
+  docs/X3650M3_IMM_WEB_API.md sections 5 and 9). Whether sfcHttpd on 5988 also answers WS-Management is <span class="tl tl-unknown">UNKNOWN</span>
+  (not tested).</li>
+<li><span class="tl tl-unknown">UNKNOWN</span>: whether CIM methods can change settings (no extrinsic method was called), and the class list of
+  root (not enumerated). ASU's CIM interface (default port 5989, <code>--cimhttp</code> with 5988) is documented only for
+  IMM2-based systems and FoD keys (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed p33-35); it is not imported as an IMM1 fact.</li>
+</ul>
+<h3 id="81-live-cim-inventory-measured-captures2026-10-21_imm_cim_read_inventorytxt">8.1 Live CIM inventory (<span class="tl tl-measured">MEASURED</span>, captures/2026-10-21_imm_cim_read_inventory.txt) <a class="anchor" href="#81-live-cim-inventory-measured-captures2026-10-21_imm_cim_read_inventorytxt" aria-label="Link to this section">#</a></h3>
+<p>Section numbers below are the <code>===</code> headers of the capture.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Namespace</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>root/interop</td>
+<td>38 classes (CIM_ only: indication filter/handler/subscription and service classes, CIM_Namespace, CIM_ObjectManager, CIM_ObjectManagerCommunicationMechanism, CIM_RegisteredProfile, CIM_ReferencedProfile, CIM_ElementConformsToProfile, CIM_WBEMService and abstract bases)</td>
+</tr>
+<tr>
+<td>root/cimv2</td>
+<td>286 classes: 225 <code>CIM_</code> and 61 <code>IBM_</code> (for example IBM_ComputerSystem, IBM_ManagementController, IBM_SNMPService, IBM_SNMPCommunityString, IBM_SNMPUSMUserEntry, IBM_LDAPClientService, IBM_NTPClientService, IBM_CertificateManager, IBM_IKEService, IBM_OOBAlertService, IBM_RemoteControlService, IBM_SLPService, IBM_ServiceAdvisorService, IBM_StandardMessageLogEntry, IBM_ComponentActivityLogEntry, IBM_TimeService, IBM_Partition, IBM_MemoryExpansionUnit)</td>
+</tr>
+<tr>
+<td>interop, root/ibmsd, root/ibm</td>
+<td>CIM error 3 "The target namespace does not exist"</td>
+</tr>
+</tbody>
+</table></div>
+<p>Registered profiles (root/interop CIM_RegisteredProfile, 52 instances; RegisteredOrganization 2 = DMTF, 1 = Other
+with OtherRegisteredOrganization "IBM"; AdvertiseTypes 3 on every instance; value names per the DMTF schema,
+<span class="tl tl-candidate">CANDIDATE</span>, schema not in sources/). This count equals the 52 entries of the SLP attribute (section 9; WEB_API
+conflict 1).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Org</th>
+<th>Profiles (RegisteredName RegisteredVersion)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DMTF (30)</td>
+<td>Base Server 1.0.0a, BIOS Management 1.0.0, Platform Watchdog 1.0.0, Boot Control 1.0.0a, Service Processor 1.0.0, Power Scheduler 1.0.0, Profile Registration 1.0.0c, Ethernet Port 1.0.0, Physical Asset 1.0.0a, Text Console Redirection 1.0.0, Software Inventory 1.0.0, OS Status 1.0.0, Software Update 1.0.0, Power State Management 1.0.0b, SSH Service 1.0.0, Telnet Service 1.0.0a, SMASH Collections 1.0.0a, System Memory 1.0.0f, Fan 1.0.0a, Power Supply 1.0.0c, CPU 1.0.0c, Sensors 1.0.0c, Indicator LED 1.0.0a, Simple Identity Management 1.0.0, Role Based Authorization 1.0.0, Authentication Method Configuration 1.1.1, Indications 1.0.0, IP Interface 1.0.0a, DNS Client 1.0.0a, DHCP Client 1.0.0a</td>
+</tr>
+<tr>
+<td>IBM (22)</td>
+<td>Host Server 0.8.3, Event Log 0.3.5, Component Activity Log 0.2.5, Asserted Events 0.2.1, Management Controller 0.8.3, Alert Configuration 0.8.1, Security Management 1.0.0, IKE Service 1.0.0, SLP 0.2.1, Ethernet Configuration 1.0.0a, SNMP Agent 0.9.1, NTP Client 0.3.2, SP Legacy CLI 0.3.4, SP Web Pages 0.2.1, CIM-XML Port 0.2.1, LDAP Client 0.3.1, SMTP Client 0.9.1, Memory Expansion Unit 0.4.2, Remote Control 1.0.0, IPv6 Interface 1.0.0, DNS Client For IPv6 1.0.0, DHCP Client For IPv6 1.0.0</td>
+</tr>
+</tbody>
+</table></div>
+<p>Instances read in root/cimv2 (inventory available without the web UI):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Instances</th>
+<th>Content (<span class="tl tl-measured">MEASURED</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CIM_ComputerSystem</td>
+<td>2</td>
+<td>IBM_ComputerSystem "SN# [redacted-id]" (Name Host UUID-[redacted-id]; identifying info GUID, <code>7945KEG:[redacted-id]</code>, tag <code>46:1</code>); IBM_ManagementController (OtherIdentifyingInfo "200-2200" = Manufacturer ID-Product ID; PrimaryOwnerContact set). Both OperationalStatus 2, HealthState 5</td>
+</tr>
+<tr>
+<td>CIM_SoftwareIdentity</td>
+<td>3</td>
+<td>IMM YUOOC7E 1.30 (Major 1, Minor 30), release 2011-09-30; UEFI D6E154A 1.13 (Major 1, Minor 13), 2011-09-23; DSA DSYT89P 3.48 (Major 3, Minor 48), 2011-10-28</td>
+</tr>
+<tr>
+<td>CIM_PhysicalPackage</td>
+<td>33</td>
+<td>Chassis 1 (IBM, Model/PartNumber 7945KEG, serial [redacted-id], SKU 69Y5082, Name "System x3650 M3"); Drive Backplane 1 (MOLX, Model/PartNumber 81Y4592, SKU 94Y6670, serial [redacted-id]) and empty Drive Backplane 2-4; Power Supply 1 (ACBE, Model/PartNumber 39Y7228, SKU 39Y7229, serial [redacted-id]); Power Supply 2 all fields "Not defined"; Front Panel Board 1, Power Management 0, System Board 1, Add-in Card 1-3, Fan 1-3, Processor/IO Module 1 and Disk Bay 0-15 without VPD</td>
+</tr>
+<tr>
+<td>CIM_Processor</td>
+<td>2</td>
+<td>Processor 1 and Processor 2, both EnabledState 2, CPUStatus 2, HealthState 0, every speed/family field 0 (no CPU data, as in WS-Man <code>GetProcessorInfo</code>)</td>
+</tr>
+<tr>
+<td>CIM_PhysicalMemory</td>
+<td>18</td>
+<td>Memory Device 3: Capacity 8589934592, PartNumber HMT31GR7BFR4A-H9, serial [redacted-id], MemoryType 24, FormFactor 8, Speed 1; Memory Device 1-2 and 4-18 all zero</td>
+</tr>
+<tr>
+<td>CIM_NumericSensor</td>
+<td>13</td>
+<td>Ambient Temp 25 C (thresholds 38/41/45); Altitude 0; Avg Power 90 W; Planar 3.3V 3.34, 5V 4.99, 12V 12.20 V; Planar VBAT 1.79 V CurrentState "Lower Critical" (LNC 2.25, LC 2.10); Fan 1A 1624, 1B 1125, 2A 1595, 2B 1100, 3A 3103, 3B 2450 RPM (UnitModifier -2 applied)</td>
+</tr>
+<tr>
+<td>CIM_Fan</td>
+<td>5</td>
+<td>Fan 1-3 and "Fan 115 for Power Supply 1", "Fan 116 for Power Supply 2", all HealthState 5</td>
+</tr>
+<tr>
+<td>CIM_PowerSupply</td>
+<td>2</td>
+<td>Power Supply 1 and 2, both OperationalStatus 2, HealthState 5, EnabledState 2, TotalOutputPower 0</td>
+</tr>
+<tr>
+<td>CIM_RecordLog</td>
+<td>3</td>
+<td>Chassis Event Log: MaxNumberOfRecords 1500, CurrentNumberOfRecords 794, OverwritePolicy 2; ComponentActivity Log: 3 records; Service Advisor Activity Log: max 5, 0 records</td>
+</tr>
+</tbody>
+</table></div>
+<p>Notes: CIM_Processor, CIM_PowerSupply and CIM_Fan return instances for absent devices (CPU 2, the supply without
+VPD) with healthy status, so presence must be read from CIM_PhysicalPackage VPD or other interfaces (<span class="tl tl-measured">MEASURED</span>
+behavior; CPU 2 is absent per SMBIOS, docs/X3650M3_HARDWARE_COMPONENTS.md section 2). OverwritePolicy 2 = "Wraps
+When Full" in the DMTF CIM_RecordLog value map (<span class="tl tl-candidate">CANDIDATE</span>, schema not in sources/).</p>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span> (changelog): 1.30 fixed "a user can not login to IMM web after inventory from IBM Director"; 1.35
+  "Improved IMM version reporting for IBM Director" (not in 1.30).</li>
+</ul>
+<h2 id="9-slp-427">9. SLP (427) <a class="anchor" href="#9-slp-427" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span>: port 427 is reserved for SLP and cannot be reassigned (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p44 Table 3); SLP is one of the
+  protocols on the Network Protocols page (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p27, p49), but <a class="sref" href="../catalog/sources.html#s-020">S-020</a> has no SLP configuration section. The CLI
+  configuration command list includes <code>slp</code> without a section (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p139).</li>
+<li><span class="tl tl-measured">MEASURED</span>: <code>slp</code> is in the 1.30 help as "View/edit SLP parameters" (cli_baseline). 427/tcp open (nmap "svrloc?",
+  unconfirmed), 427/udp open "Service Location Protocol 2" (nmap_udp). The display shows one parameter, <code>-t
+  multicast</code> (cli_settings line 80); its meaning is not documented (<span class="tl tl-candidate">CANDIDATE</span>: SLP address type multicast vs
+  broadcast, reason: value name only).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-025">S-025</a> section 7, Updates): the update utility discovers the IMM by SLP multicast on the LAN over USB
+  interface when the default address fails. <span class="tl tl-extracted">EXTRACTED</span> (architecture doc section 9.3): iflash64 contains SLP
+  attribute and service request strings.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (changelog 1.55): "Fixed the OpenSLP heap-related memory corruption which was found in H4B." So the
+  SLP daemon is OpenSLP and 1.30 predates the fix (CVE number from docs/X3650M3_FIRMWARE_HISTORY.md, not from the
+  changelog).</li>
+<li><span class="tl tl-unknown">UNKNOWN</span>: advertised service types and attributes, scope, whether SLP answers on the external LAN and on LAN over
+  USB equally, multicast vs unicast behavior. ASU IMM.SLPPortControl exists only in <a class="sref" href="../catalog/sources.html#s-027">S-027</a> (IMM2 port control
+  list); no IMM1 way to close 427 is documented for 1.30.</li>
+</ul>
+<h2 id="10-lan-over-usb-in-band-network-interface">10. LAN over USB (in-band network interface) <a class="anchor" href="#10-lan-over-usb-in-band-network-interface" aria-label="Link to this section">#</a></h2>
+<p>Internals, USB descriptors, documented and conflicting addresses and the update protocol are in
+docs/X3650M3_IMM_ARCHITECTURE.md sections 4.2 and 9.3 and conflict 1. Interface-level facts only:</p>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span>: the IMM presents an internal Ethernet NIC to the OS; IMM side static 169.254.95.118/255.255.0.0
+  (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p129). Called "USB in-band interface" or "commands on USB interface" in the web UI (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p31-32, p129).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p32): "To prevent any application that is running on the server from requesting the IMM to
+  perform tasks, you must disable the USB in-band interface." Disabling stops in-band flash utilities and ASU over
+  this path (ASU still works with an IPMI driver), does not affect remote presence USB devices; disable the
+  watchdog timeouts too.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> control points: web System Settings &gt; Miscellaneous "Allow commands on the USB interface" (<a class="sref" href="../catalog/sources.html#s-020">S-020</a>
+  p32); CLI <code>usbeth -en enabled|disabled</code> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p150); ASU IMM.LanOverUsb, which must be set with <code>--kcs</code>
+  because the link disappears during the set (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed p17; <a class="sref" href="../catalog/sources.html#s-026">S-026</a> Lenovo edition section on LAN over USB);
+  UEFI "Commands on USB Interface Preference" (<a class="sref" href="../catalog/sources.html#s-022">S-022</a> p8).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span>: ASU uses LAN over USB by default and falls back to KCS; ASU enables a disabled LAN over USB link for
+  its own use and disables it again afterwards (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed p16). The <code>asu immcfg</code> sub-application configures
+  the host side (<code>--autocfgdhcp</code>, <code>--autocfgstatic</code> with host 169.254.95.120 and IMM 169.254.95.118; <a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed
+  p30-31).</li>
+<li><span class="tl tl-candidate">CANDIDATE</span>: the IMM network services (web, CLI, CIM, SLP) are reachable from the host over this link once the
+  host interface has an address. Reason: <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p32 wording ("any application ... requesting the IMM to perform
+  tasks") and <a class="sref" href="../catalog/sources.html#s-025">S-025</a> section 7 (FTP and SLP over this link); no capture exists because the host interface is DOWN.</li>
+<li><span class="tl tl-measured">MEASURED</span>: host device 04b3:4010 present, driver cdc_ether, interface enx5ef3fce08adf DOWN with no address
+  (lanoverusb_host). IMM side: <code>usbeth -en enabled</code> (<span class="tl tl-measured">MEASURED</span>, cli_settings line 26), so only the host side is
+  unconfigured. Server timeouts (OS watchdog, loader watchdog, <code>-f</code>) are all disabled (cli_settings lines 20-23),
+  which is the documented safe combination if the USB in-band interface is later disabled (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p32).</li>
+</ul>
+<h2 id="11-asu-as-a-configuration-interface">11. ASU as a configuration interface <a class="anchor" href="#11-asu-as-a-configuration-interface" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-025">S-025</a> BMC configuration section, "New Method"): all IMM settings are stored on the IMM file system and are directly
+  accessible by ASU; most web settings are also ASU settings; ASU works locally and remotely.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed p16-17): connectivity options: no option = LAN over USB with default settings, then
+  KCS; <code>--kcs</code> = KCS only, no authentication; <code>--host &lt;IMM IP&gt;</code> with credentials = remote over the IMM LAN.
+  ASU 3.0.0 or later is required for the IMM (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p126).</li>
+<li><span class="tl tl-unknown">UNKNOWN</span>: the wire protocol ASU uses for a remote (<code>--host</code>) connection to an IMM1. The CIM-first, then IPMI
+  LAN, then KCS order in <a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed p35 is written for IMM2-based systems (FoD) and is not imported.</li>
+<li>Interface-relevant IMM1 setting names (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> printed p22-24, ESXi list for IMM-based servers): IMM.HTTPPort,
+  IMM.SSLPort, IMM.TelnetPort, IMM.SSHPort, IMM.SNMP_AgentPort, IMM.SNMP_TrapPort, IMM.CIMOverHTTPPort,
+  IMM.CIMOverHTTPSPort, IMM.SNMPTraps, IMM.Community_Name.1, IMM.SSL_Server_Enable, IMM.CIMXMLOverHTTPS_Enable,
+  IMM.SSL_Client_Enable, IMM.SSH_Enable, IMM.SerialRedirectionCLIMode1, IMM.SerialBaudRate, IMM.WebTimeout,
+  IMM.LockoutPeriod, IMM.User_Authentication_Method, IMM.AccountSecurity and the per-user IMM.SNMPv3_*.1 set.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-027">S-027</a> Appendix I, IMM1 column): network settings (IMM.HostName1, IMM.SharedNicMode, IMM.Network1,
+  IMM.HostIPAddress1, IMM.HostIPSubnet1, IMM.GatewayIPAddress1, IMM.DHCP1) take effect after the next IMM restart;
+  IMM.NTPHost is the only NTP server (default 127.0.0.1), IMM.NTPFrequency default 80; IMM.LoginId 3-16
+  characters; IMM.Password maximum 15 characters; IMM.DST Yes/No.</li>
+<li>The full ASU setting dump of this unit was never captured (<code>asu show all</code>, read-only; section 15).</li>
+</ul>
+<h2 id="12-port-assignments-and-service-enabledisable">12. Port assignments and service enable/disable <a class="anchor" href="#12-port-assignments-and-service-enabledisable" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Default port (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p43-44)</th>
+<th>Changeable</th>
+<th>Enable/disable on 1.30 (documented)</th>
+<th>Measured</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP</td>
+<td>80</td>
+<td>1-65535</td>
+<td>no switch documented</td>
+<td>80 open</td>
+</tr>
+<tr>
+<td>HTTPS</td>
+<td>443</td>
+<td>1-65535</td>
+<td>Security page HTTPS server; IMM restart</td>
+<td>443 open, cleartext HTTP</td>
+</tr>
+<tr>
+<td>Telnet legacy CLI</td>
+<td>23</td>
+<td>1-65535</td>
+<td>session count 0 closes the service (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p134; changelog 1.28)</td>
+<td>23 open</td>
+</tr>
+<tr>
+<td>SSH legacy CLI</td>
+<td>22</td>
+<td>not stated as range (default 22)</td>
+<td>Security page SSH server; IMM.SSH_Enable</td>
+<td>22 open</td>
+</tr>
+<tr>
+<td>SNMP agent</td>
+<td>161</td>
+<td>1-65535</td>
+<td>SNMPv1/SNMPv3 agent fields</td>
+<td>161/udp open</td>
+</tr>
+<tr>
+<td>SNMP traps</td>
+<td>162</td>
+<td>1-65535</td>
+<td>SNMP Traps field</td>
+<td>not a listener</td>
+</tr>
+<tr>
+<td>Remote presence</td>
+<td>3900 (rack/tower)</td>
+<td>yes (blades must keep 2068)</td>
+<td>Premium only</td>
+<td>3900 open</td>
+</tr>
+<tr>
+<td>Systems Director over HTTP</td>
+<td>5988</td>
+<td>yes</td>
+<td>no switch documented</td>
+<td>5988 open</td>
+</tr>
+<tr>
+<td>Systems Director over HTTPS</td>
+<td>5989</td>
+<td>yes</td>
+<td>Security page; IMM.CIMXMLOverHTTPS_Enable</td>
+<td>5989 closed</td>
+</tr>
+<tr>
+<td>SLP</td>
+<td>427</td>
+<td>reserved</td>
+<td>none documented</td>
+<td>427 tcp+udp open</td>
+</tr>
+<tr>
+<td>Partition management</td>
+<td>7070-7077</td>
+<td>reserved</td>
+<td>-</td>
+<td>closed</td>
+</tr>
+<tr>
+<td>IPMI RMCP/RMCP+</td>
+<td>623/udp (not in <a class="sref" href="../catalog/sources.html#s-020">S-020</a> tables)</td>
+<td>not documented</td>
+<td><code>portcontrol -ipmi</code> documented in <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p147 but absent on 1.30</td>
+<td>623/udp open</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span> (changelog 1.32, not in 1.30): "allow every service port to be Enabled or Disabled". On 1.30 the
+  only documented ways to close a listener are the per-service switches above.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p49-50, <a class="sref" href="../catalog/sources.html#s-027">S-027</a> IMM1 notes): protocol and network changes on IMM1 take effect after an IMM
+  restart. On this host an IMM restart needs owner approval (docs/AGENT.md).</li>
+</ul>
+<h2 id="13-interface-relevant-firmware-changes-130-installed-vs-155-latest">13. Interface-relevant firmware changes (1.30 installed vs 1.55 latest) <a class="anchor" href="#13-interface-relevant-firmware-changes-130-installed-vs-155-latest" aria-label="Link to this section">#</a></h2>
+<p>Source: changelog; version attribution by the "Version x.yy" headers. Security/CVE content is listed in
+docs/X3650M3_IMM_ARCHITECTURE.md section 9.4 and docs/X3650M3_FIRMWARE_HISTORY.md; only interface behavior is here.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Change affecting an interface</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.05</td>
+<td>SNMP can add/remove users and set account security level; hostname for SNMPv3 traps; updated MIB files</td>
+</tr>
+<tr>
+<td>1.10</td>
+<td>SSH enabled by default; ASU can enable/disable SSH</td>
+</tr>
+<tr>
+<td>1.19</td>
+<td>IPMI multi-session handling fix; default SerialExitCLIKeySequence "^[("</td>
+</tr>
+<tr>
+<td>1.24</td>
+<td>IPv6 configuration via SNMP; SNMP trap definitions; SNMP configuration through ASU fixed</td>
+</tr>
+<tr>
+<td>1.28</td>
+<td>MIB mismatch and wrong OID fixed; SMTP port configurable; Telnet fully shut down at max sessions 0; LDAP AD application mode and authentication-only mode</td>
+</tr>
+<tr>
+<td>1.30 (installed)</td>
+<td>SNMP remote alert and SMTP test alert fixed; web login after Director inventory fixed; 64-bit ActiveX remote presence client</td>
+</tr>
+<tr>
+<td>1.32</td>
+<td>every service port can be enabled/disabled; web lockout honours SSH lockouts; SSL client certificates manageable while enabled</td>
+</tr>
+<tr>
+<td>1.33</td>
+<td>CLI command for one-time PXE boot; web session management; IE9</td>
+</tr>
+<tr>
+<td>1.35</td>
+<td>SNMP intermittent drop fixed; SSH login with "Local first then LDAP" fixed; slow web interface fixed; secure SMTP authentication; ASU per-category alert control; LAN-over-USB README addresses fixed</td>
+</tr>
+<tr>
+<td>1.42</td>
+<td>SHA256/SHA512 support</td>
+</tr>
+<tr>
+<td>1.43</td>
+<td>SNMP engine ID stable across IMM reset</td>
+</tr>
+<tr>
+<td>1.47</td>
+<td>session cookie HttpOnly</td>
+</tr>
+<tr>
+<td>1.48</td>
+<td>ASU over KCS password-may-become-empty fix; LDAP lockout fix</td>
+</tr>
+<tr>
+<td>1.49-1.53</td>
+<td>high security mode: LDAP client ciphers (1.49), SSH CBC/weak MAC off (1.50), SSH arcfour off (1.52), only TLS 1.2 and no 64-bit/medium/3DES suites (1.53); clickjacking fix (1.52); security headers (1.53); event log after HTTPS toggle fixed (1.51)</td>
+</tr>
+<tr>
+<td>1.55</td>
+<td>OpenSLP heap memory corruption fixed</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="14-source-conflicts">14. Source conflicts <a class="anchor" href="#14-source-conflicts" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Topic</th>
+<th>Values and sources</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I-1</td>
+<td><code>vpd bios</code></td>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a> p138 documents <code>vpd bios</code>; measured 1.30: "Unknown argument: bios"; measured <code>vpd fw</code> works but is undocumented</td>
+<td>Open; firmware-level difference (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>I-2</td>
+<td>CLI command set</td>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a> p139, p147, p153 list portcontrol, tcpcmdmode, Service Advisor commands; measured 1.30 help lacks them and adds <code>ipsec</code></td>
+<td>Explained as <span class="tl tl-candidate">CANDIDATE</span>: <a class="sref" href="../catalog/sources.html#s-020">S-020</a> (2015) describes later firmware (changelog 1.32/1.33)</td>
+</tr>
+<tr>
+<td>I-3</td>
+<td>syshealth output</td>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a> p137: power, state, restarts and IMM software status; measured: no software-status line (2026-10-19 and 2026-10-20)</td>
+<td>Open (minor)</td>
+</tr>
+<tr>
+<td>I-4</td>
+<td>Serial exit key</td>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a> p148 example "^[Q"; changelog 1.19 and <a class="sref" href="../catalog/sources.html#s-027">S-027</a> default "^[("</td>
+<td>Resolved for this unit: measured <code>^[(</code> (cli_settings line 19) = documented default; <a class="sref" href="../catalog/sources.html#s-020">S-020</a> shows an example value</td>
+</tr>
+<tr>
+<td>I-5</td>
+<td>SNMPv3 privacy protocols</td>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a> p36: DES, AES; <a class="sref" href="../catalog/sources.html#s-027">S-027</a> 3.9.2: NONE, CBC-DES, AES</td>
+<td>Wording difference; same algorithms</td>
+</tr>
+<tr>
+<td>I-6</td>
+<td>SNMPv3 password source</td>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a> p36: "The password for the Linux account will be used for authentication" (login password)</td>
+<td>Not a conflict; recorded because it reveals a Linux account per profile (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>I-7</td>
+<td>HTTPS default</td>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a> p84-87 describes HTTPS as available; <a class="sref" href="../catalog/sources.html#s-027">S-027</a> Appendix I: IMM1 SSL server default Disabled, no certificate</td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td>I-8</td>
+<td>Port 443 cleartext</td>
+<td>[not published]</td>
+<td>[not published]</td>
+</tr>
+<tr>
+<td>I-9</td>
+<td>IPMI user count</td>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a> p33: 12 accounts; ipmitool lists 13 IDs</td>
+<td>Resolved: ID 1 null user + 12 profiles</td>
+</tr>
+<tr>
+<td>I-10</td>
+<td>Password length</td>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a> p33 IPMI password max 16 bytes; <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p150 CLI fewer than 16 characters; <a class="sref" href="../catalog/sources.html#s-027">S-027</a> Appendix I IMM1 IMM.Password max 15</td>
+<td>Open (adds to architecture conflict 4)</td>
+</tr>
+<tr>
+<td>I-11</td>
+<td><code>srcfg</code> option name</td>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a> p148 (PDF index): <code>-exitcliseq</code> (its table refers to an <code>-entercliseq</code> option for the values); 1.30 displays <code>-entercliseq : ^[(</code></td>
+<td>Recorded; firmware/document difference; whether the 1.30 sequence is used to enter or to leave the CLI is <span class="tl tl-unknown">UNKNOWN</span> (not exercised)</td>
+</tr>
+<tr>
+<td>I-12</td>
+<td><code>passwordcfg</code> fields</td>
+<td>[not published]</td>
+<td>Recorded; 1.30 has two undocumented display fields</td>
+</tr>
+</tbody>
+</table></div>
+<p>Conflicts already recorded in docs/X3650M3_IMM_ARCHITECTURE.md section 12 (LAN over USB addresses, port 5988
+label, HTTPS, SSH host keys, SNMP) are not repeated.</p>
+<h2 id="15-open-questions--next-captures">15. Open questions / next captures <a class="anchor" href="#15-open-questions--next-captures" aria-label="Link to this section">#</a></h2>
+<p>All probes below are read-only. They need the owner's go-ahead for any IMM login and are run from the Proxmox host
+or the agent container; credentials are entered interactively and never stored.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Read-only probe</th>
+<th>Closes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Why 443 is cleartext; SSL server state and certificate status</td>
+<td>[not published]</td>
+<td>3.1, I-8</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Serial redirection and exit key</td>
+<td>Closed 2026-10-20 (cli_settings <code>portcfg</code>, <code>srcfg</code>)</td>
+<td>6.1, I-4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Watchdogs, LAN over USB state</td>
+<td>Closed 2026-10-20: timeouts all disabled, usbeth enabled (cli_settings)</td>
+<td>10, A-009</td>
+</tr>
+<tr>
+<td>4</td>
+<td>DNS, NTP, LDAP, password policy, group profiles, SLP settings</td>
+<td>Closed 2026-10-20 (cli_settings; values in 4.2)</td>
+<td>4.2, 9</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Syntax and state of the undocumented <code>ipsec</code> command</td>
+<td>Syntax closed 2026-10-20 (<code>ipsec -h</code>, cli_settings). Remaining: state, CLI <code>ipsec show -status</code> and <code>ipsec show -connections</code> (documented read-only by the usage text)</td>
+<td>4.3</td>
+</tr>
+<tr>
+<td>6</td>
+<td>IMM event log content (incl. login records)</td>
+<td>Closed 2026-10-20: captured with <code>readlog -f</code> + repeated <code>readlog</code> (imm_readlog); decode in docs/X3650M3_ERROR_CODES.md 15.6-15.8. Remaining: log capacity / FIFO limit (not reached at 781 entries, ERROR_CODES Q-02) and event IDs of the entries (ERROR_CODES Q-11, web Event Log page)</td>
+<td>4.2</td>
+</tr>
+<tr>
+<td>7</td>
+<td>IMM clock vs real time</td>
+<td>Closed 2026-10-21: IMM local time is about 4 min ahead of UTC with GMT +3:00 configured, so its GMT is about 2 h 56 min behind UTC (auth capture: request 06:09:24 UTC, IMM Date header 03:13:18 GMT; WS-Man <code>GetiBMCDateAndTime</code> 06:28:52 local during the 06:24-06:27 UTC run; capture host clock not independently verified). Details: docs/X3650M3_IMM_WEB_API.md 9.1</td>
+<td>architecture doc 5.3</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Full IMM and UEFI setting dump incl. SNMP, CIM, ports, console redirection</td>
+<td>in-band <code>asu show all --kcs</code> (needs ASU binary on the host; read-only <code>show</code>)</td>
+<td>6.3, 7, 8, 11</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Web URL tree (pages, scripts) without login</td>
+<td>[not published]</td>
+<td>3.1, 3.2, 3.3</td>
+</tr>
+<tr>
+<td>10</td>
+<td>SLP service types and attributes</td>
+<td><code>slptool -u [lab-ip] findsrvtypes</code>, then <code>findsrvs</code>/<code>findattrs</code> per type</td>
+<td>9</td>
+</tr>
+<tr>
+<td>11</td>
+<td>CIM namespaces/classes, authentication requirement</td>
+<td>Closed 2026-10-21: Basic auth required (401 without), root/interop 38 classes and 52 profiles, root/cimv2 286 classes, nine inventory classes read (section 8.1). Remaining: extrinsic methods and setting changes (not to be tested without approval)</td>
+<td>8</td>
+</tr>
+<tr>
+<td>12</td>
+<td>WS-Man on 5988</td>
+<td><code>curl -si -X POST http://[lab-ip]:5988/wsman</code> with an Identify request (still open; WS-Man on :80/wsman is <span class="tl tl-measured">MEASURED</span>)</td>
+<td>8</td>
+</tr>
+<tr>
+<td>13</td>
+<td>SNMPv3 engine ID and boots/time (no user needed)</td>
+<td><code>snmpget -v3 -l noAuthNoPriv -u probe [lab-ip] 1.3.6.1.6.3.10.2.1.1.0</code> (discovery only; expect unknownUserName report carrying the engine ID)</td>
+<td>7.4</td>
+</tr>
+<tr>
+<td>14</td>
+<td>IPMI PET destinations and other LAN parameters</td>
+<td>in-band <code>ipmitool lan alert print 1</code>, <code>ipmitool lan print 1</code> already captured</td>
+<td>5.6</td>
+</tr>
+<tr>
+<td>15</td>
+<td>IPMI channel access limits and cipher behavior</td>
+<td>in-band <code>ipmitool channel getaccess 1</code>, <code>ipmitool channel getciphers ipmi 1</code>, <code>ipmitool sol info 1</code> (captured)</td>
+<td>5.4, 6.2</td>
+</tr>
+<tr>
+<td>16</td>
+<td>SEL and sensor detail</td>
+<td><code>ipmitool -v sdr list all</code> done 2026-10-20 (captures/2026-10-20_sdr_verbose_and_pd0.txt, docs/X3650M3_SENSORS_SDR.md 13); SEL captured 2026-10-19 (ipmi_inband)</td>
+<td>closed</td>
+</tr>
+<tr>
+<td>17</td>
+<td>IBM OEM IPMI NetFn/commands</td>
+<td>offline: string/disassembly scan of iflash64 and ASU binaries; obtain imm.mib/immalert.mib and the IMM .upd from IBM Fix Central</td>
+<td>5.5, 7.2</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Whether the host can reach IMM services over LAN over USB</td>
+<td>needs bringing up enx5ef3fce08adf with a 169.254.95.x address; changes host network config, so owner approval required (not purely read-only)</td>
+<td>10</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Remote presence availability (Premium key)</td>
+<td>web login, check for Remote Control link; or <code>vpd</code> web page</td>
+<td>section 2</td>
+</tr>
+</tbody>
+</table></div>
+<p>Not to be run: <code>clearlog</code>, <code>clearcfg</code>, <code>resetsp</code>, <code>reset</code>, <code>power</code>, <code>update</code>, <code>identify -s on</code>, any <code>-option value</code>
+form of a CLI configuration command, ipmitool <code>set</code>/<code>chassis power</code>/<code>mc reset</code>/<code>sel clear</code>, unknown OEM <code>raw</code>
+commands, and ASU <code>set</code>/<code>rebootimm</code>.</p>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="imm-architecture.html"><span>Previous</span>IMM (v1) Architecture</a>
+<a class="next" href="imm-web-api.html"><span>Next</span>IMM 1.30 Web UI and WS-Man API</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-scope-and-conventions">1. Scope and conventions</a></li><li class="l2"><a href="#2-interface-summary">2. Interface summary</a></li><li class="l2"><a href="#3-web-interface-httphttps">3. Web interface (HTTP/HTTPS)</a></li><li class="l3"><a href="#31-transport-and-login">3.1 Transport and login</a></li><li class="l3"><a href="#32-navigation-map-left-pane-imm-v1">3.2 Navigation map (left pane, IMM v1)</a></li><li class="l3"><a href="#33-implementation-on-firmware-130-captured-web-ui">3.3 Implementation on firmware 1.30 (captured web UI)</a></li><li class="l2"><a href="#4-legacy-cli-ssh-and-telnet">4. Legacy CLI (SSH and Telnet)</a></li><li class="l3"><a href="#41-access-and-limits">4.1 Access and limits</a></li><li class="l3"><a href="#42-command-reference-s-020-chapter-7-vs-measured-help-on-130">4.2 Command reference (S-020 Chapter 7 vs measured help on 1.30)</a></li><li class="l3"><a href="#43-documented-vs-measured-command-set">4.3 Documented vs measured command set</a></li><li class="l3"><a href="#44-telnet-specifics">4.4 Telnet specifics</a></li><li class="l3"><a href="#45-ssh-specifics">4.5 SSH specifics</a></li><li class="l2"><a href="#5-ipmi-kcs-and-lan">5. IPMI (KCS and LAN)</a></li><li class="l3"><a href="#51-channels-and-access-paths">5.1 Channels and access paths</a></li><li class="l3"><a href="#52-users-and-privileges">5.2 Users and privileges</a></li><li class="l3"><a href="#53-standard-ipmi-commands-measured-support-ipmitool-in-band-2026-10-19">5.3 Standard IPMI commands: measured support (ipmitool in-band, 2026-10-19)</a></li><li class="l3"><a href="#55-ibm-oem-netfn-and-commands">5.5 IBM OEM NetFn and commands</a></li><li class="l3"><a href="#56-alerting-pet-and-the-ipmi-snmp-community-string">5.6 Alerting (PET) and the IPMI &quot;SNMP Community String&quot;</a></li><li class="l2"><a href="#6-serial-over-lan-and-serial-redirection">6. Serial over LAN and serial redirection</a></li><li class="l3"><a href="#61-two-serial-paths">6.1 Two serial paths</a></li><li class="l3"><a href="#62-measured-sol-configuration-ipmitool-sol-info-1">6.2 Measured SOL configuration (ipmitool sol info 1)</a></li><li class="l3"><a href="#63-uefi-side">6.3 UEFI side</a></li><li class="l2"><a href="#7-snmp">7. SNMP</a></li><li class="l3"><a href="#71-agents-and-access-control">7.1 Agents and access control</a></li><li class="l3"><a href="#72-traps-alert-categories-mibs">7.2 Traps, alert categories, MIBs</a></li><li class="l3"><a href="#73-asu-names-immv1-list-s-026-printed-p22-24">7.3 ASU names (IMMv1 list, S-026 printed p22-24)</a></li><li class="l2"><a href="#8-cim--ibm-systems-director-5988-5989-and-ws-man">8. CIM / IBM Systems Director (5988, 5989) and WS-Man</a></li><li class="l3"><a href="#81-live-cim-inventory-measured-captures2026-10-21_imm_cim_read_inventorytxt">8.1 Live CIM inventory (MEASURED, captures/2026-10-21_imm_cim_read_inventory.txt)</a></li><li class="l2"><a href="#9-slp-427">9. SLP (427)</a></li><li class="l2"><a href="#10-lan-over-usb-in-band-network-interface">10. LAN over USB (in-band network interface)</a></li><li class="l2"><a href="#11-asu-as-a-configuration-interface">11. ASU as a configuration interface</a></li><li class="l2"><a href="#12-port-assignments-and-service-enabledisable">12. Port assignments and service enable/disable</a></li><li class="l2"><a href="#13-interface-relevant-firmware-changes-130-installed-vs-155-latest">13. Interface-relevant firmware changes (1.30 installed vs 1.55 latest)</a></li><li class="l2"><a href="#14-source-conflicts">14. Source conflicts</a></li><li class="l2"><a href="#15-open-questions--next-captures">15. Open questions / next captures</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

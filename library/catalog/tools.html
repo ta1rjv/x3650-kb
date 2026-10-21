@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scripts and tools - x3650 M3 Library</title>
+<meta name="description" content="Reference for the 10 analysis and capture tools in scripts/: purpose, command-line interface and public functions, generated from their docstrings and argparse definitions.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="catalog" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="../pages/reading-guide.html">Reading Guide</a></li>
+<li><a href="../pages/system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="../pages/firmware-guide.html">Firmware Guide</a></li>
+<li><a href="../pages/imm-guide.html">IMM Guide</a></li>
+<li><a href="../pages/uefi-guide.html">UEFI Guide</a></li>
+<li><a href="../pages/troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="../pages/tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="../pages/glossary.html">Glossary</a></li>
+<li><a href="../pages/faq.html">FAQ</a></li>
+<li><a href="../pages/timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="../pages/about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="../volumes/knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="../volumes/system-architecture.html">System Architecture</a></li>
+<li><a href="../volumes/hardware-components.html">Hardware Components</a></li>
+<li><a href="../volumes/memory.html">Memory</a></li>
+<li><a href="../volumes/storage-raid.html">Storage and RAID</a></li>
+<li><a href="../volumes/power-thermal.html">Power and Thermal</a></li>
+<li><a href="../volumes/sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="../volumes/imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="../volumes/imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="../volumes/imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="../volumes/serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="../volumes/uefi.html">UEFI Firmware</a></li>
+<li><a href="../volumes/firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="../volumes/firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="../volumes/firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="../volumes/error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="../volumes/tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="../volumes/optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="firmware.html">Firmware packages</a></li>
+<li><a href="sources.html">Source documents</a></li>
+<li><a href="tools.html" aria-current="page">Scripts and tools</a></li>
+<li><a href="files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Catalogs</li><li aria-current="page">Scripts and tools</li></ol></nav>
+<article>
+<header class="page-head">
+<h1>Scripts and tools</h1>
+<p class="lede">Reference for the 10 analysis and capture tools in scripts/: purpose, command-line interface and public functions, generated from their docstrings and argparse definitions.</p>
+<p class="meta"><span class="source">source: <code>scripts/ (parsed with ast, not executed)</code></span> <span>10 sections</span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#build_librarypy">build_library.py</a></li><li class="l2"><a href="#ibm_fw_unpackpy">ibm_fw_unpack.py</a></li><li class="l2"><a href="#imm_cim_read_inventorypy">imm_cim_read_inventory.py</a></li><li class="l2"><a href="#imm_updpy">imm_upd.py</a></li><li class="l2"><a href="#imm_wsman_read_inventorypy">imm_wsman_read_inventory.py</a></li><li class="l2"><a href="#lenovo_downloadspy">lenovo_downloads.py</a></li><li class="l2"><a href="#library_sanitizepy">library_sanitize.py</a></li><li class="l2"><a href="#uefi_fvpy">uefi_fv.py</a></li><li class="l2"><a href="#vzdump-verify-prunesh">vzdump-verify-prune.sh</a></li><li class="l2"><a href="#wayback_mirrorpy">wayback_mirror.py</a></li></ul></nav></details>
+<div class="prose">
+<p>Generated from the module docstrings and <code>argparse</code> definitions of the scripts in <code>scripts/</code> by static parsing (the scripts are not imported or run during the build). Run any tool with <code>--help</code> for the authoritative interface. Tests live in <code>tests/</code> (<code>python3 -m unittest discover -s tests -v</code>).</p>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Script</th><th>Purpose</th></tr></thead><tbody><tr><td><a href="#tool-build-library"><code>build_library.py</code></a></td><td>Build the public static &quot;library&quot; website of the x3650m3-kb repository (GitHub Pages).</td></tr>
+<tr><td><a href="#tool-ibm-fw-unpack"><code>ibm_fw_unpack.py</code></a></td><td>Offline analysis of IBM System x firmware update packages (x3650 M3 era).</td></tr>
+<tr><td><a href="#tool-imm-cim-read-inventory"><code>imm_cim_read_inventory.py</code></a></td><td>[not published]</td></tr>
+<tr><td><a href="#tool-imm-upd"><code>imm_upd.py</code></a></td><td>Offline parser for IBM IMM v1 firmware update images (.upd, &quot;YUOO&quot; builds).</td></tr>
+<tr><td><a href="#tool-imm-wsman-read-inventory"><code>imm_wsman_read_inventory.py</code></a></td><td>[not published]</td></tr>
+<tr><td><a href="#tool-lenovo-downloads"><code>lenovo_downloads.py</code></a></td><td>Lenovo Data Center Support download catalog and fetcher for machine type 7945.</td></tr>
+<tr><td><a href="#tool-library-sanitize"><code>library_sanitize.py</code></a></td><td>Sanitizer and leak gate for the public x3650m3-kb library site - Python 3 standard library only.</td></tr>
+<tr><td><a href="#tool-uefi-fv"><code>uefi_fv.py</code></a></td><td>UEFI firmware volume (FV), FFS file and section parser - Python 3 standard library only.</td></tr>
+<tr><td><a href="#tool-vzdump-verify-prune"><code>vzdump-verify-prune.sh</code></a></td><td>vzdump-verify-prune.sh - Proxmox VE vzdump hook script.</td></tr>
+<tr><td><a href="#tool-wayback-mirror"><code>wayback_mirror.py</code></a></td><td>Mirror retired Eclipse-infocenter topics from the Internet Archive (Wayback Machine).</td></tr></tbody></table></div></div>
+<section class="tool" id="tool-build-library">
+<h2 id="build_librarypy">build_library.py <a class="anchor" href="#build_librarypy" aria-label="Link to this section">#</a></h2>
+<p class="lede">Build the public static &quot;library&quot; website of the x3650m3-kb repository (GitHub Pages).</p>
+<pre class="doc">Usage:
+  python3 scripts/build_library.py --out _site [--repo .] [--config site/publish.json] [--strict-links]
+
+Dependency: Python-Markdown (pinned in requirements-site.txt); everything else is the standard library.
+
+Output: OUT/index.html (redirect to library/), OUT/library/index.html (home shelf) and every page below
+OUT/library/. All links are relative, so the site works under /x3650m3-kb/ on GitHub Pages and from file://.
+No external fonts, scripts or stylesheets are referenced.
+
+Inputs (repository paths):
+  docs/X3650M3_*.md          knowledge volumes (except the never-published list in site/publish.json)
+  publish.json about_docs    selected project documents (&quot;About this project&quot;)
+  site/pages/*.md            hand-written pages with front matter (title, section, order, summary)
+  firmware/**/SHA256SUMS     firmware package catalog (metadata only, binaries are never published)
+  firmware/ibm/SOURCE.txt    download origin, installed and latest markers of the IBM packages
+  sources/SOURCES.md         source document catalog (S-xxx ids); sources/lenovo/CATALOG.md summary
+  scripts/*.py, scripts/*.sh tools reference (parsed with ast, never imported or executed)
+  git ls-files + site/catalog/files.tsv   repository file index (path&lt;TAB&gt;description, longest prefix)
+
+Publication safety: every string that reaches the output passes through scripts/library_sanitize.py with
+the rules of site/publish.json. After the build the leak gate scans every output file; on any finding the
+output directory is deleted and the exit status is 1 (fail closed). Exit status 2 = usage, configuration
+or input error.</pre>
+<h3 id="tool-build-library-options">Options <a class="anchor" href="#tool-build-library-options" aria-label="Link to this section">#</a></h3>
+<pre class="usage"><code>python3 scripts/build_library.py [--out OUT] [--repo REPO] [--config CONFIG] [--strict-links] [--quiet]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>--out</code></td><td>output directory (created; replaced only if built by this tool) <span class="muted">(required)</span></td></tr>
+<tr><td><code>--repo</code></td><td>repository root (default: current directory) <span class="muted">(default: .)</span></td></tr>
+<tr><td><code>--config</code></td><td>publication rules (default: REPO/site/publish.json)</td></tr>
+<tr><td><code>--strict-links</code></td><td>fail on broken internal links or anchors</td></tr>
+<tr><td><code>--quiet</code></td><td>print only the summary and errors</td></tr></tbody></table></div></div>
+<details class="functions"><summary>19 public functions and classes</summary><ul><li><code>class BuildError</code> - Input or configuration problem that prevents a safe build.</li><li><code>def esc</code></li><li><code>def gh_slug</code> - GitHub-compatible heading anchor (lowercase, punctuation removed, spaces to hyphens).</li><li><code>def path_slug</code></li><li><code>def strip_tags</code></li><li><code>def human_size</code></li><li><code>def rel_url</code> - Relative link from page from_url to to_url (both relative to the library root).</li><li><code>def shorten</code></li><li><code>def md_plain</code> - Very small Markdown-to-plain-text conversion for summaries.</li><li><code>def is_build_id</code> - IBM firmware build IDs are 7 characters, letter first, with at least one digit (YUOOH5A, D6E164A).</li><li><code>def run_git</code></li><li><code>def tracked_files</code> - Repository files: git ls-files, or a filesystem walk when git is not available.</li><li><code>def read_text</code></li><li><code>def parse_front_matter</code> - Return (meta, body). Front matter = leading &#x27;key: value&#x27; lines up to a blank line, with a title key.</li><li><code>def preprocess_markdown</code> - Adapt GitHub-flavoured habits to Python-Markdown: blank line before lists and tables, 4-space nesting.</li><li><code>def new_markdown</code></li><li><code>class Page</code></li><li><code>class Builder</code></li><li><code>def main</code></li></ul></details>
+<p class="muted">Tests: <code>tests/test_build_library.py</code></p>
+</section>
+<section class="tool" id="tool-ibm-fw-unpack">
+<h2 id="ibm_fw_unpackpy">ibm_fw_unpack.py <a class="anchor" href="#ibm_fw_unpackpy" aria-label="Link to this section">#</a></h2>
+<p class="lede">Offline analysis of IBM System x firmware update packages (x3650 M3 era).</p>
+<pre class="doc">Python 3 standard library only. The tool never executes anything contained in a
+package; it only reads bytes and writes extracted copies to an output directory.
+
+Supported formats (see docs/X3650M3_FIRMWARE_FORMATS.md):
+  * IBM &quot;PKG SDK&quot; self-extractors (.bin = ELF i386 stub, .exe = PE32 stub) with
+    a 20-byte trailer of five little-endian uint32 element sizes:
+      [stub, unzip utility, image.tar (.upd), image.zip, imgboot.cfg]
+  * The .upd update image (POSIX tar: oem_ibm.xml + &lt;build&gt;.tar.gz)
+  * The CIM-XML package descriptor (.xml, class IBMPSG_SystemUpdateElement)
+  * UEFI PI firmware volumes (FFS v2), EFI/Tiano and LZMA compressed sections,
+    Intel microcode updates, PCI option ROMs, HII string and form packages.
+
+Sub-commands:
+  info      identify a package and list its elements (JSON)
+  extract   extract all elements of a package into a directory
+  xml       parse a CIM-XML package descriptor into JSON
+  upd       parse a .upd image (tar with oem_ibm.xml) into JSON
+  fv        list firmware volumes / FFS files of a file
+  microcode list Intel microcode updates found in a file
+  hii       dump HII string packages and the reconstructed setup form tree
+  baseline  write a text fingerprint of a UEFI package into a directory
+  diff      compare two baseline directories</pre>
+<h3 id="tool-ibm-fw-unpack-info">Command <code>info</code> <a class="anchor" href="#tool-ibm-fw-unpack-info" aria-label="Link to this section">#</a></h3>
+<p>identify a package and list elements</p>
+<pre class="usage"><code>python3 scripts/ibm_fw_unpack.py info PATH</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>path</code></td><td></td></tr></tbody></table></div></div>
+<h3 id="tool-ibm-fw-unpack-extract">Command <code>extract</code> <a class="anchor" href="#tool-ibm-fw-unpack-extract" aria-label="Link to this section">#</a></h3>
+<p>extract a package into a directory</p>
+<pre class="usage"><code>python3 scripts/ibm_fw_unpack.py extract PATH OUTDIR</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>path</code></td><td></td></tr>
+<tr><td><code>outdir</code></td><td></td></tr></tbody></table></div></div>
+<h3 id="tool-ibm-fw-unpack-xml">Command <code>xml</code> <a class="anchor" href="#tool-ibm-fw-unpack-xml" aria-label="Link to this section">#</a></h3>
+<p>parse a CIM-XML package descriptor</p>
+<pre class="usage"><code>python3 scripts/ibm_fw_unpack.py xml PATH</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>path</code></td><td></td></tr></tbody></table></div></div>
+<h3 id="tool-ibm-fw-unpack-upd">Command <code>upd</code> <a class="anchor" href="#tool-ibm-fw-unpack-upd" aria-label="Link to this section">#</a></h3>
+<p>parse a .upd image</p>
+<pre class="usage"><code>python3 scripts/ibm_fw_unpack.py upd PATH</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>path</code></td><td></td></tr></tbody></table></div></div>
+<h3 id="tool-ibm-fw-unpack-fv">Command <code>fv</code> <a class="anchor" href="#tool-ibm-fw-unpack-fv" aria-label="Link to this section">#</a></h3>
+<p>list firmware volumes and FFS files</p>
+<pre class="usage"><code>python3 scripts/ibm_fw_unpack.py fv PATH [--json]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>path</code></td><td></td></tr>
+<tr><td><code>--json</code></td><td></td></tr></tbody></table></div></div>
+<h3 id="tool-ibm-fw-unpack-microcode">Command <code>microcode</code> <a class="anchor" href="#tool-ibm-fw-unpack-microcode" aria-label="Link to this section">#</a></h3>
+<p>list Intel microcode updates</p>
+<pre class="usage"><code>python3 scripts/ibm_fw_unpack.py microcode PATH</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>path</code></td><td></td></tr></tbody></table></div></div>
+<h3 id="tool-ibm-fw-unpack-hii">Command <code>hii</code> <a class="anchor" href="#tool-ibm-fw-unpack-hii" aria-label="Link to this section">#</a></h3>
+<p>dump HII strings and setup forms of a UEFI package</p>
+<pre class="usage"><code>python3 scripts/ibm_fw_unpack.py hii PATH [--forms]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>path</code></td><td></td></tr>
+<tr><td><code>--forms</code></td><td>print only the form tree</td></tr></tbody></table></div></div>
+<h3 id="tool-ibm-fw-unpack-baseline">Command <code>baseline</code> <a class="anchor" href="#tool-ibm-fw-unpack-baseline" aria-label="Link to this section">#</a></h3>
+<p>write baseline fingerprint of a UEFI package</p>
+<pre class="usage"><code>python3 scripts/ibm_fw_unpack.py baseline PATH OUTDIR</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>path</code></td><td></td></tr>
+<tr><td><code>outdir</code></td><td></td></tr></tbody></table></div></div>
+<h3 id="tool-ibm-fw-unpack-diff">Command <code>diff</code> <a class="anchor" href="#tool-ibm-fw-unpack-diff" aria-label="Link to this section">#</a></h3>
+<p>compare two baseline directories</p>
+<pre class="usage"><code>python3 scripts/ibm_fw_unpack.py diff A B</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>a</code></td><td></td></tr>
+<tr><td><code>b</code></td><td></td></tr></tbody></table></div></div>
+<details class="functions"><summary>43 public functions and classes</summary><ul><li><code>def sha256</code></li><li><code>def guid_str</code> - Format 16 raw bytes as a registry-format (mixed-endian) GUID string.</li><li><code>def safe_join</code> - Join an archive member name below base, rejecting traversal.</li><li><code>def write_file</code></li><li><code>def stub_type</code></li><li><code>def parse_pkg_trailer</code> - Return the five element sizes if data is a PKG SDK package, else None.</li><li><code>def pkg_elements</code> - Split a PKG SDK package into its elements (list of dicts with bytes).</li><li><code>def parse_imgboot_cfg</code> - Parse imgboot.cfg (package boot config) into a dict.</li><li><code>def parse_wrapcfg</code> - Parse a *.wrapcfg file (keyword value lines, then a file list).</li><li><code>def tar_listing</code></li><li><code>def zip_listing</code></li><li><code>def find_zip_offset</code> - Offset of the first local file header of an appended zip, or None.</li><li><code>def package_info</code></li><li><code>def extract_package</code> - Extract a PKG SDK package (or plain zip/tar) into outdir.</li><li><code>def parse_descriptor_xml</code> - Parse an IBMPSG_SystemUpdateElement CIM-XML descriptor into a dict.</li><li><code>def parse_upd</code> - Parse a .upd file: tar with oem_ibm.xml and an image tar.gz.</li><li><code>def parse_upd_path</code> - Parse a .upd given as a directory.</li><li><code>def parse_oem_xml</code> - Parse oem_ibm.xml (IBMBladeCenterFWUpdFmt) including commented blocks.</li><li><code>class DecompressError</code></li><li><code>def efi_decompress</code> - Decompress EFI 1.1 (version 1, PBIT 4) or Tiano (version 2, PBIT 5).</li><li><code>def efi_decompress_auto</code> - Try Tiano first, then EFI 1.1; return (algorithm, data).</li><li><code>def lzma_decompress</code></li><li><code>def find_volumes</code> - Yield offsets of PI firmware volume headers (_FVH at +0x28).</li><li><code>def parse_volume</code> - Parse one firmware volume at offset; return a dict tree.</li><li><code>def parse_sections</code></li><li><code>def iter_files</code> - Yield (path, file dict) for all FFS files including nested volumes.</li><li><code>def file_ui_name</code></li><li><code>def file_payloads</code> - All leaf PE32/TE/RAW/COMPAT16/FREEFORM payloads of a file.</li><li><code>def find_microcode</code> - Find Intel microcode update headers (header version 1, loader 1).</li><li><code>def find_option_roms</code></li><li><code>def find_hii_package_lists</code> - Find HII package lists in two layouts.</li><li><code>def parse_string_package</code> - Parse an EFI_HII_STRING_PACKAGE; return (language, {id: text}).</li><li><code>def parse_ifr</code> - Parse an IFR form package into a flat list of opcode dicts with scope depth.</li><li><code>def render_forms</code> - Render parsed IFR opcodes as an indented text tree.</li><li><code>def load_uefi_package</code> - Return dict with package info, .upd, oem xml and volume blobs.</li><li><code>def analyse_image</code> - Analyse one image file (FV or capsule) -&gt; dict.</li><li><code>def build_baseline</code></li><li><code>def hii_text</code> - Render string tables and form trees for each HII package list.</li><li><code>def write_baseline</code></li><li><code>def read_modules</code></li><li><code>def read_microcode</code></li><li><code>def diff_baselines</code></li><li><code>def main</code></li></ul></details>
+<p class="muted">Tests: <code>tests/test_ibm_fw_unpack.py</code></p>
+</section>
+<section class="tool" id="tool-imm-cim-read-inventory">
+<h2 id="imm_cim_read_inventorypy">imm_cim_read_inventory.py <a class="anchor" href="#imm_cim_read_inventorypy" aria-label="Link to this section">#</a></h2>
+<p class="lede">[not published]</p>
+<details class="functions"><summary>5 public functions and classes</summary><ul><li><code>def nsxml</code></li><li><code>def request_body</code></li><li><code>def call</code></li><li><code>def redact</code></li><li><code>def main</code></li></ul></details>
+<p class="muted">Tests: <code>tests/test_imm_cim_read_inventory.py</code></p>
+</section>
+<section class="tool" id="tool-imm-upd">
+<h2 id="imm_updpy">imm_upd.py <a class="anchor" href="#imm_updpy" aria-label="Link to this section">#</a></h2>
+<p class="lede">Offline parser for IBM IMM v1 firmware update images (.upd, &quot;YUOO&quot; builds).</p>
+<pre class="doc">Python 3 standard library only. The tool never executes anything contained in an
+image; it only reads bytes and, for `jffs2 --outdir`, writes copies of regular
+files (mode 0644, no symlinks or device nodes) into an output directory.
+
+Format (EXTRACTED from IMM 1.10 YUOO57H / YUOO57X, see
+docs/X3650M3_FIRMWARE_FORMATS.md section 7):
+  * outer GNU tar: ibmc.xml (IBMBladeCenterFWUpdFmt descriptor) + ibmc.tgz
+  * ibmc.tgz: gzip tar with u-boot.bin, uImage (U-Boot legacy image, MIPS
+    Linux), rootfs.jffs2 and bootfs.jffs2 (big-endian JFFS2)
+  * integrity: XML &lt;md5chk&gt; = MD5 of ibmc.tgz, &lt;compressed_size&gt; = size of the
+    .upd file in YUOO57H (YUOO57X_v2 is one 10240-byte tar record larger),
+    gzip CRC32, uImage header/data CRC32, JFFS2 node CRCs; no signature block
+    was found.
+
+Sub-commands:
+  info   parse a .upd and verify md5chk, compressed_size, uImage CRCs, JFFS2 (JSON)
+  jffs2  list (and optionally copy out) the regular files of a JFFS2 image</pre>
+<h3 id="tool-imm-upd-info">Command <code>info</code> <a class="anchor" href="#tool-imm-upd-info" aria-label="Link to this section">#</a></h3>
+<p>parse and verify a .upd image (JSON)</p>
+<pre class="usage"><code>python3 scripts/imm_upd.py info PATH [--shallow]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>path</code></td><td></td></tr>
+<tr><td><code>--shallow</code></td><td>skip uImage/JFFS2 decoding</td></tr></tbody></table></div></div>
+<h3 id="tool-imm-upd-jffs2">Command <code>jffs2</code> <a class="anchor" href="#tool-imm-upd-jffs2" aria-label="Link to this section">#</a></h3>
+<p>list (or copy out) files of a JFFS2 image</p>
+<pre class="usage"><code>python3 scripts/imm_upd.py jffs2 PATH [--outdir OUTDIR]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>path</code></td><td></td></tr>
+<tr><td><code>--outdir</code></td><td>copy regular files here (mode 0644)</td></tr></tbody></table></div></div>
+<details class="functions"><summary>13 public functions and classes</summary><ul><li><code>def parse_descriptor</code> - Parse the IBMBladeCenterFWUpdFmt descriptor into a dict.</li><li><code>def parse_uimage</code> - Decode a U-Boot legacy image header and verify both CRC32 values.</li><li><code>def uboot_version</code> - Return the &#x27;IMM UBoot ...&#x27; / &#x27;U-Boot ...&#x27; banner string and its offset.</li><li><code>def jffs2_crc</code> - CRC32 as used by JFFS2 (crc32_le with seed 0, no final inversion).</li><li><code>def rtime_decompress</code></li><li><code>def jffs2_scan</code> - Scan all nodes; return dirents, inode nodes and statistics.</li><li><code>def jffs2_entries</code> - Return (entries, stats); entries are dicts with path, kind, mode, size.</li><li><code>def jffs2_file_data</code> - Reassemble the content of a regular file or symlink entry.</li><li><code>def jffs2_summary</code></li><li><code>def safe_dest</code></li><li><code>def jffs2_extract</code> - Copy regular files out (mode 0644); return the number written.</li><li><code>def parse_upd</code> - Parse a .upd image given as bytes.</li><li><code>def main</code></li></ul></details>
+<p class="muted">Tests: <code>tests/test_imm_upd.py</code></p>
+</section>
+<section class="tool" id="tool-imm-wsman-read-inventory">
+<h2 id="imm_wsman_read_inventorypy">imm_wsman_read_inventory.py <a class="anchor" href="#imm_wsman_read_inventorypy" aria-label="Link to this section">#</a></h2>
+<p class="lede">[not published]</p>
+<details class="functions"><summary>6 public functions and classes</summary><ul><li><code>def ops_from_wsdl</code></li><li><code>def plan_ops</code></li><li><code>def envelope</code></li><li><code>def redact</code></li><li><code>def is_fault</code> - True if the SOAP Body&#x27;s first child element is a Fault (any namespace prefix).</li><li><code>def main</code></li></ul></details>
+<p class="muted">Tests: <code>tests/test_imm_wsman_read_inventory.py</code></p>
+</section>
+<section class="tool" id="tool-lenovo-downloads">
+<h2 id="lenovo_downloadspy">lenovo_downloads.py <a class="anchor" href="#lenovo_downloadspy" aria-label="Link to this section">#</a></h2>
+<p class="lede">Lenovo Data Center Support download catalog and fetcher for machine type 7945.</p>
+<pre class="doc">Commands:
+  catalog  Fetch (or read a saved) driver-list API response and write a normalized
+           catalog JSON plus a human-readable CATALOG.md.
+  fetch    Download catalog files into &lt;dest&gt;/&lt;category-slug&gt;/&lt;DocId&gt;/&lt;filename&gt;,
+           verify hashes, write SHA256SUMS and SOURCE.txt per DocId directory.
+  status   Report present / missing / bad files per category.
+
+Python 3 standard library only.
+
+API notes (verified 2026-10-19):
+  - The API answers 403 {&quot;message&quot;:&quot;deny access&quot;} without a session. A GET of the
+    HTML driver-list page with a browser User-Agent sets the cookies the API needs;
+    the API call then needs Referer = page URL, Accept: application/json and
+    X-Requested-With: XMLHttpRequest.
+  - download.lenovo.com and delivery04.dhe.ibm.com files download without cookies.
+  - &quot;Size&quot; values are rounded display strings (&quot;323.79 MB&quot;); they are not exact and
+    are never used for verification. Units are interpreted as binary (1 KB = 1024 B),
+    which is an assumption.
+  - Many files (mostly old delivery04.dhe.ibm.com entries) carry no hash at all.
+  - Some URLs carry a signed, expiring &quot;__token__&quot; query parameter (Microsoft OEM
+    media). The token is removed from the catalog and such files are not fetched.</pre>
+<h3 id="tool-lenovo-downloads-catalog">Command <code>catalog</code> <a class="anchor" href="#tool-lenovo-downloads-catalog" aria-label="Link to this section">#</a></h3>
+<p>fetch/normalize the download catalog</p>
+<pre class="usage"><code>python3 scripts/lenovo_downloads.py catalog [--from-json FROM_JSON] [--out OUT] [--md MD] [--fetched FETCHED] [--save-raw SAVE_RAW]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>--from-json</code></td><td>read a saved API response instead of fetching</td></tr>
+<tr><td><code>--out</code></td><td></td></tr>
+<tr><td><code>--md</code></td><td>Markdown output (default: CATALOG.md next to --out)</td></tr>
+<tr><td><code>--fetched</code></td><td>override the recorded fetch timestamp</td></tr>
+<tr><td><code>--save-raw</code></td><td>also save the raw API response (live fetch only)</td></tr></tbody></table></div></div>
+<h3 id="tool-lenovo-downloads-fetch">Command <code>fetch</code> <a class="anchor" href="#tool-lenovo-downloads-fetch" aria-label="Link to this section">#</a></h3>
+<p>download catalog files</p>
+<pre class="usage"><code>python3 scripts/lenovo_downloads.py fetch [--catalog CATALOG] [--dest DEST] [--category CATEGORY] [--max-size MAX_SIZE] [--dry-run]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>--catalog</code></td><td></td></tr>
+<tr><td><code>--dest</code></td><td></td></tr>
+<tr><td><code>--category</code></td><td>category name or slug (repeatable); matches any referencing category</td></tr>
+<tr><td><code>--max-size</code></td><td>skip files larger than BYTES (approximate size)</td></tr>
+<tr><td><code>--dry-run</code></td><td></td></tr></tbody></table></div></div>
+<h3 id="tool-lenovo-downloads-status">Command <code>status</code> <a class="anchor" href="#tool-lenovo-downloads-status" aria-label="Link to this section">#</a></h3>
+<p>per-category present/missing/bad counts</p>
+<pre class="usage"><code>python3 scripts/lenovo_downloads.py status [--catalog CATALOG] [--dest DEST] [--category CATEGORY]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>--catalog</code></td><td></td></tr>
+<tr><td><code>--dest</code></td><td></td></tr>
+<tr><td><code>--category</code></td><td></td></tr></tbody></table></div></div>
+<details class="functions"><summary>31 public functions and classes</summary><ul><li><code>def to_ascii</code> - Fold text to printable ASCII (NFKD, common punctuation mapped, rest dropped).</li><li><code>def clean_text</code> - Strip HTML tags, fold to ASCII, collapse whitespace, optionally truncate.</li><li><code>def slugify</code> - Lowercase ASCII slug: runs of non-alphanumerics become a single &#x27;-&#x27;.</li><li><code>def safe_component</code> - Filesystem-safe single path component (no separators, no leading dots).</li><li><code>def parse_size</code> - Parse a display size like &#x27;323.79 MB&#x27; / &#x27;198 B&#x27; into bytes (int) or None.</li><li><code>def format_size</code></li><li><code>def unix_ms_to_iso</code> - Convert {&#x27;Unix&#x27;: ms} or ms to ISO-8601 UTC &#x27;YYYY-MM-DDTHH:MM:SSZ&#x27;.</li><li><code>def sanitize_url</code> - Remove signed token query parameters. Returns (url, had_token).</li><li><code>def filename_from_url</code></li><li><code>def normalize</code> - Build the normalized catalog dict from a raw API response dict.</li><li><code>def assign_paths</code> - Set rec[&#x27;path&#x27;] = &lt;category-slug&gt;/&lt;DocId&gt;/&lt;filename&gt;, unique (suffix -2, -3...).</li><li><code>def render_markdown</code></li><li><code>def write_text</code></li><li><code>def write_catalog</code></li><li><code>def make_opener</code></li><li><code>def fetch_api</code> - Open a session on the driver-list page, then call the API. Returns raw dict.</li><li><code>def file_hashes</code></li><li><code>def expected_hash</code> - Return (algo, value) of the strongest available catalog hash, or (None, None).</li><li><code>def check_file</code> - Return &#x27;missing&#x27;, &#x27;ok&#x27;, &#x27;unverified&#x27; (no catalog hash) or &#x27;bad&#x27;.</li><li><code>def fetchable</code> - Return None if the entry can be fetched, else a skip reason.</li><li><code>def download</code> - Download rec[&#x27;url&#x27;] to path via path+&#x27;.part&#x27;, verify, rename.</li><li><code>def write_docid_metadata</code> - (Re)write SHA256SUMS and SOURCE.txt for files present in docdir.</li><li><code>def select</code></li><li><code>def run_fetch</code></li><li><code>def run_status</code></li><li><code>def load_catalog</code></li><li><code>def cmd_catalog</code></li><li><code>def cmd_fetch</code></li><li><code>def cmd_status</code></li><li><code>def build_parser</code></li><li><code>def main</code></li></ul></details>
+<p class="muted">Tests: <code>tests/test_lenovo_downloads.py</code></p>
+</section>
+<section class="tool" id="tool-library-sanitize">
+<h2 id="library_sanitizepy">library_sanitize.py <a class="anchor" href="#library_sanitizepy" aria-label="Link to this section">#</a></h2>
+<p class="lede">Sanitizer and leak gate for the public x3650m3-kb library site - Python 3 standard library only.</p>
+<pre class="doc">The repository is private, the GitHub Pages library built from it is public. Every piece of text that
+goes into the site (rendered pages, search index, catalogs, file names) passes through this module, and
+the finished output tree is scanned by the leak gate before it may be published.
+
+Rules come from site/publish.json (see that file for the active rule set):
+  remove_sections  Whole sections (heading plus everything up to the next heading of the same or a higher
+                 level) of a named document: [{&quot;file&quot;: &quot;X3650M3_FOO.md&quot;, &quot;heading&quot;: &quot;11. Exact heading&quot;}].
+                 A configured section that is not found is reported by missing_sections() (no silent drift).
+  remove_blocks  Markdown blocks (paragraph, list item with its children, table row, heading, code fence)
+                 that match any of these patterns are dropped completely (embedded firmware credentials,
+                 live-server security findings). A rule with &quot;require&quot; removes a block only when the block
+                 also matches the require pattern (e.g. only MEASURED statements, not vendor documentation).
+                 With &quot;scope&quot;: &quot;sentence&quot; only the matching sentences of a paragraph are dropped, a
+                 matching list item is dropped whole (items are single facts), and in a table row only the
+                 matching cells are replaced by removed_text (the row goes when its first cell matches).
+  finding_refs   References to security review finding IDs are replaced by a fixed text.
+  identifiers    Literal owner identifiers (serial numbers, UUIDs, WWNs ...). Matched case-insensitively,
+                 tolerant of &quot;-&quot;, &quot;:&quot; or &quot; &quot; between characters, replaced by one token.
+  redact         Regex rules (lab IP ranges, lab host names, MAC addresses, host paths, credential file
+                 names, Proxmox guest IDs) with their replacement text.
+  forbidden      Extra leak-gate patterns. The gate also checks every identifier, redact, remove_blocks and
+                 finding_refs pattern, so nothing a rule should have caught can survive unnoticed.
+
+Markdown sanitizing replaces matches by letter-only placeholder tokens first (they cannot be mistaken
+for Markdown syntax) and finalize() turns the tokens into the display text after rendering.
+
+Commands:
+  scan DIR   Run the leak gate over every file below DIR; print file:line:rule for each finding.
+             Exit status 0 = clean, 1 = findings, 2 = configuration or usage error.
+  text FILE  Print the sanitized Markdown of FILE (finalized) for manual review.</pre>
+<h3 id="tool-library-sanitize-options">Options <a class="anchor" href="#tool-library-sanitize-options" aria-label="Link to this section">#</a></h3>
+<pre class="usage"><code>python3 scripts/library_sanitize.py [--config CONFIG]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>--config</code></td><td>publish.json path (default: site/publish.json)</td></tr></tbody></table></div></div>
+<h3 id="tool-library-sanitize-scan">Command <code>scan</code> <a class="anchor" href="#tool-library-sanitize-scan" aria-label="Link to this section">#</a></h3>
+<p>leak gate: scan every file below DIR</p>
+<pre class="usage"><code>python3 scripts/library_sanitize.py scan DIR</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>dir</code></td><td></td></tr></tbody></table></div></div>
+<h3 id="tool-library-sanitize-text">Command <code>text</code> <a class="anchor" href="#tool-library-sanitize-text" aria-label="Link to this section">#</a></h3>
+<p>print the sanitized Markdown of FILE</p>
+<pre class="usage"><code>python3 scripts/library_sanitize.py text FILE</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>file</code></td><td></td></tr></tbody></table></div></div>
+<details class="functions"><summary>9 public functions and classes</summary><ul><li><code>class SanitizeConfigError</code> - Raised when site/publish.json is missing, malformed or contains an invalid pattern.</li><li><code>class Rule</code> - One compiled pattern with its name, replacement text and placeholder token.</li><li><code>def identifier_pattern</code> - Regex for a literal identifier, tolerant of &#x27;-&#x27;, &#x27;:&#x27; or &#x27; &#x27; separators between its characters.</li><li><code>class Sanitizer</code> - Applies the publish.json rules to Markdown and plain text, and scans output for leaks.</li><li><code>def split_markdown_blocks</code> - Split Markdown into blocks: list of (kind, [(line, indent), ...]).</li><li><code>def load_config</code> - Load and validate publish.json; raises SanitizeConfigError (fail closed).</li><li><code>def load_sanitizer</code></li><li><code>def format_findings</code></li><li><code>def main</code></li></ul></details>
+<p class="muted">Tests: <code>tests/test_library_sanitize.py</code></p>
+</section>
+<section class="tool" id="tool-uefi-fv">
+<h2 id="uefi_fvpy">uefi_fv.py <a class="anchor" href="#uefi_fvpy" aria-label="Link to this section">#</a></h2>
+<p class="lede">UEFI firmware volume (FV), FFS file and section parser - Python 3 standard library only.</p>
+<pre class="doc">Built for the IBM System x3650 M3 UEFI images (D6E1xx builds), but follows the UEFI
+Platform Initialization (PI) specification structures, so it works on other PI images.
+
+Commands:
+  list     Parse one or more files (raw FV, capsule, or any blob that contains FVs) and
+           print every volume, file and leaf section (GUID, type, UI name, sizes, SHA256).
+  extract  Write every leaf section body (PE32, TE, RAW, UI, ...) and every RAW file to a
+           new, empty output directory. Nothing is ever executed.
+  diff     Compare two images (or two directories of .fv/.scap files) module by module.
+  microcode  List Intel microcode updates found in RAW files.
+
+Input handling:
+  - FVs are located by scanning for the &quot;_FVH&quot; signature at offset 0x28 of a candidate
+    header and validating the header checksum, so capsules (.scap), whole flash dumps
+    and single .fv files are all accepted.
+  - A directory argument means &quot;all *.fv and *.scap files in it, sorted by name&quot;.
+
+Decompression:
+  - Compression section type 1 (EFI_STANDARD_COMPRESSION): the EFI (position bits 4)
+    and Tiano (position bits 5) variants are both implemented here in pure Python; the
+    variant whose output parses as a valid section stream is used and reported.
+  - GUID-defined sections: CRC32 (FC1BCDB0-...) is unwrapped; LZMA (EE4E5898-...) is
+    decoded with the stdlib lzma module; Tiano (A31280AD-...) with the decoder here.
+  - Anything else is reported as opaque; nothing is guessed.
+
+Safety: input files are treated as untrusted data. The parser bounds every length
+against the containing buffer, limits recursion depth and decompressed size, and only
+writes into the output directory given on the command line.</pre>
+<h3 id="tool-uefi-fv-list">Command <code>list</code> <a class="anchor" href="#tool-uefi-fv-list" aria-label="Link to this section">#</a></h3>
+<p>list volumes, files and sections</p>
+<pre class="usage"><code>python3 scripts/uefi_fv.py list INPUTS ... [--json] [--depex]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>inputs</code></td><td></td></tr>
+<tr><td><code>--json</code></td><td></td></tr>
+<tr><td><code>--depex</code></td><td>also print dependency expressions</td></tr></tbody></table></div></div>
+<h3 id="tool-uefi-fv-extract">Command <code>extract</code> <a class="anchor" href="#tool-uefi-fv-extract" aria-label="Link to this section">#</a></h3>
+<p>extract leaf sections: extract IMAGE... (-o OUTDIR | OUTDIR)</p>
+<pre class="usage"><code>python3 scripts/uefi_fv.py extract INPUTS ... [--output OUTPUT]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>inputs</code></td><td></td></tr>
+<tr><td><code>-o, --output</code></td><td>output directory (alternatively give it as the last positional argument)</td></tr></tbody></table></div></div>
+<h3 id="tool-uefi-fv-diff">Command <code>diff</code> <a class="anchor" href="#tool-uefi-fv-diff" aria-label="Link to this section">#</a></h3>
+<p>module-level diff of two images or directories</p>
+<pre class="usage"><code>python3 scripts/uefi_fv.py diff A B [--json] [--all]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>a</code></td><td></td></tr>
+<tr><td><code>b</code></td><td></td></tr>
+<tr><td><code>--json</code></td><td></td></tr>
+<tr><td><code>--all</code></td><td>also print unchanged modules</td></tr></tbody></table></div></div>
+<h3 id="tool-uefi-fv-microcode">Command <code>microcode</code> <a class="anchor" href="#tool-uefi-fv-microcode" aria-label="Link to this section">#</a></h3>
+<p>list Intel microcode updates</p>
+<pre class="usage"><code>python3 scripts/uefi_fv.py microcode INPUTS ...</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>inputs</code></td><td></td></tr></tbody></table></div></div>
+<details class="functions"><summary>25 public functions and classes</summary><ul><li><code>class ParseError</code> - Raised for malformed structures that cannot be skipped.</li><li><code>def guid_str</code> - Return the registry-format GUID string of 16 bytes at buf[off].</li><li><code>def guid_name</code></li><li><code>def sha256</code></li><li><code>def align</code></li><li><code>class DecompressError</code></li><li><code>def efi_decompress</code> - Decompress an EFI (pbit=4) or Tiano (pbit=5) compressed buffer.</li><li><code>def pe_info</code> - Return a small dict describing a PE32/PE32+ or TE image, or None.</li><li><code>def decode_depex</code></li><li><code>def find_microcode</code> - Find Intel microcode update headers (header and loader version 1, valid checksum).</li><li><code>def parse_sections</code> - Parse a section stream buf[start:end]; return a list of section dicts.</li><li><code>def parse_file</code> - Parse one FFS file header at buf[off]; return (file dict, next offset) or (None, None).</li><li><code>def parse_fv</code> - Parse one firmware volume whose header starts at buf[off].</li><li><code>def find_fv_offsets</code> - Return offsets of plausible FV headers (signature plus valid header checksum).</li><li><code>def parse_volumes</code> - Parse every top-level FV found in buf (nested FVs are parsed via sections).</li><li><code>def parse_capsule_header</code> - Return a capsule header dict if buf starts with an EFI_CAPSULE_HEADER followed by an FV.</li><li><code>def parse_image</code></li><li><code>def image_inputs</code></li><li><code>def flatten</code> - Return one record per FFS file, recursing into nested volumes.</li><li><code>def cmd_list</code></li><li><code>def cmd_extract</code></li><li><code>def diff_modules</code> - Compare two module lists keyed by (FV path, file GUID, occurrence).</li><li><code>def cmd_diff</code></li><li><code>def cmd_microcode</code></li><li><code>def main</code></li></ul></details>
+<p class="muted">Tests: <code>tests/test_uefi_fv.py</code></p>
+</section>
+<section class="tool" id="tool-vzdump-verify-prune">
+<h2 id="vzdump-verify-prunesh">vzdump-verify-prune.sh <a class="anchor" href="#vzdump-verify-prunesh" aria-label="Link to this section">#</a></h2>
+<p class="lede">vzdump-verify-prune.sh - Proxmox VE vzdump hook script.</p>
+<pre class="doc">Retention rule: keep exactly ONE backup per guest on the backup storage.
+The previous backup of a guest is deleted only after the new backup of
+that guest has been written AND verified. Built-in vzdump pruning is
+expected to be disabled (prune-backups keep-all=1).
+
+Install (on the PVE host):
+  install -m 0755 vzdump-verify-prune.sh /usr/local/bin/vzdump-verify-prune.sh
+  then set the backup job&#x27;s &quot;script&quot; option to
+  /usr/local/bin/vzdump-verify-prune.sh (only for the job(s) that write to
+  the target storage).
+
+Hook interface (PVE 8, PVE/VZDump.pm): &lt;script&gt; &lt;phase&gt; [&lt;mode&gt; &lt;vmid&gt;]
+Environment used: STOREID, DUMPDIR, VMTYPE (qemu|lxc), TARGET (full path of
+the finished archive). Only phase backup-end acts; all other phases exit 0
+silently. backup-end does nothing (exit 0) unless STOREID is set and equals
+VZDUMP_VERIFY_PRUNE_STOREID; TARGET must be absolute and lie directly in
+DUMPDIR.
+
+Optional environment:
+  DRY_RUN=1                    log what would be deleted, delete nothing
+  VZDUMP_VERIFY_PRUNE_LOG      log file path (default /var/log/vzdump-verify-prune.log)
+  VZDUMP_VERIFY_PRUNE_STOREID  storage this hook manages (default hitachi-data)
+
+Exit status: 0 = verified (and pruned), 1 = verification or prune failure
+(vzdump then marks the guest backup as failed).</pre>
+<p class="muted">Tests: <code>tests/test_vzdump_verify_prune.py</code></p>
+</section>
+<section class="tool" id="tool-wayback-mirror">
+<h2 id="wayback_mirrorpy">wayback_mirror.py <a class="anchor" href="#wayback_mirrorpy" aria-label="Link to this section">#</a></h2>
+<p class="lede">Mirror retired Eclipse-infocenter topics from the Internet Archive (Wayback Machine).</p>
+<pre class="doc">Built for the Lenovo System x infocenter (https://systemx.lenovofiles.com/help/),
+whose live host no longer answers. Default target: the System x3650 M3 plugin
+(machine type 7945, Lenovo and older IBM plugin ids).
+
+Commands:
+  mirror    Enumerate captures via the CDX API, fetch the newest usable 200 capture
+            of every page (raw, &quot;id_&quot; form, no Wayback toolbar), follow links inside
+            fetched pages to find pages CDX did not list, optionally fetch referenced
+            images, then rebuild text/, MANIFEST.tsv and INDEX.md. Resumable: pages
+            already saved and listed in MANIFEST.tsv are skipped.
+  text      Rebuild text/, MANIFEST.tsv titles/hashes and INDEX.md offline from the
+            saved HTML (no network).
+  plugins   List plugin ids seen in CDX under the host prefix, optionally filtered
+            by a regular expression (e.g. &quot;imm|7945|4255|7949|7376&quot;).
+
+Output layout (default --out sources/infocenter/7945):
+  html/&lt;page&gt;.html     raw archived topic HTML as served by Wayback &quot;id_&quot;
+  text/&lt;page&gt;.txt      ASCII plain text (headings kept, tables as pipe rows)
+  images/&lt;file&gt;        images referenced by the pages (unless --no-images)
+  MANIFEST.tsv         page, original URL, snapshot timestamp, sha256, title
+  IMAGES.tsv           file, original URL, snapshot timestamp, sha256
+  FAILED.tsv           pages that could not be retrieved, with the reason
+  CDX.tsv              CDX records used for enumeration (evidence)
+  INDEX.md             pages grouped by prefix, with titles and counts
+
+Facts used (verified 2026-10-19):
+  - CDX API: http://web.archive.org/cdx/search/cdx (space separated rows).
+  - Raw capture: http://web.archive.org/web/&lt;timestamp&gt;id_/&lt;original&gt;; Wayback
+    redirects to the nearest capture when the exact timestamp does not exist.
+  - Topics are archived as help/topic/&lt;plugin&gt;/&lt;page&gt; and wrapped as
+    help/index.jsp?topic=/&lt;plugin&gt;/&lt;page&gt; (also %2F and %252F encoded). The
+    index.jsp form is an Eclipse frameset and does not hold the topic body.
+  - When the archive is overloaded it answers with an HTML &quot;Temporarily Offline&quot;
+    page; such responses are treated as retryable errors.
+
+Python 3 standard library only.</pre>
+<h3 id="tool-wayback-mirror-mirror">Command <code>mirror</code> <a class="anchor" href="#tool-wayback-mirror-mirror" aria-label="Link to this section">#</a></h3>
+<p>enumerate via CDX and fetch pages</p>
+<pre class="usage"><code>python3 scripts/wayback_mirror.py mirror [--out OUT] [--prefix PREFIX] [--plugin PLUGIN] [--delay DELAY] [--no-images] [--limit LIMIT]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>--out</code></td><td></td></tr>
+<tr><td><code>--prefix</code></td><td>host/path prefix of the help system (repeatable)</td></tr>
+<tr><td><code>--plugin</code></td><td>plugin id (repeatable); first one is preferred</td></tr>
+<tr><td><code>--delay</code></td><td>minimum seconds between requests (default 1.0)</td></tr>
+<tr><td><code>--no-images</code></td><td></td></tr>
+<tr><td><code>--limit</code></td><td>fetch at most N new pages (testing)</td></tr></tbody></table></div></div>
+<h3 id="tool-wayback-mirror-text">Command <code>text</code> <a class="anchor" href="#tool-wayback-mirror-text" aria-label="Link to this section">#</a></h3>
+<p>rebuild text/, MANIFEST titles and INDEX.md offline</p>
+<pre class="usage"><code>python3 scripts/wayback_mirror.py text [--out OUT]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>--out</code></td><td></td></tr></tbody></table></div></div>
+<h3 id="tool-wayback-mirror-plugins">Command <code>plugins</code> <a class="anchor" href="#tool-wayback-mirror-plugins" aria-label="Link to this section">#</a></h3>
+<p>list plugin ids found in CDX</p>
+<pre class="usage"><code>python3 scripts/wayback_mirror.py plugins [--prefix PREFIX] [--match MATCH] [--delay DELAY]</code></pre>
+<div class="table-wrap"><div class="table-wrap"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>--prefix</code></td><td></td></tr>
+<tr><td><code>--match</code></td><td>regular expression filter</td></tr>
+<tr><td><code>--delay</code></td><td></td></tr></tbody></table></div></div>
+<details class="functions"><summary>39 public functions and classes</summary><ul><li><code>def to_ascii</code> - Transliterate text to ASCII; unknown characters become &#x27;?&#x27;.</li><li><code>def utc_now</code></li><li><code>def full_unquote</code> - Percent-decode repeatedly so that %2F and %252F both become &#x27;/&#x27;.</li><li><code>def canonical_page</code> - Map any archived URL form of a topic to (plugin, page) or None.</li><li><code>def is_wrapper</code> - True for Eclipse frameset/wrapper URLs that do not carry the topic body.</li><li><code>def topic_url</code> - Direct topic URL for a page under a help prefix.</li><li><code>def page_kind</code> - Classify a page name: html, image, or other.</li><li><code>def local_name</code> - Filesystem-safe file name for a page (sub-directories flattened with &#x27;__&#x27;).</li><li><code>def page_stem</code> - Page name without .html/.htm extension.</li><li><code>def parse_cdx_line</code> - Parse one CDX row (fields CDX_FIELDS, space separated) into a dict or None.</li><li><code>def parse_cdx</code> - Parse a CDX response body; non-CDX lines (error pages) are ignored.</li><li><code>def group_by_page</code> - Group CDX records by (plugin, page).</li><li><code>def snapshot_candidates</code> - Usable captures, best first: status 200, direct topic URL, newest first.</li><li><code>def newest_snapshot</code> - Newest status-200 direct capture, or None.</li><li><code>def newest_timestamp</code> - Newest timestamp among all records (any status), or None.</li><li><code>class LinkParser</code> - Collect href/src attribute values.</li><li><code>def discover_links</code> - Return (pages, images): sets of (plugin, page) linked from a topic page.</li><li><code>class TextConverter</code> - Convert (possibly malformed) DITA/Eclipse topic HTML to plain text lines.</li><li><code>def render_table</code> - Render table rows as pipe-separated lines; header rows get a separator.</li><li><code>def html_title</code> - Topic title: &lt;title&gt; without the product suffix, else first &lt;h1&gt;.</li><li><code>def html_to_text</code> - Convert topic HTML to ASCII text. Returns (title, text).</li><li><code>def decode_html</code> - Decode HTML bytes (UTF-8 with a Latin-1 fallback).</li><li><code>def page_group</code> - INDEX.md group for a page name.</li><li><code>def has_code_table</code> - Heuristic: page holds an error/event/message code table.</li><li><code>class OfflineError</code> - Wayback answered with its &#x27;Temporarily Offline&#x27; page.</li><li><code>class Fetcher</code> - Polite HTTP client: fixed minimum interval between requests, retries.</li><li><code>def cdx_query</code> - Run one CDX query and return parsed records.</li><li><code>def enumerate_captures</code> - Collect CDX records for all plugin pages under all prefixes.</li><li><code>def list_plugins</code> - Plugin ids (com.* / org.* path segments after topic/ or topic=) in records.</li><li><code>def validate_capture</code> - Return (ok, timestamp, reason) for a fetched Wayback response.</li><li><code>def read_tsv</code></li><li><code>def write_tsv</code></li><li><code>def sha256_bytes</code></li><li><code>def write_bytes</code></li><li><code>def fetch_page</code> - Try the CDX captures of a page (newest 200 first), then a nearest-capture</li><li><code>def mirror</code> - Mirror pages into out/. Returns a stats dict.</li><li><code>def build_text</code> - Regenerate text/, refresh MANIFEST titles/hashes and write INDEX.md.</li><li><code>def render_index</code> - Render INDEX.md (ASCII).</li><li><code>def main</code></li></ul></details>
+<p class="muted">Tests: <code>tests/test_wayback_mirror.py</code></p>
+</section>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="sources.html"><span>Previous</span>Source documents</a>
+<a class="next" href="files.html"><span>Next</span>Repository file index</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#build_librarypy">build_library.py</a></li><li class="l2"><a href="#ibm_fw_unpackpy">ibm_fw_unpack.py</a></li><li class="l2"><a href="#imm_cim_read_inventorypy">imm_cim_read_inventory.py</a></li><li class="l2"><a href="#imm_updpy">imm_upd.py</a></li><li class="l2"><a href="#imm_wsman_read_inventorypy">imm_wsman_read_inventory.py</a></li><li class="l2"><a href="#lenovo_downloadspy">lenovo_downloads.py</a></li><li class="l2"><a href="#library_sanitizepy">library_sanitize.py</a></li><li class="l2"><a href="#uefi_fvpy">uefi_fv.py</a></li><li class="l2"><a href="#vzdump-verify-prunesh">vzdump-verify-prune.sh</a></li><li class="l2"><a href="#wayback_mirrorpy">wayback_mirror.py</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

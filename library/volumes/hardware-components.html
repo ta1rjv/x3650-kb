@@ -1,0 +1,2483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hardware Components - x3650 M3 Library</title>
+<meta name="description" content="system board (connectors, jumpers, switches, LEDs), operator information panel and light path diagnostics, risers and PCI slots (reference only), backplanes (reference only), power supplies, fans and ...">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="volume" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="../pages/reading-guide.html">Reading Guide</a></li>
+<li><a href="../pages/system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="../pages/firmware-guide.html">Firmware Guide</a></li>
+<li><a href="../pages/imm-guide.html">IMM Guide</a></li>
+<li><a href="../pages/uefi-guide.html">UEFI Guide</a></li>
+<li><a href="../pages/troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="../pages/tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="../pages/glossary.html">Glossary</a></li>
+<li><a href="../pages/faq.html">FAQ</a></li>
+<li><a href="../pages/timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="../pages/about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="system-architecture.html">System Architecture</a></li>
+<li><a href="hardware-components.html" aria-current="page">Hardware Components</a></li>
+<li><a href="memory.html">Memory</a></li>
+<li><a href="storage-raid.html">Storage and RAID</a></li>
+<li><a href="power-thermal.html">Power and Thermal</a></li>
+<li><a href="sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="uefi.html">UEFI Firmware</a></li>
+<li><a href="firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Volumes</li><li>Platform hardware</li><li aria-current="page">Hardware Components</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">Volume 3 - Platform hardware</p>
+<h1>Hardware Components</h1>
+<p class="subtitle">IBM System x3650 M3 (7945KEG) - Hardware Components</p>
+<p class="lede">system board (connectors, jumpers, switches, LEDs), operator information panel and light path diagnostics, risers and PCI slots (reference only), backplanes (reference only), power supplies, fans and cooling, battery, the CRU/FRU part number tables (Tier 1 ...</p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_HARDWARE_COMPONENTS.md</code></span> <span>18 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">43</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">74</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">1</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">26</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">25</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#table-of-contents">Table of contents</a></li><li class="l2"><a href="#1-sources-and-capture-keys">1. Sources and capture keys</a></li><li class="l2"><a href="#2-summary-what-is-installed-measured">2. Summary: what is installed (MEASURED)</a></li><li class="l2"><a href="#3-system-board">3. System board</a></li><li class="l3"><a href="#31-identity-measured--documented">3.1 Identity (MEASURED / DOCUMENTED)</a></li><li class="l3"><a href="#32-chipset-and-major-devices-on-the-board">3.2 Chipset and major devices on the board</a></li><li class="l3"><a href="#33-connectors">3.3 Connectors</a></li><li class="l3"><a href="#34-onboard-devices-per-smbios-measured">3.4 Onboard devices per SMBIOS (MEASURED)</a></li><li class="l2"><a href="#4-jumpers-and-switches">4. Jumpers and switches</a></li><li class="l3"><a href="#41-jumpers">4.1 Jumpers</a></li><li class="l3"><a href="#42-switch-block-sw3-default-all-off">4.2 Switch block SW3 (default: all Off)</a></li><li class="l3"><a href="#43-switch-block-sw4-default-all-off">4.3 Switch block SW4 (default: all Off)</a></li><li class="l2"><a href="#5-system-board-leds-and-power-channels">5. System-board LEDs and power channels</a></li><li class="l3"><a href="#51-general">5.1 General</a></li><li class="l3"><a href="#52-system-pulse-leds-s-004-table-7">5.2 System pulse LEDs (S-004 Table 7)</a></li><li class="l3"><a href="#53-power-channel-error-leds-12-v-channels">5.3 Power channel error LEDs (12 V channels)</a></li><li class="l3"><a href="#54-fan-sas-riser-and-pci-riser-connectors-and-leds">5.4 Fan, SAS riser and PCI riser connectors and LEDs</a></li><li class="l2"><a href="#6-operator-information-panel-and-light-path-diagnostics">6. Operator information panel and light path diagnostics</a></li><li class="l3"><a href="#61-operator-information-panel-front-s-002-p16-17-s-004-p12">6.1 Operator information panel (front, S-002 p.16-17; S-004 p.12)</a></li><li class="l3"><a href="#62-light-path-diagnostics-panel">6.2 Light path diagnostics panel</a></li><li class="l3"><a href="#63-light-path-led-meanings-icr_light_path_diagnostics_leds-s-004-chapter-3">6.3 Light path LED meanings (IC:r_light_path_diagnostics_leds; S-004 Chapter 3)</a></li><li class="l2"><a href="#7-front-and-rear-connectors-and-leds">7. Front and rear connectors and LEDs</a></li><li class="l3"><a href="#71-front-s-002-p15-s-004-p11-fig-1">7.1 Front (S-002 p.15; S-004 p.11, Fig 1)</a></li><li class="l3"><a href="#72-rear-s-002-p18-s-004-pp14-15-fig-5-6-icc_rear_view">7.2 Rear (S-002 p.18; S-004 pp.14-15, Fig 5-6; IC:c_rear_view)</a></li><li class="l2"><a href="#8-risers-and-pci-slots-reference">8. Risers and PCI slots (reference)</a></li><li class="l2"><a href="#9-drive-bays-and-backplanes-reference">9. Drive bays and backplanes (reference)</a></li><li class="l2"><a href="#10-power-supplies">10. Power supplies</a></li><li class="l3"><a href="#101-documented-types-and-rules">10.1 Documented types and rules</a></li><li class="l3"><a href="#102-power-supply-leds-s-002-table-4-icc_power_supply_leds-r_power_supply_leds">10.2 Power supply LEDs (S-002 Table 4; IC:c_power_supply_leds, r_power_supply_leds)</a></li><li class="l3"><a href="#103-measured-state-of-the-owners-supplies">10.3 Measured state of the owner&#x27;s supplies</a></li><li class="l2"><a href="#11-fans-and-cooling">11. Fans and cooling</a></li><li class="l3"><a href="#111-documented-design">11.1 Documented design</a></li><li class="l3"><a href="#112-measured-fan-state-2026-10-19">11.2 Measured fan state (2026-10-19)</a></li><li class="l2"><a href="#12-battery-cmos">12. Battery (CMOS)</a></li><li class="l2"><a href="#13-cru--fru-part-number-tables">13. CRU / FRU part number tables</a></li><li class="l3"><a href="#131-main-assemblies-indexes-1-30">13.1 Main assemblies (indexes 1-30)</a></li><li class="l3"><a href="#132-microprocessors-index-5-all-fru-and-the-installed-cpu">13.2 Microprocessors (index 5, all FRU) and the installed CPU</a></li><li class="l3"><a href="#133-memory-index-11-tier-1-cru">13.3 Memory (index 11, Tier 1 CRU)</a></li><li class="l3"><a href="#134-power-supplies-index-12">13.4 Power supplies (index 12)</a></li><li class="l3"><a href="#135-options-and-adapters-no-index-tier-1-cru-unless-noted">13.5 Options and adapters (no index; Tier 1 CRU unless noted)</a></li><li class="l2"><a href="#14-installed-frus-measured-from-ipmi-fru-and-sdr">14. Installed FRUs (MEASURED from IPMI FRU and SDR)</a></li><li class="l3"><a href="#141-fru-inventory">14.1 FRU inventory</a></li><li class="l3"><a href="#142-matching-measured-fru-data-to-the-parts-tables">14.2 Matching measured FRU data to the parts tables</a></li><li class="l3"><a href="#143-installed-component-classes-tier-view">14.3 Installed component classes (Tier view)</a></li><li class="l3"><a href="#144-other-discrete-presencehealth-sensors-measured">14.4 Other discrete presence/health sensors (MEASURED)</a></li><li class="l2"><a href="#15-removal-and-replacement-notes-for-the-owner">15. Removal and replacement notes for the owner</a></li><li class="l2"><a href="#16-source-conflicts">16. Source conflicts</a></li><li class="l2"><a href="#17-open-questions--unknown">17. Open questions / UNKNOWN</a></li></ul></nav></details>
+<div class="prose">
+<p>Scope: system board (connectors, jumpers, switches, LEDs), operator information panel and light path diagnostics,
+risers and PCI slots (reference only), backplanes (reference only), power supplies, fans and cooling, battery,
+the CRU/FRU part number tables (Tier 1, Tier 2, FRU) and the FRUs installed in the owner's server as read from
+IPMI FRU/SDR captures. Owner's server only.</p>
+<p>Truth levels (docs/AGENT.md): <span class="tl tl-documented">DOCUMENTED</span> (vendor document), <span class="tl tl-extracted">EXTRACTED</span> (firmware binary), <span class="tl tl-measured">MEASURED</span> (captured from
+the owner's server), <span class="tl tl-candidate">CANDIDATE</span> (inference, reason given), <span class="tl tl-unknown">UNKNOWN</span>. Source IDs refer to sources/SOURCES.md.
+Offline compilation: no command was run against the server or IMM for this document; all <span class="tl tl-measured">MEASURED</span> values come
+from the captures listed in section 1.</p>
+<h2 id="table-of-contents">Table of contents <a class="anchor" href="#table-of-contents" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Sources and capture keys</li>
+<li>Summary: what is installed (<span class="tl tl-measured">MEASURED</span>)</li>
+<li>System board</li>
+<li>Jumpers and switches</li>
+<li>System-board LEDs and power channels</li>
+<li>Operator information panel and light path diagnostics</li>
+<li>Front and rear connectors and LEDs</li>
+<li>Risers and PCI slots (reference)</li>
+<li>Drive bays and backplanes (reference)</li>
+<li>Power supplies</li>
+<li>Fans and cooling</li>
+<li>Battery (CMOS)</li>
+<li>CRU / FRU part number tables</li>
+<li>Installed FRUs (<span class="tl tl-measured">MEASURED</span> from IPMI FRU and SDR)</li>
+<li>Removal and replacement notes for the owner</li>
+<li>Source conflicts</li>
+<li>Open questions / <span class="tl tl-unknown">UNKNOWN</span></li>
+</ol>
+<h2 id="1-sources-and-capture-keys">1. Sources and capture keys <a class="anchor" href="#1-sources-and-capture-keys" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Document or file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a></td>
+<td>Product Guide TIPS0805 (updated 2014-03-21), sources/text/S-001_tips0805.txt</td>
+</tr>
+<tr>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a></td>
+<td>Installation and User's Guide 11th ed. (00kc218), sources/text/S-002_00kc218.txt</td>
+</tr>
+<tr>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a></td>
+<td>Problem Determination and Service Guide 16th ed. (00kc219), sources/text/S-004_00kc219.txt</td>
+</tr>
+<tr>
+<td>S-005a</td>
+<td>PDSG 15th ed. (00fl000), sources/text/S-005_00fl000.txt (diff only)</td>
+</tr>
+<tr>
+<td>S-005b</td>
+<td>PDSG 12th ed. (46w8286), sources/text/S-005_46w8286.txt (diff only)</td>
+</tr>
+<tr>
+<td>IC:&lt;name&gt;</td>
+<td>Archived IBM Documentation (infocenter) topic sources/infocenter/7945/html/&lt;name&gt;.html (same content as <a class="sref" href="../catalog/sources.html#s-002">S-002</a>/<a class="sref" href="../catalog/sources.html#s-004">S-004</a> in HTML; the HTML tables are the easiest place to read the parts table)</td>
+</tr>
+<tr>
+<td>C-IPMI</td>
+<td>captures/2026-10-19_ipmi_inband.txt (in-band ipmitool: mc info, fru print, sdr, sensor, sel, chassis status)</td>
+</tr>
+<tr>
+<td>C-CLI</td>
+<td>captures/2026-10-19_imm_cli_baseline.txt (IMM legacy CLI: vpd, fans, temps, volts, syshealth)</td>
+</tr>
+<tr>
+<td>C-OS</td>
+<td>captures/2026-10-19_os_inventory.txt (dmidecode, lscpu, ip link, lsblk)</td>
+</tr>
+<tr>
+<td>C-USB</td>
+<td>captures/2026-10-19_hw_lsusb_v.txt</td>
+</tr>
+<tr>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig n</td>
+<td>Figure n of <a class="sref" href="../catalog/sources.html#s-004">S-004</a>, read visually from the rendered PDF page (sources/pdf/S-004_00kc219.pdf; printed page = PDF page - 18)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Figure labels: the board, panel and riser figures (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Figures 1-16, printed pp. 11-26) are drawings whose labels
+are not in the text extraction or the HTML. For this document the PDF pages were rendered offline (pdftoppm, PDF
+pages 29-44) and the labels were read from the images. Facts taken this way are marked "<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig n" and are
+<span class="tl tl-documented">DOCUMENTED</span>. Positions given in words ("near the rear edge") are approximate descriptions of the drawing, which
+"might differ slightly from your hardware" (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.16). Reference designators (J/SW numbers) are printed in the
+figures only for J29, J147, SW3 and SW4; other designators come from running text (J154) or SMBIOS (J90, J123).</p>
+<h2 id="2-summary-what-is-installed-measured">2. Summary: what is installed (<span class="tl tl-measured">MEASURED</span>) <a class="anchor" href="#2-summary-what-is-installed-measured" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Finding</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Machine</td>
+<td>System x3650 M3, type-model 7945KEG, serial [redacted-id], rack chassis ("Rack Mount Chassis", 2U per <a class="sref" href="../catalog/sources.html#s-002">S-002</a>)</td>
+<td>C-IPMI FRU 0; C-OS dmidecode type 1, 3</td>
+</tr>
+<tr>
+<td>System board</td>
+<td>FRU "System Board": Board Part Number 94Y7614, Board Extra 69Y5082, board serial [redacted-id], manufactured 2011-11-28</td>
+<td>C-IPMI FRU 0</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>One Intel Xeon E5606 2.13 GHz (4 cores, Westmere-EP, model 44 stepping 2), socket 1 populated; socket 2 "Unpopulated"</td>
+<td>C-OS dmidecode type 4, lscpu</td>
+</tr>
+<tr>
+<td>DIMMs</td>
+<td>One 8 GB RDIMM in slot DIMM03 (SK Hynix HMT31GR7BFR4A-H9, 2 ranks, x4); 17 slots empty</td>
+<td>C-IPMI FRU 18; C-OS dmidecode</td>
+</tr>
+<tr>
+<td>Power supplies</td>
+<td>ONE power supply. IPMI view: FRU "Power Supply 2 (ID 2)" present with essentially empty VPD; "Power Supply 1 (ID 1)" FRU not present, SDR sensor "Power Supply 1" reads na, "Power Supply 2" reads 0x1. IMM VPD view (<span class="tl tl-measured">MEASURED</span> 2026-10-21, captures/2026-10-21_imm_wsman_read_inventory.txt <code>GetVitalProductData</code>; captures/2026-10-21_imm_cim_read_inventory.txt CIM_PhysicalPackage): "Power Supply 1" has VPD FRU 39Y7229, part/model 39Y7228, serial [redacted-id], manufacturer ACBE (activity log "Added" 2024-04-23 20:20:25); "Power Supply 2" reads "Not defined" in every field (activity log "Added" 2024-07-23 08:34:44). So the IMM's VPD names the populated supply "Power Supply 1" while the IPMI FRU/SDR view names it "Power Supply 2" (conflict C-5). FRU 39Y7229 is listed as a 460 W AC supply (section 13.4), so the installed unit is <span class="tl tl-candidate">CANDIDATE</span> 460 W AC (label not inspected). Server is NOT running with redundant power.</td>
+<td>C-IPMI FRU 1-2, sensor list; WS-Man/CIM 2026-10-21</td>
+</tr>
+<tr>
+<td>Fans</td>
+<td>Three fan modules (six rotors): tach sensors Fan 1A/1B/2A/2B/3A/3B all "ok"; Cooling Zone 1-3 and Fan 1-3 presence sensors read 0x1; chassis status "Cooling/Fan Fault: false"</td>
+<td>C-IPMI sdr, sensor, chassis status; C-CLI fans</td>
+</tr>
+<tr>
+<td>Backplane</td>
+<td>One 8-drive DASD backplane (FRU 3 "DASD Backplane 1", Molex), backplanes 2-4 not present</td>
+<td>C-IPMI FRU 3-6</td>
+</tr>
+<tr>
+<td>Risers / adapters</td>
+<td>Sensors "PCI Riser 1", "PCI Riser 2" and "SAS Riser" read 0x1 (<span class="tl tl-candidate">CANDIDATE</span>: present). Slot 4 (riser 2) holds an LSI SAS2008 HBA, the dedicated RAID slot holds the ServeRAID M1015 (docs/X3650M3_SYSTEM_ARCHITECTURE.md section 5). Riser part numbers are not in any capture.</td>
+<td>C-IPMI sensor list; C-OS dmidecode type 9</td>
+</tr>
+<tr>
+<td>Battery</td>
+<td>Sensor "Planar VBAT" = 1.727 V, status lcr (below the lower critical threshold 2.095 V). CMOS battery is depleted. 2026-10-21: 1.79 V, CIM CurrentState "Lower Critical", both VBAT events asserted (WS-Man <code>GetSensorValues</code>, <code>GetAssertedEvents</code>; CIM_NumericSensor)</td>
+<td>C-IPMI sdr elist, sensor; C-CLI volts; captures/2026-10-21_imm_wsman_read_inventory.txt; captures/2026-10-21_imm_cim_read_inventory.txt</td>
+</tr>
+<tr>
+<td>Light path (virtual)</td>
+<td>2026-10-21: Fault (system-error) LED On, Battery LED On, BRD LED On (all orange), Power On, BMC Heartbeat blinking; every other light path LED (CPU, PS, DASD, FAN, DIMM, NMI, OVER SPEC, TEMP, SP, PCI, VRM, LINK, per-CPU/DIMM/fan/channel LEDs) Off. Consistent with the BRD meaning "battery" (section 6)</td>
+<td>captures/2026-10-21_imm_wsman_read_inventory.txt <code>GetVirtualLightPath</code> (<span class="tl tl-measured">MEASURED</span>; color/state codes decoded by the UI map, docs/X3650M3_IMM_WEB_API.md 9.1)</td>
+</tr>
+<tr>
+<td>Faults</td>
+<td>No hardware fault asserted: chassis status all false/inactive; the SEL (full, 512 entries, 100 percent used, logging stopped 2025-05-05) contains only host power, firmware progress, one "Drive 0 present" and two SEL fullness events</td>
+<td>C-IPMI chassis status, sel info, sel elist</td>
+</tr>
+<tr>
+<td>Ambient</td>
+<td>Ambient Temp 27 deg C; Altitude sensor 40 feet; Avg Power 80 W (at capture time)</td>
+<td>C-IPMI sdr elist</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-system-board">3. System board <a class="anchor" href="#3-system-board" aria-label="Link to this section">#</a></h2>
+<h3 id="31-identity-measured--documented">3.1 Identity (<span class="tl tl-measured">MEASURED</span> / <span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#31-identity-measured--documented" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>FRU 0 "Builtin FRU Device" describes the planar: Board Mfg IBM, Board Product "System Board", Board Part Number
+  94Y7614, Board Serial [redacted-id], Board Mfg Date 2011-11-28 (printed by ipmitool as 02:00 EET, i.e. 00:00 UTC),
+  Board Extra values 69Y5082, 0002, 0000, 0050, a 16-byte UUID [redacted-id] (equals the SMBIOS
+  system UUID), and a field starting [mac] [mac] (two MAC-like values; the host NICs enp11s0f0/f1
+  have MACs [mac] and ...:de, so the field carries the onboard NIC MACs). <span class="tl tl-measured">MEASURED</span> (C-IPMI FRU 0;
+  C-OS ip link). The meaning of the other Board Extra fields is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>SMBIOS type 2: Product Name "94Y7614", serial "[redacted-id]", location in chassis "Rear Bottom", features "hosting
+  board, replaceable". <span class="tl tl-measured">MEASURED</span> (C-OS dmidecode type 2).</li>
+<li>Chassis in FRU 0 reports Chassis Type "Other" and serial [redacted-id] (same as the product serial); SMBIOS type 3 lists
+  chassis serial "none". <span class="tl tl-measured">MEASURED</span>.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> service part: System board FRU 00AM528 (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Table 13 index 10; IC:c_replaceable_server_components;
+  S-005a). The installed board reports 94Y7614 and extra 69Y5082, neither equals 00AM528 (conflict C-1, section 16).</li>
+<li>Replacement is FRU-only (trained service technician); after replacement the UUID, DMI/SMBIOS data, VPD,
+  RAID firmware and the Setup configuration must be redone (IC:t_replacing_system_board). <span class="tl tl-documented">DOCUMENTED</span>.</li>
+</ul>
+<h3 id="32-chipset-and-major-devices-on-the-board">3.2 Chipset and major devices on the board <a class="anchor" href="#32-chipset-and-major-devices-on-the-board" aria-label="Link to this section">#</a></h3>
+<p>The block diagram, PCIe topology and chipset facts (Intel 5520 IOH, ICH10, BCM5709, Matrox G200eV in the IMM) are in
+docs/X3650M3_SYSTEM_ARCHITECTURE.md. They are not repeated here.</p>
+<h3 id="33-connectors">3.3 Connectors <a class="anchor" href="#33-connectors" aria-label="Link to this section">#</a></h3>
+<p>Connector figures: <a class="sref" href="../catalog/sources.html#s-004">S-004</a> Figure 7 (internal, p.17), Figure 8 (external, p.18), Figure 12 (optional device, p.24);
+IC: c_system_board_internal_connectors, c_system_board_external_connectors,
+c_system_board_optional_device_conncetors. The labels below were read from the rendered figures (section 1).</p>
+<p>Orientation of the drawings: top view, rear I/O edge at the top of the drawing, front (fan row) at the bottom. In
+this view the power-supply area and SAS RAID riser are at the lower left, CPU 1 at the right middle, CPU 2 at the left
+middle, and the two DIMM banks between them.</p>
+<p>Internal connectors (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7, labels verbatim; position in the drawing in brackets):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Detail / position</th>
+<th>Truth</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Battery</td>
+<td>Battery socket near the rear edge, beside PCI riser connector 2</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7, Fig 12</td>
+</tr>
+<tr>
+<td>PCI riser connector 2 (card 3)</td>
+<td>Long slot connector at the rear-left of the board</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7</td>
+</tr>
+<tr>
+<td>PCI riser connector 1 (card 2)</td>
+<td>Long slot connector at the rear-right edge; Fig 12 labels it "Optional PCI riser connector 1 (card 2)"</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7, Fig 12</td>
+</tr>
+<tr>
+<td>Virtual media key connector</td>
+<td>Next to riser connector 2</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7</td>
+</tr>
+<tr>
+<td>Optional Ethernet card connector</td>
+<td>Between the rear I/O and riser connector 1 (dual-port Gb daughter card, part 69Y4509, Ethernet 3 and 4 at the rear)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7, Fig 5; parts table index 9</td>
+</tr>
+<tr>
+<td>Microprocessor 2</td>
+<td>Left-middle socket</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7</td>
+</tr>
+<tr>
+<td>Microprocessor 1</td>
+<td>Right-middle socket</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7</td>
+</tr>
+<tr>
+<td>DIMM connectors</td>
+<td>Two banks of 9; DIMM 10-18 in the rear bank (near CPU 2), DIMM 1-9 in the front bank (near CPU 1); numbering from Fig 12 (drawing orientation): front bank DIMM 1 at the right (CPU 1 side) to DIMM 9 at the left; rear bank DIMM 10 at the left (CPU 2 side) to DIMM 18 at the right</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 12</td>
+</tr>
+<tr>
+<td>Video card auxiliary power connector</td>
+<td>Left of the front DIMM bank (this is J154, named in the power-problem tables)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (J154 identity: <span class="tl tl-candidate">CANDIDATE</span>, reason: the text names J154 as the PCI video adapter power cable connector and Fig 7 has exactly one such connector)</td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7; IC:t_solving_power_problems</td>
+</tr>
+<tr>
+<td>Power supply 1 connector</td>
+<td>Right one of the two power-supply connectors (lower-left area)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7</td>
+</tr>
+<tr>
+<td>Power supply 2 connector</td>
+<td>Left one, at the board edge</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7</td>
+</tr>
+<tr>
+<td>SAS RAID riser-card connector (card 1)</td>
+<td>Lower-left, inside the power-supply area</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7, Fig 12</td>
+</tr>
+<tr>
+<td>Hot-swap hard disk drive backplane configuration connector</td>
+<td>Lower-left, front edge</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7</td>
+</tr>
+<tr>
+<td>SAS/SATA power connector</td>
+<td>Front edge, left</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7</td>
+</tr>
+<tr>
+<td>Simple-swap SATA signal connector</td>
+<td>Front edge, left</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7</td>
+</tr>
+<tr>
+<td>Fan 3 connector, Reserved, Fan 2 connector, Reserved, Fan 1 connector</td>
+<td>Row along the front edge from left to right: five positions, three used for fans, two labelled Reserved</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7</td>
+</tr>
+<tr>
+<td>Operator information panel connector</td>
+<td>Front-right</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7</td>
+</tr>
+<tr>
+<td>Optical drive connector</td>
+<td>Front-right</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7</td>
+</tr>
+<tr>
+<td>Front video/USB connector</td>
+<td>Front-right</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7</td>
+</tr>
+<tr>
+<td>Reserved</td>
+<td>Front-right, below the front video/USB connector</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7</td>
+</tr>
+</tbody>
+</table></div>
+<p>External connectors on the board (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 8; rear edge from the left of the drawing): USB 4 connector, USB 3
+connector, Serial connector, Video connector, Ethernet 2 connector, Ethernet 1 connector, and at the far right
+Systems-management Ethernet connector. <span class="tl tl-documented">DOCUMENTED</span>. (Seen from the rear of the server the order is mirrored, see 7.2.)</p>
+<p>Other connector facts from text or measurement:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Connector / item</th>
+<th>Detail</th>
+<th>Truth</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Processor sockets</td>
+<td>2 (CPU 1 populated, CPU 2 empty; SMBIOS "Node 1 Socket 1" and "Node 1 Socket 2")</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+<td>C-OS dmidecode type 4</td>
+</tr>
+<tr>
+<td>DIMM sockets</td>
+<td>18 (DIMM01-DIMM18, 9 per CPU); SMBIOS type 6 and 17 list DIMM01..DIMM18. Population rules: docs/X3650M3_MEMORY.md</td>
+<td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-documented">DOCUMENTED</span></td>
+<td>C-OS; <a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1</td>
+</tr>
+<tr>
+<td>Riser-to-slot mapping</td>
+<td>Riser connector 1 serves slots 1-2, riser connector 2 serves slots 3-4; one PCI riser-card assembly must always be present in connector 2</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.23; IC:r_light_path_diagnostics_leds (FAN row)</td>
+</tr>
+<tr>
+<td>Dedicated RAID slot</td>
+<td>The SAS RAID riser ("card 1") carries the RAID controller; measured as "Slot 5" behind ICH10</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-measured">MEASURED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 12 note; docs/X3650M3_SYSTEM_ARCHITECTURE.md section 5</td>
+</tr>
+<tr>
+<td>SMBIOS J90</td>
+<td>Port connector "J90", internal type SAS/SATA plug receptacle, external reference designator "SAS", port type SAS</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+<td>C-OS dmidecode type 8 handle 0x0031</td>
+</tr>
+<tr>
+<td>SMBIOS J123</td>
+<td>Port connector "J123", internal type SAS/SATA plug receptacle, external reference designator "SATA", port type SAS</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+<td>C-OS dmidecode type 8 handle 0x0032</td>
+</tr>
+<tr>
+<td>J154</td>
+<td>Power cable connector for an optional PCI video graphics adapter (power channel E)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> "Power problems"; IC:t_solving_power_problems</td>
+</tr>
+<tr>
+<td>Fan error LEDs</td>
+<td>Each fan connector has an error LED next to it</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td>IC:r_light_path_diagnostics_leds (FAN); <a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 11</td>
+</tr>
+<tr>
+<td>Hypervisor USB key</td>
+<td>"USB hypervisor connector" on the SAS riser card (both riser variants), not on the system board</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 13, Fig 14; <a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1</td>
+</tr>
+<tr>
+<td>Operator information panel cable</td>
+<td>Cable 46C4139 (FRU) from the board to the panel</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td>parts table (section 13.5)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Which of the SMBIOS designators J90/J123 corresponds to which Fig 7 connector (for example the simple-swap SATA
+signal connector) is <span class="tl tl-unknown">UNKNOWN</span>.</p>
+<p>Whether the Virtual Media Key, the Ethernet daughter card or a hypervisor USB key are installed on the owner's board
+is <span class="tl tl-unknown">UNKNOWN</span>. The only IBM USB device in the lsusb capture is the IMM RNDIS/CDC Ethernet interface (C-USB), which says
+nothing about a hypervisor key; a virtual media key is not visible to the OS.</p>
+<h3 id="34-onboard-devices-per-smbios-measured">3.4 Onboard devices per SMBIOS (<span class="tl tl-measured">MEASURED</span>) <a class="anchor" href="#34-onboard-devices-per-smbios-measured" aria-label="Link to this section">#</a></h3>
+<p>SMBIOS type 10 lists Matrox G200eV video (enabled) and four "BroadCom 5709C" Ethernet entries with status Disabled
+(the "disabled" status is the on-board device flag, not the link; two BCM5709 ports are present in lspci and the
+host uses enp11s0f0 and f1). Entries 3 and 4 exist in the table although no daughter card is evidenced (C-OS ip link
+shows only two physical NICs). See docs/X3650M3_SYSTEM_ARCHITECTURE.md section 10. <span class="tl tl-measured">MEASURED</span>.</p>
+<h2 id="4-jumpers-and-switches">4. Jumpers and switches <a class="anchor" href="#4-jumpers-and-switches" aria-label="Link to this section">#</a></h2>
+<p>Source: <a class="sref" href="../catalog/sources.html#s-004">S-004</a> "System-board switches and jumpers", Figures 9-10 and Tables 4-6 (pp. 18-21); IC:
+c_system_board_switches_jumpers. <span class="tl tl-documented">DOCUMENTED</span>. Any switch or jumper blocks that are not shown in the illustrations are
+reserved.</p>
+<p>Locations (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 9, drawing orientation as in 3.3): J29 (UEFI boot recovery) and J147 (IMM recovery) are near
+the rear I/O edge, between PCI riser connector 2 and the serial/video connector area; SW4 and SW3 sit side by side
+(SW4 left of SW3) near the front edge, to the left of the front DIMM bank, next to the fan connector row.
+<span class="tl tl-documented">DOCUMENTED</span> (figure, approximate).</p>
+<p>Safety rules: turn the server off and disconnect all power cords and external cables before moving any switch or
+jumper; if a clear protective sticker covers the switch blocks, remove and discard it. Default positions of the
+UEFI and IMM recovery jumpers are pins 1 and 2; with no jumper installed the server behaves as if pins 1-2 were
+set. Do not change the UEFI recovery jumper after the server is turned on (unpredictable problems).</p>
+<h3 id="41-jumpers">4.1 Jumpers <a class="anchor" href="#41-jumpers" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Jumper</th>
+<th>Name</th>
+<th>Pins 1-2 (default)</th>
+<th>Pins 2-3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>J29</td>
+<td>UEFI boot recovery jumper</td>
+<td>Normal: loads the primary server firmware (UEFI) ROM page</td>
+<td>Loads the secondary (backup) UEFI ROM page</td>
+</tr>
+<tr>
+<td>J147</td>
+<td>IMM recovery jumper</td>
+<td>Normal: loads the primary IMM firmware ROM page</td>
+<td>Loads the secondary (backup) IMM ROM page</td>
+</tr>
+</tbody>
+</table></div>
+<p>The IMM-heartbeat LED troubleshooting step (section 5.2) also names J147 as the IMM recovery path. Recovery
+procedures: IC:t_recovering_server_firmware, IC:t_starting_backup_server_firmware (see docs/X3650M3_FIRMWARE_FORMATS.md
+and docs/X3650M3_IMM_ARCHITECTURE.md for the bank logic).</p>
+<h3 id="42-switch-block-sw3-default-all-off">4.2 Switch block SW3 (default: all Off) <a class="anchor" href="#42-switch-block-sw3-default-all-off" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Switch</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Clear CMOS memory (toggle On clears CMOS data)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>TPM physical presence (On = physical presence asserted)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Reserved</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Reserved</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="43-switch-block-sw4-default-all-off">4.3 Switch block SW4 (default: all Off) <a class="anchor" href="#43-switch-block-sw4-default-all-off" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Switch</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Power-on password override: changing the position bypasses the power-on password check at the next power-on and starts the Setup utility so the password can be changed or deleted. Does not need to be moved back. Does not affect the administrator password.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Power-on override: toggle On then Off to force a power-on, which overrides the power-on and power-off buttons (they become nonfunctional). Also used in the OVER SPEC procedures for power channels C and D (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> "Power problems").</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Forced power permission: overrides the IMM power-on checking process (trained service technician only)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Reserved</td>
+</tr>
+</tbody>
+</table></div>
+<p>SMBIOS type 12 reports "SW? TPM Physical Presence Switch, J? TPM Physical Presence Jumper" (unnumbered placeholders;
+the switch is SW3-2 per <a class="sref" href="../catalog/sources.html#s-004">S-004</a>). <span class="tl tl-measured">MEASURED</span> (C-OS dmidecode type 12) / <span class="tl tl-documented">DOCUMENTED</span>.</p>
+<p>Notes for the owner (<span class="tl tl-candidate">CANDIDATE</span>, reasoning: derived from the <span class="tl tl-documented">DOCUMENTED</span> function descriptions, not tested):</p>
+<ul>
+<li>SW3-1 (clear CMOS) is the documented way to reset UEFI settings, for example after the depleted CMOS battery
+  (section 12) loses configuration; this requires AC removal and cover removal.</li>
+<li>J29 pins 2-3 is the fallback if a UEFI update corrupts the primary ROM page; J147 pins 2-3 for a bad IMM update.
+  Because this server is the Proxmox host and the agent's own host, use only with explicit owner approval.</li>
+<li>J29 is close to PCI riser connector 2; the documented in-band manual recovery procedure says to "remove any
+  adapters that impede access to the UEFI boot recovery jumper block (J29)" (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> pp.372-373, steps 5 and 15).
+  <span class="tl tl-documented">DOCUMENTED</span>. On the owner's server the slot 4 HBA sits on riser 2 and may have to be removed (<span class="tl tl-candidate">CANDIDATE</span>, reason:
+  riser 2 is next to J29 in Fig 9; not verified physically).</li>
+</ul>
+<h2 id="5-system-board-leds-and-power-channels">5. System-board LEDs and power channels <a class="anchor" href="#5-system-board-leds-and-power-channels" aria-label="Link to this section">#</a></h2>
+<h3 id="51-general">5.1 General <a class="anchor" href="#51-general" aria-label="Link to this section">#</a></h3>
+<p>Error LEDs on the board stay lit only while the server is connected to AC power (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> System-board LEDs; <a class="sref" href="../catalog/sources.html#s-002">S-002</a>).
+They are viewed with the cover removed. Light path diagnostics LEDs on the panel behave the same way
+(IC:t_light_path_diagnostics). <span class="tl tl-documented">DOCUMENTED</span>.</p>
+<p>LEDs labelled in <a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 11 (p.22), with position in the drawing (orientation as in 3.3):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>LED</th>
+<th>Position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Battery LED</td>
+<td>Rear edge, at the battery</td>
+</tr>
+<tr>
+<td>IMM heartbeat LED</td>
+<td>Rear area, near the rear I/O</td>
+</tr>
+<tr>
+<td>Enclosure manager heartbeat LED</td>
+<td>Rear area, right of the IMM heartbeat LED</td>
+</tr>
+<tr>
+<td>Riser 2 missing LED</td>
+<td>Beside PCI riser connector 2</td>
+</tr>
+<tr>
+<td>DIMM 10 - 18 error LEDs</td>
+<td>At the rear DIMM bank</td>
+</tr>
+<tr>
+<td>DIMM 1 - 9 error LEDs</td>
+<td>At the front DIMM bank</td>
+</tr>
+<tr>
+<td>Microprocessor 1 error LED / Microprocessor 2 error LED</td>
+<td>Beside each socket</td>
+</tr>
+<tr>
+<td>System board error LED</td>
+<td>Left of the front DIMM bank</td>
+</tr>
+<tr>
+<td>Power channel A, B, C, D, E error LEDs and AUX power channel error LED</td>
+<td>Column at the lower-left edge, next to the power-supply connectors</td>
+</tr>
+<tr>
+<td>240 VA error LED</td>
+<td>Lower-left, front edge</td>
+</tr>
+<tr>
+<td>SAS RAID riser-card missing LED</td>
+<td>Lower-left, near the SAS RAID riser connector</td>
+</tr>
+<tr>
+<td>Fan 3 error LED, Reserved, Fan 2 error LED, Reserved, Fan 1 error LED</td>
+<td>Along the front edge beside the fan connectors; one further "Reserved" LED at the front right</td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 11). The meanings of the battery, riser-missing and 240 VA LEDs are not described in a table;
+they correspond by name to the BRD light path conditions (battery, missing riser) and to the "Cover, 240 VA safety"
+part (<span class="tl tl-candidate">CANDIDATE</span>, reason: names only).</p>
+<h3 id="52-system-pulse-leds-s-004-table-7">5.2 System pulse LEDs (S-004 Table 7) <a class="anchor" href="#52-system-pulse-leds-s-004-table-7" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>LED</th>
+<th>Meaning</th>
+<th>Action (as documented)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enclosure manager heartbeat</td>
+<td>Status of power-on/off sequencing. With the server connected to power it flashes slowly when the enclosure manager works correctly</td>
+<td>If not flashing: (trained technician) replace the system board</td>
+</tr>
+<tr>
+<td>IMM heartbeat</td>
+<td>Status of the IMM boot. Flashes quickly while IMM code loads, stops briefly, then flashes slowly when the IMM is fully operational and the power button can be used</td>
+<td>If not flashing within 30 s of connecting power: use the IMM recovery jumper (J147), then replace the system board</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="53-power-channel-error-leds-12-v-channels">5.3 Power channel error LEDs (12 V channels) <a class="anchor" href="#53-power-channel-error-leds-12-v-channels" aria-label="Link to this section">#</a></h3>
+<p>A 12 V channel error LED indicates an overcurrent condition. IC:t_solving_power_problems "Table 1" and
+IC:r_power_problems (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> "Power problems"). <span class="tl tl-documented">DOCUMENTED</span>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>LED</th>
+<th>Components on the channel (troubleshooting order)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>CD/DVD (optical) drive, fans, hard disk drives, hard disk drive backplanes</td>
+</tr>
+<tr>
+<td>B</td>
+<td>PCI riser-card assembly in PCI connector 1, DIMMs 1 through 16, microprocessor 2</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Tape drive if installed, SAS riser-card assembly, DIMMs 1 through 8, microprocessor 1</td>
+</tr>
+<tr>
+<td>D</td>
+<td>Microprocessor 1, system board</td>
+</tr>
+<tr>
+<td>E</td>
+<td>Optional PCI video graphics adapter power cable (J154) and adapter, PCI riser-card assembly in PCI connector 2, microprocessor 2</td>
+</tr>
+<tr>
+<td>AUX</td>
+<td>All PCI adapters and PCI riser-card assemblies, SAS riser-card assembly, operator information panel assembly, optional two-port Ethernet card</td>
+</tr>
+</tbody>
+</table></div>
+<p>The DIMM ranges are inconsistent inside the source (channel C: "DIMMs 1 through 8" in the table, "DIMMs 1 through 9" in
+the OVER SPEC procedure; channel B lists 1-16 although there are 18 sockets). Recorded as conflict C-2.</p>
+<p>OVER SPEC LED on the light path panel plus one of these LEDs means a power-supply overload on that channel (section
+6.3). For channel C and D the procedure moves SW4 switch 2 to On (force power on) so the board can be tested.</p>
+<h3 id="54-fan-sas-riser-and-pci-riser-connectors-and-leds">5.4 Fan, SAS riser and PCI riser connectors and LEDs <a class="anchor" href="#54-fan-sas-riser-and-pci-riser-connectors-and-leds" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Fan error LEDs next to each of the three fan connectors on the board (<span class="tl tl-documented">DOCUMENTED</span>, IC:r_light_path_diagnostics_leds).
+  "If an LED that is next to an unused fan connector on the system board is lit, a PCI riser-card assembly might be
+  missing"; one PCI riser-card assembly must always be present in riser connector 2. The "unused fan connector"
+  LEDs are probably the two "Reserved" positions between the fan connectors in Fig 7/Fig 11 (<span class="tl tl-candidate">CANDIDATE</span>, reason:
+  position; the board also has a dedicated "Riser 2 missing LED").</li>
+<li>DIMM, CPU and PCI error LEDs on or beside the components (IC:t_light_path_diagnostics).</li>
+<li>SAS riser-card connectors and LEDs (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 13-14, pp.24-25): the riser of a 16-drive-capable server has a
+  USB hypervisor connector, a PCI Express SAS controller connector and a SAS controller error LED. The tape-enabled
+  riser additionally has a USB tape signal connector, a SATA tape signal connector and a tape drive power connector.
+  Which variant is installed in the owner's server is <span class="tl tl-unknown">UNKNOWN</span>. <span class="tl tl-documented">DOCUMENTED</span>.</li>
+<li>PCI riser-card assembly (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 15-16): two adapter connectors per assembly; LEDs "Upper PCI slot error LED
+  (Adaptor card error LED)" and "Lower PCI slot error LED". <span class="tl tl-documented">DOCUMENTED</span>.</li>
+</ul>
+<h2 id="6-operator-information-panel-and-light-path-diagnostics">6. Operator information panel and light path diagnostics <a class="anchor" href="#6-operator-information-panel-and-light-path-diagnostics" aria-label="Link to this section">#</a></h2>
+<h3 id="61-operator-information-panel-front-s-002-p16-17-s-004-p12">6.1 Operator information panel (front, S-002 p.16-17; S-004 p.12) <a class="anchor" href="#61-operator-information-panel-front-s-002-p16-17-s-004-p12" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Control or LED</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Power-control button and power-on LED</td>
+<td>Off: no AC or failed supply/LED. Flashing rapidly (4 per second): server off and not ready, button disabled, lasts about 20-40 s. Flashing slowly (1 per second): off and ready to be turned on. Lit: server on. Fading on and off: reduced-power state (wake by button or IMM web).</td>
+</tr>
+<tr>
+<td>Ethernet icon LED</td>
+<td>Lights the Ethernet icon</td>
+</tr>
+<tr>
+<td>Ethernet activity LEDs</td>
+<td>Traffic on the corresponding Ethernet port</td>
+</tr>
+<tr>
+<td>Information LED</td>
+<td>Noncritical event occurred; an LED on the light path panel is also lit</td>
+</tr>
+<tr>
+<td>System-error LED</td>
+<td>System error occurred; a light path panel LED is also lit</td>
+</tr>
+<tr>
+<td>Release latch</td>
+<td>Slide left to pull out the panel and expose the light path diagnostics panel</td>
+</tr>
+<tr>
+<td>Locator button and LED (blue)</td>
+<td>Identifies the server; the IMM CLI command <code>identify</code> controls the same LED remotely</td>
+</tr>
+</tbody>
+</table></div>
+<p>The panel assembly is a Tier 1 CRU (part 44E4372, cable 46C4139 FRU). Power-button readiness delay: conflict C-3.</p>
+<h3 id="62-light-path-diagnostics-panel">6.2 Light path diagnostics panel <a class="anchor" href="#62-light-path-diagnostics-panel" aria-label="Link to this section">#</a></h3>
+<p>The panel sits on top of the operator information panel; slide the blue release latch left and pull it forward to
+view it. Do not run the server for an extended time with the panel pulled out. It has the Remind button, NMI button
+(only on IBM support's instruction), Reset button (lower-right corner, recessed: resets and runs POST) and a
+checkpoint code display (shows POST/boot-block checkpoint codes for IBM service, not error codes).
+Sources: <a class="sref" href="../catalog/sources.html#s-002">S-002</a> pp.16-17; <a class="sref" href="../catalog/sources.html#s-004">S-004</a> pp.12-13; IC:c_light_path_diagnostic_panel, IC:t_light_path_diagnostics. <span class="tl tl-documented">DOCUMENTED</span>.</p>
+<p>Panel layout (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 4, p.13), LED labels in three rows:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Row</th>
+<th>LEDs (left to right)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>OVERSPEC, LOG, LINK, PS, PCI, SP</td>
+</tr>
+<tr>
+<td>2</td>
+<td>FAN, TEMP, MEM, NMI (below LOG, LINK, PS, PCI)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CNFG, CPU, VRM, DASD, RAID, BRD</td>
+</tr>
+</tbody>
+</table></div>
+<p>To the right: REMIND button, NMI button (small, recessed), two-digit checkpoint code display, RESET button (lower
+right). <span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 4).</p>
+<p>Remind: puts the system-error LED into Remind mode (flash once every 2 s) until the problem is corrected, the server
+restarts or a new problem occurs. Controlled by the IMM (IC:c_remind_button).</p>
+<h3 id="63-light-path-led-meanings-icr_light_path_diagnostics_leds-s-004-chapter-3">6.3 Light path LED meanings (IC:r_light_path_diagnostics_leds; S-004 Chapter 3) <a class="anchor" href="#63-light-path-led-meanings-icr_light_path_diagnostics_leds-s-004-chapter-3" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>LED</th>
+<th>Meaning</th>
+<th>Main documented action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(none, system-error LED lit)</td>
+<td>Undiagnosable error or IMM failure</td>
+<td>Check the system event log in Setup</td>
+</tr>
+<tr>
+<td>BRD</td>
+<td>System board error: battery, missing PCI riser-card assembly, or failed voltage regulator</td>
+<td>Check board LEDs; replace battery or missing riser; failed VRM = replace system board</td>
+</tr>
+<tr>
+<td>CNFG</td>
+<td>Hardware configuration error (with CPU or MEM LED)</td>
+<td>CPU+CNFG: incompatible CPUs; MEM+CNFG: invalid memory configuration or PCI option ROM out of resource</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>CPU failed (alone) or invalid CPU configuration (with CNFG)</td>
+<td>CPUs must match in speed and cache size</td>
+</tr>
+<tr>
+<td>DASD</td>
+<td>Hard disk drive failed or missing</td>
+<td>Reseat drive and backplane; replace drive, then backplane</td>
+</tr>
+<tr>
+<td>FAN</td>
+<td>Fan failed, too slow or removed (TEMP may also light)</td>
+<td>Reseat/replace the fan whose LED near its connector is lit</td>
+</tr>
+<tr>
+<td>LINK</td>
+<td>Reserved</td>
+<td>-</td>
+</tr>
+<tr>
+<td>LOG</td>
+<td>An error was written to the event log</td>
+<td>Check IMM and system event logs</td>
+</tr>
+<tr>
+<td>MEM</td>
+<td>Memory error (alone) or invalid memory configuration / PCI option ROM out of resource (with CNFG)</td>
+<td>Disconnect power and wait 10 s each time a DIMM is installed or removed</td>
+</tr>
+<tr>
+<td>NMI</td>
+<td>NMI occurred or NMI button pressed</td>
+<td>Check the system event log</td>
+</tr>
+<tr>
+<td>OVER SPEC</td>
+<td>Shut down because of a power-supply overload on one power channel</td>
+<td>Check power channel LEDs A-E/AUX; check supply LEDs; remove optional devices</td>
+</tr>
+<tr>
+<td>PCI</td>
+<td>Error on a PCI bus or board; an LED lights next to the failing slot</td>
+<td>Check slot LEDs; remove adapters one at a time</td>
+</tr>
+<tr>
+<td>PS</td>
+<td>Power supply 1 or 2 failed; PS+CNFG = invalid power supply configuration (mixed types)</td>
+<td>Check the supply with a lit amber LED, reseat, replace</td>
+</tr>
+<tr>
+<td>RAID</td>
+<td>Reserved</td>
+<td>-</td>
+</tr>
+<tr>
+<td>SP</td>
+<td>The service processor (IMM) failed</td>
+<td>Power cycle via AC removal; update IMM firmware</td>
+</tr>
+<tr>
+<td>TEMP</td>
+<td>Temperature exceeded a threshold (a failing fan can cause it)</td>
+<td>Check logs, room temperature, air vents</td>
+</tr>
+<tr>
+<td>VRM</td>
+<td>Reserved</td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+<p>Mapping to IPMI sensors (<span class="tl tl-measured">MEASURED</span> sensor names, <span class="tl tl-candidate">CANDIDATE</span> mapping, reason: names correspond but the mapping is not
+documented): the SDR holds discrete sensors "Front Panel", "Sys Board Fault", "Planar Fault", "CPU Fault Reboot",
+"ABR Status", "Firmware Error", "PCIs", "CPUs", "DIMMs", "Cooling Zone 1-3", "Pwr Rail A-E Fault" and "VT Fault"
+(C-IPMI sensor list). Their raw readings are listed in 14.4; the bit semantics are not decoded yet, so whether a
+reading such as 0x1 on "Pwr Rail A Fault" means "no fault" is <span class="tl tl-unknown">UNKNOWN</span>. Chassis status reports no drive, fan, power
+or overload fault at capture time (<span class="tl tl-measured">MEASURED</span>), which is consistent with a non-fault state.</p>
+<h2 id="7-front-and-rear-connectors-and-leds">7. Front and rear connectors and LEDs <a class="anchor" href="#7-front-and-rear-connectors-and-leds" aria-label="Link to this section">#</a></h2>
+<h3 id="71-front-s-002-p15-s-004-p11-fig-1">7.1 Front (S-002 p.15; S-004 p.11, Fig 1) <a class="anchor" href="#71-front-s-002-p15-s-004-p11-fig-1" aria-label="Link to this section">#</a></h3>
+<p>Hard disk drive bays 0-15 (Bay 0 at the left, Bay 15 at the right, per <a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 1; 8 usable bays in the 8-drive
+configuration, see section 9), per-drive activity LED (green) and status LED (amber; lit = failed, flashing slowly
+once per second = rebuild, flashing rapidly three per second = identify), video connector, USB 1 and USB 2
+connectors, operator information panel (right of the USB connectors), rack release latches (left and right),
+optional CD/DVD drive with eject button and activity LED (below the operator panel). <span class="tl tl-documented">DOCUMENTED</span>.</p>
+<h3 id="72-rear-s-002-p18-s-004-pp14-15-fig-5-6-icc_rear_view">7.2 Rear (S-002 p.18; S-004 pp.14-15, Fig 5-6; IC:c_rear_view) <a class="anchor" href="#72-rear-s-002-p18-s-004-pp14-15-fig-5-6-icc_rear_view" aria-label="Link to this section">#</a></h3>
+<p>Order seen from the rear, left to right (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 5): Systems-management Ethernet, Ethernet 3 (optional) and
+Ethernet 4 (optional, from the Ethernet daughter card), Ethernet 1, Ethernet 2, Video, Serial, USB 3, USB 4, then the
+two power-supply bays at the right end: "Power supply 1" (inner bay, left of the pair) and "Power supply 2" (outer
+bay, at the right edge), each with its power-cord connector. The PCI slot openings are above the I/O row.
+<span class="tl tl-documented">DOCUMENTED</span> (figure). This matches Fig 7, where (mirrored in the top view) the Power supply 2 connector is at the board
+edge.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Detail</th>
+<th>Truth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Power-cord connectors</td>
+<td>One per power-supply bay (2 bays)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>Ethernet 1 and 2</td>
+<td>RJ-45, Broadcom BCM5709 Gb; Ethernet 1 can be shared with the IMM through one cable</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>Systems-management Ethernet</td>
+<td>RJ-45 dedicated to the IMM ([lab-ip] on the owner's server)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-measured">MEASURED</span> (C-CLI ifconfig)</td>
+</tr>
+<tr>
+<td>USB</td>
+<td>2 USB 2.0</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>Serial</td>
+<td>9-pin DB-9 (SMBIOS "COM 1 MM"), shared with the IMM for SOL and serial redirection</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Video</td>
+<td>DB-15, usable simultaneously with the front video; max 1600 x 1200 at 75 Hz</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>PCI slot brackets</td>
+<td>Slots 1-4 from the two risers (section 8)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>LEDs (rear panel, shared)</td>
+<td>Ethernet activity and link LEDs, power-on LED (green), system-error LED (amber), locator LED (blue)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>Per-supply LEDs</td>
+<td>AC (green), DC (green), error (amber) on AC supplies; IN OK, OUT OK, error (!) on DC supplies</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>SMBIOS type 8 lists these external connectors as Ethernet 1/2 (RJ-45), COM 1 MM (DB-9 male), Video 1 and 2 (DB-15
+female) and USB 1-4. <span class="tl tl-measured">MEASURED</span> (C-OS dmidecode type 8).</p>
+<h2 id="8-risers-and-pci-slots-reference">8. Risers and PCI slots (reference) <a class="anchor" href="#8-risers-and-pci-slots-reference" aria-label="Link to this section">#</a></h2>
+<p>The measured slot map (root ports, negotiated links, installed adapters, the dedicated RAID slot) is in
+docs/X3650M3_SYSTEM_ARCHITECTURE.md section 5 and is not duplicated. Hardware-component facts only:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Detail</th>
+<th>Truth</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Riser sockets</td>
+<td>2 on the board; riser 1 = slots 1-2, riser 2 = slots 3-4</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.23</td>
+</tr>
+<tr>
+<td>Slot form factors</td>
+<td>1 full height/full length; 2 low profile; 3 full height/full length; 4 full height/half length</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.23</td>
+</tr>
+<tr>
+<td>Standard riser</td>
+<td>PCI Express x8 Gen 2, two slots per riser (IBM option part 46M1072); standard on all models with two risers</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 12</td>
+</tr>
+<tr>
+<td>Optional risers</td>
+<td>x16 riser (46M1073, one x16 slot), PCI-X riser (46M1074, two PCI-X 1.0a 64-bit 133 MHz slots); max 2 each</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 12</td>
+</tr>
+<tr>
+<td>CRU numbers of risers</td>
+<td>x8 riser 69Y4324 (59Y3818 for the Emulex 10 GbE custom adapter 49Y4202), x16 riser 69Y4325, PCI-X riser 69Y4326 (all Tier 1)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td>Table 13 (section 13.1)</td>
+</tr>
+<tr>
+<td>Riser 2 mandatory</td>
+<td>One PCI riser-card assembly must always be present in connector 2 (cooling)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td>IC:r_light_path_diagnostics_leds</td>
+</tr>
+<tr>
+<td>Slot sensors</td>
+<td>IPMI "PCI Riser 1" and "PCI Riser 2" present; "PCI 1-5" error sensors and "All PCI Error", "One of PCI Error" clear</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+<td>C-IPMI sensor list</td>
+</tr>
+<tr>
+<td>SMBIOS slots</td>
+<td>System Slot 1-4 all "x8 PCI Express"; slot 4 in use; lengths Long/Short/Long/Short</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+<td>C-OS dmidecode type 9</td>
+</tr>
+<tr>
+<td>Installed riser part numbers</td>
+<td>Not in any capture; riser variant is implied x8 by the slot data (all four root ports x8)</td>
+<td><span class="tl tl-unknown">UNKNOWN</span> (part), <span class="tl tl-candidate">CANDIDATE</span> (x8 variant)</td>
+<td>docs/X3650M3_SYSTEM_ARCHITECTURE.md section 5</td>
+</tr>
+</tbody>
+</table></div>
+<p>The <a class="sref" href="../catalog/sources.html#s-001">S-001</a> option numbers (46M1072/73/74) and the service CRU numbers (69Y4324/25/26) are in different numbering
+spaces (options versus service parts). The documents do not state that they identify the same card; mapping <span class="tl tl-unknown">UNKNOWN</span>.</p>
+<h2 id="9-drive-bays-and-backplanes-reference">9. Drive bays and backplanes (reference) <a class="anchor" href="#9-drive-bays-and-backplanes-reference" aria-label="Link to this section">#</a></h2>
+<p>Configurations, controllers, backplane cabling and the measured drive inventory are in docs/X3650M3_STORAGE_RAID.md
+sections 5 and 6. Component facts only:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Detail</th>
+<th>Truth</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hot-swap bays</td>
+<td>8 x 2.5 inch SAS/SATA hot-swap, expandable to 16 (second 8-drive backplane plus expander); or 4 simple-swap SATA bays</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1</td>
+</tr>
+<tr>
+<td>4-drive backplane</td>
+<td>Tier 2 CRU 43V7070</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td>Table 13 index 19A</td>
+</tr>
+<tr>
+<td>8-drive backplane</td>
+<td>Tier 2 CRU 46W9187 in <a class="sref" href="../catalog/sources.html#s-004">S-004</a>, S-005a and IC; 69Y0650 and 94Y6670 in S-005b</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (conflict C-4)</td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Table 13; S-005a; S-005b</td>
+</tr>
+<tr>
+<td>Installed backplane</td>
+<td>FRU "DASD Backplane 1" (ID 3), Molex, Board Part 81Y4592, Board Extra 94Y6670, serial [redacted-id]; FRU 4-6 not present</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+<td>C-IPMI FRU 3-6</td>
+</tr>
+<tr>
+<td>Sensors</td>
+<td>"DASD Backplane 1" reads 0x1; "DASD Backplane 2" reads 0x2 despite no FRU (meaning <span class="tl tl-unknown">UNKNOWN</span>); 3-4 na; "Drive 0" reads present (0x1), Drive 1-15 read 0x0</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+<td>C-IPMI sensor list</td>
+</tr>
+<tr>
+<td>Related parts</td>
+<td>SAS riser (non-tape) 43V7067; tape-enabled SAS riser 43V7065; backplane signal and power cables (section 13.3); remote RAID battery tray 49Y5355; 4-drive filler panel 49Y5359 (hot swap); hot-swap HDD filler 44T2248</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td>Table 13</td>
+</tr>
+</tbody>
+</table></div>
+<p>Bezels: 16-HDD bezel 59Y3780 and 8-HDD-with-tape bezel 59Y3781 (Tier 2 CRU). The bezel type of the owner's server is
+<span class="tl tl-unknown">UNKNOWN</span> (no capture).</p>
+<h2 id="10-power-supplies">10. Power supplies <a class="anchor" href="#10-power-supplies" aria-label="Link to this section">#</a></h2>
+<h3 id="101-documented-types-and-rules">10.1 Documented types and rules <a class="anchor" href="#101-documented-types-and-rules" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Detail</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Supported</td>
+<td>Up to 2 hot-swap supplies: 460 W AC, 675 W AC, 675 W high-efficiency AC, 675 W DC (-48 V DC via CTO)</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1; <a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 16</td>
+</tr>
+<tr>
+<td>Shipped</td>
+<td>"The server comes with one hot-swap 12-volt output power supply that connects to power supply bay 1"; the second is optional for redundancy. <a class="sref" href="../catalog/sources.html#s-001">S-001</a> says "Standard models come with one or two power supplies (model dependent)" and "At least 1 power supply comes standard with every model"; model 22x (closest listed model) ships with 460 W option 81Y6558</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> pp.12, 123; <a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 16</td>
+</tr>
+<tr>
+<td>Mixing</td>
+<td>You cannot mix 460 W and 675 W, high-efficiency and non-high-efficiency, or AC and DC supplies; mixing triggers the PS and CNFG LEDs and a system error</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.123; IC:r_power_problems</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>AC auto-ranging 100-127 V and 200-240 V, 47-63 Hz sine wave; input about 0.090 to 0.700 kVA; 12 V output</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1; IC:t_replacing_hot_swap_ac_power_supply</td>
+</tr>
+<tr>
+<td>Hot swap</td>
+<td>Yes; supplies are for parallel operation; with two supplies a failure leaves the other supplying the system</td>
+<td>IC:t_replacing_hot_swap_ac_power_supply</td>
+</tr>
+<tr>
+<td>Primary</td>
+<td>"Power supply 1 is the default/primary power supply. If power supply 1 fails, you must replace it immediately."</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.124</td>
+</tr>
+<tr>
+<td>Cord</td>
+<td>AC supply ships with one 2.8 m C13-C14 cord; DC supply ships without cords</td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.26</td>
+</tr>
+<tr>
+<td>Heat output</td>
+<td>Minimum configuration about 662 Btu/h (194 W); maximum configuration about 2302 Btu/h (675 W)</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1</td>
+</tr>
+<tr>
+<td>Idle power</td>
+<td>120 W (EU Regulation 617/2013 statement)</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.8</td>
+</tr>
+<tr>
+<td>Option part numbers</td>
+<td>460 W AC 81Y6558; 675 W 46M1075; 675 W HE AC 81Y6557; -48 V DC 675 W 69Y1510</td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 16</td>
+</tr>
+</tbody>
+</table></div>
+<p>460 W behaviour (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> pp.123-124, Table 14; IC:t_replacing_hot_swap_ac_power_supply):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Total system power</th>
+<th>One 460 W supply</th>
+<th>Two 460 W supplies</th>
+<th>Two, one failed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>below 400 W</td>
+<td>Normal</td>
+<td>Normal, redundant power</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td>400 to 460 W</td>
+<td>Normal, status warning</td>
+<td>Normal, redundant power</td>
+<td>Normal, status warning</td>
+</tr>
+<tr>
+<td>above 460 W</td>
+<td>System shutdown</td>
+<td>Normal (no redundancy implied)</td>
+<td>System shutdown</td>
+</tr>
+</tbody>
+</table></div>
+<p>The server shuts down automatically if consumption exceeds the total supply output capacity; power capping can be
+enabled in Setup. For 675 W supplies <a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.12 states only that one supply can carry the load if the maximum load is
+below 675 W, and that Active Energy Manager can reduce the load otherwise; no threshold table (<span class="tl tl-unknown">UNKNOWN</span> thresholds).</p>
+<p>Efficiency (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.8 Tables 2-3, EU 617/2013 data for two unnamed supply models "PSU 2" and "PSU 3"; mapping to
+part numbers is <span class="tl tl-unknown">UNKNOWN</span>; "PSU 1" is only a URL to a plugloadsolutions report for a 675 W unit):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Load</th>
+<th>PSU 2 efficiency (input/output W)</th>
+<th>PSU 3 efficiency (input/output W)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10 percent</td>
+<td>87.38 percent (77.25 / 67.50)</td>
+<td>85.9 percent (79.4 / 68.2)</td>
+</tr>
+<tr>
+<td>20 percent</td>
+<td>90.76 percent (148.45 / 134.74)</td>
+<td>90.8 percent (148.4 / 134.8)</td>
+</tr>
+<tr>
+<td>50 percent</td>
+<td>92.91 percent (361.99 / 336.34)</td>
+<td>93.0 percent (362.1 / 336.1)</td>
+</tr>
+<tr>
+<td>100 percent</td>
+<td>90.97 percent (736.58 / 670.10)</td>
+<td>91.2 percent (737.3 / 672.3)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The 100 percent output of about 670 W implies both are 675 W-class supplies (<span class="tl tl-candidate">CANDIDATE</span>, reason: output watts).</p>
+<h3 id="102-power-supply-leds-s-002-table-4-icc_power_supply_leds-r_power_supply_leds">10.2 Power supply LEDs (S-002 Table 4; IC:c_power_supply_leds, r_power_supply_leds) <a class="anchor" href="#102-power-supply-leds-s-002-table-4-icc_power_supply_leds-r_power_supply_leds" aria-label="Link to this section">#</a></h3>
+<p>AC supply (AC / DC / error):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>AC</th>
+<th>DC</th>
+<th>Error</th>
+<th>Meaning and action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Off</td>
+<td>Off</td>
+<td>Off</td>
+<td>No AC power or a supply problem: check AC and cord; replace the supply if it persists. Normal when no AC is present.</td>
+</tr>
+<tr>
+<td>Off</td>
+<td>Off</td>
+<td>On</td>
+<td>Supply problem (also appears only when a second supply is installed and the first has failed in some cases): replace</td>
+</tr>
+<tr>
+<td>Off</td>
+<td>On</td>
+<td>Off or On</td>
+<td>Faulty supply: replace</td>
+</tr>
+<tr>
+<td>On</td>
+<td>Off</td>
+<td>Off</td>
+<td>Supply not fully seated, faulty board or channel fault: reseat; if no power-channel LED lit replace the supply; if a channel LED is lit, trained technician</td>
+</tr>
+<tr>
+<td>On</td>
+<td>Off or flashing</td>
+<td>On</td>
+<td>Faulty supply: replace</td>
+</tr>
+<tr>
+<td>On</td>
+<td>On</td>
+<td>Off</td>
+<td>Normal operation</td>
+</tr>
+<tr>
+<td>On</td>
+<td>On</td>
+<td>On</td>
+<td>Supply faulty but still operational: replace</td>
+</tr>
+</tbody>
+</table></div>
+<p>DC supply (IN OK / OUT OK / error): On/On/Off normal; the other combinations parallel the AC table.</p>
+<h3 id="103-measured-state-of-the-owners-supplies">10.3 Measured state of the owner's supplies <a class="anchor" href="#103-measured-state-of-the-owners-supplies" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>FRU "Power Supply 1 (ID 1)": "Device not present". FRU "Power Supply 2 (ID 2)": present; fields Board Mfg Date
+  Unspecified, Board Product "IBM Designed Device", all extras zero (no part number, no serial, no manufacturer).
+  <span class="tl tl-measured">MEASURED</span> (C-IPMI FRU 1-2). The PSU FRU does not carry the vendor part number, so wattage and type of the installed
+  unit are <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>Sensors: "Power Supply 1" = na (not present/not scanning); "Power Supply 2" = 0x1 (discrete, status 0x0180).
+  "PS 1 Fan Fault", "PS 2 Fan Fault", "PS 1/2 Therm Fault", "PS 1/2 OP Fault", "PS1/PS2 12V OV/UV/OC Fault" and "PS 1/2
+  VCO Fault" all read 0x1 (non-zero) while chassis status reports no power fault; the semantics of 0x1 on these
+  sensors are <span class="tl tl-unknown">UNKNOWN</span> (<span class="tl tl-candidate">CANDIDATE</span>: 0x1 = "no fault"/present state, because chassis status "Main Power Fault: false",
+  "Power Overload: false", "Power Control Fault: false" and the SEL contains no PSU events). <span class="tl tl-measured">MEASURED</span> values.
+  "Power Unit" = 0x0.</li>
+<li>Chassis status: System Power on, Power Overload false, Power Interlock inactive, Main Power Fault false, Power
+  Control Fault false, Power Restore Policy previous. <span class="tl tl-measured">MEASURED</span> (C-IPMI chassis status).</li>
+<li>Average power consumption sensor "Avg Power" = 80 W (a single sample under the Proxmox load at the capture time).</li>
+<li>Rails: Planar 3.3V 3.351 V (limits 3.039 to 3.564), Planar 5V 4.995 V (4.475 to 5.582), Planar 12V 12.204 V
+  (10.692 to 13.446). <span class="tl tl-measured">MEASURED</span> (C-IPMI sensor).</li>
+<li>Interpretation (<span class="tl tl-candidate">CANDIDATE</span>, reason: the PS 1 FRU is absent and PS 2 FRU/sensor is present): the server runs on a single
+  power supply installed in the bay that the IMM calls Power Supply 2, with the bay the IMM calls Power Supply 1 empty
+  (or its filler 49Y4821 installed). If the IMM numbering follows <a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 5, the supply sits in the outer bay at the
+  right edge (seen from the rear) and the inner bay "Power supply 1" is empty. This contradicts the statement that the
+  standard supply connects to bay 1 and that supply 1 is the primary (conflict C-5); the IMM numbering could also
+  differ from the printed bay labels. The physical bay is <span class="tl tl-unknown">UNKNOWN</span> until the rear of the server is inspected (the
+  AC/DC LEDs of the populated bay are lit, the empty bay has no LEDs).</li>
+<li>IMM VPD view (<span class="tl tl-measured">MEASURED</span> 2026-10-21, captures/2026-10-21_imm_wsman_read_inventory.txt <code>GetVitalProductData</code>; captures/2026-10-21_imm_cim_read_inventory.txt CIM_PhysicalPackage): "Power Supply 1" has VPD FRU 39Y7229, part/model 39Y7228, serial [redacted-id], manufacturer ACBE (activity log "Added" 2024-04-23 20:20:25); "Power Supply 2" reads "Not defined" in every field (activity log "Added" 2024-07-23 08:34:44). So the IMM's VPD names the populated supply "Power Supply 1" while the IPMI FRU/SDR view names it "Power Supply 2" (conflict C-5). Wattage: FRU 39Y7229 is a 460 W AC Tier 1 CRU in the parts table (13.4), so the installed unit is <span class="tl tl-candidate">CANDIDATE</span>
+  460 W AC (reason: FRU number match; label not inspected). CIM_PowerSupply also lists both "Power Supply 1" and
+  "Power Supply 2" as OperationalStatus OK, HealthState 5, so the CIM health of the empty bay is not a presence
+  indicator (<span class="tl tl-measured">MEASURED</span> behavior).</li>
+<li>Consequence: no power redundancy. A second matching supply (same type; type of the installed one is unknown) would
+  add redundancy; a mixed pair causes a PS+CNFG error (section 10.1).</li>
+</ul>
+<h2 id="11-fans-and-cooling">11. Fans and cooling <a class="anchor" href="#11-fans-and-cooling" aria-label="Link to this section">#</a></h2>
+<h3 id="111-documented-design">11.1 Documented design <a class="anchor" href="#111-documented-design" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Detail</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fan modules</td>
+<td>3 hot-swap "double fans" ("Fans (hot swap dual 60 mm)", Tier 1 CRU 49Y5361 each) in a fan cage (Tier 1 CRU 49Y5362); <a class="sref" href="../catalog/sources.html#s-001">S-001</a>: "3 counter-rotating hot swap fans with N+1 redundancy"; <a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1: "Three - provide redundant cooling"</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1, p.128; <a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 1; section 13.1</td>
+</tr>
+<tr>
+<td>Fan numbering</td>
+<td>Board connectors from the power-supply side to the operator-panel side: Fan 3, Reserved, Fan 2, Reserved, Fan 1 (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7). Seen from the front, Fan 1 is therefore on the right (operator panel / CPU 1 side) and Fan 3 on the left (power-supply side) - <span class="tl tl-candidate">CANDIDATE</span>, reason: derived from the orientation of Fig 7 and Fig 1, not inspected</td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 7, Fig 1, Fig 93</td>
+</tr>
+<tr>
+<td>Requirement</td>
+<td>All three fans must be installed at all times</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.128</td>
+</tr>
+<tr>
+<td>Hot swap</td>
+<td>Server may stay on; a removed fan must be replaced within 30 seconds or the system shuts down; replace a failed fan within 48 hours; do not run with the cover off longer than 30 minutes</td>
+<td>IC:t_removing_hot_swap_fan; <a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.128 and p.39 (system reliability guidelines)</td>
+</tr>
+<tr>
+<td>Failure indication</td>
+<td>Light path FAN LED plus a lit LED next to the failed fan connector on the board; TEMP LED may light</td>
+<td>IC:r_light_path_diagnostics_leds</td>
+</tr>
+<tr>
+<td>Control</td>
+<td>"An altimeter works in conjunction with the IMM to govern fan rotation" based on atmospheric pressure (<span class="tl tl-documented">DOCUMENTED</span>); IPMI exposes "Cooling Zone 1-3" sensors (<span class="tl tl-measured">MEASURED</span>)</td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a> pp.1-5 and Table 1; C-IPMI</td>
+</tr>
+<tr>
+<td>Airflow parts</td>
+<td>DIMM air baffle and microprocessor air baffle (kit 59Y3779); do not run without the baffles</td>
+<td>Table 13; <a class="sref" href="../catalog/sources.html#s-002">S-002</a></td>
+</tr>
+<tr>
+<td>Chassis spacing</td>
+<td>Leave about 50 mm (2 inch) free at front and rear</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> System reliability guidelines</td>
+</tr>
+<tr>
+<td>Acoustics</td>
+<td>Declared sound power 6.3 bel idle, 6.5 bel operating</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1</td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>Server on: 10 to 35 deg C, 20 to 80 percent RH (max dew point 21 deg C); server off: 5 to 45 deg C, 8 to 80 percent RH</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1 (p.7)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Note on the derating line: <a class="sref" href="../catalog/sources.html#s-002">S-002</a> states "altitude 0 to 914.4 m (3000 ft). Decrease system temperature by 1 deg C for
+every 1000-foot increase in altitude" (the 10-35 deg C range applies to 0-914.4 m). <span class="tl tl-documented">DOCUMENTED</span>.</p>
+<h3 id="112-measured-fan-state-2026-10-19">11.2 Measured fan state (2026-10-19) <a class="anchor" href="#112-measured-fan-state-2026-10-19" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>RPM (C-IPMI)</th>
+<th>Percent (C-CLI <code>fans</code>)</th>
+<th>Lower critical threshold (C-IPMI sensor)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fan 1A Tach</td>
+<td>1595</td>
+<td>21</td>
+<td>290</td>
+</tr>
+<tr>
+<td>Fan 1B Tach</td>
+<td>1125</td>
+<td>17</td>
+<td>250</td>
+</tr>
+<tr>
+<td>Fan 2A Tach</td>
+<td>1595</td>
+<td>21</td>
+<td>290</td>
+</tr>
+<tr>
+<td>Fan 2B Tach</td>
+<td>1100</td>
+<td>17</td>
+<td>250</td>
+</tr>
+<tr>
+<td>Fan 3A Tach</td>
+<td>3103</td>
+<td>41</td>
+<td>290</td>
+</tr>
+<tr>
+<td>Fan 3B Tach</td>
+<td>2450</td>
+<td>38</td>
+<td>250</td>
+</tr>
+</tbody>
+</table></div>
+<p>All six tach sensors status ok; presence sensors Fan 1, Fan 2, Fan 3 and Cooling Zone 1, Cooling Zone 2, Cooling Zone 3
+read 0x1; chassis status "Cooling/Fan Fault: false". "A" rotors run faster than "B" rotors in each module (about 40
+percent more RPM in modules 1-2, about 27 percent in module 3). Fan 3 runs at roughly twice the speed of fans 1 and 2.
+<span class="tl tl-measured">MEASURED</span>. Reason for the asymmetry between fan 3 and fans 1/2: <span class="tl tl-unknown">UNKNOWN</span> (<span class="tl tl-candidate">CANDIDATE</span>: zone-based fan control, because
+three cooling zones exist and only one CPU and one DIMM are fitted, but the zone-to-fan mapping is not documented).
+Maximum RPM is not documented in a vendor source. The SDR gives a normal maximum of 7395 RPM for "A" rotors and
+6375 RPM for "B" rotors, and the IMM CLI percent matches RPM / normal maximum (<span class="tl tl-measured">MEASURED</span> values, <span class="tl tl-candidate">CANDIDATE</span> rule;
+captures/2026-10-20_sdr_verbose_and_pd0.txt; full SDR decode in docs/X3650M3_SENSORS_SDR.md 4.1, 5.1, 13).</p>
+<p>Temperature context (<span class="tl tl-measured">MEASURED</span>): Ambient Temp 27 deg C; sensor limits UNC 38, UCR 41, UNR 45 deg C (C-IPMI sensor);
+the CLI <code>temps</code> labels the same limits as warning 38.00 C, soft shutdown 41.00 C, hard shutdown 45.00 C (C-CLI).
+Only the ambient (inlet) temperature sensor is exposed in this capture; no CPU or DIMM temperature readings are
+listed apart from discrete DIMM temperature status sensors (all non-fault).</p>
+<h2 id="12-battery-cmos">12. Battery (CMOS) <a class="anchor" href="#12-battery-cmos" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Detail</th>
+<th>Truth</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Part</td>
+<td>Battery, 3.0 volt, Tier 1 CRU 33F8354 (lithium; replace only with the same type from the same manufacturer)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td>Table 13 index 7; IC:t_replacing_battery</td>
+</tr>
+<tr>
+<td>Reading</td>
+<td>Planar VBAT 1.727 V; thresholds LCR 2.095 V, LNC 2.248 V; status lcr</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+<td>C-IPMI sensor/sdr elist; C-CLI volts (labels SSL 2.10, WL 2.25)</td>
+</tr>
+<tr>
+<td>Effect</td>
+<td>Loss of CMOS/clock data when AC is removed; BRD light path LED can be lit for a battery condition; IMM events 80010002-2801xxxx (lower non-critical) and 80010202-2801xxxx (lower critical), "CMOS Battery"</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> IMM messages; IC:r_light_path_diagnostics_leds</td>
+</tr>
+<tr>
+<td>Replacement</td>
+<td>Cover off, lift the rubber cover, push the battery horizontally away from the riser in slot 2, lift out; insert tilted, press until it clicks; afterwards reset the Setup configuration, date/time and power-on password; power button becomes active only after a delay (conflict C-3)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td>IC:t_removing_battery, t_replacing_battery</td>
+</tr>
+<tr>
+<td>Status of the owner's battery</td>
+<td>Below the lower critical threshold (sensor status critical, see C-6)</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+<td>C-IPMI</td>
+</tr>
+</tbody>
+</table></div>
+<p>Recommended owner action (<span class="tl tl-candidate">CANDIDATE</span>): replace with CRU 33F8354 or an equivalent recommended by the manufacturer,
+then record the Setup settings first (docs/X3650M3_UEFI.md) because they may be lost; do it with the server powered
+off and power cords removed. No chemical type/size is stated in the sources (<span class="tl tl-unknown">UNKNOWN</span>; do not assume).</p>
+<h2 id="13-cru--fru-part-number-tables">13. CRU / FRU part number tables <a class="anchor" href="#13-cru--fru-part-number-tables" aria-label="Link to this section">#</a></h2>
+<p>Source: IC:c_replaceable_server_components "Table 1. Parts listing, Types 4255, 7945, and 7949" and IC:c_parts_listing;
+identical to <a class="sref" href="../catalog/sources.html#s-004">S-004</a> Chapter 4 Table 13 (16th ed.) except where noted in section 16. <span class="tl tl-documented">DOCUMENTED</span>. Classes:</p>
+<ul>
+<li>Tier 1 CRU: customer replaces at own cost; Tier 2 CRU: customer may install or ask IBM at no extra charge under the
+  warranty type; FRU: trained service technician only; consumable: customer responsibility
+  (IC:c_replaceable_server_components).</li>
+<li>The "index" is the callout number in the exploded-view figure (drawing only).</li>
+</ul>
+<h3 id="131-main-assemblies-indexes-1-30">13.1 Main assemblies (indexes 1-30) <a class="anchor" href="#131-main-assemblies-indexes-1-30" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Index</th>
+<th>Description</th>
+<th>Tier 1 CRU</th>
+<th>Tier 2 CRU</th>
+<th>FRU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Cover (all models)</td>
+<td>59Y3790</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>PCI Express riser-card assembly x8</td>
+<td>69Y4324</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>PCI Express riser-card assembly x8 for Emulex 10 GbE adapter 49Y4202</td>
+<td>59Y3818</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>PCI Express riser-card assembly x16</td>
+<td>69Y4325</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>PCI-X riser-card assembly</td>
+<td>69Y4326</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Heat sink, 95 W</td>
+<td></td>
+<td></td>
+<td>49Y4820</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Heat sink, 130 W</td>
+<td></td>
+<td></td>
+<td>69Y1207</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Microprocessor retention module (all models)</td>
+<td></td>
+<td></td>
+<td>49Y4822</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Battery, 3.0 V</td>
+<td>33F8354</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Virtual media key (optional)</td>
+<td>46C7528</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>Ethernet adapter (optional dual-port daughter card)</td>
+<td>69Y4509</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>System board</td>
+<td></td>
+<td></td>
+<td>00AM528</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Power supplies (see 13.4)</td>
+<td>see 13.4</td>
+<td></td>
+<td>see 13.4</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Power-supply bay filler (all models except F2x and JSx)</td>
+<td>49Y4821</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>DVD drive, SATA</td>
+<td>44W3254</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>DVD drive, SATA (model JSx)</td>
+<td>44W3256</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td>Operator information panel</td>
+<td>44E4372</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>16A</td>
+<td>4-drive filler panel, hot-swap</td>
+<td>49Y5359</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>16A</td>
+<td>4-drive filler panel, simple swap</td>
+<td>49Y5360</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>16B</td>
+<td>Hot-swap HDD filler (models A2x B2x C2x D2x F2x G2x H2x J2x L2x M2x N2x)</td>
+<td>44T2248</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>17</td>
+<td>Rack latch bracket kit (2 EIA brackets, 2 screws)</td>
+<td></td>
+<td>49Y5356</td>
+<td></td>
+</tr>
+<tr>
+<td>18</td>
+<td>Bezel, 16 HDD</td>
+<td></td>
+<td>59Y3780</td>
+<td></td>
+</tr>
+<tr>
+<td>19A</td>
+<td>Backplane, SAS, 4 drives</td>
+<td></td>
+<td>43V7070</td>
+<td></td>
+</tr>
+<tr>
+<td>19B</td>
+<td>Backplane, SAS, 8 drives</td>
+<td></td>
+<td>46W9187</td>
+<td></td>
+</tr>
+<tr>
+<td>20</td>
+<td>Remote RAID battery tray</td>
+<td>49Y5355</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>21</td>
+<td>ServeRAID BR10i adapter</td>
+<td>44E8690</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>21</td>
+<td>ServeRAID MR10i adapter</td>
+<td></td>
+<td>43W4297</td>
+<td></td>
+</tr>
+<tr>
+<td>22</td>
+<td>2 GB hypervisor flash device</td>
+<td>42D0545</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>22</td>
+<td>4 GB hypervisor flash device (field use only)</td>
+<td></td>
+<td></td>
+<td>41Y8279</td>
+</tr>
+<tr>
+<td>23</td>
+<td>SAS riser card (non-tape models)</td>
+<td>43V7067</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>24</td>
+<td>Cover, 240 VA safety</td>
+<td></td>
+<td></td>
+<td>49Y4823</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Fan cage</td>
+<td>49Y5362</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>26</td>
+<td>Fans (hot swap dual 60 mm)</td>
+<td>49Y5361</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>27A</td>
+<td>DIMM air baffle (air baffle kit)</td>
+<td>59Y3779</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>27B</td>
+<td>Microprocessor air baffle (air baffle kit, all models)</td>
+<td>59Y3779</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>28</td>
+<td>Tape kit (optional; mechanical assembly, clamp, 3.5 inch filler, 4 screws)</td>
+<td></td>
+<td>40K6449</td>
+<td></td>
+</tr>
+<tr>
+<td>29</td>
+<td>Bezel, 8 HDD with tape drive</td>
+<td></td>
+<td>59Y3781</td>
+<td></td>
+</tr>
+<tr>
+<td>30</td>
+<td>Tape-enabled SAS riser card (optional)</td>
+<td>43V7065</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>(none)</td>
+<td>Mechanical chassis</td>
+<td></td>
+<td></td>
+<td>81Y6842</td>
+</tr>
+<tr>
+<td>(none)</td>
+<td>Miscellaneous parts kit (all models; brackets, gaskets, latches, screws, standoffs)</td>
+<td></td>
+<td>69Y4505</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="132-microprocessors-index-5-all-fru-and-the-installed-cpu">13.2 Microprocessors (index 5, all FRU) and the installed CPU <a class="anchor" href="#132-microprocessors-index-5-all-fru-and-the-installed-cpu" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>FRU</th>
+<th>Processor</th>
+<th>Notes in table</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>46D1262</td>
+<td>Xeon X5570 2.93 GHz 8 MB 95 W</td>
+<td></td>
+</tr>
+<tr>
+<td>46D1263</td>
+<td>Xeon X5560 2.80 GHz 8 MB 95 W</td>
+<td></td>
+</tr>
+<tr>
+<td>46D1264</td>
+<td>Xeon X5550 2.66 GHz 8 MB 95 W</td>
+<td></td>
+</tr>
+<tr>
+<td>46D1265</td>
+<td>Xeon E5540 2.53 GHz 8 MB 80 W</td>
+<td></td>
+</tr>
+<tr>
+<td>46D1266</td>
+<td>Xeon E5530 2.40 GHz 8 MB 80 W</td>
+<td></td>
+</tr>
+<tr>
+<td>46D1267</td>
+<td>Xeon E5520 2.26 GHz 8 MB 80 W</td>
+<td></td>
+</tr>
+<tr>
+<td>46D1270</td>
+<td>Xeon E5506 2.13 GHz 4 MB 80 W</td>
+<td>model A2x</td>
+</tr>
+<tr>
+<td>46D1271</td>
+<td>Xeon E5504 2.00 GHz 4 MB 80 W</td>
+<td></td>
+</tr>
+<tr>
+<td>49Y7038</td>
+<td>Hex-core X5670 2.93 GHz 12 MB 95 W</td>
+<td>model M2x</td>
+</tr>
+<tr>
+<td>49Y7039</td>
+<td>Hex-core X5660 2.80 GHz 12 MB 95 W</td>
+<td>models L2x, L4x</td>
+</tr>
+<tr>
+<td>49Y7040</td>
+<td>Hex-core X5650 2.66 GHz 12 MB 95 W</td>
+<td>models J2x, JSx, D4x</td>
+</tr>
+<tr>
+<td>49Y7050</td>
+<td>X5667 3.06 GHz 12 MB 95 W</td>
+<td></td>
+</tr>
+<tr>
+<td>49Y7051</td>
+<td>E5640 2.66 GHz 12 MB 80 W</td>
+<td>model G2x</td>
+</tr>
+<tr>
+<td>49Y7052</td>
+<td>E5630 2.53 GHz 12 MB 80 W</td>
+<td>model F2x</td>
+</tr>
+<tr>
+<td>49Y7053</td>
+<td>E5620 2.40 GHz 12 MB 80 W</td>
+<td>models D2x, D4x</td>
+</tr>
+<tr>
+<td>49Y7054</td>
+<td>Hex-core L5640 2.26 GHz 12 MB 60 W</td>
+<td>models H2x, H4x</td>
+</tr>
+<tr>
+<td>59Y3691</td>
+<td>L5630 2.13 GHz 12 MB 40 W</td>
+<td>model C2x</td>
+</tr>
+<tr>
+<td>69Y0781</td>
+<td>E5503 2.00 GHz 4 MB 80 W</td>
+<td></td>
+</tr>
+<tr>
+<td>69Y0782</td>
+<td>E5507 2.26 GHz 4 MB 80 W</td>
+<td>models B2x, 32x</td>
+</tr>
+<tr>
+<td>69Y0783</td>
+<td>L5609 1.86 GHz 12 MB 40 W</td>
+<td></td>
+</tr>
+<tr>
+<td>69Y0849</td>
+<td>X5680 3.33 GHz 130 W</td>
+<td>model N2x</td>
+</tr>
+<tr>
+<td>69Y0850</td>
+<td>X5677 3.46 GHz 12 MB 130 W</td>
+<td></td>
+</tr>
+<tr>
+<td>69Y4714</td>
+<td>Hex-core E5645 2.4 GHz 12 MB 80 W</td>
+<td></td>
+</tr>
+<tr>
+<td>81Y5952</td>
+<td>E5603 1.6 GHz 4 MB 80 W</td>
+<td></td>
+</tr>
+<tr>
+<td>81Y5953</td>
+<td>E5606 2.13 GHz 8 MB 80 W</td>
+<td>model 22x</td>
+</tr>
+<tr>
+<td>81Y5954</td>
+<td>E5607 2.26 GHz 8 MB 80 W</td>
+<td></td>
+</tr>
+<tr>
+<td>81Y5955</td>
+<td>Hex-core E5649 2.53 GHz 12 MB 80 W</td>
+<td></td>
+</tr>
+<tr>
+<td>81Y5956</td>
+<td>X5647 2.93 GHz 12 MB 130 W</td>
+<td></td>
+</tr>
+<tr>
+<td>81Y5957</td>
+<td>X5672 3.20 GHz 8 MB 95 W</td>
+<td></td>
+</tr>
+<tr>
+<td>81Y5958</td>
+<td>Hex-core X5675 3.06 GHz 12 MB 95 W</td>
+<td>model 72x</td>
+</tr>
+<tr>
+<td>81Y5959</td>
+<td>X5687 3.60 GHz 12 MB 130 W</td>
+<td></td>
+</tr>
+<tr>
+<td>81Y5960</td>
+<td>Hex-core X5690 3.46 GHz 12 MB 130 W</td>
+<td>model 82x</td>
+</tr>
+</tbody>
+</table></div>
+<p>The installed CPU, Xeon E5606 2.13 GHz (SMBIOS version string), corresponds to the FRU line 81Y5953 ("model 22x").
+Matching is <span class="tl tl-candidate">CANDIDATE</span> (reason: same SKU name; the CPU FRU part number is not read by IPMI). The heat sink list has only
+95 W (49Y4820) and 130 W (69Y1207) entries, so the installed heat sink for the 80 W E5606 is <span class="tl tl-unknown">UNKNOWN</span> (<span class="tl tl-candidate">CANDIDATE</span>:
+the 95 W heat sink). Rules: do not mix Xeon 5500 and 5600 series CPUs; the second CPU also needs the CPU 2 air baffle
+and enables DIMM sockets 10-18 (docs/X3650M3_MEMORY.md).</p>
+<h3 id="133-memory-index-11-tier-1-cru">13.3 Memory (index 11, Tier 1 CRU) <a class="anchor" href="#133-memory-index-11-tier-1-cru" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>CRU</th>
+<th>DIMM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>49Y1442</td>
+<td>1 GB 1Rx8 1.5 V RDIMM</td>
+</tr>
+<tr>
+<td>49Y1443</td>
+<td>2 GB 2Rx8 1.5 V 1 Gbit</td>
+</tr>
+<tr>
+<td>49Y1444</td>
+<td>2 GB 1Rx4 1.5 V 1 Gbit</td>
+</tr>
+<tr>
+<td>49Y1445</td>
+<td>4 GB 2Rx4 1.5 V 1 Gbit (models A2x B2x D2x G2x F2x J2x L2x M2x N2x JSx)</td>
+</tr>
+<tr>
+<td>49Y1446</td>
+<td>8 GB 2Rx4 1.5 V 2 Gbit</td>
+</tr>
+<tr>
+<td>44T1573</td>
+<td>2 GB (1 Gb 2Rx8)</td>
+</tr>
+<tr>
+<td>44T1582</td>
+<td>2 GB (1 Gb 1Rx8) PC3</td>
+</tr>
+<tr>
+<td>44T1598</td>
+<td>4 GB (2 Gb 2Rx8) RDIMM</td>
+</tr>
+<tr>
+<td>49Y1410</td>
+<td>2 GB (1 Gb 2Rx8)</td>
+</tr>
+<tr>
+<td>49Y1565</td>
+<td>16 GB 2Rx4 1.35 V RDIMM</td>
+</tr>
+<tr>
+<td>46C7489</td>
+<td>16 GB 4Rx4 RDIMM</td>
+</tr>
+<tr>
+<td>49Y1412</td>
+<td>4 GB (1 Gb 2Rx8 1.35 V) ECC RDIMM</td>
+</tr>
+<tr>
+<td>49Y1415, 49Y1416</td>
+<td>8 GB (2 Gb 2Rx4) RDIMM (two numbers)</td>
+</tr>
+<tr>
+<td>49Y1418</td>
+<td>16 GB (2 Gb 4Rx4) RDIMM</td>
+</tr>
+<tr>
+<td>49Y1421</td>
+<td>2 GB (1x2GB, 1Rx8) UDIMM</td>
+</tr>
+<tr>
+<td>49Y1422</td>
+<td>4 GB (2 Gb 2Rx8) UDIMM</td>
+</tr>
+<tr>
+<td>49Y1423</td>
+<td>2 GB (2 Gb 1Rx8) RDIMM</td>
+</tr>
+<tr>
+<td>49Y1424</td>
+<td>4 GB (2 Gb 1Rx4) RDIMM</td>
+</tr>
+<tr>
+<td>49Y1425</td>
+<td>4 GB (2 Gb 2Rx8) RDIMM</td>
+</tr>
+</tbody>
+</table></div>
+<p>The installed 8 GB 2Rx4 RDIMM (Hynix HMT31GR7BFR4A-H9) may be 49Y1446, 49Y1415 or 49Y1416; the exact IBM part number is
+<span class="tl tl-unknown">UNKNOWN</span> (the DIMM SPD carries only the Hynix part number). Population rules and speeds: docs/X3650M3_MEMORY.md.</p>
+<h3 id="134-power-supplies-index-12">13.4 Power supplies (index 12) <a class="anchor" href="#134-power-supplies-index-12" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Description</th>
+<th>Tier 1 CRU</th>
+<th>FRU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>460 W AC</td>
+<td>39Y7229, 39Y7231, 69Y5907, 69Y5939 (listed without "ac")</td>
+<td></td>
+</tr>
+<tr>
+<td>675 W AC</td>
+<td>39Y7225, 39Y7227, 39Y7236, 69Y5909, 69Y5919, 69Y5941, 69Y5943 (last two without "ac")</td>
+<td></td>
+</tr>
+<tr>
+<td>675 W high-efficiency (HE) AC</td>
+<td>39Y7218, 69Y5901, 69Y5903</td>
+<td></td>
+</tr>
+<tr>
+<td>675 W DC</td>
+<td></td>
+<td>39Y7215, 69Y5909</td>
+</tr>
+</tbody>
+</table></div>
+<p>69Y5909 appears both as 675 W AC (CRU) and as 675 W DC (FRU) in the same table (conflict C-7). Which part number belongs
+to the installed supply is <span class="tl tl-unknown">UNKNOWN</span>.</p>
+<h3 id="135-options-and-adapters-no-index-tier-1-cru-unless-noted">13.5 Options and adapters (no index; Tier 1 CRU unless noted) <a class="anchor" href="#135-options-and-adapters-no-index-tier-1-cru-unless-noted" aria-label="Link to this section">#</a></h3>
+<p>ServeRAID and storage: BR10i 46C9043; BR10il (model A2x) 49Y4737; M1015 46C8933 (46M0861 for models B2x C2x D2x H2x
+N2x); M5014 46C8929 (46M0918 for F2x G2x); M5015 46C8927 (46M0851 for J2x JSx L2x M2x); B5015 46M0970; MR10i 46C9037;
+M5016 00AE809; M5000 series feature key 46M0931; M1000 series feature key 46M0864; SAS expander card for 16 drives
+46M0997; ServeRAID batteries 81Y4579 (battery), 81Y4451 (M5000 series), 46C9040 (MR10i Li-Ion), 43W4342 (M5000 battery,
+second table); MR10i battery carrier kit 46C9041; MR10M battery carrier (Tier 2) 44E8844; carrier daughter card (Tier 2)
+44E8763; daughter card mechanic kit 69Y4586; ServeRAID battery cable 90Y7310; SATA DVD cable 43V6914; DVD blank
+filler 49Y4868. Hard disks and SSDs (Tier 1): 42D0633 146 GB 10K, 42D0673 73 GB 15K, 42D0678 146 GB 15K, 42D0638 300 GB
+10K, 42D0708 500 GB 7.2K, 44W2265 300 GB 10K Slim-HS, 44W2295 146 GB 15K Slim-HS, 49Y1892 500 GB 7.2K, 49Y2004 600 GB 10K,
+81Y9727 500 GB 7.2K SATA 6 Gbps, 90Y8664 256 GB SSD simple-swap, 90Y8669 128 GB SSD simple-swap.</p>
+<p>Network and I/O: Emulex 10 GbE custom adapter 49Y4202 (for riser 59Y3818 only); Emulex 10GbE VFA II 49Y7952; Emulex
+VFA 49Y4252; NetXtreme II 1000 Express quad-port 49Y4222; QLogic 10Gb CNA assembly 00Y3274, dual-port CNA 42C1802, SFP+
+SR 42C1816; Brocade 10Gb CNA 42C1822, SFP+ SR 42C1819; SFP+ SR transceiver 46C9297, SFP+ module assembly 46C3449, IBM
+10 GbE SW SFP+ (Tier 2) 49Y8579; 8 Gb HBA 00Y5629; Short Wave 4 Gb SFP 22R6443; NVIDIA FX 3800 43V5894, FX 1800 43V5886,
+FX 1700 43V5765, FX 580 43V5890, FX 570 43V5782; DVI-A dongle 25R9043.</p>
+<p>Rack, cables, misc. (Tier 2 unless noted): slide rail kit Enterprise 69Y5085, Gen-II 69Y4391 (Tier 1), universal 59Y3792;
+CMA kit Gen-II 69Y4392 (Tier 1), CMA kit 59Y4822 (Tier 1), cable management arm 49Y4817; backplane cables: configuration
+cable 4 drives 69Y4233, 8 drives 69Y0648, 8 drives with tape 69Y4228; power cable 4 drives 69Y4234, 8 drives 69Y0649;
+simple-swap cable assembly 59Y3782; SAS signal cables 240 mm 49Y5392, 245 mm 59Y3786, 250 mm 69Y1332, 300 mm 49Y5390,
+450 mm 59Y3921, 710 mm 69Y1328; operator panel cable 46C4139; KVM conversion cable 39M2911; USB conversion cable 39M2909;
+USB/video cable 46C4146; VGA power cable 59Y3455; USB power cable 39M6797 (Tier 1); line cords (Tier 1) 39M5076 (4-4.3 m),
+39M5375 (1.5 m), 39M5378 (4.3 m), 39M5095 (2.8 m), 39M5377 (2.8 m); SFP+ DAC and twinax cables 59Y1934/38/42/46, 46K6182/83/84,
+90Y9426/29/32/35, 45W2444/26/3044; CPU extraction tool (FRU) 81Y9398; alcohol wipes 59P4739; thermal grease 41Y9292;
+service label 59Y3789; chassis labels 59Y3788; LP latch 69Y5119; screw kit 59Y4922. (Part-to-function detail is
+only as stated in the table; the option cards are not installed in the owner's server unless noted in sections 2 and 14.)</p>
+<p>Rack kit of the owner's server: <span class="tl tl-unknown">UNKNOWN</span>.</p>
+<h2 id="14-installed-frus-measured-from-ipmi-fru-and-sdr">14. Installed FRUs (<span class="tl tl-measured">MEASURED</span> from IPMI FRU and SDR) <a class="anchor" href="#14-installed-frus-measured-from-ipmi-fru-and-sdr" aria-label="Link to this section">#</a></h2>
+<p>Source: C-IPMI <code>ipmitool fru print</code>, <code>sdr elist full</code>, <code>sensor</code> (captured 2026-10-19). Two read errors ("unexpected ID")
+appeared at the start of the FRU read; the data below is as printed. Serial numbers are shown because they are
+not secrets (task rule).</p>
+<h3 id="141-fru-inventory">14.1 FRU inventory <a class="anchor" href="#141-fru-inventory" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>FRU ID</th>
+<th>Name</th>
+<th>Present</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Builtin FRU Device (chassis and system board)</td>
+<td>yes</td>
+<td>Chassis serial [redacted-id]; Board Mfg IBM, Product "System Board", serial [redacted-id], part number 94Y7614, extra 69Y5082, mfg date 2011-11-28; Product "System x3650 M3", part/model 7945KEG, product serial [redacted-id]; asset tag empty</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Power Supply 1</td>
+<td>no ("Device not present")</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Power Supply 2</td>
+<td>yes</td>
+<td>"IBM Designed Device", no mfg, no part number, no serial, date Unspecified, extras zero</td>
+</tr>
+<tr>
+<td>3</td>
+<td>DASD Backplane 1</td>
+<td>yes</td>
+<td>Mfg MOLX, "IBM Designed Device", serial [redacted-id], part 81Y4592, extra 94Y6670</td>
+</tr>
+<tr>
+<td>4-6</td>
+<td>DASD Backplane 2-4</td>
+<td>no</td>
+<td>-</td>
+</tr>
+<tr>
+<td>16, 17</td>
+<td>DIMM 1, DIMM 2</td>
+<td>no</td>
+<td>-</td>
+</tr>
+<tr>
+<td>18</td>
+<td>DIMM 3</td>
+<td>yes</td>
+<td>DDR3 SDRAM RDIMM 8 GB, 2 ranks, x4 devices, ECC, SK Hynix HMT31GR7BFR4A-H9, serial [redacted-id], made year 12 week 05 (2012-W05)</td>
+</tr>
+<tr>
+<td>19-33</td>
+<td>DIMM 4-18</td>
+<td>no</td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+<p>No FRU entries exist for the CPU, fans, riser cards, SAS riser, operator panel or battery (the IMM exposes FRUs only
+for the items above). Hence riser, CPU FRU and fan part numbers cannot be read through IPMI. <span class="tl tl-unknown">UNKNOWN</span>. The IMM's
+WS-Man and CIM views (2026-10-21) add no part numbers for these items either: <code>GetProcessorInfo</code> is empty, CIM_Processor
+returns "Processor 1" and "Processor 2" with all fields 0 (so CPU 2's instance does not imply presence), and the
+CIM_PhysicalPackage entries for Fan 1-3, System Board 1, Add-in Card 1-3 and Front Panel Board 1 carry no VPD; the
+chassis package carries SKU 69Y5082 (= Board Extra of FRU 0) and the backplane Model 81Y4592 / SKU 94Y6670, matching
+FRU 3 (captures/2026-10-21_imm_wsman_read_inventory.txt, captures/2026-10-21_imm_cim_read_inventory.txt, <span class="tl tl-measured">MEASURED</span>).</p>
+<h3 id="142-matching-measured-fru-data-to-the-parts-tables">14.2 Matching measured FRU data to the parts tables <a class="anchor" href="#142-matching-measured-fru-data-to-the-parts-tables" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Installed</th>
+<th>Measured number</th>
+<th>Parts table entry</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>System board</td>
+<td>Board Part 94Y7614, extra 69Y5082</td>
+<td>FRU 00AM528 (<a class="sref" href="../catalog/sources.html#s-004">S-004</a>, 15th ed., IC); 81Y6625 and 69Y5082 "System board (P12)" (S-005b, 12th ed.)</td>
+<td>69Y5082 equals the S-005b "(P12)" board FRU; 94Y7614 appears in no document; 00AM528 not seen. <span class="tl tl-candidate">CANDIDATE</span>: the board is an early-series part (P12) and 94Y7614 is a newer FRU/assembly number; not resolved (C-1).</td>
+</tr>
+<tr>
+<td>8-drive backplane</td>
+<td>extra 94Y6670, board part 81Y4592</td>
+<td>46W9187 (<a class="sref" href="../catalog/sources.html#s-004">S-004</a>, S-005a); 69Y0650 and 94Y6670 (S-005b)</td>
+<td>extra 94Y6670 matches the 12th-edition listing; 81Y4592 appears in no mirrored document (C-4)</td>
+</tr>
+<tr>
+<td>DIMM</td>
+<td>Hynix HMT31GR7BFR4A-H9, 8 GB 2Rx4</td>
+<td>49Y1446 / 49Y1415 / 49Y1416</td>
+<td>not determinable</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>Xeon E5606 2.13 GHz</td>
+<td>81Y5953</td>
+<td><span class="tl tl-candidate">CANDIDATE</span></td>
+</tr>
+<tr>
+<td>Power supply</td>
+<td>IPMI FRU: no part data; IMM VPD/CIM: FRU 39Y7229, part 39Y7228 (2026-10-21)</td>
+<td>13.4: 39Y7229 = 460 W AC Tier 1 CRU</td>
+<td><span class="tl tl-candidate">CANDIDATE</span> 460 W AC (number match); 39Y7228 is not in the parts table</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="143-installed-component-classes-tier-view">14.3 Installed component classes (Tier view) <a class="anchor" href="#143-installed-component-classes-tier-view" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Tier</th>
+<th>Owner replaceable?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>System board (94Y7614 / 00AM528 class)</td>
+<td>FRU</td>
+<td>no (trained technician)</td>
+</tr>
+<tr>
+<td>CPU (E5606), heat sink</td>
+<td>FRU</td>
+<td>no</td>
+</tr>
+<tr>
+<td>DIMM, fans, PSU, battery, riser cards, SAS riser, operator panel, DVD drive</td>
+<td>Tier 1 CRU</td>
+<td>yes (own cost under warranty rules)</td>
+</tr>
+<tr>
+<td>8-drive backplane, bezel, tape kit</td>
+<td>Tier 2 CRU</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table></div>
+<p>Note: the machine is 2011-era and out of warranty and the IBM CRU/FRU distinction does not constrain the owner; it
+only tells how difficult the removal is.</p>
+<h3 id="144-other-discrete-presencehealth-sensors-measured">14.4 Other discrete presence/health sensors (<span class="tl tl-measured">MEASURED</span>) <a class="anchor" href="#144-other-discrete-presencehealth-sensors-measured" aria-label="Link to this section">#</a></h3>
+<p>Reading 0x1 (status 0x0180): Fan 1-3, Front Panel, Video USB, DASD Backplane 1, SAS Riser, PCI Riser 1, PCI Riser 2,
+IOH Temp Status, CPU 1 OverTemp, PS 1/2 Fan Fault, Pwr Rail A-E Fault, PS 1/2 Therm/OP/12V OV/UV/OC/VCO Fault,
+Cooling Zone 1-3, Drive 0, Planar Fault, DIMM 3 Temp, Power Supply 2.
+Reading 0x0: CPU Fault Reboot, Aux Log, NMI State, ABR Status, Firmware Error, PCIs, CPUs, DIMMs, Sys Board Fault, VT
+Fault, Power Unit, Drive 1-15, All/One of DIMMs, DIMM 1-18 (except DIMM 3 = 0x40), DIMM temps, PCI 1-5, All/One of PCI
+Error, IPMI Watchdog, Host Power, Backup Memory, Progress, SEL Fullness, OS RealTime Mod. CPU 1 = 0x80, CPU 2 and CPU 2
+OverTemp = na (absent), Power Supply 1 = na, DASD Backplane 3-4 = na, DASD Backplane 2 = 0x2.
+The semantics of each reading (bit meaning) are not documented; the table lists captured values only. A full SDR
+decode is a Tier 2 document (docs/X3650M3_SENSORS_SDR.md).</p>
+<h2 id="15-removal-and-replacement-notes-for-the-owner">15. Removal and replacement notes for the owner <a class="anchor" href="#15-removal-and-replacement-notes-for-the-owner" aria-label="Link to this section">#</a></h2>
+<p>All <span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> Chapter 2; <a class="sref" href="../catalog/sources.html#s-004">S-004</a> Chapter 5; IC:c_removing_replacing_consumble_parts_tier1_crus,
+c_removing_replacing_tier2, topic pages t_*). General: read the safety and installation guidelines, handle
+static-sensitive devices carefully, slide the server out of the rack for cover work. This server is the Proxmox host
+(docs/AGENT.md): any power-off, reset or component removal that needs power-down stops the lab and the agent; plan
+maintenance with the owner.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Hot swap?</th>
+<th>Key points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cover (59Y3790)</td>
+<td>n/a</td>
+<td>Do not run more than 30 minutes with the cover removed</td>
+</tr>
+<tr>
+<td>Hot-swap fan</td>
+<td>yes, power on</td>
+<td>Cover must come off; replace within 30 s or the system shuts down; failing fan has a lit LED beside its board connector; fans 2 and 3 are removed for working room when servicing the SAS controller or the board (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> Chapter 2)</td>
+</tr>
+<tr>
+<td>Power supply</td>
+<td>yes</td>
+<td>Do not mix types; reconnect and route the cord through the handle; check that the error LED is off and AC/DC LEDs are lit; IMM sees the supply in the bay named Power Supply n (bay mapping <span class="tl tl-unknown">UNKNOWN</span>, section 10.3)</td>
+</tr>
+<tr>
+<td>Hot-swap HDD</td>
+<td>yes</td>
+<td>Replace within 2 minutes of removal (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> reliability guideline); see docs/X3650M3_STORAGE_RAID.md</td>
+</tr>
+<tr>
+<td>Battery (33F8354)</td>
+<td>no</td>
+<td>Power off and remove cords; push the battery horizontally away from the slot 2 riser; do not force or tilt (socket damage can require board replacement); reconfigure Setup afterwards</td>
+</tr>
+<tr>
+<td>PCI riser assemblies</td>
+<td>no</td>
+<td>Riser in connector 2 must always be present; a missing riser lights BRD/FAN LEDs</td>
+</tr>
+<tr>
+<td>DIMMs</td>
+<td>no</td>
+<td>Disconnect power, wait 10 s before restarting after any DIMM change; DIMM air baffle must be refitted</td>
+</tr>
+<tr>
+<td>Operator information panel</td>
+<td>no</td>
+<td>Cover off; disconnect the cable from the rear of the panel; press the release tab inside and push the assembly forward, then pull it out from the front (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Figures 102-103)</td>
+</tr>
+<tr>
+<td>Backplane (Tier 2)</td>
+<td>no</td>
+<td>Power off; see storage document</td>
+</tr>
+<tr>
+<td>SAS riser and controller</td>
+<td>no</td>
+<td>Remove with controller; the M1015 sits in the dedicated RAID slot; tape riser 43V7065 is a different part</td>
+</tr>
+<tr>
+<td>CPU and heat sink (FRU)</td>
+<td>no</td>
+<td>Trained technician; thermal grease 41Y9292, CPU extraction tool 81Y9398, retention module 49Y4822</td>
+</tr>
+<tr>
+<td>System board (FRU)</td>
+<td>no</td>
+<td>After replacement: UUID, DMI/SMBIOS, VPD/firmware, RAID firmware, Setup config and date/time</td>
+</tr>
+</tbody>
+</table></div>
+<p>Maintenance of cooling parts: failed fan replacement within 48 hours; 50 mm clearance front and rear (<a class="sref" href="../catalog/sources.html#s-002">S-002</a>).</p>
+<h2 id="16-source-conflicts">16. Source conflicts <a class="anchor" href="#16-source-conflicts" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Topic</th>
+<th>Values</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C-1</td>
+<td>System board FRU number</td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a>/S-005a/IC parts listing: 00AM528. S-005b: 81Y6625 (all models), 69Y5082 ("P12"). Measured FRU: Board Part 94Y7614 with Board Extra 69Y5082; SMBIOS board Product Name 94Y7614</td>
+<td>not resolved; 94Y7614 appears in no mirrored document</td>
+</tr>
+<tr>
+<td>C-2</td>
+<td>Power channel DIMM ranges</td>
+<td>IC:t_solving_power_problems and <a class="sref" href="../catalog/sources.html#s-004">S-004</a> table: channel B DIMMs 1-16, channel C DIMMs 1-8; IC:r_power_problems procedure for channel C: DIMMs 1 through 9; there are 18 sockets</td>
+<td>not resolved</td>
+</tr>
+<tr>
+<td>C-3</td>
+<td>Delay before the power button works after AC connect</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a>/<a class="sref" href="../catalog/sources.html#s-004">S-004</a> operator panel: about 40 s (LED flashes rapidly 20-40 s); <a class="sref" href="../catalog/sources.html#s-002">S-002</a>/<a class="sref" href="../catalog/sources.html#s-004">S-004</a> and IC:r_power_problems troubleshooting text: about 3 minutes; IC:t_replacing_battery: about 2.5 minutes</td>
+<td>not resolved; treat 3 minutes as the safe value (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>C-4</td>
+<td>8-drive SAS backplane part</td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> (16th ed.), S-005a (15th ed.) and IC: 46W9187 (Tier 2 CRU); S-005b (12th ed.): 69Y0650 and 94Y6670. Measured: board part 81Y4592, extra 94Y6670</td>
+<td>not resolved (also docs/X3650M3_STORAGE_RAID.md C-3, which lists only 94Y6670 for the 12th edition)</td>
+</tr>
+<tr>
+<td>C-5</td>
+<td>Which bay holds the standard supply</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.123/IC: the standard supply "connects to power supply bay 1" and "Power supply 1 is the default/primary" (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.124); <a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 5: bay 1 is the inner bay, bay 2 the outer bay. Measured IPMI: PS 1 FRU absent and sensor na, PS 2 FRU present. Measured IMM VPD/CIM (2026-10-21): "Power Supply 1" carries the VPD (FRU 39Y7229), "Power Supply 2" "Not defined"</td>
+<td>not resolved; now also an internal IMM numbering conflict (IPMI FRU/SDR vs IMM VPD); the IMM VPD agrees with <a class="sref" href="../catalog/sources.html#s-002">S-002</a> (supply in bay 1); physical inspection needed</td>
+</tr>
+<tr>
+<td>C-6</td>
+<td>Planar VBAT severity</td>
+<td>docs/STATUS.md known issue: "below the 2.10 V warning threshold". Measured sensor: status lcr/cr, below LCR 2.095 V (the CLI labels the same limits SSL 2.10, WL 2.25)</td>
+<td>resolved: STATUS.md now says "below the 2.095 V lower critical threshold (sensor status cr)"</td>
+</tr>
+<tr>
+<td>C-7</td>
+<td>Part 69Y5909</td>
+<td>listed as 675 W DC (FRU) and 675 W AC (Tier 1 CRU) in the same table</td>
+<td>not resolved; probably a typo, cannot be proven</td>
+</tr>
+<tr>
+<td>C-8</td>
+<td>PSU provisioning</td>
+<td><a class="sref" href="../catalog/sources.html#s-002">S-002</a>: server "comes with one" supply; <a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.26: "standard models come with one or two (model dependent)"</td>
+<td>not a contradiction of the hardware; the owner's model (7945KEG) is not listed in <a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 16</td>
+</tr>
+<tr>
+<td>C-9</td>
+<td>Option numbers vs service numbers</td>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a> riser options 46M1072/73/74 and PSU options 46M1075 etc. versus CRU numbers 69Y4324/25/26 and 39Y7xxx</td>
+<td>different number spaces; no cross reference in the documents</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="17-open-questions--unknown">17. Open questions / <span class="tl tl-unknown">UNKNOWN</span> <a class="anchor" href="#17-open-questions--unknown" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Exact physical positions (the figure-based positions in sections 3-5 are approximate) and whether the owner's board
+   revision matches the drawings; the left/right fan order as seen from the front (<span class="tl tl-candidate">CANDIDATE</span> in 11.1); mapping of the
+   SMBIOS designators J90/J123 to the Fig 7 connectors; reference designators of all other connectors (not printed).</li>
+<li>Physical bay of the installed power supply (IPMI name "Power Supply 2", IMM VPD name "Power Supply 1", C-5);
+   wattage and type <span class="tl tl-candidate">CANDIDATE</span> 460 W AC from IMM VPD FRU 39Y7229 (section 10.3), label not inspected; behaviour of 675 W and 675 W HE supplies when one fails (no table in the documents).</li>
+<li>Whether a second supply or a bay filler is installed in the other bay; whether redundancy (non-redundant today) is wanted.</li>
+<li>Meaning of discrete sensor readings 0x1/0x2/0x40/0x80 (SDR bit definitions), including "PS n ... Fault" at 0x1 and
+   "DASD Backplane 2" 0x2: decoded in docs/X3650M3_SENSORS_SDR.md 3.3 and 7, and confirmed by the verbose SDR of
+   2026-10-20 (SENSORS_SDR 13): PS n faults [Transition to OK], DASD Backplane 2 [Absent]. Why the fault sensors of
+   the absent supply read OK stays open (SENSORS_SDR SC-6).</li>
+<li>Riser card variants and part numbers; SAS riser variant (non-tape 43V7067 or tape 43V7065); whether a USB hypervisor
+   key, virtual media key or Ethernet daughter card is installed.</li>
+<li>Heat sink part number, CPU FRU number, DIMM IBM part number, bezel type, rack kit, DVD drive part number.</li>
+<li>Exact fan control policy: why fan 3 runs about twice as fast as fans 1-2 at 27 deg C, the zone-to-fan mapping, the maximum RPM,
+   and the effect of removing the empty CPU 2 and DIMM positions on airflow (baffles present or not).</li>
+<li>Meaning of the other Board Extra fields of FRU 0 and the origin of 94Y7614 / 81Y4592 numbers (C-1, C-4).</li>
+<li>Battery chemistry/model (only the IBM CRU number 33F8354 is known) and whether the replacement will lose UEFI
+   settings (save with ASU first; docs/X3650M3_UEFI.md).</li>
+<li>Whether the SEL (full since 2025-05-05) hides hardware events after that date; no PSU/fan/temperature events
+    exist in the 512 stored entries, but later events are not recorded.</li>
+</ol>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="system-architecture.html"><span>Previous</span>System Architecture</a>
+<a class="next" href="memory.html"><span>Next</span>Memory</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#table-of-contents">Table of contents</a></li><li class="l2"><a href="#1-sources-and-capture-keys">1. Sources and capture keys</a></li><li class="l2"><a href="#2-summary-what-is-installed-measured">2. Summary: what is installed (MEASURED)</a></li><li class="l2"><a href="#3-system-board">3. System board</a></li><li class="l3"><a href="#31-identity-measured--documented">3.1 Identity (MEASURED / DOCUMENTED)</a></li><li class="l3"><a href="#32-chipset-and-major-devices-on-the-board">3.2 Chipset and major devices on the board</a></li><li class="l3"><a href="#33-connectors">3.3 Connectors</a></li><li class="l3"><a href="#34-onboard-devices-per-smbios-measured">3.4 Onboard devices per SMBIOS (MEASURED)</a></li><li class="l2"><a href="#4-jumpers-and-switches">4. Jumpers and switches</a></li><li class="l3"><a href="#41-jumpers">4.1 Jumpers</a></li><li class="l3"><a href="#42-switch-block-sw3-default-all-off">4.2 Switch block SW3 (default: all Off)</a></li><li class="l3"><a href="#43-switch-block-sw4-default-all-off">4.3 Switch block SW4 (default: all Off)</a></li><li class="l2"><a href="#5-system-board-leds-and-power-channels">5. System-board LEDs and power channels</a></li><li class="l3"><a href="#51-general">5.1 General</a></li><li class="l3"><a href="#52-system-pulse-leds-s-004-table-7">5.2 System pulse LEDs (S-004 Table 7)</a></li><li class="l3"><a href="#53-power-channel-error-leds-12-v-channels">5.3 Power channel error LEDs (12 V channels)</a></li><li class="l3"><a href="#54-fan-sas-riser-and-pci-riser-connectors-and-leds">5.4 Fan, SAS riser and PCI riser connectors and LEDs</a></li><li class="l2"><a href="#6-operator-information-panel-and-light-path-diagnostics">6. Operator information panel and light path diagnostics</a></li><li class="l3"><a href="#61-operator-information-panel-front-s-002-p16-17-s-004-p12">6.1 Operator information panel (front, S-002 p.16-17; S-004 p.12)</a></li><li class="l3"><a href="#62-light-path-diagnostics-panel">6.2 Light path diagnostics panel</a></li><li class="l3"><a href="#63-light-path-led-meanings-icr_light_path_diagnostics_leds-s-004-chapter-3">6.3 Light path LED meanings (IC:r_light_path_diagnostics_leds; S-004 Chapter 3)</a></li><li class="l2"><a href="#7-front-and-rear-connectors-and-leds">7. Front and rear connectors and LEDs</a></li><li class="l3"><a href="#71-front-s-002-p15-s-004-p11-fig-1">7.1 Front (S-002 p.15; S-004 p.11, Fig 1)</a></li><li class="l3"><a href="#72-rear-s-002-p18-s-004-pp14-15-fig-5-6-icc_rear_view">7.2 Rear (S-002 p.18; S-004 pp.14-15, Fig 5-6; IC:c_rear_view)</a></li><li class="l2"><a href="#8-risers-and-pci-slots-reference">8. Risers and PCI slots (reference)</a></li><li class="l2"><a href="#9-drive-bays-and-backplanes-reference">9. Drive bays and backplanes (reference)</a></li><li class="l2"><a href="#10-power-supplies">10. Power supplies</a></li><li class="l3"><a href="#101-documented-types-and-rules">10.1 Documented types and rules</a></li><li class="l3"><a href="#102-power-supply-leds-s-002-table-4-icc_power_supply_leds-r_power_supply_leds">10.2 Power supply LEDs (S-002 Table 4; IC:c_power_supply_leds, r_power_supply_leds)</a></li><li class="l3"><a href="#103-measured-state-of-the-owners-supplies">10.3 Measured state of the owner&#x27;s supplies</a></li><li class="l2"><a href="#11-fans-and-cooling">11. Fans and cooling</a></li><li class="l3"><a href="#111-documented-design">11.1 Documented design</a></li><li class="l3"><a href="#112-measured-fan-state-2026-10-19">11.2 Measured fan state (2026-10-19)</a></li><li class="l2"><a href="#12-battery-cmos">12. Battery (CMOS)</a></li><li class="l2"><a href="#13-cru--fru-part-number-tables">13. CRU / FRU part number tables</a></li><li class="l3"><a href="#131-main-assemblies-indexes-1-30">13.1 Main assemblies (indexes 1-30)</a></li><li class="l3"><a href="#132-microprocessors-index-5-all-fru-and-the-installed-cpu">13.2 Microprocessors (index 5, all FRU) and the installed CPU</a></li><li class="l3"><a href="#133-memory-index-11-tier-1-cru">13.3 Memory (index 11, Tier 1 CRU)</a></li><li class="l3"><a href="#134-power-supplies-index-12">13.4 Power supplies (index 12)</a></li><li class="l3"><a href="#135-options-and-adapters-no-index-tier-1-cru-unless-noted">13.5 Options and adapters (no index; Tier 1 CRU unless noted)</a></li><li class="l2"><a href="#14-installed-frus-measured-from-ipmi-fru-and-sdr">14. Installed FRUs (MEASURED from IPMI FRU and SDR)</a></li><li class="l3"><a href="#141-fru-inventory">14.1 FRU inventory</a></li><li class="l3"><a href="#142-matching-measured-fru-data-to-the-parts-tables">14.2 Matching measured FRU data to the parts tables</a></li><li class="l3"><a href="#143-installed-component-classes-tier-view">14.3 Installed component classes (Tier view)</a></li><li class="l3"><a href="#144-other-discrete-presencehealth-sensors-measured">14.4 Other discrete presence/health sensors (MEASURED)</a></li><li class="l2"><a href="#15-removal-and-replacement-notes-for-the-owner">15. Removal and replacement notes for the owner</a></li><li class="l2"><a href="#16-source-conflicts">16. Source conflicts</a></li><li class="l2"><a href="#17-open-questions--unknown">17. Open questions / UNKNOWN</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

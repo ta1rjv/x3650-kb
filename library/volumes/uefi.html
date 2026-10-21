@@ -1,0 +1,3223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UEFI Firmware - x3650 M3 Library</title>
+<meta name="description" content="UEFI architecture and POST flow, the Setup menu tree and options, ASU setting names and values, operating modes, and an image analysis of UEFI 1.22 (D6E164A) against 1.14 (D6E156B) including the ...">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="volume" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="../pages/reading-guide.html">Reading Guide</a></li>
+<li><a href="../pages/system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="../pages/firmware-guide.html">Firmware Guide</a></li>
+<li><a href="../pages/imm-guide.html">IMM Guide</a></li>
+<li><a href="../pages/uefi-guide.html">UEFI Guide</a></li>
+<li><a href="../pages/troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="../pages/tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="../pages/glossary.html">Glossary</a></li>
+<li><a href="../pages/faq.html">FAQ</a></li>
+<li><a href="../pages/timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="../pages/about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="system-architecture.html">System Architecture</a></li>
+<li><a href="hardware-components.html">Hardware Components</a></li>
+<li><a href="memory.html">Memory</a></li>
+<li><a href="storage-raid.html">Storage and RAID</a></li>
+<li><a href="power-thermal.html">Power and Thermal</a></li>
+<li><a href="sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="uefi.html" aria-current="page">UEFI Firmware</a></li>
+<li><a href="firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Volumes</li><li>Firmware</li><li aria-current="page">UEFI Firmware</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">Volume 12 - Firmware</p>
+<h1>UEFI Firmware</h1>
+<p class="subtitle">IBM System x3650 M3 (7945KEG) - UEFI Firmware</p>
+<p class="lede">UEFI architecture and POST flow, the Setup menu tree and options, ASU setting names and values, operating modes, and an image analysis of UEFI 1.22 (D6E164A) against 1.14 (D6E156B) including the microcode list. Rules: docs/AGENT.md (every fact has a source ...</p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_UEFI.md</code></span> <span>14 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">39</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">8</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">26</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">33</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">12</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary">1. Summary</a></li><li class="l2"><a href="#2-architecture-and-post-flow">2. Architecture and POST flow</a></li><li class="l2"><a href="#3-firmware-banks-recovery-and-jumpers">3. Firmware banks, recovery and jumpers</a></li><li class="l2"><a href="#4-setup-utility-menu-tree">4. Setup utility menu tree</a></li><li class="l2"><a href="#5-setup-forms-and-options-from-extracted-hii-forms">5. Setup forms and options (from extracted HII forms)</a></li><li class="l2"><a href="#6-operating-modes">6. Operating modes</a></li><li class="l2"><a href="#7-asu-settings-s-026-and-the-setup-xml">7. ASU settings (S-026) and the setup XML</a></li><li class="l2"><a href="#8-image-analysis-122-versus-114">8. Image analysis: 1.22 versus 1.14</a></li><li class="l3"><a href="#81-image-analysis-122-versus-installed-113-d6e154a">8.1 Image analysis: 1.22 versus installed 1.13 (D6E154A)</a></li><li class="l2"><a href="#9-microcode">9. Microcode</a></li><li class="l2"><a href="#10-source-conflicts">10. Source conflicts</a></li><li class="l2"><a href="#11-open-questions--unknown">11. Open questions / UNKNOWN</a></li><li class="l2"><a href="#12-live-uefi-variables-on-the-owners-server-2026-10-21">12. Live UEFI variables on the owner&#x27;s server (2026-10-21)</a></li><li class="l3"><a href="#121-boot-manager-variables">12.1 Boot manager variables</a></li><li class="l3"><a href="#122-secure-boot">12.2 Secure Boot</a></li><li class="l3"><a href="#123-console-variables-evidence-for-the-2026-10-20-console-redirection-change">12.3 Console variables (evidence for the 2026-10-20 console-redirection change)</a></li><li class="l3"><a href="#124-vendor-variable-groups">12.4 Vendor variable groups</a></li><li class="l3"><a href="#125-identity-strings">12.5 Identity strings</a></li><li class="l3"><a href="#126-redacted-variables">12.6 Redacted variables</a></li><li class="l2"><a href="#appendix-a-full-asu-setting-table-uefi-122">Appendix A. Full ASU setting table (UEFI 1.22)</a></li><li class="l3"><a href="#a1-top-level-settings">A.1 Top-level settings</a></li><li class="l3"><a href="#a2-sub-settings-uefi-122">A.2 Sub-settings (UEFI 1.22)</a></li></ul></nav></details>
+<div class="prose">
+<p>Scope: UEFI architecture and POST flow, the Setup menu tree and options, ASU setting names and values, operating
+modes, and an image analysis of UEFI 1.22 (D6E164A) against 1.14 (D6E156B) including the microcode list.
+Rules: docs/AGENT.md (every fact has a source and a truth level: <span class="tl tl-documented">DOCUMENTED</span>, <span class="tl tl-extracted">EXTRACTED</span>, <span class="tl tl-measured">MEASURED</span>, <span class="tl tl-candidate">CANDIDATE</span>,
+<span class="tl tl-unknown">UNKNOWN</span>). Source IDs: sources/SOURCES.md. Package and image formats: docs/X3650M3_FIRMWARE_FORMATS.md. Firmware
+was analyzed offline as untrusted data (<code>python3 -I</code>, outputs under build/ only). Installed level on the owner's
+server: UEFI D6E154A, version 1.13 per SMBIOS <code>-[D6E154AUS-1.13]-</code> (captures/2026-10-19_os_inventory.txt lines 580
+and 835, <span class="tl tl-measured">MEASURED</span>; also the NVRAM variable Stored_BuildInfo <code>D6E154AUS 09-23-2011 1.13</code>,
+captures/2026-10-21_host_efivars_contents.txt, <span class="tl tl-measured">MEASURED</span>; the 1.22 .chg names 1.13 D6E154B, see section 10), IMM
+YUOOC7E 1.30 (docs/X3650M3_FIRMWARE_HISTORY.md). Live UEFI variables of the server: section 12.</p>
+<h2 id="contents">Contents <a class="anchor" href="#contents" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Summary</li>
+<li>Architecture and POST flow</li>
+<li>Firmware banks, recovery and jumpers</li>
+<li>Setup utility menu tree</li>
+<li>Setup forms and options (from extracted HII forms)</li>
+<li>Operating modes</li>
+<li>ASU settings (<a class="sref" href="../catalog/sources.html#s-026">S-026</a>) and the setup XML</li>
+<li>Image analysis: 1.22 versus 1.14<ul>
+<li>8.1 Image analysis: 1.22 versus installed 1.13 (D6E154A)</li>
+</ul>
+</li>
+<li>Microcode</li>
+<li>Source conflicts</li>
+<li>Open questions / <span class="tl tl-unknown">UNKNOWN</span></li>
+<li>Live UEFI variables on the owner's server (2026-10-21)
+Appendix A. Full ASU setting table (UEFI 1.22)</li>
+</ol>
+<h2 id="1-summary">1. Summary <a class="anchor" href="#1-summary" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Source</th>
+<th>Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UEFI version</td>
+<td>UEFI 2.1 compliant firmware (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> p.2), SEC/PEI/DXE/BDS phases (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> p.4 diagram)</td>
+<td><a class="sref" href="../catalog/sources.html#s-024">S-024</a> pp.2, 4</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>Images</td>
+<td>5 FFS2 volumes, 178 modules in both 1.14 and 1.22</td>
+<td>FORMATS doc section 6; <code>ibm_fw_unpack.py diff</code></td>
+<td><span class="tl tl-extracted">EXTRACTED</span></td>
+</tr>
+<tr>
+<td>1.22 vs 1.14</td>
+<td>154 modules differ at file level, 24 identical; of 312 extracted leaf files, 160 identical, 131 same-size with at most 64 differing bytes (101 of them only PE debug timestamp + RSDS GUID), 21 changed substantively</td>
+<td>section 8</td>
+<td><span class="tl tl-extracted">EXTRACTED</span> (leaf counts: scratch script)</td>
+</tr>
+<tr>
+<td>Settings model</td>
+<td>209 top-level settings in the 1.22 setup XML (202 <code>uEFI.*</code>, 4 <code>iSCSI.*</code>, 3 <code>PXE.*</code>) plus 147 nested sub-settings</td>
+<td>section 7, Appendix A</td>
+<td><span class="tl tl-extracted">EXTRACTED</span></td>
+</tr>
+<tr>
+<td>Microcode for the installed CPU (CPUID 0x206C2)</td>
+<td>1.14: rev 0x15 (2011-08-26); 1.22: rev 0x1F (2018-05-08); OS reports running 0x14</td>
+<td>section 9</td>
+<td><span class="tl tl-extracted">EXTRACTED</span> + <span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Setup-visible configuration store</td>
+<td>HII varstore SYSTEM_CONFIGURATION, GUID EC87D643-EBA4-4BB5-A1E5-3F3E36B20DA9, 1854 bytes (1.22) / 1851 (1.14); on the installed 1.13 the NVRAM variable <code>Setup</code> under the same GUID holds 1850 data bytes</td>
+<td>section 5; section 12 (captures/2026-10-21_host_efivars_contents.txt)</td>
+<td><span class="tl tl-extracted">EXTRACTED</span>; <span class="tl tl-measured">MEASURED</span> (1.13 size)</td>
+</tr>
+<tr>
+<td>Secure Boot</td>
+<td>not supported: no SecureBoot, SetupMode, PK, KEK, db, dbx, AuditMode, DeployedMode variables; mokutil "This system doesn't support Secure Boot"</td>
+<td>section 12 (captures/2026-10-21_host_efivars_contents.txt; captures/2026-10-21_host_uefi_bootvars.txt)</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Console variables after the 2026-10-20 ASU console-redirection change</td>
+<td>ConIn and ConOut contain both on-board 16550 UARTs at 115200 8N1 with VT100 terminal type</td>
+<td>section 12.3</td>
+<td><span class="tl tl-measured">MEASURED</span> (NVRAM content only; serial output not observed)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="2-architecture-and-post-flow">2. Architecture and POST flow <a class="anchor" href="#2-architecture-and-post-flow" aria-label="Link to this section">#</a></h2>
+<p>Source <a class="sref" href="../catalog/sources.html#s-024">S-024</a> (UEFI intro paper, rev 1.2) unless noted; truth level <span class="tl tl-documented">DOCUMENTED</span>.</p>
+<ul>
+<li>POST and boot run in four phases (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> p.4): (1) IMM initialization and power sequencing, (2) platform
+  initialization, (3) pre-boot DXE, (4) BDS. The firmware follows the SEC, PEI, DXE, BDS model of the UEFI platform
+  initialization specification (diagram <a class="sref" href="../catalog/sources.html#s-024">S-024</a> p.4).</li>
+<li>The early boot code (SEC/PEI) is the contents of Capsule_P.scap in the flash package; DXE drivers and the setup
+  engine live in FvDxe.fv and FvPlatform.fv (<span class="tl tl-extracted">EXTRACTED</span>, FORMATS doc section 6). Mapping the phase names to specific
+  FVs follows module names (PeiMain, DxeMain, Bds) and is <span class="tl tl-extracted">EXTRACTED</span>.</li>
+<li>Two boot methods exist, UEFI and legacy (CSM via LegacyBios, <span class="tl tl-extracted">EXTRACTED</span> module); the "Legacy Only" flag and boot
+  order storage in NVRAM are described in <a class="sref" href="../catalog/sources.html#s-024">S-024</a> pp.5-9.</li>
+<li>Configuration is stored in two tiers: UEFI NVRAM variables and an IMM-held XML-modelled NVRAM; ASU covers all
+  settings through the XML model (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> p.15). Adapter configuration uses HII (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> p.16).</li>
+<li>RAS (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> pp.17-18): locked CRTM region (a CRTM update is staged in flash and applied on the next boot; the
+  power-good reset this causes is not a fault), firmware volume integrity service, power-sequence watchdog, POST
+  watchdog (disabled by default; Setup -&gt; System Settings -&gt; Integrated Management Module), dual-bank ABR. Three
+  consecutive boot failures trigger a recovery behavior whose details changed with builds of February 2010
+  (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> p.18).</li>
+<li>Corruption recovery uses a secure trusted-code region and capsule signature verification (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> p.25) and an
+  in-band recovery path (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> p.26). The package capsule carries an RSA2048-SHA256 signature trailer (<span class="tl tl-extracted">EXTRACTED</span>);
+  tying it to that mechanism is <span class="tl tl-candidate">CANDIDATE</span>. POST error 3818006 "Opposite bank CRTM capsule signature invalid" is
+  listed in <a class="sref" href="../catalog/sources.html#s-004">S-004</a> (Problem Determination guide, printed p.286, PDF p.304).</li>
+</ul>
+<h2 id="3-firmware-banks-recovery-and-jumpers">3. Firmware banks, recovery and jumpers <a class="anchor" href="#3-firmware-banks-recovery-and-jumpers" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Primary and backup UEFI banks (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> printed p.372, PDF p.390). To restore the primary: update the primary bank,
+  restart once on the backup, then switch back via AC removal for 15 seconds or by pressing F3 at the splash screen
+  (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> p.18; <a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.372). Starting the backup server firmware: <a class="sref" href="../catalog/sources.html#s-004">S-004</a> PDF p.517.</li>
+<li>Jumpers (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Table 4, printed p.19, PDF p.37): J29 UEFI boot recovery, pins 1-2 normal (primary), 2-3 backup;
+  J147 IMM recovery, pins 1-2 primary IMM ROM page, 2-3 secondary page. Change only with power off; no jumper
+  behaves as 1-2. This resolves the former <span class="tl tl-unknown">UNKNOWN</span> for the IMM recovery jumper in the firmware history document.</li>
+<li>Flashing the backup bank uses iflash <code>--backup</code> (FORMATS doc section 8). RETAIN tip H196209: updating the UEFI
+  backup firmware with the IMM32F method may fail (<a class="sref" href="../catalog/sources.html#s-022">S-022</a> pp.15-16).</li>
+</ul>
+<h2 id="4-setup-utility-menu-tree">4. Setup utility menu tree <a class="anchor" href="#4-setup-utility-menu-tree" aria-label="Link to this section">#</a></h2>
+<p>Documented tree (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> IUG 11th ed., printed pp.158-162): the F1 prompt opens Setup; with an administrator password
+set, entering it gives the full menu, otherwise a limited menu. Menu:</p>
+<ul>
+<li>System Information: System Summary, Product Data.</li>
+<li>System Settings: Processors, Memory, Devices and I/O Ports, Power, Operating Modes, Legacy Support (Force Legacy
+  Video on Boot, Rehook INT 19h, Legacy Thunk Support), Integrated Management Module (POST Watchdog Timer, value,
+  Reboot System on NMI, Commands on USB Interface Preference, Network Configuration, Reset IMM to Defaults, Reset
+  IMM), Adapters and UEFI Drivers, Network, Storage, Video.</li>
+<li>Date and Time, Start Options, Boot Manager, System Event Logs (POST Event Viewer, System Event Log, Clear),
+  User Security (power-on and administrator passwords), Save Settings, Restore Settings, Load Default Settings, Exit
+  Setup.</li>
+</ul>
+<p>The extracted Front Page form (Bds module, FORM 0x1000, <span class="tl tl-extracted">EXTRACTED</span>) matches this: System Information, System
+Settings, Date and Time, Start Options, Boot Manager, System Event Logs, User Security, Save Settings, Restore
+Settings, Load Default Settings, Exit Setup; most entries are wrapped in GRAY_OUT_IF on a flag (qid 0x0001, the
+limited-menu condition; mapping to the password state is <span class="tl tl-candidate">CANDIDATE</span>). Compared with 1.14, the only Bds form
+difference is that in 1.22 the User Security entry is also grayed out under that condition, plus varstore offsets.
+Other formsets in Bds: System Information (System Summary, Product Data, Reference Code Level, Processor Details
+Summary), Select one time Boot Device, Boot Manager (Boot Configuration, Driver Options, Add/Delete/Change Boot
+Option and Order, WOL boot options, Select Next One-Time Boot, Set Time Out Value, Console Options, COM Attribute
+Setup Page), File Explorer, Date and Time, User Security, System Event Logs.
+Note: after AC power is applied the power button becomes active about 3 minutes later (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> printed p.159).</p>
+<h2 id="5-setup-forms-and-options-from-extracted-hii-forms">5. Setup forms and options (from extracted HII forms) <a class="anchor" href="#5-setup-forms-and-options-from-extracted-hii-forms" aria-label="Link to this section">#</a></h2>
+<p>Method: <code>python3 -I scripts/ibm_fw_unpack.py hii --forms &lt;package&gt;</code> (27 formsets for 1.22 and for 1.14) and
+<code>hii &lt;package&gt;</code> for strings, run after the tool fixes (FORMATS doc section 10). The forms were first rendered with a
+scratch scanner (build/doc/forms22_&lt;Module&gt;.txt, forms14_&lt;Module&gt;.txt, not committed); the tool output was checked
+against them on 2026-10-20 and the options and defaults match, including the 1.14 -&gt; 1.22 differences below. The
+UefiPlatform module holds the platform setup forms (1478 rendered lines in 1.22); Bds 241; SetOptions 11; PxeConfig
+18; IScsi 91; Ip4Config 15; Ip6 27. Truth level <span class="tl tl-extracted">EXTRACTED</span> unless noted. Strings: en-US, 855 strings in UefiPlatform.</p>
+<p>Varstores in UefiPlatform: SYSTEM_CONFIGURATION (id 0x2008, GUID EC87D643-EBA4-4BB5-A1E5-3F3E36B20DA9, size 1854
+bytes in 1.22 and 1851 in 1.14) and IbmcIfrNVData (id 0x1234, GUID A986207C-1398-476B-8CC9-A225E570DBDD, size 284 in
+1.22, 280 in 1.14). Each question stores at a byte offset inside the varstore; offsets after the first inserted
+fields shift by 1 to 7 bytes between releases.</p>
+<p>Formsets and content (1.22):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Formset</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Main / Boot Options</td>
+<td>Terminal, Numlock; revision text (BIOS, CSI, MRC, CSM), Processor Type, Tylersburg and ICH9 revision</td>
+</tr>
+<tr>
+<td>Processors</td>
+<td>CPU package detection (55xx = family 26, 56xx = 44), Intel Enhanced Debug, TSEG size, Turbo Mode, Turbo Boost, CPU Core Ratio 0..63, C-states, Hyper-Threading, VT, Data Reuse, QPI Link Speed Select, QPI Link Mode, per-package Available Cores and Active Threads</td>
+</tr>
+<tr>
+<td>Memory (GUID 0F26C5C1-28B5-486B-8E74-A491C1712348)</td>
+<td>Memory Type, Memory Speed, 2DPC Max Frequency, LV-DIMM Power, Memory Channel Mode, Spare Error Threshold, Socket Interleave, Channel and Rank Interleaving, Patrol Scrub, Demand Scrub, Static Driver Impedance and Memory Refresh (1.22 only), Memory Page Policy, Memory Data Scrambling, Thermal Mode, Planar DIMM Details form</td>
+</tr>
+<tr>
+<td>Operating Modes (54F9B31F-9F82-429C-B70A-E0C1E4AE1464)</td>
+<td>section 6; also Quiet Boot, POST Attempts Limit, IPv6, SMBIOS25Plus Mode</td>
+</tr>
+<tr>
+<td>Devices and I/O Ports (B24589B8-...)</td>
+<td>Enable/Disable Onboard Devices (On-board LAN power, LAN0, LAN1, SATA and others), Adapter Option ROM Support, Option ROM Execution Order, PCIe Gen1/Gen2 per slot, USB Ports, Console Redirection (COM Port 1/2, Remote Console, Serial Over LAN, Serial Port Sharing and Access Mode, SP Redirection, UEFI Debug, Legacy Option ROM Display; baud rate, data bits, parity, stop bits, terminal emulation, flow control)</td>
+</tr>
+<tr>
+<td>Legacy Support</td>
+<td>Force Legacy Video on Boot, Infinite boot retry, Rehook INT 19h, Legacy Serial Port Redirection, Legacy Thunk Support, Legacy Boot Order Configuration (Boot Device order)</td>
+</tr>
+<tr>
+<td>Advanced</td>
+<td>ICH10 Configuration (form label says ICH10; XML group says ICH9) with ICH10 Devices, Networking, PCI Express Root Port 1-6, Miscellaneous Configuration (Interrupt Round Robin Scheme and others)</td>
+</tr>
+<tr>
+<td>System Security</td>
+<td>TPM</td>
+</tr>
+<tr>
+<td>Integrated Management Module (A986207C-...)</td>
+<td>POST Watchdog Timer checkbox and value (5 to 20), Reboot System on NMI, Commands on USB Interface Preference, Network Configuration (hostname, IP, subnet, gateway, IPv6, VLAN Support and VLAN ID added in 1.22), Synchronize IMM Clock, Reset IMM to Defaults, Reset IMM</td>
+</tr>
+<tr>
+<td>Power (69899EC1-65B9-4702-B381-720A8402E0A4)</td>
+<td>Power Restore Policy, Active Energy Manager capping, Processor Performance States, PCI Express ASPM (Disable / Enable L1 Only)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Changes in the forms between 1.14 and 1.22 (diff of rendered forms, <span class="tl tl-extracted">EXTRACTED</span>): Memory Refresh (1x/2x/4x) and
+Static Driver Impedance added (Static Driver Impedance has no entry in the setup XML, so no ASU name is known); VLAN Support and VLAN ID (range 1..4094, default 1500) added in the IMM network form;
+on the Processors page the default of "Power C-States" (qid 0x000C, varstore offset 0x0141) flips from Enable
+(1.14) to Disable (1.22); the 1.14 and 1.22 setup XML both give Disable for <code>uEFI.ProcessorCcxEnable</code> ("CPU C State"),
+so only the 1.14 form disagreed with its XML (mapping of the form question to that XML setting by meaning and
+adjacent offset: <span class="tl tl-candidate">CANDIDATE</span>); the Processors-page "ACPI C-State limit" (qid 0x000F, offset 0x0142) default changes
+from ACPI C3 (1.14) to ACPI C2 (1.22), matching the XML default change in section 7, while the Operating Modes form
+question on the same offset (qid 0x0007) still defaults to ACPI C3 in 1.22 (section 10); qids in the Memory form
+shift by 2 after the two additions. The .chg entry for 1.17 "Fixed CPU C-state Limit ACPI C2_C3 test fail" may be
+related (<span class="tl tl-candidate">CANDIDATE</span>).</p>
+<h2 id="6-operating-modes">6. Operating modes <a class="anchor" href="#6-operating-modes" aria-label="Link to this section">#</a></h2>
+<p>Form "Operating Modes" (54F9B31F-..., form 0x0E), <span class="tl tl-extracted">EXTRACTED</span>. Question "Choose Operating Mode": Acoustic = 0,
+Efficiency = 1, Performance = 2, Custom = 3 (default and manufacturing default). Help text: "Efficiency: Highest
+performance per watt. Acoustic: Lower acoustic level and lowest power. Performance: Highest performance. Custom:
+Customized settings." ASU setting <code>uEFI.OperatingMode</code> (values Custom Mode=3 default, Acoustic=0, Efficiency=1,
+Performance=2); <code>asu loaddefault</code> output in <a class="sref" href="../catalog/sources.html#s-026">S-026</a> shows <code>uEFI.OperatingMode=Custom Mode</code> (<span class="tl tl-documented">DOCUMENTED</span>).</p>
+<p>Mode summaries shown by the form (subtitles; each block sits under a SUPPRESS_IF whose EQ_ID_VAL operands are the
+three other mode values, e.g. the first block is suppressed for modes 1, 2, 3, so it shows only in Acoustic; the IFR
+OR operators themselves are not rendered by the tool, so the assignment stays <span class="tl tl-candidate">CANDIDATE</span>):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Acoustic</th>
+<th>Efficiency</th>
+<th>Performance</th>
+<th>Custom (selectable)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Memory Speed</td>
+<td>Minimal Power</td>
+<td>Power Efficiency</td>
+<td>Max Performance</td>
+<td>default Max Performance</td>
+</tr>
+<tr>
+<td>Processor Performance States</td>
+<td>Enabled</td>
+<td>Enabled</td>
+<td>Disabled</td>
+<td>default Enabled</td>
+</tr>
+<tr>
+<td>C1 Enhanced Mode</td>
+<td>Enabled</td>
+<td>Enabled</td>
+<td>Disabled</td>
+<td>default Enabled</td>
+</tr>
+<tr>
+<td>QPI Link Speed</td>
+<td>Minimal Power</td>
+<td>Minimal Power</td>
+<td>Max Performance</td>
+<td>default Max Performance</td>
+</tr>
+<tr>
+<td>Turbo Mode</td>
+<td>Disabled</td>
+<td>Disabled</td>
+<td>Enabled</td>
+<td>default Disabled</td>
+</tr>
+<tr>
+<td>Turbo Boost</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>default Power Optimized</td>
+</tr>
+<tr>
+<td>ACPI C-State limit</td>
+<td>ACPI C3</td>
+<td>ACPI C3</td>
+<td>ACPI C3</td>
+<td>ACPI C3 in the 1.22 form; see section 10</td>
+</tr>
+</tbody>
+</table></div>
+<p>The mode only controls the listed parameters; the other settings stay as configured. Selecting a non-Custom mode
+makes the individual questions read-only (help texts: "Choose Custom Mode from the Operating Mode ..."). Quiet
+Boot: <a class="sref" href="../catalog/sources.html#s-024">S-024</a> p.24 documents <code>asu set uEFI.QuietBoot enable|disable</code> (path Setup -&gt; System Settings -&gt; Operating
+Modes -&gt; Quiet Boot).</p>
+<h2 id="7-asu-settings-s-026-and-the-setup-xml">7. ASU settings (S-026) and the setup XML <a class="anchor" href="#7-asu-settings-s-026-and-the-setup-xml" aria-label="Link to this section">#</a></h2>
+<p>Source of the list: FvOem_Ibm.fv, file 92217677-6658-49ce-8899-a01ec4009790, an XML document (CRLF, references
+setup.xsl and setup.xsd, product ID "uEFI"), 396724 bytes in 1.22 and 395434 in 1.14 (<span class="tl tl-extracted">EXTRACTED</span>). It has three
+<code>&lt;config&gt;</code> blocks: SYSTEM_CONFIGURATION (mriName "uEFI", 202 settings), ISCSI_ATTEMPT_DATA (mriName "iSCSI", 4) and
+PXE_CONFIGURATION (mriName "PXE", 3). That makes 209 top-level <code>&lt;setting&gt;</code> elements in 1.22 (207 in 1.14): 193
+enumerations, 9 text, 6 numeric, 1 list. In addition there are 147 nested <code>&lt;sub-setting&gt;</code> elements (same count in
+1.14), each with its own mriName (126 enumerations, 15 text, 6 numeric; 109 protected), for example
+SpareErrorThreshold under MemoryChannelMode, IdeMode under SataType, WatchdogTimerUefiValue under WatchdogTimerUefi,
+PcieAspm0..10 in PowerSchemes, 17 per ICH PCI Express root port and 25 iSCSI attempt fields (Appendix A.2).
+Setting name rule: <code>&lt;config mriName&gt;.&lt;setting mriName&gt;</code>, i.e. <code>uEFI.&lt;mriName&gt;</code>, <code>iSCSI.&lt;mriName&gt;</code>. The XML <code>ID</code>
+attribute is not the ASU name: it differs from mriName for 41 settings (for example ID PowerCapping / mriName
+EnergyManager, FreqSelect / QPISpeed, TurboHysteresis / TurboBoost, Com1Disable / SerialCOMPort1), and <a class="sref" href="../catalog/sources.html#s-026">S-026</a> (ASU
+v9.30 guide, "uEFI settings in an IMMv1 system", printed pp.23-24) lists the mriName forms (<code>uEFI.EnergyManager</code>,
+<code>uEFI.SerialCOMPort1</code>, <code>uEFI.LegacyOptionRomPort</code>, ...) and also the sub-settings <code>uEFI.SpareErrorThreshold</code>,
+<code>uEFI.IdeMode</code> and <code>uEFI.WatchdogTimerUefiValue</code>, so sub-settings are ASU settings too (<span class="tl tl-documented">DOCUMENTED</span>). <a class="sref" href="../catalog/sources.html#s-026">S-026</a> (v10.6
+guide, printed pp.73-74, "Configuring iSCSI") documents the <code>iSCSI.</code> prefix and instance suffixes such as
+<code>iSCSI.AttemptName.1</code>; the v9.30 list also shows <code>.1</code> instance suffixes (<code>uEFI.OnboardDeviceEnable.1</code>). Applying the
+rule to names that do not appear in <a class="sref" href="../catalog/sources.html#s-026">S-026</a> is <span class="tl tl-candidate">CANDIDATE</span>; the <code>PXE.</code> prefix is <span class="tl tl-candidate">CANDIDATE</span> (from the XML only).
+<code>protected="true"</code> is set on 134 top-level settings (also 134 in 1.14); its meaning is <span class="tl tl-unknown">UNKNOWN</span> (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> v10.6 text
+lines 3498-3552 discuss hidden and read-only settings but do not define the attribute).</p>
+<p>Group counts: DateTimeOptions 1, BootOptions 2, ProcessorConfiguration 62, MemoryConfiguration 21,
+DeviceConfiguration 2, PlanarDevices 5, SystemCDROM_DVD 1, ConsoleRedirection 9, Com1 7, Com2 8, PowerSchemes 3,
+iBMCSettings 2, LegacyConfiguration 6, TPMConfiguration 1, CSIConfiguration 9, IOH Tylersburg 7 plus VTD 1,
+ICH9Devices 24, Networking 8, PCIExpressRootPort1-6, MiscConfiguration 12, SLP1OEMStrings 5, ISCSI_CONFIGURATION 4,
+PXE_CONFIGURATION 3 (top-level settings only). The complete table is in Appendix A.</p>
+<p>Selected settings (1.22 defaults, * = default; values in the XML as name=number):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ASU name</th>
+<th>Meaning</th>
+<th>Choices</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uEFI.OperatingMode</td>
+<td>Operating mode</td>
+<td>Custom Mode=3*, Acoustic=0, Efficiency=1, Performance=2</td>
+</tr>
+<tr>
+<td>uEFI.TurboModeEnable</td>
+<td>Turbo Mode</td>
+<td>Disable*, Enable</td>
+</tr>
+<tr>
+<td>uEFI.TurboBoost</td>
+<td>Turbo Boost</td>
+<td>Power Optimized=4*, Traditional=0</td>
+</tr>
+<tr>
+<td>uEFI.ProcessorEistEnable</td>
+<td>Enhanced SpeedStep</td>
+<td>Enable*</td>
+</tr>
+<tr>
+<td>uEFI.ProcessorCcxEnable</td>
+<td>CPU C State</td>
+<td>Disable*</td>
+</tr>
+<tr>
+<td>uEFI.PackageCState</td>
+<td>C-state limit</td>
+<td>ACPI C2=2* (1.22), ACPI C3=3 (default in 1.14)</td>
+</tr>
+<tr>
+<td>uEFI.ProcessorC1eEnable</td>
+<td>C1 Enhanced mode</td>
+<td>Enable*</td>
+</tr>
+<tr>
+<td>uEFI.ProcessorHyperThreading</td>
+<td>Hyper-Threading</td>
+<td>Enable* (value 0 = Enable, 1 = Disable)</td>
+</tr>
+<tr>
+<td>uEFI.ProcessorVmxEnable</td>
+<td>VT</td>
+<td>Enable*</td>
+</tr>
+<tr>
+<td>uEFI.QPISpeed, uEFI.DdrSpeed</td>
+<td>QPI speed, memory speed</td>
+<td>Max Performance=0*, Minimal Power=1, Power Efficiency=2</td>
+</tr>
+<tr>
+<td>uEFI.MemoryChannelMode</td>
+<td>Memory mode</td>
+<td>Independent=0*, Mirroring=1, Sparing=3</td>
+</tr>
+<tr>
+<td>uEFI.SpareErrorThreshold</td>
+<td>Spare Error Threshold (sub-setting of MemoryChannelMode, protected)</td>
+<td>numeric 0..15, default 15</td>
+</tr>
+<tr>
+<td>uEFI.SocketInterleave</td>
+<td>Socket interleave</td>
+<td>NUMA=1*</td>
+</tr>
+<tr>
+<td>uEFI.PatrolScrub / DemandScrub</td>
+<td>Scrubbing</td>
+<td>Patrol Disable<em>, Demand Enable</em></td>
+</tr>
+<tr>
+<td>uEFI.MemoryRefresh</td>
+<td>Memory Refresh (1.22 only)</td>
+<td>1x*, 2x, 4x</td>
+</tr>
+<tr>
+<td>uEFI.PostAttemptsLimit</td>
+<td>POST attempts</td>
+<td>3*, 6, 9, Disable</td>
+</tr>
+<tr>
+<td>uEFI.QuietBoot</td>
+<td>Quiet Boot</td>
+<td>Enable=0*</td>
+</tr>
+<tr>
+<td>uEFI.PowerState</td>
+<td>Power Restore Policy</td>
+<td>Always Off=0, Restore=1*, Always On=2</td>
+</tr>
+<tr>
+<td>uEFI.EnergyManager</td>
+<td>Active Energy Manager</td>
+<td>Enable*</td>
+</tr>
+<tr>
+<td>uEFI.PerformanceStates</td>
+<td>Processor performance states</td>
+<td>Enable*</td>
+</tr>
+<tr>
+<td>uEFI.WatchdogTimerUefi</td>
+<td>POST watchdog</td>
+<td>Disable*</td>
+</tr>
+<tr>
+<td>uEFI.WatchdogTimerUefiValue</td>
+<td>POST watchdog value (sub-setting)</td>
+<td>numeric 5..20, default 5</td>
+</tr>
+<tr>
+<td>uEFI.VTdSupport</td>
+<td>VT-d</td>
+<td>Disable*</td>
+</tr>
+<tr>
+<td>uEFI.LimitBootAttempts</td>
+<td>Limit boot attempts (1.22 only)</td>
+<td>Enable*</td>
+</tr>
+<tr>
+<td>uEFI.TpmEnable</td>
+<td>TPM</td>
+<td>Disable<em> (sub-setting uEFI.TpmState: Deactivate</em>)</td>
+</tr>
+<tr>
+<td>uEFI.Com1BaudRate</td>
+<td>COM1 baud</td>
+<td>115200*</td>
+</tr>
+</tbody>
+</table></div>
+<p>Differences between releases (XML diff, <span class="tl tl-extracted">EXTRACTED</span>): settings only in 1.22: LimitBootAttempts, MemoryRefresh;
+changed defaults: PackageCState (ACPI C3 in 1.14, ACPI C2 in 1.22; the setting carries <code>grey-if="ProcessorCcxEnable
+== 0"</code>, and ProcessorCcxEnable defaults to Disable, so the limit is greyed out at defaults); Pci64BitResourceAllocation
+protected true in 1.14, not protected in 1.22. No other setting or sub-setting differs (attributes, labels, choices). Change history cross-check (.chg): 1.12 IPv6 and POST Attempts Limit, 1.15 Limit boot
+attempt and VLAN ID, 1.13 CRTM information in Setup.</p>
+<h2 id="8-image-analysis-122-versus-114">8. Image analysis: 1.22 versus 1.14 <a class="anchor" href="#8-image-analysis-122-versus-114" aria-label="Link to this section">#</a></h2>
+<p>Command basis: <code>ibm_fw_unpack.py diff</code> (module level) plus a scratch leaf-section comparison of the
+<code>uefi_fv.py extract</code> trees (312 leaf files each; <span class="tl tl-extracted">EXTRACTED</span>).</p>
+<ul>
+<li>Module level: 178 modules in both; 154 changed, 24 identical, none added or removed.</li>
+<li>Leaf sections (scratch script, not committed; pairs the two <code>uefi_fv.py extract</code> trees by relative path, all 312
+  leaves pair): 160 byte-identical; 131 same size with at most 64 differing bytes; 21 changed substantively (different
+  size or more than 64 differing bytes). Of the 131, 101 differ only in the RSDS GUID plus at most 4 other bytes (the
+  debug-directory timestamp), i.e. a rebuild artifact; the other 30 (for example TrustedCodePei 39, TcgPei 43,
+  PciHostBridge 40, LegacyPolicy 44, PowerExerciser 44 differing bytes) have additional small differences that were
+  not analyzed. An earlier scratch count (289 common, 150 identical, 120 debug-only, 19 substantive) could not be
+  reproduced and is superseded. Example: IbmCapabilitiesDriver.efi, 20 differing bytes at 0x10a4-0x10cf;
+  debug-directory timestamp 0x4F2AC31F (2012-02-02) in 1.14 versus 0x5B155FBE (2018-06-04) in 1.22 (the PE header
+  TimeDateStamp is 0 in both); PDB path <code>z:\obj\Destiny\64\X64\IbmCapabilitiesDriver.pdb</code>. Substantive changes:</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Size 1.14 -&gt; 1.22 (B)</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FREEFORM raw</td>
+<td>131072 (same size)</td>
+<td>91662 B differ; likely a data blob (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>RAW microcode (FvMicrocode)</td>
+<td>52224 -&gt; 58368</td>
+<td>section 9</td>
+</tr>
+<tr>
+<td>IbmIpmiCommands</td>
+<td>84064 -&gt; 84544</td>
+<td></td>
+</tr>
+<tr>
+<td>FREEFORM raw</td>
+<td>65536 (same)</td>
+<td>514 B differ</td>
+</tr>
+<tr>
+<td>Bds</td>
+<td>387712 -&gt; 390944</td>
+<td>setup front end</td>
+</tr>
+<tr>
+<td>VSService</td>
+<td>115232 -&gt; 115360</td>
+<td></td>
+</tr>
+<tr>
+<td>MpCpu</td>
+<td>56416 (same)</td>
+<td>388 B differ</td>
+</tr>
+<tr>
+<td>IohInitialize</td>
+<td>23232 -&gt; 23648</td>
+<td></td>
+</tr>
+<tr>
+<td>AEMInventory</td>
+<td>8128 -&gt; 8160</td>
+<td></td>
+</tr>
+<tr>
+<td>IscsiVssSync</td>
+<td>27520 -&gt; 27616</td>
+<td></td>
+</tr>
+<tr>
+<td>Logo BMP (7bb28b99)</td>
+<td>1440054 -&gt; 481078</td>
+<td>800x600 24 bpp in 1.14, 800x600 8 bpp in 1.22 (ba28b996 is unchanged)</td>
+</tr>
+<tr>
+<td>FREEFORM raw</td>
+<td>262144 (same)</td>
+<td>224056 B differ; probably an embedded image (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>CK410B</td>
+<td>2336 -&gt; 2368</td>
+<td>clock-generator driver</td>
+</tr>
+<tr>
+<td>Setup XML</td>
+<td>395434 -&gt; 396724</td>
+<td>section 7</td>
+</tr>
+<tr>
+<td>TcgDxe</td>
+<td>16672 (same)</td>
+<td>6793 B differ</td>
+</tr>
+<tr>
+<td>UefiPlatform</td>
+<td>141632 -&gt; 142720</td>
+<td>setup forms; section 5</td>
+</tr>
+<tr>
+<td>FREEFORM raw</td>
+<td>131072 (same)</td>
+<td>107 B differ</td>
+</tr>
+<tr>
+<td>oemIbmMiscSubclass</td>
+<td>26016 -&gt; 26304</td>
+<td></td>
+</tr>
+<tr>
+<td>LegacyBios</td>
+<td>43744 -&gt; 43904</td>
+<td></td>
+</tr>
+<tr>
+<td>PlatformEarlyInit (PEIM in Capsule_P)</td>
+<td>13856 -&gt; 13920</td>
+<td>stored FFS file 13932 -&gt; 13996</td>
+</tr>
+<tr>
+<td>SecureCapsule (PEIM in Capsule_P)</td>
+<td>15744 (same)</td>
+<td>73 B differ, spread over the code; not analyzed</td>
+</tr>
+</tbody>
+</table></div>
+<p>The .chg history correlates: 1.15 added Limit boot
+attempt support, VLAN ID and an X5690 power table; 1.17 updated the memory reference code (MRC 2.50); 1.18 added
+microcode M03106A5_00000019 and M03206C2_0000001A; 1.21 and 1.22 added Spectre/Meltdown-era microcode (CVE-2017-5715,
+CVE-2018-3639/3640) (.chg, <span class="tl tl-documented">DOCUMENTED</span>). Option ROMs (same set in both): Intel 8086:1229 legacy (56320 B), Matrox
+102B:0530 legacy 32768 B and EFI 20992 B, Broadcom 14E4:1639 (BCM5709) legacy 73728 B and EFI 71168 B.</p>
+<h3 id="81-image-analysis-122-versus-installed-113-d6e154a">8.1 Image analysis: 1.22 versus installed 1.13 (D6E154A) <a class="anchor" href="#81-image-analysis-122-versus-installed-113-d6e154a" aria-label="Link to this section">#</a></h3>
+<p>Inputs: <code>firmware/ibm/uefi/1.13-d6e154a/ibm_fw_uefi_d6e154a-1.13_linux_32-64.bin</code> (SHA256 0dd188c4...6077c6) and
+<code>firmware/ibm/uefi/1.22-d6e164a/ibm_fw_uefi_d6e164a-1.22_linux_32-64.bin</code> (SHA256 cd0a166c...b3ea9); full hashes in
+the SHA256SUMS files. Commands (offline, nothing executed from the packages): <code>python3 -I scripts/ibm_fw_unpack.py
+extract|baseline &lt;bin&gt; build/uefi1NN/{x,b}</code>, <code>python3 -I scripts/ibm_fw_unpack.py diff build/uefi113/b
+build/uefi122/b</code>, <code>python3 -I scripts/uefi_fv.py extract build/uefi1NN/x/upd/&lt;build&gt;.tar.gz.d build/uefi1NN/leaf</code>,
+plus the same scratch leaf comparison as section 8 (pairs by relative path; "small" = same size and at most 64
+differing bytes). The 1.14 package was re-baselined the same way (build/uefi114) for the 1.13 -&gt; 1.14 column. All rows
+<span class="tl tl-extracted">EXTRACTED</span> unless marked otherwise.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>1.13 (D6E154A)</th>
+<th>1.22 (D6E164A)</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Package build / version / date</td>
+<td>D6E154A, 1.13, 09/23/2011</td>
+<td>D6E164A, 1.22, 06/04/2018</td>
+<td><code>baseline</code> package.txt (oem_ibm.xml)</td>
+</tr>
+<tr>
+<td>Build string in image</td>
+<td><code>D6E154AUS</code> (PlatformEarlyInit 0x2c40, VSService 0xc988)</td>
+<td><code>D6E164AUS</code> (PlatformEarlyInit 0x2c80, VSService 0xc988)</td>
+<td>leaf PE files</td>
+</tr>
+<tr>
+<td>Match with the owner's server</td>
+<td>the package build string equals the installed <code>D6E154AUS</code> / 1.13 / 09-23-2011 (section 1 header, <span class="tl tl-measured">MEASURED</span>), so this package is the installed build</td>
+<td>-</td>
+<td>comparison</td>
+</tr>
+<tr>
+<td>Volumes / modules</td>
+<td>5 volumes, 178 modules</td>
+<td>5 volumes, 178 modules</td>
+<td><code>ibm_fw_unpack.py diff</code></td>
+</tr>
+<tr>
+<td>Module delta 1.13 -&gt; 1.22</td>
+<td>0 added, 0 removed, 154 changed (151 payload, 3 file-only: microcode RAW, Capsule_P pad and nested FV), 24 identical</td>
+<td></td>
+<td><code>ibm_fw_unpack.py diff</code></td>
+</tr>
+<tr>
+<td>Leaf delta 1.13 -&gt; 1.22 (312 leaves both)</td>
+<td>160 identical, 112 small, 40 substantive</td>
+<td></td>
+<td>scratch leaf comparison</td>
+</tr>
+<tr>
+<td>Leaf delta 1.13 -&gt; 1.14 (for scale)</td>
+<td>150 modules changed, 28 identical; leaves 164 identical, 119 small, 29 substantive</td>
+<td></td>
+<td>same method</td>
+</tr>
+<tr>
+<td>HII questions (all formsets)</td>
+<td>367</td>
+<td>372</td>
+<td><code>baseline</code> setup_forms.txt, normalized by prompt</td>
+</tr>
+<tr>
+<td>Setup XML settings (<code>&lt;setting&gt;</code>)</td>
+<td>226</td>
+<td>229</td>
+<td>FREEFORM 92217677 (setup XML)</td>
+</tr>
+<tr>
+<td>SYSTEM_CONFIGURATION varstore</td>
+<td>1850 B</td>
+<td>1854 B</td>
+<td>setup_forms.txt</td>
+</tr>
+<tr>
+<td>Option ROMs</td>
+<td>5 ROMs as listed in section 8</td>
+<td>identical (same SHA256)</td>
+<td><code>baseline</code> optionroms.txt</td>
+</tr>
+</tbody>
+</table></div>
+<p>Microcode (FvMicrocode RAW 50176 -&gt; 58368 B):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>CPUID</th>
+<th>pf</th>
+<th>1.13 rev (date, size)</th>
+<th>1.14 rev</th>
+<th>1.22 rev (date, size)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x106A4</td>
+<td>01 / 03</td>
+<td>0xD / 0xF</td>
+<td>same</td>
+<td>same</td>
+</tr>
+<tr>
+<td>0x106A5</td>
+<td>03</td>
+<td>0x15 (2010-03-03, 8192 B)</td>
+<td>0x16</td>
+<td>0x1D (2018-05-11, 12288 B)</td>
+</tr>
+<tr>
+<td>0x206C0 / 0x206C1</td>
+<td>13 / 03</td>
+<td>0xFFFF0016 / 0x6</td>
+<td>same</td>
+<td>same</td>
+</tr>
+<tr>
+<td>0x206C2 (installed Xeon E5606)</td>
+<td>03</td>
+<td>0x14 (2011-03-11, 7168 B)</td>
+<td>0x15</td>
+<td>0x1F (2018-05-08, 11264 B)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The OS-reported running microcode 0x14 (captures/2026-10-19_hw_cpuinfo.txt, <span class="tl tl-measured">MEASURED</span>) equals the 0x206C2 update
+shipped in the installed 1.13 image (<span class="tl tl-extracted">EXTRACTED</span>); that the UEFI loaded it (rather than an OS loader) is consistent but
+not proven (<span class="tl tl-candidate">CANDIDATE</span>). Updating to 1.22 moves 0x206C2 from 0x14 to 0x1F.</p>
+<p>Setup options in 1.22 that 1.13 does not have (HII forms and setup XML; defaults from the HII DEFAULT/OPTION flags
+and the XML <code>default="true"</code>):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Option (form)</th>
+<th>ASU setting ID</th>
+<th>Values (default)</th>
+<th>First in</th>
+<th>.chg reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SMBIOS25Plus Mode (Operating Modes, suppressed)</td>
+<td>Smbios25Plus</td>
+<td>Enable=0 (default), Disable=1</td>
+<td>1.14</td>
+<td>1.14 "Upgraded SMBIOS type 9 and type 41 to version 2.6"</td>
+</tr>
+<tr>
+<td>VLAN Support (IMM Network Configuration)</td>
+<td>none (IMM form, not in XML)</td>
+<td>Disable=0 (default), Enable=1</td>
+<td>after 1.14</td>
+<td>1.15 "Add VLAN ID support"</td>
+</tr>
+<tr>
+<td>VLAN ID (IMM Network Configuration)</td>
+<td>none</td>
+<td>numeric 1..4094, default 1500; help text says 0-4095</td>
+<td>after 1.14</td>
+<td>1.15</td>
+</tr>
+<tr>
+<td>Limit Boot Attempts</td>
+<td>LimitBootAttempts (setup XML only, no HII question found)</td>
+<td>Disable=0, Enable=1 (default)</td>
+<td>after 1.14</td>
+<td>1.15 "Add Limit boot attempt support"</td>
+</tr>
+<tr>
+<td>Static Driver Impedance (Memory)</td>
+<td>none (HII only)</td>
+<td>Disable=0 (default), Enable=1</td>
+<td>after 1.14</td>
+<td>not named in .chg</td>
+</tr>
+<tr>
+<td>Memory Refresh (Memory)</td>
+<td>MemoryRefresh</td>
+<td>1x=0 (default), 2x=1, 4x=2; reset required</td>
+<td>after 1.14</td>
+<td>not named in .chg</td>
+</tr>
+</tbody>
+</table></div>
+<p>No setup question or setting was removed and no option list of an existing question changed. New strings also
+include "Do you want to Reset System immediately?" (Bds; .chg 1.17 "Added confirmation message for Reset System
+option"). "after 1.14" = absent in 1.14 and present in 1.22; the exact release (1.15..1.22) was not determined from
+images.</p>
+<p>Substantive leaf changes 1.13 -&gt; 1.22 (40; sizes in bytes, "same" = same size with the given number of differing
+bytes): the 21 sections of the section 8 table also appear here (several with different 1.13 sizes: Bds 385376,
+UefiPlatform 141184, IohInitialize 23200, VSService 115168, oemIbmMiscSubclass 23936, PlatformEarlyInit 13824). The
+19 additional ones relative to 1.14 are: SysCfgDrv 10304 -&gt; 11744, Smbios 29664 -&gt; 30176, vpd 5472 -&gt; 5792,
+MemorySubClass 9536 -&gt; 9568, AcpiPlatform 32640 -&gt; 32672, HiiDatabase 47264 -&gt; 47328, LegacyMetronome 1920 -&gt; 2144,
+LegacyBiosPlatform 33696 -&gt; 33728, PlatformCapabilitiesDriver 2912 -&gt; 2944, FPMTcontrolModule 9184 -&gt; 9216; same size:
+PciBus (27679 differ), IbmCapabilitiesDriver (3424), PxeConfig (1912), PlatformBST (103), SpdMgm (97), AcpiVTD (68),
+PlatformInfo PEIM (66), PciPlatform (66), PlatformType (65). Not disassembled; reasons for the changes are <span class="tl tl-unknown">UNKNOWN</span>
+beyond the .chg entries below.</p>
+<p>Change history 1.14..1.22 (ibm_fw_uefi_d6e164a-1.22_anyos_i386.chg, SHA256 7c8dc54b...c1f36, <span class="tl tl-documented">DOCUMENTED</span>; Sec =
+security relevance as judged here, <span class="tl tl-candidate">CANDIDATE</span> unless a CVE is given):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Version (build, class)</th>
+<th>Fixes / enhancements</th>
+<th>Sec</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.14 (D6E156B, Suggested)</td>
+<td>iSCSI attempt could not be saved in Setup; Solaris 10 8/11 install failure; iMM flash utility v1.12.12; SMBIOS type 9 and 41 to 2.6; SMBIOS type 11 slot group/bus/device/function; Intel microcode SRV_P_108</td>
+<td>microcode (no CVE)</td>
+</tr>
+<tr>
+<td>1.15 (D6E157A, Critical)</td>
+<td>SMBIOS type 41 wrong information; VMware DirectPath error with VT-d enabled; MRC 2.40; X5690 power table; VLAN ID support; Limit boot attempt support</td>
+<td>VT-d (no CVE)</td>
+</tr>
+<tr>
+<td>1.16 (D6E158A, Suggested)</td>
+<td>Broadcom quad-port Ethernet 49Y7948 detection for IMM fan speed; 64-bit I/O resource set to disable</td>
+<td>no</td>
+</tr>
+<tr>
+<td>1.17 (D6E159A, Suggested)</td>
+<td>README year 2013; CPU C-state limit ACPI C2_C3 test fail; Reset System confirmation; MRC 2.50; memory handling under high stress</td>
+<td>no</td>
+</tr>
+<tr>
+<td>1.18 (D6E160A, Critical)</td>
+<td>microcode M03106A5_00000019 and M03206C2_0000001A for errata BD132/AAK167 (resets with 32-bit PAE guest and VT FlexPriority, RETAIN H21370) and BD131 (X5675/X5687/X5690, RETAIN H21371)</td>
+<td>stability (no CVE)</td>
+</tr>
+<tr>
+<td>1.19 (D6E161A, Suggested)</td>
+<td>string typo at POST</td>
+<td>no</td>
+</tr>
+<tr>
+<td>1.20 (D6E162A, Suggested)</td>
+<td>no entries listed</td>
+<td>no</td>
+</tr>
+<tr>
+<td>1.21 (D6E163A, Critical)</td>
+<td>microcode for CVE-2017-5715 (Xeon 55xx/56xx)</td>
+<td>YES: CVE-2017-5715</td>
+</tr>
+<tr>
+<td>1.22 (D6E164A, Critical)</td>
+<td>microcode for CVE-2018-3639 and CVE-2018-3640 (Xeon 55xx/56xx)</td>
+<td>YES: CVE-2018-3639, CVE-2018-3640</td>
+</tr>
+</tbody>
+</table></div>
+<p>The .chg lists 1.13 itself as D6E154B, not the installed D6E154A (section 10). Not verified: which microcode
+revision 1.21 shipped (no 1.21 image in the repository); whether the 1.18 revision 0x1A text matches an intermediate
+image; the effect of Static Driver Impedance and Memory Refresh beyond their help text.</p>
+<h2 id="9-microcode">9. Microcode <a class="anchor" href="#9-microcode" aria-label="Link to this section">#</a></h2>
+<p>Source: FvMicrocode.fv RAW file, parsed with <code>python3 -I scripts/uefi_fv.py microcode &lt;FvMicrocode.fv&gt;</code> (<span class="tl tl-extracted">EXTRACTED</span>).
+Six updates in each release, in this order (offsets in the payload 0x0, 0x2800, 0x5000, 0x8000, 0xA000, 0xB800 in 1.22):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>CPUID signature</th>
+<th>Platform flags</th>
+<th>1.14 revision (date)</th>
+<th>1.22 revision (date)</th>
+<th>Size 1.22 (B)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x106A4</td>
+<td>pf01</td>
+<td>0xD (2008-11-26)</td>
+<td>0xD (2008-11-26)</td>
+<td>10240</td>
+</tr>
+<tr>
+<td>0x106A4</td>
+<td>pf03</td>
+<td>0xF (2009-01-23)</td>
+<td>0xF (2009-01-23)</td>
+<td>10240</td>
+</tr>
+<tr>
+<td>0x106A5</td>
+<td>pf03</td>
+<td>0x16 (2011-05-17)</td>
+<td>0x1D (2018-05-11)</td>
+<td>12288</td>
+</tr>
+<tr>
+<td>0x206C0</td>
+<td>pf13</td>
+<td>0xFFFF0016 (2009-08-20)</td>
+<td>same</td>
+<td>8192</td>
+</tr>
+<tr>
+<td>0x206C1</td>
+<td>pf03</td>
+<td>0x6 (2009-12-22)</td>
+<td>same</td>
+<td>6144</td>
+</tr>
+<tr>
+<td>0x206C2</td>
+<td>pf03</td>
+<td>0x15 (2011-08-26)</td>
+<td>0x1F (2018-05-08)</td>
+<td>11264</td>
+</tr>
+</tbody>
+</table></div>
+<p>The 1.14 size of the 0x106A5 update is 9216 B and of 0x206C2 8192 B; the RAW file grows from 52248 to 58392 bytes.
+Signatures 0x106A4/5 are Nehalem-EP, 0x206C0/1/2 Westmere-EP steppings (CPU family knowledge, not repository-sourced).</p>
+<p>Applicability to the owner's machine (<span class="tl tl-measured">MEASURED</span>, captures/2026-10-19_hw_cpuinfo.txt): Xeon E5606 at 2.13 GHz,
+family 6 model 44 stepping 2, so CPUID 0x206C2; 4 logical CPUs in one package; the OS reports microcode 0x14. The
+matching update is 0x206C2: 1.14 ships 0x15, 1.22 ships 0x1F, so the OS-visible 0x14 is older than both (the machine
+runs UEFI D6E154A, whose image ships 0x206C2 rev 0x14, <span class="tl tl-extracted">EXTRACTED</span>, section 8.1; that the UEFI rather than an OS loader
+loaded it is <span class="tl tl-candidate">CANDIDATE</span>). The mapping of this
+CPU to the pf03 platform-ID mask was not verified (<span class="tl tl-candidate">CANDIDATE</span>).</p>
+<h2 id="10-source-conflicts">10. Source conflicts <a class="anchor" href="#10-source-conflicts" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>PackageCState (ACPI C-State limit) default in 1.22 (<span class="tl tl-extracted">EXTRACTED</span>): the setup XML and the Processors-page question
+  (qid 0x000F) default to ACPI C2, but the Operating Modes form question on the same varstore offset 0x0142 (qid
+  0x0007) still defaults to ACPI C3, and the 1.22 mode summaries list "ACPI C3" for all modes. In 1.14 all three say
+  ACPI C3. Which default a "Load Default Settings" actually writes in 1.22 is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>Power C-States (<code>uEFI.ProcessorCcxEnable</code>) default in 1.14: form Enable, XML Disable (1.22: both Disable;
+  <span class="tl tl-extracted">EXTRACTED</span>, form-to-setting mapping <span class="tl tl-candidate">CANDIDATE</span>, section 5).</li>
+<li>Setup labels say "ICH10" while the XML groups say ICH9Devices; both refer to the same southbridge family
+  (<span class="tl tl-candidate">CANDIDATE</span>, vendor naming inconsistency).</li>
+<li>Readme prerequisite IMM 1.07 versus XML preReq yuoo57h, which is IMM 1.10 (IMM 1.55 readme section 1.4): both
+  recorded in FORMATS doc section 8.</li>
+<li>Installed build D6E154A: SMBIOS reports <code>-[D6E154AUS-1.13]-</code> (captures/2026-10-19_os_inventory.txt, type 0 and
+  type 11, <span class="tl tl-measured">MEASURED</span>), i.e. version 1.13, while the 1.22 .chg lists 1.13 as BuildID D6E154B and has no D6E154A
+  entry (<span class="tl tl-documented">DOCUMENTED</span>). Both recorded; D6E154A is a 1.13-numbered build not in the change history. The NVRAM
+  variable Stored_BuildInfo also says <code>D6E154AUS</code> / <code>09-23-2011</code> / <code>1.13</code> (<span class="tl tl-measured">MEASURED</span>,
+  captures/2026-10-21_host_efivars_contents.txt), while the NVRAM variable System_Data holds a different build ID,
+  <code>D6CP54AUS</code> / <code>09/23/2011</code> / <code>1.13</code>, and no <code>D6E154AUS</code> string (<span class="tl tl-measured">MEASURED</span>, same capture). Correction
+  (2026-10-21): the earlier statement that D6CP54A appears in no other source was wrong. SMBIOS type 11 carries
+  <code>$CR CRTM Code 1.13 -[D6CP54AUS]-</code> and <code>$BB Backup BIOS Version -[D6E154AUS]-</code> (captures/2026-10-19_os_inventory.txt
+  lines 823, 839, <span class="tl tl-measured">MEASURED</span>; also docs/X3650M3_IMM_ARCHITECTURE.md section 2). So D6CP54A is the build ID of the CRTM
+  code, not of the backup bank (the backup bank is D6E154A), and the earlier backup-bank <span class="tl tl-candidate">CANDIDATE</span> is refuted. The
+  IMM reports the running UEFI as D6E154A 1.13 (WS-Man <code>GetVitalProductData</code> UEFI D6E154A 09/23/2011,
+  captures/2026-10-21_imm_wsman_read_inventory.txt; CIM_SoftwareIdentity UEFI D6E154A Major 1 Minor 13,
+  captures/2026-10-21_imm_cim_read_inventory.txt; <code>GetFirmwareBuildID</code> faults, captures/2026-10-21_imm_wsman_firmware_buildid.txt).
+  Resolved for the D6CP54A identity (CRTM, <span class="tl tl-measured">MEASURED</span> by the SMBIOS string; that the System_Data field holds the
+  CRTM entry is <span class="tl tl-candidate">CANDIDATE</span>, reason: identical build, date and version). Still open: D6E154A vs the .chg's D6E154B.</li>
+</ul>
+<h2 id="11-open-questions--unknown">11. Open questions / <span class="tl tl-unknown">UNKNOWN</span> <a class="anchor" href="#11-open-questions--unknown" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Meaning of <code>protected="true"</code> in the setup XML: <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li><a class="sref" href="../catalog/sources.html#s-025">S-025</a> (.doc) has no local text copy; not used.</li>
+<li>IFR OR operators and conditions not rendered by the tool, so mode-to-summary assignment is <span class="tl tl-candidate">CANDIDATE</span>; the full
+  question visibility logic is not extracted.</li>
+<li>Forms for 1.14 were rendered only as a diff against 1.22; a Memory/Processors line-by-line reading beyond the
+  differences listed was not done.</li>
+<li>The 30 same-size leaf files with more than debug-directory differences and SecureCapsule (section 8): not analyzed.</li>
+<li>Vendor typo in the setup XML: sub-setting ID PciRootPortURE[4] has mriName PciRootPortURE[1] (duplicate of root
+  port 2's name); the effective ASU name for root port 5 URR is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>Platform-ID match and loaded microcode revision on the live system: not verified.</li>
+<li>Tool defects in <code>hii</code> and <code>microcode</code> are fixed; remaining tool limits: FORMATS doc section 10.</li>
+<li>IMM firmware internals and the stored NVRAM layout (IbmcIfrNVData semantics) are covered in
+  docs/X3650M3_IMM_ARCHITECTURE.md or <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>Live NVRAM (section 12): meaning of the System_Data fields (D6CP54A = CRTM build, section 10), of the IBM CFGBoot#### records,
+  of the one differing byte between Setup and TempSetup, and of the setup byte offsets in the 1.13 <code>Setup</code> variable
+  (1850 bytes, no 1.13 image extracted): <span class="tl tl-unknown">UNKNOWN</span> or <span class="tl tl-candidate">CANDIDATE</span>.</li>
+</ul>
+<h2 id="12-live-uefi-variables-on-the-owners-server-2026-10-21">12. Live UEFI variables on the owner's server (2026-10-21) <a class="anchor" href="#12-live-uefi-variables-on-the-owners-server-2026-10-21" aria-label="Link to this section">#</a></h2>
+<p>Source unless noted: captures/2026-10-21_host_efivars_contents.txt (read-only dump of all 181 variables under
+/sys/firmware/efi/efivars on the Proxmox host [lab-ip], 2026-10-21 ~09:05 +03, nothing written; decoded
+offline per the UEFI specification EFI_LOAD_OPTION and device path formats) and
+captures/2026-10-21_host_uefi_bootvars.txt (<code>efibootmgr -v</code>, mokutil, variable names and sizes, 08:43 +03). The
+dump was taken after the boot of 2026-10-21 08:16:12 (docs/STATUS.md), the first boot after the 2026-10-20 ASU
+change (captures/2026-10-20_asu_show_all/README.md). Variable contents and sizes are <span class="tl tl-measured">MEASURED</span>; the meaning of
+vendor-specific variables is <span class="tl tl-candidate">CANDIDATE</span> unless a vendor document is cited.</p>
+<h3 id="121-boot-manager-variables">12.1 Boot manager variables <a class="anchor" href="#121-boot-manager-variables" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BootCurrent</td>
+<td>000E (volatile, attributes 0x6)</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Timeout</td>
+<td>10 s</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>BootOrder (16 entries)</td>
+<td>000E, 000F, 0002, 0008, 0000, 003C, 003D, 003E, 003F, 0040, 0041, 0042, 0043, 0044, 0045, 0046; identical in captures/2026-10-20_host_probes_boot_apt.txt line 15, so the ASU change did not alter it</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Boot000E</td>
+<td>"proxmox", attributes 0x1 (ACTIVE), HD(2,GPT,f6cd5039-1946-40f8-a450-5b891fdac60f,0x800,0x200000)/File(\EFI\proxmox\shimx64.efi); the running OS was started from it</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Boot000F</td>
+<td>"Ubuntu", attributes 0x1, HD(1,GPT,c8d6946d-0239-4ef5-ab9c-b6f4dc5d1280,0x800,0x219800)/File(\EFI\ubuntu\shimx64.efi)</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Boot0000-Boot000D</td>
+<td>14 IBM generic entries (CD/DVD Rom, Floppy Disk, Hard Disk 0-4, PXE Network, USB Storage, Diagnostics, iSCSI, iSCSI Critical, Legacy Only, Embedded Hypervisor); Boot0000-0003 attributes 0x1, Boot0004-000D attributes 0x9 (ACTIVE plus HIDDEN)</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Boot0010-Boot0046</td>
+<td>55 further generic entries, all attributes 0x9, in five repeated groups of 11 types (Floppy Disk, PXE Network, Hard Disk 1-4, Diagnostics, iSCSI, iSCSI Critical, Legacy Only, Embedded Hypervisor); only the last group Boot003C-Boot0046 is in BootOrder</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Other global variables</td>
+<td>BootOptionSupport 0x00000003, Lang <code>eng</code>, PlatformLang <code>en-US</code>, LangCodes <code>engfra</code>, PlatformLangCodes <code>en-US;fr-FR</code>, HwErrRecSupport 1; OsIndicationsSupported not present</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+</tbody>
+</table></div>
+<p><code>efibootmgr -v</code> marks every entry with <code>*</code> (ACTIVE) and does not show the HIDDEN bit; the attribute words in the
+dump do (0x9 = LOAD_OPTION_ACTIVE | LOAD_OPTION_HIDDEN per the UEFI specification). The PXE entries are Boot0003
+(not hidden, not in BootOrder), Boot0011, Boot001C, Boot0027, Boot0032 (hidden, not in BootOrder) and Boot003D
+(hidden, in BootOrder at position 7).</p>
+<p>IBM generic entries all use one vendor media device path, VenMedia(0c588db8-6af4-11dd-a992-00197d890238,&lt;byte&gt;)
+(<span class="tl tl-measured">MEASURED</span>). The trailing data byte pairs with the description as follows: 00 Floppy Disk, 01 Embedded Hypervisor,
+03 USB Storage, 04 iSCSI, 05 iSCSI Critical, 06 PXE Network, 08 Hard Disk 0, 09 Hard Disk 1, 0a Hard Disk 2,
+0b Hard Disk 3, 0e Hard Disk 4, 0c CD/DVD Rom, da Diagnostics, ee Legacy Only (<span class="tl tl-measured">MEASURED</span> pairing). That the byte is
+an IBM device-class selector resolved by the IBM boot manager at boot time is <span class="tl tl-candidate">CANDIDATE</span> (inferred from the pairing;
+no vendor document seen). <a class="sref" href="../catalog/sources.html#s-024">S-024</a> pp.5-9 describe the boot order and the Legacy Only flag (section 2).</p>
+<h3 id="122-secure-boot">12.2 Secure Boot <a class="anchor" href="#122-secure-boot" aria-label="Link to this section">#</a></h3>
+<p>No SecureBoot, SetupMode, PK, KEK, db, dbx, AuditMode or DeployedMode variable exists (<span class="tl tl-measured">MEASURED</span>), and mokutil
+reports "This system doesn't support Secure Boot" (captures/2026-10-21_host_uefi_bootvars.txt, <span class="tl tl-measured">MEASURED</span>). The
+Proxmox and Ubuntu entries boot through shim (shimx64.efi); shim's volatile variables MokListRT, MokListRT1,
+MokListTrustedRT, MokListXRT and SbatLevelRT (<code>sbat,1,2021030218</code>) are present under GUID
+605dab50-e046-4300-abb6-3dd810dd8b23 (<span class="tl tl-measured">MEASURED</span>). That this UEFI 1.13 build predates UEFI Secure Boot is <span class="tl tl-candidate">CANDIDATE</span>
+(the <a class="sref" href="../catalog/sources.html#s-024">S-024</a> paper states UEFI 2.1 compliance, section 1; Secure Boot was introduced in a later UEFI specification
+revision; not checked against an IBM statement).</p>
+<h3 id="123-console-variables-evidence-for-the-2026-10-20-console-redirection-change">12.3 Console variables (evidence for the 2026-10-20 console-redirection change) <a class="anchor" href="#123-console-variables-evidence-for-the-2026-10-20-console-redirection-change" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Attributes</th>
+<th>Device path instances (decoded)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ConIn</td>
+<td>0x7 (non-volatile)</td>
+<td>(1) Acpi(PNP0A03,0)/Pci(0x1f,0x0)/Acpi(PNP0501,0)/Uart(115200,8,N,1)/VenMsg(VT100); (2) the same with Acpi(PNP0501,1); (3) Acpi(PNP0A03,0)/Pci(0x1f,0x0)/Acpi(PNP0303,0) (PS/2 keyboard); (4) UsbClass(0xffff,0xffff,0x03,0x01,0x01) (any USB HID keyboard)</td>
+</tr>
+<tr>
+<td>ConOut</td>
+<td>0x7 (non-volatile)</td>
+<td>(1) and (2) the two UART paths as in ConIn, 115200 8N1 VT100; (3) Acpi(PNP0A03,0)/Pci(0x1c,0x4)/Pci(0x0,0x0)/Pci(0x0,0x0)/AcpiAdr(0x80010100) (video)</td>
+</tr>
+<tr>
+<td>ErrOut</td>
+<td>-</td>
+<td>not present</td>
+</tr>
+<tr>
+<td>ConInDev / ConOutDev / ErrOutDev</td>
+<td>0x6 (volatile)</td>
+<td>8 / 9 / 9 instances: each UART with the four terminal types PcAnsi, VT100, VT100Plus, VtUtf8; ConOutDev and ErrOutDev also the video path</td>
+</tr>
+</tbody>
+</table></div>
+<p>All values <span class="tl tl-measured">MEASURED</span> (decoded summary of the capture; the ConIn and ConOut UART nodes were re-decoded independently
+from the raw bytes: baud 115200, 8 data bits, parity code 1 = no parity, stop-bit code 1 = one stop bit,
+VenMsg GUID DFA66065-B419-11D3-9A2D-0090273FC14D = VT100). The UARTs sit on the LPC bridge Pci(0x1f,0x0); the video
+path behind root port Pci(0x1c,0x4) matches the Matrox G200eV at 00:1c.4 -&gt; 06:00.0 -&gt; 07:00.0
+(captures/2026-10-19_hw_lspci_tvnn.txt, cited by the capture; <span class="tl tl-candidate">CANDIDATE</span> mapping). PNP0501 UID 0 = COM1 (0x3f8,
+ttyS0) and UID 1 = COM2 (0x2f8, ttyS1) is <span class="tl tl-candidate">CANDIDATE</span> (conventional UID order; I/O ports from
+captures/2026-10-19_hw_resources.txt).</p>
+<p>Before the change (2026-10-20 ~22:20, captures/2026-10-20_asu_show_all/README.md) ConOut held only the video path
+and the UART appeared only in ConOutDev (<span class="tl tl-measured">MEASURED</span> with od -c, decode <span class="tl tl-candidate">CANDIDATE</span>). After the ASU batch of 2026-10-20
+~23:12 (RemoteConsoleRedirection, SerialPortSharing, SerialPortAccessMode Dedicated, SPRedirection, Com1/Com2
+TextEmul VT100, Com1/Com2 ActiveAfterBoot; readback <span class="tl tl-measured">MEASURED</span>, same README) and the 2026-10-21 08:16 boot, ConIn and
+ConOut include both UARTs with VT100, matching the configured terminal type and line settings. So the change is
+<span class="tl tl-measured">MEASURED</span> as effective in NVRAM. Still unverified: whether the firmware actually wrote POST, setup and boot
+manager text to COM1/COM2 during that boot and whether it reached IPMI SOL or IMM <code>console 1</code> (nobody observed the
+console because the jump host lost power, docs/STATUS.md; the observed reboot test is deferred); whether ConOut was
+rewritten by ASU or by the boot (no capture between 23:12 and 08:16); console behavior after OS hand-off
+(ActiveAfterBoot). Plan and steps: docs/X3650M3_SERIAL_CONSOLE.md.</p>
+<h3 id="124-vendor-variable-groups">12.4 Vendor variable groups <a class="anchor" href="#124-vendor-variable-groups" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Vendor GUID</th>
+<th>Count</th>
+<th>Variables</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8be4df61-93ca-11d2-aa0d-00e098032b8c (EFI global)</td>
+<td>85</td>
+<td>Boot####, BootOrder, BootCurrent, Con<em>, Lang</em>, Timeout, ...</td>
+<td>UEFI specification</td>
+</tr>
+<tr>
+<td>d665f20a-f2b7-485e-a321-542a196f40c7</td>
+<td>73</td>
+<td>CFGBoot0000-CFGBoot0046 (one per Boot####, 71), CFGAltBootOrder, CFGBootValidate</td>
+<td>IBM boot manager shadow configuration (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>ec87d643-eba4-4bb5-a1e5-3f3e36b20da9</td>
+<td>6</td>
+<td>Setup, TempSetup, Setup_State, ResetFlag, System_Data, Stored_BuildInfo</td>
+<td>IBM setup group; same GUID as the HII varstore SYSTEM_CONFIGURATION (section 5, <span class="tl tl-extracted">EXTRACTED</span>)</td>
+</tr>
+<tr>
+<td>605dab50-e046-4300-abb6-3dd810dd8b23</td>
+<td>5</td>
+<td>MokListRT, MokListRT1, MokListTrustedRT, MokListXRT, SbatLevelRT</td>
+<td>shim (section 12.2)</td>
+</tr>
+<tr>
+<td>12 further GUIDs</td>
+<td>1 each</td>
+<td>AcpiGlobalVariable, CurrentPolicy, DIMMStatusVariable, EDD30, HDDP, MemoryOverwriteRequestControl, MTC, SLPBUFFERSIZE, TurboHysteresisSupport, UnlockIDCopy, VIDEOCON, xSEC_F1Saving</td>
+<td>names only; see below</td>
+</tr>
+</tbody>
+</table></div>
+<p>Total 181 variables (85 + 73 + 6 + 5 + 12; <span class="tl tl-measured">MEASURED</span>). <code>Setup</code> (attributes 0x7) and <code>TempSetup</code> (0x6, volatile) are
+1850 data bytes each and differ in one byte (data offset 1520); both contain the ASCII strings <code>setp</code>, <code>REFD</code>,
+<code>CPU0</code> (<span class="tl tl-measured">MEASURED</span>). That <code>Setup</code> is the SYSTEM_CONFIGURATION varstore of the installed 1.13 is <span class="tl tl-candidate">CANDIDATE</span> (same GUID;
+1850 bytes against 1851 in 1.14 and 1854 in 1.22, section 1); its byte layout for 1.13 is <span class="tl tl-unknown">UNKNOWN</span>.</p>
+<h3 id="125-identity-strings">12.5 Identity strings <a class="anchor" href="#125-identity-strings" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Strings in order (<span class="tl tl-measured">MEASURED</span>)</th>
+<th>Field meaning (<span class="tl tl-candidate">CANDIDATE</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>System_Data (1200 data bytes)</td>
+<td><code>7945KEG</code>, <code>[redacted-id]</code>, <code>94Y7614</code>, <code>[redacted-id]</code>, <code>YUOOC7E</code>, <code>09/30/2011</code>, <code>1.30</code>, <code>D6CP54AUS</code>, <code>09/23/2011</code>, <code>1.13</code>, <code>DSYT89P</code>, <code>10/28/2011</code>, <code>3.48</code>, <code>System x3650 M3</code></td>
+<td>machine type-model; serial; system board part number; board serial suffix (SMBIOS type 2 serial is <code>[redacted-id]</code>, FRU board serial [redacted-id], docs/X3650M3_HARDWARE_COMPONENTS.md); IMM build, date, version; CRTM build, date, version (D6CP54AUS = SMBIOS <code>$CR CRTM Code 1.13</code>, section 10); DSA Preboot build, date, version 3.48; product name</td>
+</tr>
+<tr>
+<td>Stored_BuildInfo</td>
+<td><code>D6E154AUS</code>, <code>09-23-2011</code>, <code>1.13</code></td>
+<td>build, date and version of the running UEFI (matches SMBIOS, <span class="tl tl-candidate">CANDIDATE</span> meaning)</td>
+</tr>
+<tr>
+<td>DIMMStatusVariable (472 data bytes)</td>
+<td><code>HMT31GR7BFR4A-H9</code>, preceded by byte 0xAD</td>
+<td>part number of the installed DIMM, identical to dmidecode (captures/2026-10-19_os_inventory.txt line 207, <span class="tl tl-measured">MEASURED</span>); 0xAD is the SK Hynix JEDEC manufacturer code (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The DSA Preboot version 3.48 for build DSYT89P is confirmed by SMBIOS <code>$DS Preboot Diagnostics (DSA) 3.48
+-[DSYT89P]-</code> (captures/2026-10-19_os_inventory.txt line 827) and by the IMM (CIM_SoftwareIdentity DSA Major 3
+Minor 48, captures/2026-10-21_imm_cim_read_inventory.txt); <span class="tl tl-measured">MEASURED</span> (correction: the earlier note said it appears
+only here).</p>
+<h3 id="126-redacted-variables">12.6 Redacted variables <a class="anchor" href="#126-redacted-variables" aria-label="Link to this section">#</a></h3>
+<p>Two variables were not read; only their existence, size and attributes are recorded (<span class="tl tl-measured">MEASURED</span>):
+<code>HDDP-fab7e9e1-39dd-4f2b-8408-e20e906cb6de</code> (file size 1036 bytes, i.e. 1032 data bytes, attributes 0x7) and
+<code>UnlockIDCopy-eaec226f-c9a3-477a-a826-ddc716cdc0e3</code> (32 data bytes, attributes 0x7). Their names suggest hard disk
+password data and an unlock identifier (<span class="tl tl-candidate">CANDIDATE</span>); their contents must not be copied into this repository.</p>
+<h2 id="appendix-a-full-asu-setting-table-uefi-122">Appendix A. Full ASU setting table (UEFI 1.22) <a class="anchor" href="#appendix-a-full-asu-setting-table-uefi-122" aria-label="Link to this section">#</a></h2>
+<h3 id="a1-top-level-settings">A.1 Top-level settings <a class="anchor" href="#a1-top-level-settings" aria-label="Link to this section">#</a></h3>
+<p>Generated from the setup XML of the 1.22 package (<span class="tl tl-extracted">EXTRACTED</span>); the ASU name column is <code>&lt;config mriName&gt;.&lt;setting
+mriName&gt;</code> (section 7; <span class="tl tl-candidate">CANDIDATE</span> for names not in <a class="sref" href="../catalog/sources.html#s-026">S-026</a>). Protected "None" means the attribute is absent. Numeric and
+text settings show their XML attributes. Choices are those of the setting itself; nested sub-settings are in A.2.
+Verified 2026-10-20: all 209 rows re-generated from build/doc/setup22.xml and compared field by field.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Group</th>
+<th>ASU name (&lt;prefix&gt;.&lt;mriName&gt;)</th>
+<th>Label</th>
+<th>Protected</th>
+<th>Choices (*=default, =value)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DateTimeOptions</td>
+<td>uEFI.SynchIMMClock</td>
+<td>Synchronize IMM Clock</td>
+<td>true</td>
+<td>Enable=0, Disable=1*</td>
+</tr>
+<tr>
+<td>BootOptions</td>
+<td>uEFI.Numlock</td>
+<td>Numlock</td>
+<td>true</td>
+<td>Off=0, On=1*</td>
+</tr>
+<tr>
+<td>BootOptions</td>
+<td>uEFI.SerialTerminal</td>
+<td>Terminal</td>
+<td>true</td>
+<td>Enable=0*, Disable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.IedSize</td>
+<td>Intel Enhanced Debug</td>
+<td>true</td>
+<td>Disable=0, 4096K=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.TsegSize</td>
+<td>TSEG Smram Size</td>
+<td>true</td>
+<td>4M=0, 8M=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorFlexibleRatio</td>
+<td>CPU Core Ratio</td>
+<td>true</td>
+<td>{'numeric_data': {'min': '0', 'max': '63', 'step': '1', 'default': '63', 'reset-required': 'true'}}</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.TurboModeEnable</td>
+<td>Turbo Mode</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.TurboBoost</td>
+<td>Turbo Boost Power Optimization</td>
+<td>None</td>
+<td>Power Optimized=4*, Traditional=0</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.QuietBoot</td>
+<td>Quiet Boot</td>
+<td>None</td>
+<td>Disable=1, Enable=0*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.LimitBootAttempts</td>
+<td>Limit Boot Attempts</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.SMBIOS25PlusMode</td>
+<td>SMBIOS25Plus Mode</td>
+<td>true</td>
+<td>Disable=1, Enable=0*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.PostAttemptsLimit</td>
+<td>POST Attempts Limit</td>
+<td>None</td>
+<td>3=  0*, 6=  3, 9=  6, Disable=255</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.OperatingMode</td>
+<td>Operating Mode</td>
+<td>None</td>
+<td>Custom Mode=3*, Acoustic Mode=0, Efficiency Mode=1, Performance Mode=2</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorXEEnable</td>
+<td>Extreme Enable (XE)</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorTDCLimitOverrideEnable</td>
+<td>TDC Limit Override</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorTDCLimit</td>
+<td>TDC Limit</td>
+<td>true</td>
+<td>{'numeric_data': {'min': '0', 'max': '127', 'step': '1', 'default': '0'}}</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorTDPLimitOverrideEnable</td>
+<td>TDP Limit Override</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorTDPLimit</td>
+<td>TDP Limit</td>
+<td>true</td>
+<td>{'numeric_data': {'min': '0', 'max': '127', 'step': '1', 'default': '0'}}</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorEistEnable</td>
+<td>Intel EIST Support</td>
+<td>None</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.DataReuseDisable</td>
+<td>Intel Processor Data Reuse Optimization Disable</td>
+<td>None</td>
+<td>Enable=0*, Disable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorCcxEnable</td>
+<td>CPU C State</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.PackageCState</td>
+<td>Package C State limit</td>
+<td>None</td>
+<td>ACPI C2=2*, ACPI C3=3</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.OSC2Report</td>
+<td>ACPI C2 report</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorC1eEnable</td>
+<td>C1 Enhanced Mode</td>
+<td>None</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.C6Enable</td>
+<td>NHM C6 report</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.C7Enable</td>
+<td>NHM C7 report</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.C1AutoDemotion</td>
+<td>C1 Auto Demotion</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.C3AutoDemotion</td>
+<td>C3 Auto Demotion</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorHyperThreading</td>
+<td>Hyper-Threading</td>
+<td>None</td>
+<td>Disable=1, Enable=0*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorXapic</td>
+<td>Extended APIC</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.EnableCoresInSbsp</td>
+<td>Active Core Count 0</td>
+<td>true</td>
+<td>All=0*, 1=1, 2=2, 3=3, 4=4, 5=5</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.EnableCoresInNbsp</td>
+<td>Active Core Count 1</td>
+<td>true</td>
+<td>All=0*, 1=1, 2=2, 3=3, 4=4, 5=5</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.MonitorMwaitEnable</td>
+<td>Fast String</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.FastStringEnable</td>
+<td>Monitor/Mwait</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.MachineCheckEnable</td>
+<td>Machine Check</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.CpuidMaxValue</td>
+<td>Max CPUID Value Limit</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorxTPRDisable</td>
+<td>xTPR</td>
+<td>true</td>
+<td>Disable=1*, Enable=0</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ExecuteDisableBit</td>
+<td>Execute Disable Bit</td>
+<td>None</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorVmxEnable</td>
+<td>Intel Virtualization Technology</td>
+<td>None</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorBistEnable</td>
+<td>BIST Selection</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.HardwarePrefetcher</td>
+<td>Hardware Prefetcher</td>
+<td>None</td>
+<td>Disable=1, Enable=0*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.AdjacentCacheLinePrefetch</td>
+<td>Adjacent Cache Line Prefetch</td>
+<td>None</td>
+<td>Disable=1, Enable=0*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.DCUStreamerPrefetcher</td>
+<td>DCU Streamer Prefetcher</td>
+<td>None</td>
+<td>Disable=1, Enable=0*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.IPStreamerPrefetcher</td>
+<td>IP Streamer Prefetcher</td>
+<td>true</td>
+<td>Disable=1, Enable=0*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.BspSelection</td>
+<td>Bsp Selection</td>
+<td>true</td>
+<td>Least Feature=0*, Socket 0=1, Socket 1=2</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.UpBootSelection</td>
+<td>UP Boot Selection</td>
+<td>true</td>
+<td>Disable=0*, Socket 0=1, Socket 1=2</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.DcaEnable</td>
+<td>Direct Cache Access (DCA)</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.DcaPrefetchDelayValue</td>
+<td>DCA Prefetch Delay</td>
+<td>true</td>
+<td>Disable=0, 8=1, 16=2, 24=3, 32=4*, 40=5, 48=6, 56=7, 64=8, 72=9, 80=10, 88=11, 96=12, 104=13, 112=14</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.MTRRDefTypeUncachable</td>
+<td>MTRR Default as uncacheable</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorEistPsdFunc</td>
+<td>Processor EIST PSD State</td>
+<td>true</td>
+<td>State 0=0*, State 1=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.LinkSpeed</td>
+<td>CSI Link Speed</td>
+<td>true</td>
+<td>Slow=0, Fast=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.QPISpeed</td>
+<td>CPU Frequency Select</td>
+<td>None</td>
+<td>Minimal Power=1, Power Efficiency=2, Max Performance=0*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.LockTechnology</td>
+<td>Lock Technology</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.LtDPRSize</td>
+<td>Processor LT DPR Size Config</td>
+<td>true</td>
+<td>Size 0=66*, Size 1=255</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.LtDPRLock</td>
+<td>Processor LT DPR Lock Config</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.CpuCfgLock</td>
+<td>Processor Config Lock</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorLockMemCfg</td>
+<td>Processor Lock Memory Config</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.ProcessorMsrLockControl</td>
+<td>Processor MSR Lock Control</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.AesEnable</td>
+<td>AES Instruction Enable</td>
+<td>None</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.RatioLimit1C</td>
+<td>Turbo Ratio Limit 1C</td>
+<td>true</td>
+<td>Factory Default=0*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.RatioLimit2C</td>
+<td>Turbo Ratio Limit 2C</td>
+<td>true</td>
+<td>Factory Default=0*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.RatioLimit3C</td>
+<td>Turbo Ratio Limit 3C</td>
+<td>true</td>
+<td>Factory Default=0*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.RatioLimit4C</td>
+<td>Turbo Ratio Limit 4C</td>
+<td>true</td>
+<td>Factory Default=0*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.RatioLimit5C</td>
+<td>Turbo Ratio Limit 5C</td>
+<td>true</td>
+<td>Factory Default=0*</td>
+</tr>
+<tr>
+<td>ProcessorConfiguration</td>
+<td>uEFI.RatioLimit6C</td>
+<td>Turbo Ratio Limit 6C</td>
+<td>true</td>
+<td>Factory Default=0*</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.MemorySlotDisableControl</td>
+<td>Memory Slot DIMM Enable</td>
+<td>None</td>
+<td>Enable=0*, Disable=1</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.ErrorDetection</td>
+<td>Error Detection</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.L0sEnable</td>
+<td>L0sEnable</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.L1Enable</td>
+<td>L1Enable</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.DdrMemoryType</td>
+<td>Memory Type</td>
+<td>true</td>
+<td>Auto=0, RDIMMs only=1, UDIMMs only=2, UDIMMs and RDIMMs=3*</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.Plt2DPC1333Capable</td>
+<td>2DPC1333 Capable</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.Enable2DPCOverclock</td>
+<td>2DPC Overclocking</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.LvDimmPower</td>
+<td>LV DIMM Power</td>
+<td>None</td>
+<td>Low Power=0*, Enhanced Performance=1</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.DdrSpeed</td>
+<td>DDR3 Speed</td>
+<td>None</td>
+<td>Minimal Power=1, Power Efficiency=2, Max Performance=0*</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.MemoryChannelMode</td>
+<td>Memory Channel Mode</td>
+<td>None</td>
+<td>Independent=0*, Mirroring=1, Sparing=3</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.SocketInterleave</td>
+<td>Socket Interleave</td>
+<td>None</td>
+<td>Non-NUMA=0, NUMA=1*</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.ChannelInterleaving</td>
+<td>Channel Interleaving</td>
+<td>true</td>
+<td>Auto=0, 1-way Interleave=1, 2-way Interleave=2, 3-way Interleave=3, 4-way Interleave=4, 6-way Interleave=6*</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.RankInterleaving</td>
+<td>Rank Interleaving</td>
+<td>true</td>
+<td>Auto=0, 1-way Interleave=1, 2-way Interleave=2, 4-way Interleave=4*</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.SoftMemTest</td>
+<td>Software MemTest</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.HwMemTest</td>
+<td>Hardware MemTest</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.PatrolScrub</td>
+<td>Patrol Scrub</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.DemandScrub</td>
+<td>Demand Scrub</td>
+<td>None</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.MemoryRefresh</td>
+<td>Memory Refresh</td>
+<td>None</td>
+<td>1x=0*, 2x=1, 4x=2</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.MarginRanksEnable</td>
+<td>Margin Ranks Enable</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.MemoryPagePolicy</td>
+<td>Memory Page Policy</td>
+<td>true</td>
+<td>Open Policy=0*, Closed Policy=1</td>
+</tr>
+<tr>
+<td>MemoryConfiguration</td>
+<td>uEFI.MemoryScrambling</td>
+<td>Memory Data Scrambling</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration</td>
+<td>uEFI.SataType</td>
+<td>Onboard Sata mode</td>
+<td>true</td>
+<td>IDE=0* (sub-settings: A.2)</td>
+</tr>
+<tr>
+<td>DeviceConfiguration</td>
+<td>uEFI.VideoSelect</td>
+<td>Active Video</td>
+<td>None</td>
+<td>Onboard Device=1, Add in Device=0*</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/PlanarDevices</td>
+<td>uEFI.RomOrder</td>
+<td>Option ROM Execution Order</td>
+<td>None</td>
+<td>Ethernet 1=01, Ethernet 2=02, Ethernet 3=03, Ethernet 4=04, SAS Controller=05, Slot 1=06, Slot 2=07, Slot 3=08, Slot 4=09 {'list_data': {'choice': '', 'type': 'hex'}}</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/PlanarDevices</td>
+<td>uEFI.OnboardDeviceEnable</td>
+<td>Onboard Device Enable/Disable</td>
+<td>None</td>
+<td>Enable=0*, Disable=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/PlanarDevices</td>
+<td>uEFI.LegacyRomExecution</td>
+<td>Legacy ROM execution</td>
+<td>None</td>
+<td>Enable=0*, Disable=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/PlanarDevices</td>
+<td>uEFI.UEFIRomDisable</td>
+<td>UEFI ROM execution</td>
+<td>None</td>
+<td>Enable=0*, Disable=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/PlanarDevices</td>
+<td>uEFI.PCIeGenSelection</td>
+<td>PCIe Gen1/Gen2 Speed Selection</td>
+<td>None</td>
+<td>Gen1=1, Gen2=0*</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/SystemCDROM_DVD</td>
+<td>uEFI.CDROMSataPortEnable</td>
+<td>CDROM/DVD Enable</td>
+<td>None</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/ConsoleRedirection</td>
+<td>uEFI.SerialCOMPort1</td>
+<td>Serial COM Port 1</td>
+<td>None</td>
+<td>Enable=0*, Disable=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/ConsoleRedirection</td>
+<td>uEFI.SerialCOMPort2</td>
+<td>Serial COM Port 2</td>
+<td>None</td>
+<td>Enable=0*, Disable=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/ConsoleRedirection</td>
+<td>uEFI.RemoteConsoleRedirection</td>
+<td>Remote Console Redirection</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/ConsoleRedirection</td>
+<td>uEFI.solan</td>
+<td>Serial Over LAN</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/ConsoleRedirection</td>
+<td>uEFI.SerialPortSharing</td>
+<td>Serial Port Sharing</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/ConsoleRedirection</td>
+<td>uEFI.SerialPortAccessMode</td>
+<td>Serial Port Access Mode</td>
+<td>None</td>
+<td>Disable=0*, Pre-Boot=1, Dedicated=2, Shared=3</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/ConsoleRedirection</td>
+<td>uEFI.SPRedirection</td>
+<td>SP Redirection</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/ConsoleRedirection</td>
+<td>uEFI.uefidebug</td>
+<td>UEFI Debug</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/ConsoleRedirection</td>
+<td>uEFI.LegacyOptionRomPort</td>
+<td>Legacy Option ROM Display</td>
+<td>None</td>
+<td>COM Port 1=0*, COM Port 2=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com1Configuration</td>
+<td>uEFI.Com1BaudRate</td>
+<td>Baud Rate</td>
+<td>None</td>
+<td>9600=0, 19200=1, 38400=2, 57600=3, 115200=4*</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com1Configuration</td>
+<td>uEFI.Com1DataBits</td>
+<td>Data Bits</td>
+<td>None</td>
+<td>5=5, 6=6, 7=7, 8=8*</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com1Configuration</td>
+<td>uEFI.Com1Parity</td>
+<td>Parity</td>
+<td>None</td>
+<td>None=0*, Odd=1, Even=2</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com1Configuration</td>
+<td>uEFI.Com1StopBits</td>
+<td>Stop Bits</td>
+<td>None</td>
+<td>1=0*, 2=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com1Configuration</td>
+<td>uEFI.Com1TextEmul</td>
+<td>Terminal Emulation</td>
+<td>None</td>
+<td>ANSI=0*, VT100=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com1Configuration</td>
+<td>uEFI.Com1ActiveAfterBoot</td>
+<td>Active After Boot</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com1Configuration</td>
+<td>uEFI.Com1FlowControl</td>
+<td>Flow Control</td>
+<td>None</td>
+<td>Disable=0*, Hardware=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com2Configuration</td>
+<td>uEFI.Com2BaudRate</td>
+<td>Baud Rate</td>
+<td>None</td>
+<td>9600=0, 19200=1, 38400=2, 57600=3, 115200=4*</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com2Configuration</td>
+<td>uEFI.Com2DataBits</td>
+<td>Data Bits</td>
+<td>None</td>
+<td>5=5, 6=6, 7=7, 8=8*</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com2Configuration</td>
+<td>uEFI.Com2Parity</td>
+<td>Parity</td>
+<td>None</td>
+<td>None=0*, Odd=1, Even=2</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com2Configuration</td>
+<td>uEFI.Com2StopBits</td>
+<td>Stop Bits</td>
+<td>None</td>
+<td>1=0*, 2=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com2Configuration</td>
+<td>uEFI.Com2TextEmul</td>
+<td>Terminal Emulation</td>
+<td>None</td>
+<td>ANSI=0*, VT100=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com2Configuration</td>
+<td>uEFI.Com2ActiveAfterBoot</td>
+<td>Active After Boot</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com2Configuration</td>
+<td>uEFI.Com2FlowControl</td>
+<td>Flow Control</td>
+<td>None</td>
+<td>Disable=0*, Hardware=1</td>
+</tr>
+<tr>
+<td>DeviceConfiguration/Com2Configuration</td>
+<td>uEFI.InterruptRoundRobinScheme</td>
+<td>Interrupt Round Robin Scheme</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>PowerSchemes</td>
+<td>uEFI.PowerState</td>
+<td>Power Restore Policy</td>
+<td>true</td>
+<td>Always Off=0, Restore=1*, Always On=2</td>
+</tr>
+<tr>
+<td>PowerSchemes</td>
+<td>uEFI.EnergyManager</td>
+<td>Active Energy Manager</td>
+<td>None</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>PowerSchemes</td>
+<td>uEFI.PerformanceStates</td>
+<td>Processor Performance States</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>iBMCSettings</td>
+<td>uEFI.WatchdogTimerUefi</td>
+<td>POST Watchdog Timer</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>iBMCSettings</td>
+<td>uEFI.RebootOnNMI</td>
+<td>Reboot System on NMI</td>
+<td>None</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>LegacyConfiguration</td>
+<td>uEFI.ForceLegacyVideo</td>
+<td>Force legacy video on boot</td>
+<td>None</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>LegacyConfiguration</td>
+<td>uEFI.LegacyInfiniteBoot</td>
+<td>Legacy Infinite Boot</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>LegacyConfiguration</td>
+<td>uEFI.Rehook19</td>
+<td>Rehook INT 19h</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>LegacyConfiguration</td>
+<td>uEFI.LegacySerialRedirection</td>
+<td>Legacy Serial Port Redirection</td>
+<td>true</td>
+<td>Disable=0*, PreBoot only=1, Pre &amp; Post Boot=3</td>
+</tr>
+<tr>
+<td>LegacyConfiguration</td>
+<td>uEFI.ThunkSupport</td>
+<td>Legacy Thunk Support</td>
+<td>None</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>LegacyConfiguration</td>
+<td>uEFI.EnableLegacyPxe</td>
+<td>Legacy PXE Enable</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>TPMConfiguration</td>
+<td>uEFI.TpmEnable</td>
+<td>TPM Device</td>
+<td>true</td>
+<td>Disable=0*, Enable=1 (sub-settings: A.2)</td>
+</tr>
+<tr>
+<td>CSIConfiguration</td>
+<td>uEFI.CsiProbeControl</td>
+<td>CSI Probe Present</td>
+<td>true</td>
+<td>No=0*, Yes=1</td>
+</tr>
+<tr>
+<td>CSIConfiguration</td>
+<td>uEFI.CsiProbeSkt0Csi0</td>
+<td>CPU0 CSI0 Tx</td>
+<td>true</td>
+<td>None=0, Midbus=1*</td>
+</tr>
+<tr>
+<td>CSIConfiguration</td>
+<td>uEFI.CsiProbeSkt0Csi1</td>
+<td>CPU0 CSI1 Tx</td>
+<td>true</td>
+<td>None=0, Midbus=1*</td>
+</tr>
+<tr>
+<td>CSIConfiguration</td>
+<td>uEFI.CsiProbeSkt1Csi0</td>
+<td>CPU1 CSI0 Tx</td>
+<td>true</td>
+<td>None=0, Midbus=1*</td>
+</tr>
+<tr>
+<td>CSIConfiguration</td>
+<td>uEFI.CsiProbeSkt1Csi1</td>
+<td>CPU1 CSI1 Tx</td>
+<td>true</td>
+<td>None=0, Midbus=1*</td>
+</tr>
+<tr>
+<td>CSIConfiguration</td>
+<td>uEFI.CsiProbeIoh0Csi0</td>
+<td>IOH CSI0 Tx</td>
+<td>true</td>
+<td>None=0, Midbus=1*</td>
+</tr>
+<tr>
+<td>CSIConfiguration</td>
+<td>uEFI.CsiProbeIoh0Csi1</td>
+<td>IOH CSI1 Tx</td>
+<td>true</td>
+<td>None=0, Midbus=1*</td>
+</tr>
+<tr>
+<td>CSIConfiguration</td>
+<td>uEFI.MirrorPortSkt0</td>
+<td>CPU SKT0 Mirror Port</td>
+<td>true</td>
+<td>Do Nothing=0, CSI0 Tx / Rx=1*, CSI1 Tx / Rx=2, CSI0 Tx / CSI1 Rx=3, CSI0 Rx / CSI1 Tx=4</td>
+</tr>
+<tr>
+<td>CSIConfiguration</td>
+<td>uEFI.MirrorPortSkt1</td>
+<td>CPU SKT1 Mirror Port</td>
+<td>true</td>
+<td>Do Nothing=0, CSI0 Tx / Rx=1, CSI1 Tx / Rx=2*, CSI0 Tx / CSI1 Rx=3, CSI0 Rx / CSI1 Tx=4</td>
+</tr>
+<tr>
+<td>IOHConfiguration/TylersburgConfiguration</td>
+<td>uEFI.SystemProfile</td>
+<td>System Profile</td>
+<td>true</td>
+<td>Auto=0*, UP=1, HEDT=2</td>
+</tr>
+<tr>
+<td>IOHConfiguration/TylersburgConfiguration</td>
+<td>uEFI.Hecbase</td>
+<td>HECBASE</td>
+<td>true</td>
+<td>0xA000 0000=0, 0xB000 0000=1, 0xC000 0000=2*, 0xD000 0000=3, 0xE000 0000=4, 0x1 0000 0000=5, 0x2 E000 0000=6, 0x4 0000 0000=7, 0x8 E000 0000=8, 0x10 0000 0000=9, 0x20 E000 0000=10</td>
+</tr>
+<tr>
+<td>IOHConfiguration/TylersburgConfiguration</td>
+<td>uEFI.MaxBusNumber</td>
+<td>Select Maximum Bus Number</td>
+<td>true</td>
+<td>Bus 0ffh -- 256MB PCIe MMIO Range=FF*, Bus 07fh -- 128MB PCIe MMIO Range=7F, Bus 03fh -- 64MB PCIe MMIO Range=3F</td>
+</tr>
+<tr>
+<td>IOHConfiguration/TylersburgConfiguration</td>
+<td>uEFI.Poison</td>
+<td>Poison</td>
+<td>true</td>
+<td>Disable=1*, Enable=0</td>
+</tr>
+<tr>
+<td>IOHConfiguration/TylersburgConfiguration</td>
+<td>uEFI.Viral</td>
+<td>Viral</td>
+<td>true</td>
+<td>Disable=1*, Enable=0</td>
+</tr>
+<tr>
+<td>IOHConfiguration/TylersburgConfiguration</td>
+<td>uEFI.Isoc</td>
+<td>Isoc</td>
+<td>true</td>
+<td>Auto=0*, Enable=1, Disable=2</td>
+</tr>
+<tr>
+<td>IOHConfiguration/TylersburgConfiguration</td>
+<td>uEFI.DevPresIoApic</td>
+<td>IOH IOAPIC</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>IOHConfiguration/VTDConfiguration</td>
+<td>uEFI.VTdSupport</td>
+<td>Intel VT for Directed I/O (VT-d)</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchSmbus</td>
+<td>SMBUS Device</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchFunction0</td>
+<td>ICH Device31 Function4</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchPort80Route</td>
+<td>Port 80h Cycles</td>
+<td>true</td>
+<td>LPC Bus=0*, PCI Bus=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchPciClockRun</td>
+<td>CLKRUN# logic</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchAzalia</td>
+<td>Azalia</td>
+<td>true</td>
+<td>Disable=0, Enable=1*, Auto=2 (sub-settings: A.2)</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchLegacyUsb</td>
+<td>Legacy USB</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsb11_1</td>
+<td>UHCI Controller #1</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsb11_2</td>
+<td>UHCI Controller #2</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsb11_3</td>
+<td>UHCI Controller #3</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsb11_4</td>
+<td>UHCI Controller #4</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsb11_5</td>
+<td>UHCI Controller #5</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.Usb20_1</td>
+<td>EHCI1</td>
+<td>None</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.Usb20_2</td>
+<td>EHCI2</td>
+<td>None</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsbPerPortCtl</td>
+<td>USB Ports Per-Port Disable Control</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsbPort0</td>
+<td>USB Port #0 Disable</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsbPort1</td>
+<td>USB Port #1 Disable</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsbPort2</td>
+<td>USB Port #2 Disable</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsbPort3</td>
+<td>USB Port #3 Disable</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsbPort4</td>
+<td>USB Port #4 Disable</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsbPort5</td>
+<td>USB Port #5 Disable</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsbPort6</td>
+<td>USB Port #6 Disable</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsbPort7</td>
+<td>USB Port #7 Disable</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsbPort8</td>
+<td>USB Port #8 Disable</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/ICH9Devices</td>
+<td>uEFI.IchUsbPort9</td>
+<td>USB Port #0 Disable</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/Networking</td>
+<td>uEFI.IchLan</td>
+<td>ICH Internal LAN</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ICH9Configuration/Networking</td>
+<td>uEFI.Amt</td>
+<td>Intel AMT</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/Networking</td>
+<td>uEFI.AmtbxPrompt</td>
+<td>Intel AMT Setup Prompt</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ICH9Configuration/Networking</td>
+<td>uEFI.AmtSpiLock</td>
+<td>Intel AMT SPI Protected</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>ICH9Configuration/Networking</td>
+<td>uEFI.AmtbxPasswordWrite</td>
+<td>Intel AMT Password Write Enabled</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ICH9Configuration/Networking</td>
+<td>uEFI.HeciTimeout</td>
+<td>HECI Timeout</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ICH9Configuration/Networking</td>
+<td>uEFI.AmtWaitTimer</td>
+<td>Amt Wait Timer</td>
+<td>true</td>
+<td>{'numeric_data': {'min': '0', 'max': '65535', 'step': '1', 'default': '0'}}</td>
+</tr>
+<tr>
+<td>ICH9Configuration/Networking</td>
+<td>uEFI.Asf</td>
+<td>ASF</td>
+<td>true</td>
+<td>Disable=0*, Enable=1 (sub-settings: A.2)</td>
+</tr>
+<tr>
+<td>ICH9Configuration/PCIExpressRootPort1</td>
+<td>uEFI.IchPciExp1</td>
+<td>PCI Express Root Port 1</td>
+<td>true</td>
+<td>Disable=0, Enable=1* (sub-settings: A.2)</td>
+</tr>
+<tr>
+<td>ICH9Configuration/PCIExpressRootPort2</td>
+<td>uEFI.IchPciExp2</td>
+<td>PCI Express Root Port 2</td>
+<td>true</td>
+<td>Disable=0, Enable=1* (sub-settings: A.2)</td>
+</tr>
+<tr>
+<td>ICH9Configuration/PCIExpressRootPort3</td>
+<td>uEFI.IchPciExp3</td>
+<td>PCI Express Root Port 3</td>
+<td>true</td>
+<td>Disable=0, Enable=1* (sub-settings: A.2)</td>
+</tr>
+<tr>
+<td>ICH9Configuration/PCIExpressRootPort4</td>
+<td>uEFI.IchPciExp4</td>
+<td>PCI Express Root Port 4</td>
+<td>true</td>
+<td>Disable=0, Enable=1* (sub-settings: A.2)</td>
+</tr>
+<tr>
+<td>ICH9Configuration/PCIExpressRootPort5</td>
+<td>uEFI.IchPciExp5</td>
+<td>PCI Express Root Port 5</td>
+<td>true</td>
+<td>Disable=0, Enable=1* (sub-settings: A.2)</td>
+</tr>
+<tr>
+<td>ICH9Configuration/PCIExpressRootPort6</td>
+<td>uEFI.IchPciExp6</td>
+<td>PCI Express Root Port 6</td>
+<td>true</td>
+<td>Disable=0, Enable=1* (sub-settings: A.2)</td>
+</tr>
+<tr>
+<td>MiscConfiguration</td>
+<td>uEFI.Pci64BitResourceAllocation</td>
+<td>PCI 64-Bit Resource Allocation</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>MiscConfiguration</td>
+<td>uEFI.PciMinSecondaryBus</td>
+<td>PCI Minimum Secondary Bus Number</td>
+<td>true</td>
+<td>{'numeric_data': {'min': '1', 'max': '223', 'step': '1', 'default': '1', 'reset-required': 'true'}}</td>
+</tr>
+<tr>
+<td>MiscConfiguration</td>
+<td>uEFI.ZoarPower</td>
+<td>On-board Lan Power</td>
+<td>true</td>
+<td>Turn OFF=0*, Turn ON=1 (sub-settings: A.2)</td>
+</tr>
+<tr>
+<td>MiscConfiguration</td>
+<td>uEFI.BootNetwork</td>
+<td>Boot to Network</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>MiscConfiguration</td>
+<td>uEFI.WakeOnLanS5</td>
+<td>Wake on LAN from S5</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>MiscConfiguration</td>
+<td>uEFI.WheaSupport</td>
+<td>Error Injection</td>
+<td>None</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>MiscConfiguration</td>
+<td>uEFI.IPv6Support</td>
+<td>IPv6 Support</td>
+<td>None</td>
+<td>Disable=0, Enable=1</td>
+</tr>
+<tr>
+<td>MiscConfiguration</td>
+<td>uEFI.PciRootPortBusPadding</td>
+<td>PCI Root Port Bus Padding</td>
+<td>true</td>
+<td>{'numeric_data': {'min': '0', 'max': '16', 'step': '1', 'default': '0', 'reset-required': 'true'}}</td>
+</tr>
+<tr>
+<td>MiscConfiguration</td>
+<td>uEFI.TpmSupport</td>
+<td>TPM v1.2 Support</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>MiscConfiguration</td>
+<td>uEFI.Ps2PortSwap</td>
+<td>PS2 Port Swap</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>MiscConfiguration</td>
+<td>uEFI.Floppy</td>
+<td>Floppy Diskette Controller</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>MiscConfiguration</td>
+<td>uEFI.FloppyWriteProtect</td>
+<td>Floppy Write Protect</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>SLP1OEMStrings</td>
+<td>uEFI.SLP1OEMString_0</td>
+<td>SLP1 OEM String 0</td>
+<td>true</td>
+<td>{'text_data': {'minchars': '0', 'maxchars': '20', 'default': ''}}</td>
+</tr>
+<tr>
+<td>SLP1OEMStrings</td>
+<td>uEFI.SLP1OEMString_1</td>
+<td>SLP1 OEM String 1</td>
+<td>true</td>
+<td>{'text_data': {'minchars': '0', 'maxchars': '20', 'default': ''}}</td>
+</tr>
+<tr>
+<td>SLP1OEMStrings</td>
+<td>uEFI.SLP1OEMString_2</td>
+<td>SLP1 OEM String 2</td>
+<td>true</td>
+<td>{'text_data': {'minchars': '0', 'maxchars': '20', 'default': ''}}</td>
+</tr>
+<tr>
+<td>SLP1OEMStrings</td>
+<td>uEFI.SLP1OEMString_3</td>
+<td>SLP1 OEM String 3</td>
+<td>true</td>
+<td>{'text_data': {'minchars': '0', 'maxchars': '20', 'default': ''}}</td>
+</tr>
+<tr>
+<td>SLP1OEMStrings</td>
+<td>uEFI.SLP1OEMString_4</td>
+<td>SLP1 OEM String 4</td>
+<td>true</td>
+<td>{'text_data': {'minchars': '0', 'maxchars': '20', 'default': ''}}</td>
+</tr>
+<tr>
+<td>ISCSI_ATTEMPT_DATA/ISCSI_CONFIGURATION</td>
+<td>iSCSI.InitiatorName</td>
+<td>iSCSI Initator Name</td>
+<td>None</td>
+<td>{'text_data': {'minchars': '8', 'maxchars': '222', 'maxinstance': 'single', 'default': '', 'pattern': '^[iI][qQ][nN](\.[-:A-Za-z0-9]+)+$'}}</td>
+</tr>
+<tr>
+<td>ISCSI_ATTEMPT_DATA/ISCSI_CONFIGURATION</td>
+<td>iSCSI.MacAddress</td>
+<td>iSCSI Mac Address</td>
+<td>None</td>
+<td>{'text_data': {'maxinstance': '256', 'minchars': '17', 'maxchars': '17', 'pattern': '^[A-Fa-f0-9]{2}([-:][A-Fa-f0-9]{2}){5}$'}}</td>
+</tr>
+<tr>
+<td>ISCSI_ATTEMPT_DATA/ISCSI_CONFIGURATION</td>
+<td>iSCSI.AttemptName</td>
+<td>iSCSI Attempt Name</td>
+<td>None</td>
+<td>{'text_data': {'maxinstance': '256', 'minchars': '1', 'maxchars': '96'}}</td>
+</tr>
+<tr>
+<td>ISCSI_ATTEMPT_DATA/ISCSI_CONFIGURATION</td>
+<td>iSCSI.IscsiMode</td>
+<td>iSCSI Mode</td>
+<td>None</td>
+<td>Disable=0*, Enabled=1, Enabled for MPIO=2 (sub-settings: A.2)</td>
+</tr>
+<tr>
+<td>PXE_CONFIGURATION/PxeConfiguration</td>
+<td>PXE.NicPortMacAddress</td>
+<td>NIC Port MAC Address</td>
+<td>None</td>
+<td>{'text_data': {'minchars': '17', 'maxchars': '17', 'pattern': '^[A-Fa-f0-9]{2}([-:][A-Fa-f0-9]{2}){5}$'}}</td>
+</tr>
+<tr>
+<td>PXE_CONFIGURATION/PxeConfiguration</td>
+<td>PXE.NicPortPxeMode</td>
+<td>NIC Port PXE Mode</td>
+<td>None</td>
+<td>Disabled=0, UEFI Support=1, Legacy Support=2, UEFI and Legacy Support=3*</td>
+</tr>
+<tr>
+<td>PXE_CONFIGURATION/PxeConfiguration</td>
+<td>PXE.NicPortPxeProtocol</td>
+<td>NIC Port PXE Protocol</td>
+<td>None</td>
+<td>IPv4=1*, IPv6=2, Auto Configure=3</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="a2-sub-settings-uefi-122">A.2 Sub-settings (UEFI 1.22) <a class="anchor" href="#a2-sub-settings-uefi-122" aria-label="Link to this section">#</a></h3>
+<p>147 <code>&lt;sub-setting&gt;</code> elements, nested under the parent named in the first column (<span class="tl tl-extracted">EXTRACTED</span>). The 17 per-root-port
+sub-settings exist six times with index [0..5] for IchPciExp1..6 (102 elements) and are shown once. Protected "-"
+means the attribute is absent.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Parent</th>
+<th>ASU name</th>
+<th>Label</th>
+<th>Protected</th>
+<th>Choices (*=default) / data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MemoryChannelMode</td>
+<td>uEFI.SpareErrorThreshold</td>
+<td>Spare Error Threshold</td>
+<td>true</td>
+<td>numeric 0..15 default 15</td>
+</tr>
+<tr>
+<td>SataType</td>
+<td>uEFI.IdeMode</td>
+<td>IDE Mode</td>
+<td>-</td>
+<td>Compatibility mode=0*, Native mode=1</td>
+</tr>
+<tr>
+<td>PowerSchemes</td>
+<td>uEFI.PcieAspm0</td>
+<td>PCI-E ASPM Support 0</td>
+<td>-</td>
+<td>Disable=0*, Enable L1=2</td>
+</tr>
+<tr>
+<td>PowerSchemes</td>
+<td>uEFI.PcieAspm1</td>
+<td>PCI-E ASPM Support 1</td>
+<td>-</td>
+<td>Disable=0*, Enable L1=2</td>
+</tr>
+<tr>
+<td>PowerSchemes</td>
+<td>uEFI.PcieAspm2</td>
+<td>PCI-E ASPM Support 2</td>
+<td>-</td>
+<td>Disable=0*, Enable L1=2</td>
+</tr>
+<tr>
+<td>PowerSchemes</td>
+<td>uEFI.PcieAspm3</td>
+<td>PCI-E ASPM Support 3</td>
+<td>-</td>
+<td>Disable=0*, Enable L1=2</td>
+</tr>
+<tr>
+<td>PowerSchemes</td>
+<td>uEFI.PcieAspm4</td>
+<td>PCI-E ASPM Support 4</td>
+<td>-</td>
+<td>Disable=0*, Enable L1=2</td>
+</tr>
+<tr>
+<td>PowerSchemes</td>
+<td>uEFI.PcieAspm5</td>
+<td>PCI-E ASPM Support 5</td>
+<td>-</td>
+<td>Disable=0*, Enable L1=2</td>
+</tr>
+<tr>
+<td>PowerSchemes</td>
+<td>uEFI.PcieAspm6</td>
+<td>PCI-E ASPM Support 6</td>
+<td>-</td>
+<td>Disable=0*, Enable L1=2</td>
+</tr>
+<tr>
+<td>PowerSchemes</td>
+<td>uEFI.PcieAspm7</td>
+<td>PCI-E ASPM Support 7</td>
+<td>-</td>
+<td>Disable=0*, Enable L1=2</td>
+</tr>
+<tr>
+<td>PowerSchemes</td>
+<td>uEFI.PcieAspm8</td>
+<td>PCI-E ASPM Support 8</td>
+<td>-</td>
+<td>Disable=0*, Enable L1=2</td>
+</tr>
+<tr>
+<td>PowerSchemes</td>
+<td>uEFI.PcieAspm9</td>
+<td>PCI-E ASPM Support 9</td>
+<td>-</td>
+<td>Disable=0*, Enable L1=2</td>
+</tr>
+<tr>
+<td>PowerSchemes</td>
+<td>uEFI.PcieAspm10</td>
+<td>PCI-E ASPM Support 10</td>
+<td>-</td>
+<td>Disable=0*, Enable L1=2</td>
+</tr>
+<tr>
+<td>WatchdogTimerUefi</td>
+<td>uEFI.WatchdogTimerUefiValue</td>
+<td>POST Watchdog Timer Value</td>
+<td>-</td>
+<td>numeric 5..20 default 5 (grey-if WatchdogTimerUefi == 0)</td>
+</tr>
+<tr>
+<td>TpmEnable</td>
+<td>uEFI.TpmState</td>
+<td>TPM State</td>
+<td>true</td>
+<td>Deactivate=0*, Activate=1</td>
+</tr>
+<tr>
+<td>IchAzalia</td>
+<td>uEFI.AzaliaPme</td>
+<td>Azalia PME Enable</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>IchAzalia</td>
+<td>uEFI.AzaliaVCi</td>
+<td>Azalia Vci Enable</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>Asf</td>
+<td>uEFI.WatchDog</td>
+<td>WatchDog</td>
+<td>true</td>
+<td>Disable=0*, Enable=1 (grey-if Asf == 0)</td>
+</tr>
+<tr>
+<td>IchPciExp1..6</td>
+<td>uEFI.PciRootPortVC1[0..5]</td>
+<td>VC1 Enable</td>
+<td>true</td>
+<td>Disable=0*, Auto=1</td>
+</tr>
+<tr>
+<td>PciRootPortVC1[0..5]</td>
+<td>uEFI.PciRootPortTC[0..5]</td>
+<td>VC1/TC Mapping</td>
+<td>true</td>
+<td>TC0=0, TC1=1, TC2=2, TC3=3, TC4=4, TC5=5, TC6=6, TC7=7*</td>
+</tr>
+<tr>
+<td>IchPciExp1..6</td>
+<td>uEFI.PciRootPortAspm[0..5]</td>
+<td>ASPM</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>PciRootPortAspm[0..5]</td>
+<td>uEFI.PciRootPortAspmAuto[0..5]</td>
+<td>Automatic ASPM</td>
+<td>true</td>
+<td>Manual=0, Auto=1*</td>
+</tr>
+<tr>
+<td>PciRootPortAspmAuto[0..5]</td>
+<td>uEFI.PciRootPortAspmL0s[0..5]</td>
+<td>ASPM L0s</td>
+<td>true</td>
+<td>Disable=0, Root Port Only=1, Endpoint Port Only=2, Both Root and Endpoint Ports=3*</td>
+</tr>
+<tr>
+<td>PciRootPortAspmAuto[0..5]</td>
+<td>uEFI.PciRootPortAspmL1[0..5]</td>
+<td>ASPM L1</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>IchPciExp1..6</td>
+<td>uEFI.PciRootPortURE[0..5]</td>
+<td>URR</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>IchPciExp1..6</td>
+<td>uEFI.PciRootPortFEE[0..5]</td>
+<td>FER</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>IchPciExp1..6</td>
+<td>uEFI.PciRootPortNFE[0..5]</td>
+<td>NFER</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>IchPciExp1..6</td>
+<td>uEFI.PciRootPortCEE[0..5]</td>
+<td>CER</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>IchPciExp1..6</td>
+<td>uEFI.PciRootPortCTD[0..5]</td>
+<td>CTO</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>IchPciExp1..6</td>
+<td>uEFI.PciRootPortSFE[0..5]</td>
+<td>SEFE</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>IchPciExp1..6</td>
+<td>uEFI.PciRootPortSNE[0..5]</td>
+<td>SENFE</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>IchPciExp1..6</td>
+<td>uEFI.PciRootPortSCE[0..5]</td>
+<td>SECE</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>IchPciExp1..6</td>
+<td>uEFI.PciRootPortPIE[0..5]</td>
+<td>PME Interrupt</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>IchPciExp1..6</td>
+<td>uEFI.PciRootPortPMCE[0..5]</td>
+<td>PME SCI</td>
+<td>true</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>IchPciExp1..6</td>
+<td>uEFI.PciRootPortHPCE[0..5]</td>
+<td>Hot Plug SCI</td>
+<td>true</td>
+<td>Disable=0, Enable=1*</td>
+</tr>
+<tr>
+<td>ZoarPower</td>
+<td>uEFI.ZoarLan0</td>
+<td>On-board LAN0</td>
+<td>true</td>
+<td>Disable=0, Enable=1* (grey-if ZoarPower == 0)</td>
+</tr>
+<tr>
+<td>ZoarPower</td>
+<td>uEFI.ZoarLan1</td>
+<td>On-board LAN1</td>
+<td>true</td>
+<td>Disable=0, Enable=1* (grey-if ZoarPower == 0)</td>
+</tr>
+<tr>
+<td>IscsiMode</td>
+<td>iSCSI.IpMode</td>
+<td>Internet Protocol</td>
+<td>-</td>
+<td>IP4=0*, IP6=1, Autoconfigure=2</td>
+</tr>
+<tr>
+<td>IpMode</td>
+<td>iSCSI.ConnectRetryCount</td>
+<td>Connection Retry Count</td>
+<td>-</td>
+<td>numeric 0..16 default 0</td>
+</tr>
+<tr>
+<td>IpMode</td>
+<td>iSCSI.ConnectTimeout</td>
+<td>Connection Timeout</td>
+<td>-</td>
+<td>numeric 100..20000 default 1000</td>
+</tr>
+<tr>
+<td>IpMode</td>
+<td>iSCSI.InitiatorInfoFromDhcp</td>
+<td>Enable DHCP</td>
+<td>-</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>InitiatorInfoFromDhcp</td>
+<td>iSCSI.LocalIp</td>
+<td>Initator IP Address</td>
+<td>-</td>
+<td>text 7..15 chars default 0.0.0.0</td>
+</tr>
+<tr>
+<td>InitiatorInfoFromDhcp</td>
+<td>iSCSI.SubnetMask</td>
+<td>Initiator Subnet Mask</td>
+<td>-</td>
+<td>text 7..15 chars default 0.0.0.0</td>
+</tr>
+<tr>
+<td>InitiatorInfoFromDhcp</td>
+<td>iSCSI.Gateway</td>
+<td>GateWay</td>
+<td>-</td>
+<td>text 7..15 chars default 0.0.0.0</td>
+</tr>
+<tr>
+<td>InitiatorInfoFromDhcp</td>
+<td>iSCSI.TargetInfoFromDhcp</td>
+<td>Get target info via DHCP</td>
+<td>-</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>TargetInfoFromDhcp</td>
+<td>iSCSI.TargetName</td>
+<td>Target Name</td>
+<td>-</td>
+<td>text 4..222 chars</td>
+</tr>
+<tr>
+<td>TargetInfoFromDhcp</td>
+<td>iSCSI.TargetIp</td>
+<td>Target IP Address</td>
+<td>-</td>
+<td>text 2..39 chars</td>
+</tr>
+<tr>
+<td>TargetInfoFromDhcp</td>
+<td>iSCSI.TargetPort</td>
+<td>Target Port</td>
+<td>-</td>
+<td>numeric 0..65535 default 3260</td>
+</tr>
+<tr>
+<td>TargetInfoFromDhcp</td>
+<td>iSCSI.BootLun</td>
+<td>Boot LUN</td>
+<td>-</td>
+<td>text 1..20 chars default 0</td>
+</tr>
+<tr>
+<td>IscsiMode</td>
+<td>iSCSI.AuthenticationType</td>
+<td>Authentication Type</td>
+<td>-</td>
+<td>None=0*, CHAP=1, Kerberos=2</td>
+</tr>
+<tr>
+<td>AuthenticationType</td>
+<td>iSCSI.CHAPType</td>
+<td>CHAP Type</td>
+<td>-</td>
+<td>None=0*, One Way=1, Mutual=2</td>
+</tr>
+<tr>
+<td>CHAPType</td>
+<td>iSCSI.CHAPName</td>
+<td>CHAP Name</td>
+<td>-</td>
+<td>text 0..126 chars</td>
+</tr>
+<tr>
+<td>CHAPType</td>
+<td>iSCSI.CHAPSecret</td>
+<td>CHAP Secret</td>
+<td>-</td>
+<td>text 12..16 chars</td>
+</tr>
+<tr>
+<td>CHAPType</td>
+<td>iSCSI.ReverseCHAPName</td>
+<td>Reverse CHAP Name</td>
+<td>-</td>
+<td>text 0..126 chars</td>
+</tr>
+<tr>
+<td>CHAPType</td>
+<td>iSCSI.ReverseCHAPSecret</td>
+<td>Reverse CHAP Secret</td>
+<td>-</td>
+<td>text 12..16 chars</td>
+</tr>
+<tr>
+<td>AuthenticationType</td>
+<td>iSCSI.MutualRequired</td>
+<td>Mutual Required</td>
+<td>-</td>
+<td>Disable=0*, Enable=1</td>
+</tr>
+<tr>
+<td>AuthenticationType</td>
+<td>iSCSI.KerberosUserName</td>
+<td>User Name</td>
+<td>-</td>
+<td>text 0..96 chars</td>
+</tr>
+<tr>
+<td>AuthenticationType</td>
+<td>iSCSI.KerberosUserSecret</td>
+<td>User Secret</td>
+<td>-</td>
+<td>text 12..16 chars</td>
+</tr>
+<tr>
+<td>AuthenticationType</td>
+<td>iSCSI.KerberosKDCName</td>
+<td>KDC  Name</td>
+<td>-</td>
+<td>text 0..96 chars</td>
+</tr>
+<tr>
+<td>AuthenticationType</td>
+<td>iSCSI.KerberosKDCRealm</td>
+<td>KDC  Realm</td>
+<td>-</td>
+<td>text 0..96 chars</td>
+</tr>
+<tr>
+<td>AuthenticationType</td>
+<td>iSCSI.KerberosKDCIp</td>
+<td>KDC  IP Addres</td>
+<td>-</td>
+<td>text 2..39 chars</td>
+</tr>
+<tr>
+<td>AuthenticationType</td>
+<td>iSCSI.KerberosKDCPort</td>
+<td>KDC  Port</td>
+<td>-</td>
+<td>numeric 0..65535 default 3260</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="serial-console.html"><span>Previous</span>Serial Console Plan (remote console without the Virtual Media Key)</a>
+<a class="next" href="firmware-formats.html"><span>Next</span>Firmware Package and Image Formats</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary">1. Summary</a></li><li class="l2"><a href="#2-architecture-and-post-flow">2. Architecture and POST flow</a></li><li class="l2"><a href="#3-firmware-banks-recovery-and-jumpers">3. Firmware banks, recovery and jumpers</a></li><li class="l2"><a href="#4-setup-utility-menu-tree">4. Setup utility menu tree</a></li><li class="l2"><a href="#5-setup-forms-and-options-from-extracted-hii-forms">5. Setup forms and options (from extracted HII forms)</a></li><li class="l2"><a href="#6-operating-modes">6. Operating modes</a></li><li class="l2"><a href="#7-asu-settings-s-026-and-the-setup-xml">7. ASU settings (S-026) and the setup XML</a></li><li class="l2"><a href="#8-image-analysis-122-versus-114">8. Image analysis: 1.22 versus 1.14</a></li><li class="l3"><a href="#81-image-analysis-122-versus-installed-113-d6e154a">8.1 Image analysis: 1.22 versus installed 1.13 (D6E154A)</a></li><li class="l2"><a href="#9-microcode">9. Microcode</a></li><li class="l2"><a href="#10-source-conflicts">10. Source conflicts</a></li><li class="l2"><a href="#11-open-questions--unknown">11. Open questions / UNKNOWN</a></li><li class="l2"><a href="#12-live-uefi-variables-on-the-owners-server-2026-10-21">12. Live UEFI variables on the owner&#x27;s server (2026-10-21)</a></li><li class="l3"><a href="#121-boot-manager-variables">12.1 Boot manager variables</a></li><li class="l3"><a href="#122-secure-boot">12.2 Secure Boot</a></li><li class="l3"><a href="#123-console-variables-evidence-for-the-2026-10-20-console-redirection-change">12.3 Console variables (evidence for the 2026-10-20 console-redirection change)</a></li><li class="l3"><a href="#124-vendor-variable-groups">12.4 Vendor variable groups</a></li><li class="l3"><a href="#125-identity-strings">12.5 Identity strings</a></li><li class="l3"><a href="#126-redacted-variables">12.6 Redacted variables</a></li><li class="l2"><a href="#appendix-a-full-asu-setting-table-uefi-122">Appendix A. Full ASU setting table (UEFI 1.22)</a></li><li class="l3"><a href="#a1-top-level-settings">A.1 Top-level settings</a></li><li class="l3"><a href="#a2-sub-settings-uefi-122">A.2 Sub-settings (UEFI 1.22)</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

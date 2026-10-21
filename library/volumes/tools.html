@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Management, Diagnostic and Update Tools - x3650 M3 Library</title>
+<meta name="description" content="ASU, DSA (Portable, Preboot), UXSPI, BoMC, Lenovo XClarity Essentials OneCLI, iflash and the IBM flash packages, StorCLI, SAS2IRCU / SAS2FLASH, ipmitool and the project scripts in scripts/. For every ...">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="volume" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="../pages/reading-guide.html">Reading Guide</a></li>
+<li><a href="../pages/system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="../pages/firmware-guide.html">Firmware Guide</a></li>
+<li><a href="../pages/imm-guide.html">IMM Guide</a></li>
+<li><a href="../pages/uefi-guide.html">UEFI Guide</a></li>
+<li><a href="../pages/troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="../pages/tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="../pages/glossary.html">Glossary</a></li>
+<li><a href="../pages/faq.html">FAQ</a></li>
+<li><a href="../pages/timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="../pages/about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="system-architecture.html">System Architecture</a></li>
+<li><a href="hardware-components.html">Hardware Components</a></li>
+<li><a href="memory.html">Memory</a></li>
+<li><a href="storage-raid.html">Storage and RAID</a></li>
+<li><a href="power-thermal.html">Power and Thermal</a></li>
+<li><a href="sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="uefi.html">UEFI Firmware</a></li>
+<li><a href="firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="tools.html" aria-current="page">Management, Diagnostic and Update Tools</a></li>
+<li><a href="optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Volumes</li><li>Diagnostics and operations</li><li aria-current="page">Management, Diagnostic and Update Tools</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">Volume 17 - Diagnostics and operations</p>
+<h1>Management, Diagnostic and Update Tools</h1>
+<p class="subtitle">IBM System x3650 M3 (7945KEG) - Management, Diagnostic and Update Tools</p>
+<p class="lede">ASU, DSA (Portable, Preboot), UXSPI, BoMC, Lenovo XClarity Essentials OneCLI, iflash and the IBM flash packages, StorCLI, SAS2IRCU / SAS2FLASH, ipmitool and the project scripts in scripts/. For every tool: purpose, local copies (path + SHA256) ...</p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_TOOLS.md</code></span> <span>19 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">37</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">39</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">28</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">42</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">24</span> <span class="tl tl-not-verified">NOT VERIFIED</span><span class="n">1</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary">1. Summary</a></li><li class="l2"><a href="#2-host-environment-relevant-to-the-tools-measured">2. Host environment relevant to the tools (MEASURED)</a></li><li class="l2"><a href="#3-transports-kcs-lan-over-usb-imm-external-lan-bootable-media">3. Transports: KCS, LAN over USB, IMM external LAN, bootable media</a></li><li class="l2"><a href="#4-asu---advanced-settings-utility">4. ASU - Advanced Settings Utility</a></li><li class="l3"><a href="#41-purpose-documented">4.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#42-local-copies">4.2 Local copies</a></li><li class="l3"><a href="#43-operating-system-and-runtime">4.3 Operating system and runtime</a></li><li class="l3"><a href="#44-transport-documented-s-026-v106-pdf-p19-21-p67-70">4.4 Transport (DOCUMENTED, S-026 v10.6 PDF p19-21, p67-70)</a></li><li class="l3"><a href="#45-commands">4.5 Commands</a></li><li class="l3"><a href="#46-caveats-documented-unless-marked">4.6 Caveats (DOCUMENTED unless marked)</a></li><li class="l2"><a href="#5-dsa---dynamic-system-analysis-portable-and-preboot">5. DSA - Dynamic System Analysis (Portable and Preboot)</a></li><li class="l3"><a href="#51-purpose-documented">5.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#52-local-copies-portable-101-build-dsala5q-all-xmls-list-x3650-m3-7945">5.2 Local copies (Portable 10.1, build DSALA5Q; all XMLs list x3650 M3 7945)</a></li><li class="l3"><a href="#53-operating-system-and-runtime">5.3 Operating system and runtime</a></li><li class="l3"><a href="#54-transport-documented">5.4 Transport (DOCUMENTED)</a></li><li class="l3"><a href="#55-commands">5.5 Commands</a></li><li class="l3"><a href="#56-caveats-documented">5.6 Caveats (DOCUMENTED)</a></li><li class="l3"><a href="#57-preboot-dsa-953-package-analysis-installed-348">5.7 Preboot DSA 9.53 package analysis (installed 3.48)</a></li><li class="l2"><a href="#6-uxspi---updatexpress-system-pack-installer">6. UXSPI - UpdateXpress System Pack Installer</a></li><li class="l3"><a href="#61-purpose-documented">6.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#62-local-copies">6.2 Local copies</a></li><li class="l3"><a href="#63-operating-system-and-runtime-documented">6.3 Operating system and runtime (DOCUMENTED)</a></li><li class="l3"><a href="#64-transport-and-commands-documented">6.4 Transport and commands (DOCUMENTED)</a></li><li class="l3"><a href="#65-caveats-documented-list-only">6.5 Caveats (DOCUMENTED, list only)</a></li><li class="l2"><a href="#7-bomc---bootable-media-creator">7. BoMC - Bootable Media Creator</a></li><li class="l3"><a href="#71-purpose-documented">7.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#72-local-copies">7.2 Local copies</a></li><li class="l3"><a href="#73-operating-system-and-runtime-documented">7.3 Operating system and runtime (DOCUMENTED)</a></li><li class="l3"><a href="#74-transport-and-commands">7.4 Transport and commands</a></li><li class="l2"><a href="#8-lenovo-xclarity-essentials-onecli">8. Lenovo XClarity Essentials OneCLI</a></li><li class="l2"><a href="#9-iflash-and-the-ibm-firmware-update-packages">9. iflash and the IBM firmware update packages</a></li><li class="l3"><a href="#91-local-copies-extracted-with-scriptsibm_fw_unpackpy-nothing-executed">9.1 Local copies (EXTRACTED with scripts/ibm_fw_unpack.py, nothing executed)</a></li><li class="l3"><a href="#92-runtime-on-this-host-candidate">9.2 Runtime on this host (CANDIDATE)</a></li><li class="l3"><a href="#93-commands-documented-package-readme-firmware_formats-8">9.3 Commands (DOCUMENTED, package README; FIRMWARE_FORMATS 8)</a></li><li class="l2"><a href="#10-storcli-serveraid-m1015">10. StorCLI (ServeRAID M1015)</a></li><li class="l3"><a href="#101-purpose-and-applicability-documented">10.1 Purpose and applicability (DOCUMENTED)</a></li><li class="l3"><a href="#102-local-copies">10.2 Local copies</a></li><li class="l3"><a href="#103-operating-system-and-runtime">10.3 Operating system and runtime</a></li><li class="l3"><a href="#104-procedure-used-on-2026-10-20-measured-capture-header-lines-1-8">10.4 Procedure used on 2026-10-20 (MEASURED, capture header lines 1-8)</a></li><li class="l3"><a href="#105-commands">10.5 Commands</a></li><li class="l2"><a href="#11-sas2ircu-and-sas2flash-ibm-6gb-sas-hba">11. SAS2IRCU and SAS2FLASH (IBM 6Gb SAS HBA)</a></li><li class="l3"><a href="#111-sas2ircu-documented--extracted">11.1 SAS2IRCU (DOCUMENTED / EXTRACTED)</a></li><li class="l3"><a href="#112-sas2flash">11.2 SAS2FLASH</a></li><li class="l2"><a href="#12-ipmitool">12. ipmitool</a></li><li class="l3"><a href="#121-purpose-and-availability">12.1 Purpose and availability</a></li><li class="l3"><a href="#122-transport">12.2 Transport</a></li><li class="l3"><a href="#123-commands">12.3 Commands</a></li><li class="l2"><a href="#13-related-tools-list-only">13. Related tools (list only)</a></li><li class="l2"><a href="#14-project-scripts-scripts">14. Project scripts (scripts/)</a></li><li class="l2"><a href="#15-static-inspection-done-for-this-document">15. Static inspection done for this document</a></li><li class="l2"><a href="#16-practical-tool-matrix-for-this-host-candidate">16. Practical tool matrix for this host (CANDIDATE)</a></li><li class="l2"><a href="#17-source-conflicts">17. Source conflicts</a></li><li class="l2"><a href="#18-open-questions--unknown">18. Open questions / UNKNOWN</a></li></ul></nav></details>
+<div class="prose">
+<p>Scope (docs/KB_PLAN.md, wave 2): ASU, DSA (Portable, Preboot), UXSPI, BoMC, Lenovo XClarity Essentials OneCLI,
+iflash and the IBM flash packages, StorCLI, SAS2IRCU / SAS2FLASH, ipmitool and the project scripts in scripts/.
+For every tool: purpose, local copies (path + SHA256), operating-system support and whether it can run on this
+Proxmox VE host, transport to the server, read-only versus state-changing commands, and documented caveats.</p>
+<p>Rules: docs/AGENT.md. Truth levels: <span class="tl tl-documented">DOCUMENTED</span> (vendor document), <span class="tl tl-extracted">EXTRACTED</span> (from a file in the repository,
+static inspection only), <span class="tl tl-measured">MEASURED</span> (captured from the owner's server), <span class="tl tl-candidate">CANDIDATE</span> (inference, reason given),
+<span class="tl tl-unknown">UNKNOWN</span>. Nothing in this document was executed against the server while writing it; all <span class="tl tl-extracted">EXTRACTED</span> facts come
+from offline static inspection (<code>file</code>, <code>readelf</code>, <code>sha256sum</code>, archive listings) in a scratch directory; no
+vendor binary was executed (section 15).</p>
+<p>Command labels used in every example:</p>
+<ul>
+<li><code>read-only</code> - reads state only (it may still write local output files or start a vendor program as root).</li>
+<li><code>STATE-CHANGING</code> - changes firmware, settings, logs, power, network or users; needs explicit owner approval
+  (docs/AGENT.md). This server IS the Proxmox host [lab-ip] that runs the lab and the agent; an IMM reset,
+  server reboot, power action or failed flash takes everything down.</li>
+<li>Placeholders: <code>&lt;IMM_USER&gt;</code>, <code>&lt;IMM_PASSWORD_FILE&gt;</code>, <code>&lt;IMM_IP&gt;</code> (the owner's IMM is [lab-ip]). Credentials are
+  never stored in this repository; prefer password files or environment variables over command-line passwords.</li>
+</ul>
+<h2 id="contents">Contents <a class="anchor" href="#contents" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Summary</li>
+<li>Host environment relevant to the tools (<span class="tl tl-measured">MEASURED</span>)</li>
+<li>Transports: KCS, LAN over USB, IMM external LAN, bootable media</li>
+<li>ASU - Advanced Settings Utility</li>
+<li>DSA - Dynamic System Analysis (Portable and Preboot)</li>
+<li>UXSPI - UpdateXpress System Pack Installer</li>
+<li>BoMC - (ToolsCenter / XClarity Essentials) Bootable Media Creator</li>
+<li>Lenovo XClarity Essentials OneCLI</li>
+<li>iflash and the IBM firmware update packages</li>
+<li>StorCLI (ServeRAID M1015)</li>
+<li>SAS2IRCU and SAS2FLASH (IBM 6Gb SAS HBA)</li>
+<li>ipmitool</li>
+<li>Related tools (list only)</li>
+<li>Project scripts (scripts/*.py)</li>
+<li>Static inspection done for this document</li>
+<li>Practical tool matrix for this host (<span class="tl tl-candidate">CANDIDATE</span>)</li>
+<li>Source conflicts</li>
+<li>Open questions / <span class="tl tl-unknown">UNKNOWN</span></li>
+</ol>
+<h2 id="1-summary">1. Summary <a class="anchor" href="#1-summary" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+<th>Newest local copy</th>
+<th>Runs on this Proxmox host?</th>
+<th>Transport</th>
+<th>Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASU 10.3 (asut92i)</td>
+<td>read/write UEFI, IMM and iSCSI settings; IMM certificates; immapp power/log functions</td>
+<td>firmware/lenovo/software-and-utilities/DS118233 (Linux x86-64 tgz)</td>
+<td><span class="tl tl-candidate">CANDIDATE</span> yes: asu64 is a dynamic x86-64 ELF needing only glibc libraries (section 4.3); not tried</td>
+<td>in-band KCS or LAN over USB; out-of-band IMM external LAN</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-extracted">EXTRACTED</span></td>
+</tr>
+<tr>
+<td>DSA Portable 10.1 (dsala5q)</td>
+<td>inventory, logs, non-destructive diagnostics into a compressed XML / HTML</td>
+<td>DS121670 (RHEL6 x86-64 .bin) and other builds</td>
+<td><span class="tl tl-candidate">CANDIDATE</span> uncertain: only RHEL/SLES/Windows/VMware builds exist; stub links glibc only, payload not inspected</td>
+<td>in-band (IPMI driver, LAN over USB); <code>--ipmi-lan</code> for remote IPMI SEL</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-extracted">EXTRACTED</span></td>
+</tr>
+<tr>
+<td>Preboot DSA</td>
+<td>embedded diagnostics in IMM flash, started with F2 at POST; ISO edition</td>
+<td>installed DSYT89P version 3.48 (<span class="tl tl-measured">MEASURED</span>, section 18 item 10); update package 9.53 DSYTC5F in firmware/ibm/dsa/9.53-dsytc5f (analysis: section 5.7); DSA 10.0 ISO metadata only (DS117895)</td>
+<td>not an OS tool; needs a server reboot</td>
+<td>runs on the server itself</td>
+<td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>UXSPI 10.2</td>
+<td>compare/acquire/apply UpdateXpress System Packs</td>
+<td>metadata only (DS118758/60/66/68); no installer binary</td>
+<td><span class="tl tl-candidate">CANDIDATE</span> no: supported OS list is RHEL/SLES/Windows; needs RPM-era libraries</td>
+<td>in-band (LAN over USB, IPMI driver); <code>--remote</code> = OS-to-OS of the same type</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>BoMC 10.3 / 13.0.1</td>
+<td>builds bootable CD/DVD/ISO/USB/PXE media with Preboot DSA, UXSPI and updates</td>
+<td>DS119115 Windows i386 .exe (10.3); 13.0.1 metadata only</td>
+<td>creating media: Windows/RHEL/SLES workstation; the media boots the server (reboot)</td>
+<td>bootable media; uses LAN over USB inside the boot image</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>OneCLI</td>
+<td>Lenovo successor of ASU, DSA and UXSPI</td>
+<td>none: no OneCLI package in the 7945 catalog</td>
+<td><span class="tl tl-unknown">UNKNOWN</span> for this machine type</td>
+<td>-</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (absence) / <span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>iflash / iflash64</td>
+<td>flash utility inside each IBM IMM/UEFI/DSA package</td>
+<td>inside firmware/ibm/uefi/1.14-d6e156b and 1.22-d6e164a packages</td>
+<td><span class="tl tl-candidate">CANDIDATE</span> no for the vendor package path: package stub, linwrap and iflash are dynamic i386 ELF and the host has no i386 loader or foreign architecture (<span class="tl tl-measured">MEASURED</span> 2026-10-20, section 2); iflash64 is x86-64</td>
+<td>LAN over USB (IPMI LAN, FTP) or KCS <code>--kcs</code>; TFTP option</td>
+<td><span class="tl tl-extracted">EXTRACTED</span> / <span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>StorCLI 1.14.12</td>
+<td>ServeRAID M1015 (MegaRAID) management</td>
+<td>DS111345 Linux zip (rpm inside); newest Linux 1.16.14 (DS118409)</td>
+<td><span class="tl tl-measured">MEASURED</span> yes: storcli64 (static x86-64) ran read-only on 2026-10-20</td>
+<td>in-band, /dev/megaraid_sas_ioctl_node</td>
+<td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-extracted">EXTRACTED</span></td>
+</tr>
+<tr>
+<td>SAS2IRCU 20.00.00.00</td>
+<td>IR/volume utility for LSI SAS2 HBAs (lists "6Gb SAS HBA (46M0907)")</td>
+<td>DS117061 Linux zip</td>
+<td><span class="tl tl-candidate">CANDIDATE</span>: static i386 ELF, so the missing i386 libraries (<span class="tl tl-measured">MEASURED</span>, section 2) do not block it; kernel IA32 emulation is built in and enabled by default (<span class="tl tl-measured">MEASURED</span>, section 2); still needs the mpt2sas-class driver</td>
+<td>in-band</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-extracted">EXTRACTED</span></td>
+</tr>
+<tr>
+<td>SAS2FLASH</td>
+<td>SAS2 HBA firmware flasher</td>
+<td>none in repository or catalog</td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td>in-band</td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>ipmitool</td>
+<td>IPMI client (SDR, SEL, FRU, chassis, LAN, users, SOL)</td>
+<td>not in repository; installed on the host as /usr/bin/ipmitool, version 1.8.19</td>
+<td><span class="tl tl-measured">MEASURED</span> yes (captures/2026-10-19_ipmi_inband.txt; version captures/2026-10-20_host_probes_wave2.txt line 9)</td>
+<td>in-band /dev/ipmi0 (KCS); out-of-band RMCP+ UDP 623</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>scripts/*.py</td>
+<td>offline firmware analysis, catalog/download, Wayback mirror</td>
+<td>scripts/</td>
+<td>yes (Python 3 standard library)</td>
+<td>none for the server</td>
+<td><span class="tl tl-extracted">EXTRACTED</span></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="2-host-environment-relevant-to-the-tools-measured">2. Host environment relevant to the tools (<span class="tl tl-measured">MEASURED</span>) <a class="anchor" href="#2-host-environment-relevant-to-the-tools-measured" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OS / kernel</td>
+<td>Proxmox VE 8.4.0 (pve-manager 8.4.21), kernel 6.8.12-43-pve, x86_64</td>
+<td>captures/2026-10-19_os_inventory.txt lines 1106-1110</td>
+</tr>
+<tr>
+<td>Debian base</td>
+<td>Debian GNU/Linux 12 (bookworm) (/etc/os-release PRETTY_NAME)</td>
+<td>captures/2026-10-20_host_probes_wave2.txt lines 101-102</td>
+</tr>
+<tr>
+<td>32-bit (i386) user space</td>
+<td>absent: <code>dpkg --print-foreign-architectures</code> prints nothing (no i386 architecture enabled) and /lib/ld-linux.so.2 does not exist (<span class="tl tl-measured">MEASURED</span>)</td>
+<td>captures/2026-10-20_host_probes_wave2.txt lines 101-104</td>
+</tr>
+<tr>
+<td>Kernel IA32 emulation</td>
+<td>/boot/config-6.8.12-43-pve: <code>CONFIG_IA32_EMULATION=y</code>, <code># CONFIG_IA32_EMULATION_DEFAULT_DISABLED is not set</code> (<span class="tl tl-measured">MEASURED</span>). <span class="tl tl-candidate">CANDIDATE</span> consequence (agent knowledge of the kernel option): 32-bit i386 processes are allowed by default, so static i386 binaries can run; dynamic i386 binaries still fail on the missing i386 loader and libraries (row above)</td>
+<td>captures/2026-10-20_host_probes_boot_apt.txt lines 4-6</td>
+</tr>
+<tr>
+<td>IPMI</td>
+<td>/dev/ipmi0; ipmi_si (KCS at I/O 0xca2), ipmi_devintf, ipmi_msghandler, ipmi_ssif loaded</td>
+<td>os_inventory lines 1170-1186, 1239-1245</td>
+</tr>
+<tr>
+<td>LAN over USB</td>
+<td>USB 04b3:4010 "IBM RNDIS/CDC ETHER", driver cdc_ether, interface enx5ef3fce08adf DOWN, no address, no route</td>
+<td>captures/2026-10-19_imm_lanoverusb_host.txt lines 7-25, 179-185</td>
+</tr>
+<tr>
+<td>RAID / HBA drivers</td>
+<td>megaraid_sas (M1015), mpt3sas (second HBA, object name mpt2sas_cm0); /dev/megaraid_sas_ioctl_node, /dev/sg0, /dev/sg1</td>
+<td>os_inventory lines 1170-1186; docs/X3650M3_STORAGE_RAID.md section 4.2</td>
+</tr>
+<tr>
+<td>Tools installed on the host</td>
+<td>/usr/bin/ipmitool, /usr/bin/sensors, /usr/sbin/smartctl; no megacli/storcli/MegaCli64 installed</td>
+<td>os_inventory lines 1175-1178</td>
+</tr>
+<tr>
+<td>IMM services reachable from the network</td>
+<td>[not published]</td>
+<td>captures/2026-10-19_imm_nmap_tcp.txt, captures/2026-10-19_imm_nmap_udp.txt</td>
+</tr>
+<tr>
+<td>Installed firmware</td>
+<td>IMM YUOOC7E 1.30, UEFI D6E154A (1.13), DSA Preboot DSYT89P, M1015 package 20.10.1-0052</td>
+<td>docs/X3650M3_FIRMWARE_HISTORY.md "Installed levels"</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-transports-kcs-lan-over-usb-imm-external-lan-bootable-media">3. Transports: KCS, LAN over USB, IMM external LAN, bootable media <a class="anchor" href="#3-transports-kcs-lan-over-usb-imm-external-lan-bootable-media" aria-label="Link to this section">#</a></h2>
+<p>Details of the interfaces themselves are in docs/X3650M3_IMM_ARCHITECTURE.md sections 4.1 (KCS), 4.2 (LAN over
+USB), 5 (network services) and 9.3 (in-band update protocol). Tool-relevant points:</p>
+<ul>
+<li>KCS (in-band IPMI system interface): used by ipmitool (OpenIPMI /dev/ipmi0), by ASU as fallback or with
+  <code>--kcs</code>, by iflash with <code>--kcs</code>. <span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> v10.6 PDF p19): "The local connection over the KCS interface
+  does not require authentication". Any root process on the host therefore has unauthenticated IMM access.</li>
+<li>LAN over USB (in-band virtual Ethernet to the IMM, IMM at 169.254.95.118): used by ASU (default), DSA, UXSPI,
+  BoMC media and the iflash packages. <span class="tl tl-documented">DOCUMENTED</span>: ASU "attempts to connect and automatically configure the LAN
+  over USB interface if it detects that this interface is not configured" and disables it again afterwards if it
+  was disabled before (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> PDF p19-20); DSA Portable and UXSPI both warn that running them changes the route
+  table of the 169.254.95.x network and can crash cluster software (DSA 10.1 readme section 9.0; UXSPI 10.2
+  readme "Duplicate IP addresses when updating IMM, uEFI, and DSA"). <span class="tl tl-documented">DOCUMENTED</span> (ASU 10.3 readme section 2.2):
+  "there must be no network device on the system configured with an IP adress of 169.254.x.y other than the CDC
+  Ethernet Device".</li>
+<li>The helper script that performs this host-side configuration is cdc_interface.sh (<span class="tl tl-extracted">EXTRACTED</span>: version 1.0.7 in
+  the ASU 10.3 tgz, SHA256 8e7fe3809b102f878e68c6de1faba3477bdc2fd01dc5831ae2e9d5ac9b213457; version 1.0.5 in
+  the UEFI 1.14 package, SHA256 5fc16ee9f1298f4c71c2060c9e01a0f9d997ff1ed0bf636931f83ad2463718e6). Its OS
+  detection reads /etc/redhat-release, /etc/SuSE-release and /etc/vmware-release, and it may edit
+  /etc/modprobe.conf or /etc/modules.conf (keeping /etc/ORIGINAL.<em> copies) and use ifconfig/ifup/ifdown and
+  /etc/sysconfig/network</em> (<span class="tl tl-extracted">EXTRACTED</span>, grep of the script). No Debian branch was found; its behavior on this
+  Proxmox host (ifupdown2, Linux bridges for the VMs) is <span class="tl tl-unknown">UNKNOWN</span>. <span class="tl tl-candidate">CANDIDATE</span> risk: changes to host networking on
+  the lab hypervisor; treat any tool run that touches LAN over USB as STATE-CHANGING for the host.</li>
+<li>IMM external LAN (out-of-band): ASU <code>--host/--user/--password(-file)</code>, ipmitool <code>-I lanplus</code>, IMM web/SSH CLI.
+  Works with the host OS down (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> PDF p20). The TCP port ASU uses for out-of-band IMMv1 access is not stated in
+  the local sources (<span class="tl tl-unknown">UNKNOWN</span>; CIM on 5988/5989 is <span class="tl tl-candidate">CANDIDATE</span>, reason: <a class="sref" href="../catalog/sources.html#s-026">S-026</a> limitation 9 and immapp mention CIM
+  HTTP/HTTPS, not verified for IMMv1).</li>
+<li>Bootable media (BoMC, Preboot DSA ISO, embedded Preboot DSA via F2): the tools run on the server instead of
+  Proxmox; using them requires a reboot of the lab host (STATE-CHANGING).</li>
+</ul>
+<h2 id="4-asu---advanced-settings-utility">4. ASU - Advanced Settings Utility <a class="anchor" href="#4-asu---advanced-settings-utility" aria-label="Link to this section">#</a></h2>
+<h3 id="41-purpose-documented">4.1 Purpose (<span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#41-purpose-documented" aria-label="Link to this section">#</a></h3>
+<p>ASU modifies firmware settings from the command line: UEFI settings, IMM settings, VPD, iSCSI boot settings, and on
+IMM-based servers remotely over the IMM external LAN. "The ASU does not update any of the firmware code"
+(<a class="sref" href="../catalog/sources.html#s-026">S-026</a> v10.6 PDF p7-8). It also generates/imports/exports IMM certificates and offers <code>immapp</code> (host power, SEL
+and IMM log functions, ASU 9.40+, <a class="sref" href="../catalog/sources.html#s-026">S-026</a> PDF p49). The UEFI setting names of this server (209 top-level settings in
+UEFI 1.22, <code>uEFI.&lt;mriName&gt;</code>) are in docs/X3650M3_UEFI.md section 7 and Appendix A; they are not repeated here.</p>
+<h3 id="42-local-copies">4.2 Local copies <a class="anchor" href="#42-local-copies" aria-label="Link to this section">#</a></h3>
+<p>All from sources/lenovo/CATALOG.md; SHA256 from the SHA256SUMS file in each directory (vendor SHA256 match per
+SOURCE.txt).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Build</th>
+<th>Package</th>
+<th>Path</th>
+<th>SHA256</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.3</td>
+<td>asut92i</td>
+<td>Linux x86-64 tgz</td>
+<td>firmware/lenovo/software-and-utilities/DS118233/lnvgy_utl_asu_asut92i-10.3_linux_x86-64.tgz</td>
+<td>d93f7d83f400ae16d99f58ab9682e60266ff2f1168548b9bbf12a04056e4e5d4</td>
+</tr>
+<tr>
+<td>10.3</td>
+<td>asut92i</td>
+<td>Linux x86-64 rpm</td>
+<td>firmware/lenovo/software-and-utilities/DS118235/lnvgy_utl_asu_asut92i-10.3_linux_x86-64.rpm</td>
+<td>6d0ceef7ef23f7b97405f4c73c6429322b8b5916919b0862f29c821a6a47f9ff</td>
+</tr>
+<tr>
+<td>10.3</td>
+<td>asut92i</td>
+<td>Linux i386 tgz</td>
+<td>firmware/lenovo/software-and-utilities/DS118237/lnvgy_utl_asu_asut92i-10.3_linux_i386.tgz</td>
+<td>123552f02c0ad0a4d708cfea86da13de69487912e16d31421a37063ea4973bf1</td>
+</tr>
+<tr>
+<td>10.3</td>
+<td>asut92i</td>
+<td>Linux i386 rpm</td>
+<td>firmware/lenovo/software-and-utilities/DS118232/lnvgy_utl_asu_asut92i-10.3_linux_i386.rpm</td>
+<td>30cd5ec383e4ab2e8fde8a8637f79d5258d6badf5a4f3728f973fdda57f5249b</td>
+</tr>
+<tr>
+<td>10.3</td>
+<td>asut92i</td>
+<td>Windows x86-64 exe</td>
+<td>firmware/lenovo/software-and-utilities/DS118236/lnvgy_utl_asu_asut92i-10.3_windows_x86-64.exe</td>
+<td>1ca978f08956f49fe4ef0e5c588f7a7118691ac7147556839fe911fc78bf804e</td>
+</tr>
+<tr>
+<td>10.3</td>
+<td>asut92i</td>
+<td>Windows i386 exe</td>
+<td>firmware/lenovo/software-and-utilities/DS118234/lnvgy_utl_asu_asut92i-10.3_windows_i386.exe</td>
+<td>a404417e875b999f65af5c3344312655cd8a2c069d336dc5bcbc55cdfbe15917</td>
+</tr>
+<tr>
+<td>10.1</td>
+<td>asut90f</td>
+<td>Linux x86-64 tgz</td>
+<td>firmware/lenovo/software-and-utilities/DS118477/lnvgy_utl_asu_asut90f-10.1_linux_x86-64.tgz</td>
+<td>cc0df7cd203b91c889add1f2d1e6d00fd2533a508377cde6e6dc0c2e1e2dd531</td>
+</tr>
+<tr>
+<td>10.1</td>
+<td>asut90f</td>
+<td>Linux x86-64 rpm</td>
+<td>firmware/lenovo/software-and-utilities/DS118479/lnvgy_utl_asu_asut90f-10.1_linux_x86-64.rpm</td>
+<td>3ba31d4be97605a174ba5167847d4831b422be7b9029c2c90e1ca7dacbe401be</td>
+</tr>
+<tr>
+<td>10.1</td>
+<td>asut90f</td>
+<td>Linux i386 tgz</td>
+<td>firmware/lenovo/software-and-utilities/DS117925/lnvgy_utl_asu_asut90f-10.1_linux_i386.tgz</td>
+<td>a1152d28f13dc105050300b91266c13a61c9a98b9b2853690b93a69ac795d82d</td>
+</tr>
+<tr>
+<td>10.1</td>
+<td>asut90f</td>
+<td>Windows x86-64 exe</td>
+<td>firmware/lenovo/software-and-utilities/DS116281/lnvgy_utl_asu_asut90f-10.1_windows_x86-64.exe</td>
+<td>608f63b4ad2d4a873477a801fea5ec81340bd8ba43d407f3cd057ea90af4ebf7</td>
+</tr>
+</tbody>
+</table></div>
+<p>Contents of the 10.3 Linux x86-64 tgz (<span class="tl tl-extracted">EXTRACTED</span>, <code>tar tzvf</code>): asu64 (21161036 B), template.xml, lic_en.txt,
+cdc_interface.sh, savestat.def, rdcli-x86_64/rdmount, rdcli-x86_64/rdumount. asu64 SHA256
+b784831464e7674f77bf6144ab5988827be6fae49a4ebc54b3ef05f3eaa36671.</p>
+<p>Applicability to 7945 (<span class="tl tl-documented">DOCUMENTED</span>): every ASU 10.1/10.3 package XML lists <code>System x3650 M3-[7945]-</code> in
+applicableMachineTypes; the IBM ASU 9.30 guide lists "IBM System x3650 M3 Type 7945, 4255, 5454" (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> 9.30 PDF
+p14). The Lenovo ASU 10.6 guide's supported-systems list does not name the x3650 M3 (conflict T-5).</p>
+<h3 id="43-operating-system-and-runtime">4.3 Operating system and runtime <a class="anchor" href="#43-operating-system-and-runtime" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span> supported OS (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> v10.6 PDF p9, 32- and 64-bit): Windows 2008 to 2016, WinPE 1.6/2.0/2.1, RHEL 6/7,
+  SLES 10/11/12, VMware ESX/ESXi 4.0 to 6.0. Debian/Proxmox is not listed.</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> (same page): distributions without the compatibility libstdc++ may fail with "libstdc++-libc6.1-1.so.2:
+  cannot open shared object file". <span class="tl tl-extracted">EXTRACTED</span>: asu64 10.3 is "ELF 64-bit LSB executable, x86-64, dynamically
+  linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 2.4.0, with debug_info, not stripped"; its NEEDED
+  libraries are librt.so.1, libdl.so.2, libcrypt.so.1, libm.so.6, libpthread.so.0 and libc.so.6 (no libstdc++),
+  highest versioned glibc symbol GLIBC_2.3.2. <span class="tl tl-candidate">CANDIDATE</span>: it can start on a current x86-64 Debian (reason: only
+  base glibc libraries, old symbol versions); libcrypt.so.1 presence on the host was not checked. Not tried.</li>
+<li>Linux IPMI driver: OSA/MSI driver with mapping layer, or the distribution OpenIPMI driver (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> PDF p13). The
+  host has the in-kernel ipmi_si/ipmi_devintf (<span class="tl tl-measured">MEASURED</span>, section 2).</li>
+<li>ASU 10.3 readme section 1.5: "Definition files must be at version 2.4.1 or below." Section 2.2: ASU loads the CDC
+  Ethernet driver through cdc_interface.sh, which must be in the same directory as asu.</li>
+</ul>
+<h3 id="44-transport-documented-s-026-v106-pdf-p19-21-p67-70">4.4 Transport (<span class="tl tl-documented">DOCUMENTED</span>, S-026 v10.6 PDF p19-21, p67-70) <a class="anchor" href="#44-transport-documented-s-026-v106-pdf-p19-21-p67-70" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>No connection options: ASU tries LAN over USB with the IMM default account, then falls back to KCS (needs the
+  IPMI driver).</li>
+<li><code>--kcs</code>: KCS only, no authentication.</li>
+<li><code>--host &lt;IMM_IP&gt; --user &lt;IMM_USER&gt; --password ...</code> (or <code>--password-file &lt;file&gt;</code>): out-of-band over the IMM external
+  LAN; all three required; since ASU 9.41 there is no default user/password out-of-band. The OS may be off.</li>
+<li><code>--noimmlancfg</code>: skip the automatic LAN over USB configuration when the interface was configured manually.</li>
+<li><code>--mtsn</code> / <code>--net</code>: locate an IMM on the LAN by machine type, model and serial.</li>
+<li>The IMM LAN-over-USB IP settings <code>IMM.LanOverUsbIMMIP</code>, <code>IMM.LanOverUsbIMMNetmask</code>, <code>IMM.LanOverUsbHostIP</code> are for
+  IMM2 build 1AOO45F or later: "IMMV1 is not supported" (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> PDF p21).</li>
+<li><a class="sref" href="../catalog/sources.html#s-020">S-020</a> (IMM v1 user's guide) PDF p125: ASU 3.0.0 or later is required to manage the IMM; if LAN over USB is
+  disabled, ASU needs IPMI device drivers.</li>
+</ul>
+<h3 id="45-commands">4.5 Commands <a class="anchor" href="#45-commands" aria-label="Link to this section">#</a></h3>
+<p>Read-only (they read settings; <code>save</code> writes a local file only):</p>
+<pre><code>./asu64 version                                        # read-only
+./asu64 show all --kcs                                  # read-only (all settings via KCS, no LAN-over-USB setup)
+./asu64 show uEFI --kcs                                 # read-only
+./asu64 show uEFI.OperatingMode --kcs                   # read-only (setting from docs/X3650M3_UEFI.md)
+./asu64 showvalues uEFI.OperatingMode --kcs             # read-only (allowed values)
+./asu64 showdefault uEFI --kcs                          # read-only
+./asu64 showgroups --kcs                                # read-only
+./asu64 comparedefault uEFI --kcs                       # read-only
+./asu64 save &lt;local_file&gt; --kcs                         # read-only on the server; writes &lt;local_file&gt;
+./asu64 nodes --kcs                                     # read-only
+./asu64 immapp powerstate --kcs                         # read-only
+./asu64 immapp showsel --kcs                            # read-only
+./asu64 immapp showimmlog --kcs                         # read-only
+./asu64 show all --host &lt;IMM_IP&gt; --user &lt;IMM_USER&gt; --password-file &lt;IMM_PASSWORD_FILE&gt;   # read-only, out-of-band
+./asu64 show IMM --noimmlancfg                          # read-only on the IMM, but connects over LAN over USB
+</code></pre>
+<p>Note: running ASU without <code>--kcs</code>, <code>--host</code> or <code>--noimmlancfg</code> lets it configure the LAN-over-USB interface on
+the host (section 3); on this Proxmox host that is a host network change (STATE-CHANGING for the host, <span class="tl tl-candidate">CANDIDATE</span>).</p>
+<p>STATE-CHANGING (owner approval required):</p>
+<pre><code>./asu64 set uEFI.OperatingMode &quot;&lt;value&gt;&quot; --kcs          # STATE-CHANGING (UEFI setting, applies at next boot)
+./asu64 setenc &lt;setting&gt; &lt;encrypted_value&gt; --kcs        # STATE-CHANGING
+./asu64 loaddefault uEFI --kcs                          # STATE-CHANGING (does not reset boot order, limitation 3)
+./asu64 restore &lt;file&gt; --kcs                            # STATE-CHANGING
+./asu64 replicate &lt;file&gt; --kcs                          # STATE-CHANGING (skips noreplicate settings)
+./asu64 batch &lt;file&gt; --kcs                              # STATE-CHANGING if the batch contains set/restore commands
+./asu64 delete &lt;setting&gt;[&lt;instance&gt;] --kcs              # STATE-CHANGING (deletes a setting instance)
+./asu64 createuuid &lt;setting&gt; --kcs                      # STATE-CHANGING (sets the system UUID)
+./asu64 set IMM.LanOverUsb Disabled --kcs               # STATE-CHANGING (documented to need --kcs, PDF p20)
+./asu64 rebootimm --kcs                                 # STATE-CHANGING (IMM restart)
+./asu64 generate|import|deletecert ...                  # STATE-CHANGING (IMM certificates)
+./asu64 immapp poweronos|poweroffos|rebootos --kcs      # STATE-CHANGING (host power: takes the lab down)
+./asu64 immapp clearsel|clearimmlog|clearalllog --kcs   # STATE-CHANGING (log loss)
+</code></pre>
+<p>BIOS-only commands (dump, readraw, writeraw, showlocation) do not apply to this UEFI server (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> Chapter 3).</p>
+<h3 id="46-caveats-documented-unless-marked">4.6 Caveats (<span class="tl tl-documented">DOCUMENTED</span> unless marked) <a class="anchor" href="#46-caveats-documented-unless-marked" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>"For IMM-based servers, after you use the ASU to change settings, you must reset the IMM before you flash new
+  firmware. If you do not reset the IMM, the changes you made to the settings might be lost" (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> PDF p19).</li>
+<li>Some settings need an IMM restart to take effect or to show in the IMM web interface (<a class="sref" href="../catalog/sources.html#s-026">S-026</a> PDF p7).</li>
+<li>Certificate management needs IMM level "yuoo78m or later" (PDF p7) or "yuoo71a or later" (PDF p19), conflict T-6.</li>
+<li><code>loaddefault</code> does not restore the default boot order on IMM-based systems (PDF p25, limitation 3; ASU 10.3 readme
+  7.4). After setting IMM network settings the result may not be readable because the connection closes (limitation 8).</li>
+<li>On ESXi with IMMv1, <code>IMM.RemoteAlertRecipient_Status.x</code> changes do not take effect (limitation 7, list only).</li>
+<li>Windows: ASU extracts the helper driver wflash.sys (PDF p10); not relevant to the Linux host.</li>
+</ul>
+<h2 id="5-dsa---dynamic-system-analysis-portable-and-preboot">5. DSA - Dynamic System Analysis (Portable and Preboot) <a class="anchor" href="#5-dsa---dynamic-system-analysis-portable-and-preboot" aria-label="Link to this section">#</a></h2>
+<h3 id="51-purpose-documented">5.1 Purpose (<span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#51-purpose-documented" aria-label="Link to this section">#</a></h3>
+<p>DSA collects system configuration, installed packages, kernel modules, network settings, hardware inventory (PCI,
+USB), light path status, service processor status and configuration, VPD and firmware levels, drive health,
+ServeRAID/LSI RAID configuration and the OS, RAID and service-processor event logs, plus a merged log; optional
+non-destructive diagnostics (<code>-diags</code>). Output: compressed XML and optional HTML/text (DSA 10.1 Portable readme
+section 1.1; <a class="sref" href="../catalog/sources.html#s-028">S-028</a> 9.60 PDF p13). Editions (<a class="sref" href="../catalog/sources.html#s-028">S-028</a> PDF p13): Preboot Edition (embedded image or boot media, created
+with BoMC or flashed with a Preboot DSA update package) and Portable Edition (self-extracting executable that
+expands into a temporary directory and deletes it afterwards).</p>
+<h3 id="52-local-copies-portable-101-build-dsala5q-all-xmls-list-x3650-m3-7945">5.2 Local copies (Portable 10.1, build DSALA5Q; all XMLs list x3650 M3 7945) <a class="anchor" href="#52-local-copies-portable-101-build-dsala5q-all-xmls-list-x3650-m3-7945" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Build</th>
+<th>Path</th>
+<th>SHA256</th>
+<th>ELF class of the stub (<span class="tl tl-extracted">EXTRACTED</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RHEL6 x86-64</td>
+<td>firmware/lenovo/software-and-utilities/DS121670/lnvgy_utl_dsa_dsala5q-10.1_portable_rhel6_x86-64.bin</td>
+<td>274b05fadf4c2c9eafc81a7410fb90ef2c8a979b4aa9efcbee68afb72f7642b0</td>
+<td>ELF 64-bit x86-64, dynamic (NEEDED libpthread.so.0, libdl.so.2, libc.so.6; GLIBC_2.2.5)</td>
+</tr>
+<tr>
+<td>SLES11 x86-64</td>
+<td>firmware/lenovo/software-and-utilities/DS121673/lnvgy_utl_dsa_dsala5q-10.1_portable_sles11_x86-64.bin</td>
+<td>c7a3e593bf255c9e5548cedcf5910b987c3b82142f4bd03ea709dae23bcecd05</td>
+<td>ELF 64-bit x86-64, dynamic</td>
+</tr>
+<tr>
+<td>RHEL5 x86-64</td>
+<td>firmware/lenovo/software-and-utilities/DS121668/lnvgy_utl_dsa_dsala5q-10.1_portable_rhel5_x86-64.bin</td>
+<td>57e6a35dca0c19e4bbb6d159a74f39459988e87612a4ee0c93ea2965cce777ab</td>
+<td>ELF 64-bit x86-64, dynamic</td>
+</tr>
+<tr>
+<td>VMware 4.x</td>
+<td>firmware/lenovo/software-and-utilities/DS121674/lnvgy_utl_dsa_dsala5q-10.1_portable_vmware_4.x.bin</td>
+<td>57e6a35dca0c19e4bbb6d159a74f39459988e87612a4ee0c93ea2965cce777ab (identical file, T-3)</td>
+<td>same file</td>
+</tr>
+<tr>
+<td>RHEL6 i386</td>
+<td>firmware/lenovo/software-and-utilities/DS121669/lnvgy_utl_dsa_dsala5q-10.1_portable_rhel6_i386.bin</td>
+<td>56b521ad7e24cf1aaad13e8419e5cfb2f0d0175c58dd15c1366c79c49ce0b661</td>
+<td>ELF 32-bit i386, dynamic</td>
+</tr>
+<tr>
+<td>RHEL5 i386</td>
+<td>firmware/lenovo/software-and-utilities/DS121667/lnvgy_utl_dsa_dsala5q-10.1_portable_rhel5_i386.bin</td>
+<td>956038d34708ab08755d4725eaf5c3c0a4173f46dd29dbfcc3fa1b9842ba81eb</td>
+<td>ELF 32-bit i386, dynamic</td>
+</tr>
+<tr>
+<td>SLES11 i386</td>
+<td>firmware/lenovo/software-and-utilities/DS117824/lnvgy_utl_dsa_dsala5q-10.1_portable_sles11_i386.bin</td>
+<td>b558fda465b546f5ba3b542a0b8f2920606bce723cf47f9882a6ad224e8437bb</td>
+<td>ELF 32-bit i386, dynamic</td>
+</tr>
+<tr>
+<td>Windows x86-64</td>
+<td>firmware/lenovo/software-and-utilities/DS117829/lnvgy_utl_dsa_dsala5q-10.1_portable_windows_x86-64.exe</td>
+<td>a144af9112b781693db718e9fec705c23d00c630b904aee012f86c5731bdcb04</td>
+<td>PE (not inspected)</td>
+</tr>
+<tr>
+<td>Windows i386</td>
+<td>firmware/lenovo/software-and-utilities/DS121675/lnvgy_utl_dsa_dsala5q-10.1_portable_windows_i386.exe</td>
+<td>9adf4091a02567e91c21d7d808ed46b19331d41a316fda2a6a14cf0313140e4d</td>
+<td>PE (not inspected)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Preboot: installed DSA Preboot build DSYT89P (2011-10-28, <span class="tl tl-measured">MEASURED</span>, docs/X3650M3_FIRMWARE_HISTORY.md); newest seen
+9.53 DSYTC5F (same document, final release UNVERIFIED); its Linux update package is local, see section 5.7. The
+Lenovo DSA 10.0 ISO (DS117895, lnvgy_fw_dsa_dsala1o-10.0, 289.67 MB) is in the catalog; only its .txt/.xml/.chg are
+local; its readme lists "x3650 M3 (7945, 4255, 5454)".</p>
+<h3 id="53-operating-system-and-runtime">5.3 Operating system and runtime <a class="anchor" href="#53-operating-system-and-runtime" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Portable builds exist only for RHEL5/6, SLES11, VMware 4.x and Windows (catalog). The Portable readme (section
+  2.0) states: run as root; needs more than 300 MB free in $TMP; does not execute on a VMFS folder; "Use Portable
+  Edition for Red Hat Enterprise Linux 5 x64 build on VMware ESX Server 4.x"; more than 250 MB of memory (1.2).</li>
+<li>Prerequisites (readme 1.2): the <code>sg</code> driver loaded for SCSI/USB data and diagnostics; Broadcom NetXtreme firmware
+  levels need the vendor driver (the in-box driver does not export them); IPMI/service-processor drivers for
+  service processor logs; libcurl for FTP upload; libstdc++.so.5 (32-bit) for some old ServeRAID tools on RHEL5/SLES11.</li>
+<li><span class="tl tl-candidate">CANDIDATE</span> on this host: the x86-64 stub needs only glibc; the expanded payload (collectors, bundled libraries) was
+  not inspected, so whether DSA runs on Debian 12 / kernel 6.8 is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>Preboot DSA needs at least 1 GB of memory and a USB or optical device for ISO media (DSA 10.0 ISO readme 1.2).</li>
+</ul>
+<h3 id="54-transport-documented">5.4 Transport (<span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#54-transport-documented" aria-label="Link to this section">#</a></h3>
+<p>In-band: OS interfaces, IPMI driver, and the IMM over LAN over USB (option <code>--no-imm-lan</code> skips IMM collection and
+leaves the LAN-over-USB state unchanged; <code>--disable-imm-lan</code> takes the interface down afterwards). Remote IPMI SEL:
+<code>--ipmi-lan &lt;user:password@IP[:port]&gt;</code> (readme 7.0). <code>--vmware-esxi</code> collects from a remote ESXi host (CIM).</p>
+<h3 id="55-commands">5.5 Commands <a class="anchor" href="#55-commands" aria-label="Link to this section">#</a></h3>
+<pre><code>&lt;dsa-package&gt; -x -v -d &lt;out_dir&gt; --no-imm-lan          # read-only on firmware; runs vendor code as root, writes &lt;out_dir&gt;
+&lt;dsa-package&gt; -v -x -i &lt;file&gt;.xml.gz                   # read-only; renders an existing collection offline (no server access)
+&lt;dsa-package&gt; --extract &lt;dir&gt;                          # read-only; unpacks the program files only
+&lt;dsa-package&gt; -diags --no-imm-lan                      # read-only by design (&quot;non-destructive diagnostic tests&quot;); still loads the server
+&lt;dsa-package&gt; --ipmi-lan &lt;IMM_USER&gt;:&lt;password&gt;@&lt;IMM_IP&gt;   # read-only (SEL); password on the command line: avoid, not recommended here
+&lt;dsa-package&gt; -v                                       # STATE-CHANGING for the host: may configure LAN over USB and the route table
+&lt;dsa-package&gt; -t | -upload | --update | --chkupd | -ux # network transfer to vendor/FTP or download: not allowed in this project without approval
+&lt;dsa-package&gt; fod install_imm_fod|uninstall_imm_fod ... # STATE-CHANGING (IMM Features on Demand keys)
+</code></pre>
+<p>Embedded Preboot DSA: power the server off and on, press F2 at the "F2 for Dynamic System Analysis" prompt; a
+standalone memory test runs first, then <code>gui</code> or <code>cmd</code> (DSA 10.0 ISO readme 2.0/3.0; <a class="sref" href="../catalog/sources.html#s-028">S-028</a> PDF p25). STATE-CHANGING
+(reboot of the Proxmox host). If both a power-on and an administrator password are set, the administrator password
+is required.</p>
+<h3 id="56-caveats-documented">5.6 Caveats (<span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#56-caveats-documented" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Default output directory /var/log/Lenovo_Support; file name <code>&lt;machine_type_model&gt;_&lt;serial_no&gt;_&lt;date&gt;-&lt;time&gt;.xml.gz</code>
+  (readme 4.0/4.1). Collections contain serial numbers and configuration; review before sharing.</li>
+<li>Without <code>--no-imm-lan</code>, running Portable DSA "would cause cluster application such as Oracle RAC to crash
+  unexpectedly" through 169.254.95.x route changes (readme 9.0).</li>
+<li>On "uEFI IMMv1 systems" PCI devices may lack their PCI slot mapping (SMBIOS 2.5 limitation); GPT disks show
+  "Unknown" PartitionSubType (readme 9.0).</li>
+<li>Preboot memory test: exits at the first error; only the last loop result is passed to DSA; cannot be re-entered
+  without a reboot (DSA 10.0 ISO readme 2.0).</li>
+</ul>
+<h3 id="57-preboot-dsa-953-package-analysis-installed-348">5.7 Preboot DSA 9.53 package analysis (installed 3.48) <a class="anchor" href="#57-preboot-dsa-953-package-analysis-installed-348" aria-label="Link to this section">#</a></h3>
+<p>Package: firmware/ibm/dsa/9.53-dsytc5f/ibm_fw_dsa_dsytc5f-9.53_linux_32-64.bin (100070918 bytes, SHA256
+a410246a3e5a56c4ad3ce537c7957a1013fb544e08729cf5448cdf59354a11f6, matches SHA256SUMS; the CRC32 0xa74e4621 matches
+the <code>crc</code> field of the .xml) with .xml, .txt (readme) and ibm_fw_dsa_dsytc5f-9.53_anyos_anycpu.chg (changelog) in
+the same directory. Short names below: ".chg" = that changelog with its line numbers, ".txt" = the readme with its
+line numbers, "XML" = the .xml descriptor.</p>
+<h4 id="571-extraction-method-nothing-executed">5.7.1 Extraction method (nothing executed) <a class="anchor" href="#571-extraction-method-nothing-executed" aria-label="Link to this section">#</a></h4>
+<pre><code>python3 -I scripts/ibm_fw_unpack.py info    firmware/ibm/dsa/9.53-dsytc5f/ibm_fw_dsa_dsytc5f-9.53_linux_32-64.bin
+python3 -I scripts/ibm_fw_unpack.py extract firmware/ibm/dsa/9.53-dsytc5f/ibm_fw_dsa_dsytc5f-9.53_linux_32-64.bin build/dsa953
+7z l build/dsa953/upd/pdsa                      # list the FAT file system inside the boot image (read only)
+7z x -obuild/dsa953/fat build/dsa953/upd/pdsa &lt;file&gt;...   # copy single files out for strings/file
+python3 -I scripts/imm_upd.py jffs2 --outdir build/dsa953/imm155/rootfs &lt;IMM 1.55 rootfs.jffs2&gt;  # IMM side, 5.7.3
+</code></pre>
+<p>build/ is git-ignored scratch space; no script change was needed. The package is the standard IBM "PKG SDK"
+self-extractor (FIRMWARE_FORMATS; ELF stub) - <span class="tl tl-extracted">EXTRACTED</span>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Offset</th>
+<th>Size (bytes)</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stub</td>
+<td>0</td>
+<td>24434</td>
+<td>ELF self-extractor stub</td>
+</tr>
+<tr>
+<td>unzip</td>
+<td>24434</td>
+<td>49454</td>
+<td>unzip utility</td>
+</tr>
+<tr>
+<td>image.tar (the .upd)</td>
+<td>73888</td>
+<td>98539520</td>
+<td>POSIX tar: dsap.xml (783) + pdsa (98533376); member mtime 2014-02-17; SHA256 0e2d947f...e57da5</td>
+</tr>
+<tr>
+<td>image.zip</td>
+<td>98613408</td>
+<td>1457020</td>
+<td>wrapcfg x86/x64, linwrap, image/ConvergedFlash.sh, ConvergedFlash64.sh, c_state_fix.sh, cdc_interface.sh, dsa_preboot_update_readme.txt, iflash, iflash64, lflash, lflash64 (zip dates 2014-02-17)</td>
+</tr>
+<tr>
+<td>imgboot.cfg</td>
+<td>100070428</td>
+<td>470</td>
+<td>.upd name <code>./image/dsa_dsytc5f_96224_7_imm1.upd</code>, startup <code>./linwrap</code></td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="572-inner-image-format-and-version-strings-extracted">5.7.2 Inner image format and version strings (<span class="tl tl-extracted">EXTRACTED</span>) <a class="anchor" href="#572-inner-image-format-and-version-strings-extracted" aria-label="Link to this section">#</a></h4>
+<ul>
+<li>The .upd (<code>dsa_dsytc5f_96224_7_imm1.upd</code>, 98539520 bytes) is a tar of dsap.xml and pdsa. dsap.xml
+  (<code>IBMBladeCenterFWUpdFmt</code> 1.0): firmware_type <code>dsa</code>, device_type <code>imm1</code>, build_id <code>dsytc5f</code>, image_version
+  <code>9.53.C5</code>, release_date <code>2014-02-17</code>, image_name "IBM Dynamic System Analysis Preboot", file element
+  <code>name="pDSA.gz" size="98533376" volume="dsaimage" location="dsaimage"</code>, <code>&lt;size&gt;98534149&lt;/size&gt;</code>,
+  <code>&lt;compressed_size&gt;98539520&lt;/compressed_size&gt;</code>, md5chk <code>5563f11a6ff8e63243a2c7c9a72ce532</code>.</li>
+<li>md5chk equals the MD5 of the pdsa member (computed: 5563f11a6ff8e63243a2c7c9a72ce532); SHA256 of pdsa
+  f11b0a09d1c8f1ef40bcb22592361ea94f9b32e7a023859c22dfd77bf45c003e. Despite the element name "pDSA.gz" the member is
+  not gzip: it is a raw 98533376-byte (192448 x 512) disk image with an MBR, one active partition (type 0x0B, start
+  LBA 62, 192386 sectors = 98501632 bytes) holding a FAT16 file system made by mkdosfs, label "diagnostics". The
+  <code>&lt;size&gt;</code> 98534149 differs from the member size by 773 bytes; meaning <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>Boot chain inside the FAT image: syslinux/isolinux (<code>img1a.cfg</code>: label memtest, <code>kernel rom.c32</code>, <code>append
+  kernelimage=img2a initrd=img3a ... embed=yes ...</code>), so F2 first runs the standalone memory test, then DSA (matches
+  5.5). Also efi/boot/bootx64.efi (PE32+ EFI application) and pxelinux files.</li>
+<li>Base environment: version.ini "IBM ToolsCenter Preboot Environment" Version 1.33, x86_64, BuildID 2011-07-08;
+  kernel img2a banner <code>2.6.16.60-334xseries ... Wed Jul 6 16:20:26 UTC 2011</code>; img2a, img3a (15216283 bytes) and
+  tcrootfs (38653952 bytes) carry 2011-07-08 dates. bsb.msg: "Starting IBM DSA Preboot Edition v9.53".</li>
+<li>DSA payload: preboot/sfx-mcp52 (38693750 bytes, x86-64 ELF self-extractor with an appended archive of 2971 files,
+  144563070 bytes unpacked, member dates 2014-02-17; SHA256 0bc3d9b1...a6b1) plus preboot/libdsacore.so,
+  libdsabase.so, libsmbios.so, libpmem.so and gui/libdsaglue.so (2014-02-17). The name "mcp52" matches the readme
+  statement that embedded Preboot DSA on legacy (non-Romley) systems still uses MCP 5.2 (.txt lines 914-925).</li>
+<li><span class="tl tl-candidate">CANDIDATE</span>: since kernel, initrd and root file system are dated 2011-07-08 (before the installed 3.48 build of
+  2011-10-28), 3.48 probably boots the same base environment and 9.53 mainly replaces the DSA payload in preboot/.
+  Not verified: no 3.48 image is available to compare.</li>
+<li>Package metadata (wrapcfg): packageVersion <code>9.53.C5</code>, packageBuildLevel <code>DSYTC5FUS</code>, dialogTitle "IBM System x DSA
+  Preboot Update". XML: Version <code>9.53 -[DSYTC5F-9.53]-</code>, name "IBM Dynamic System Analysis (DSA) - Preboot
+  Embedded", releaseDate/timestamp 2019-05-20, severity 2, rebootRequired 3, 26 machine types (all IMM v1 systems:
+  x3550/x3650 M2/M3, x3690 X5, x3850/x3950 X5, HS22, HX5, 7949) including "System x3650 M3-[7945]-".</li>
+</ul>
+<h4 id="573-how-the-image-reaches-the-imm-and-the-host-extracted-unless-marked">5.7.3 How the image reaches the IMM and the host (<span class="tl tl-extracted">EXTRACTED</span> unless marked) <a class="anchor" href="#573-how-the-image-reaches-the-imm-and-the-host-extracted-unless-marked" aria-label="Link to this section">#</a></h4>
+<ul>
+<li>Package scripts: imgboot.cfg starts <code>./linwrap</code>, the x64 wrapcfg runs <code>./ConvergedFlash64.sh</code>. ConvergedFlash64.sh
+  reads the SMBIOS type 0 BIOS version with dmidecode, takes the two letters after <code>-[</code> as product ID and, for
+  Thurley IDs (P9, Y4, TM, D6, GY, HI, HS, FS, ML, G0), runs
+  <code>./iflash64 --package dsa_dsytc5f_96224_7_imm1.upd --force --bypass_platform</code>; for A3, L8, AY, N1 it runs
+  <code>./lflash64 -z --package ...</code>. The installed UEFI is D6E154A (<span class="tl tl-measured">MEASURED</span>, FIRMWARE_HISTORY), so this machine takes
+  the iflash64 path. Logs go to /var/log/IBM_Support/Flash.log. <code>--force</code> bypasses the level comparison (<span class="tl tl-candidate">CANDIDATE</span>
+  from the option name; iflash options in section 9.3).</li>
+<li>Transport: iflash talks to the IMM over LAN over USB (section 3; .txt lines 280-297). The tool runtime limits of
+  section 9.2 (dynamic i386/x86-64 ELF, cdc_interface.sh) apply to this package as well.</li>
+<li>IMM side (IMM 1.55 YUOOH5A rootfs, extracted from firmware/ibm/imm/1.55-yuooh5a; applicability to the installed
+  IMM 1.30 is <span class="tl tl-candidate">CANDIDATE</span>): lib/libfmp_ibmc.so has a <code>dsa_firmware_type</code> plug-in (request_space, verify_image_file,
+  is_image_compatible, compare_build_letters, update_dsaimage_file, migrate_dsa) and the strings
+  <code>/staging/dsa/dsa_image</code>, <code>/etc/dsaimage</code>, <code>/staging/activated/dsa.xml</code>. bin/flash_manager has "From
+  /staging/dsa/dsa_image, create /etc/dsaimage" and "Error insufficient space available on IMM to transfer image."
+  bin/mountstaging mounts the UBI volume named <code>staging</code> (IMM NAND, FIRMWARE_FORMATS 7.3) on /staging.</li>
+<li>Presentation to the host: bin/dsamount.sh reads the image name from /etc/dsaimage and attaches it as Avocent
+  virtual media (<code>avct_control --im_add=&lt;file&gt;</code>, <code>--im_mount=1</code>); /etc/dsaimage is kept across reset-to-defaults
+  (bin/reset-to-defaults-keep.sh). <span class="tl tl-candidate">CANDIDATE</span>: the "embedded USB key" of <a class="sref" href="../catalog/sources.html#s-028">S-028</a> (text line 1648) is this IMM virtual
+  disk, not a physical key.</li>
+<li>Not the host SPI flash: the DSA image does not go through spiutil/UEFI flash (no DSA path in the bios plug-in);
+  it is a file on the IMM NAND staging volume (<span class="tl tl-candidate">CANDIDATE</span> wording; the plug-in names are <span class="tl tl-extracted">EXTRACTED</span>).</li>
+</ul>
+<p>Size limits:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Level / source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9.53 .upd transferred to the IMM</td>
+<td>98539520 bytes (93.97 MiB)</td>
+<td><span class="tl tl-extracted">EXTRACTED</span> (image.tar)</td>
+</tr>
+<tr>
+<td>9.53 disk image stored as dsa_image</td>
+<td>98533376 bytes</td>
+<td><span class="tl tl-extracted">EXTRACTED</span> (pdsa)</td>
+</tr>
+<tr>
+<td>Installed 3.48 image size</td>
+<td><span class="tl tl-unknown">UNKNOWN</span> (no 3.48 package; not readable without IMM shell access)</td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>Size of the IMM <code>staging</code> UBI volume / free space</td>
+<td><span class="tl tl-unknown">UNKNOWN</span> (no ubimkvol size for <code>staging</code> in the IMM 1.55 rootfs; only <code>rwfs</code> 40 MiB in etc/init.d/ifs.mtd:75)</td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>Space check before transfer</td>
+<td>iflash requests space; IMM answers or fails with "Error insufficient space available on IMM to transfer image."</td>
+<td><span class="tl tl-extracted">EXTRACTED</span> (flash_manager strings)</td>
+</tr>
+<tr>
+<td>Vendor statements on size</td>
+<td>"Immv1 embedded pDSA does not support any new drivers due to the limited image size" (<a class="sref" href="../catalog/sources.html#s-028">S-028</a> text lines 1811-1812); "Diagnostic tests for Emulex options are not available due to limited size reserved for preboot DSA" (.txt line 1039)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>Whether 9.53 fits where 3.48 is stored: <span class="tl tl-unknown">UNKNOWN</span>. <span class="tl tl-candidate">CANDIDATE</span> yes, because the XML lists 7945 and dsap.xml targets
+device_type imm1, i.e. the vendor built it for IMM v1 storage.</p>
+<h4 id="574-changes-348---953-documented-chg">5.7.4 Changes 3.48 -&gt; 9.53 (<span class="tl tl-documented">DOCUMENTED</span>, .chg) <a class="anchor" href="#574-changes-348---953-documented-chg" aria-label="Link to this section">#</a></h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Build</th>
+<th>.chg lines</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.48 (installed)</td>
+<td>DSYT89PUS</td>
+<td>231-240</td>
+<td>no listed changes; "2011 3Q lifecycle"</td>
+</tr>
+<tr>
+<td>4.00</td>
+<td>DSYT91S</td>
+<td>215-229</td>
+<td>fix PMR 15065 (x3850 X5 / ES7000 memory card number &gt; 4 in IPMI event log); added &gt; 1 TB memory test support; ToolsCenter 11D</td>
+</tr>
+<tr>
+<td>4.01</td>
+<td>DSYT92H</td>
+<td>204-213</td>
+<td>no listed changes; "2011 4Q lifecycle"</td>
+</tr>
+<tr>
+<td>4.02</td>
+<td>DSYT92I</td>
+<td>193-202</td>
+<td>new system: iDataPlex Direct Water Cooled dx360 M4</td>
+</tr>
+<tr>
+<td>9.00</td>
+<td>DSYT95W</td>
+<td>150-191</td>
+<td>new systems (HS23, HX5 7873/1910, Flex x240, FSM, x3500/x3550/x3630/x3650 M4, x3690 X5, x3850/x3950 X5); 6 fixes: SONAS x3650 M2 node unresponsive after DSA, DDS5 USB tape slow after DSA on x3650 M2, x3850 X5 freeze with DSA 3.4/4.0, segmentation fault in 4.00 and earlier, DSA v4 unexpectedly creating an IMM virtual switch, <code>--no-imm-lan</code> changing USB port state on RHEL5.3; new GUI and CLI menu for Features on Demand (FoD) key management</td>
+</tr>
+<tr>
+<td>9.01 - 9.07</td>
+<td>DSYT96D, 97C, 98I, 99E, 9AA, 9BC, 9CA</td>
+<td>71-148</td>
+<td>new system support only (M4 servers, dx360 M4, HS23E, Flex x220/x240, x3100/x3250 M4 refresh)</td>
+</tr>
+<tr>
+<td>9.20</td>
+<td>DSYTA0R</td>
+<td>47-69</td>
+<td>new systems (x3530/x3630/x3750 M4, HS23E, Flex x220); vSphere 5.0u1 IBM customization; fix PMR 05819 (Windows eventlog plug-in); hardware remote presence key collection</td>
+</tr>
+<tr>
+<td>9.21</td>
+<td>DSYTA1U</td>
+<td>33-45</td>
+<td>recovered LSI raw data <code>MegaCli -FwTermLog -Dsply -aALL</code>; ToolsCenter 12B Plus</td>
+</tr>
+<tr>
+<td>9.26</td>
+<td>DSYTA6G</td>
+<td>19-31</td>
+<td>"DSA Performance Optimization"; ToolsCenter 12C</td>
+</tr>
+<tr>
+<td>9.27</td>
+<td>DSYTA7F</td>
+<td>6-17</td>
+<td>special usage "IMMv1 system 2012 4Q-LFC"</td>
+</tr>
+<tr>
+<td>9.53</td>
+<td>DSYTC5F</td>
+<td>3-4</td>
+<td>"Fix several CVEs" (no CVE IDs listed)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>x3650 M3 / 7945: no entry after 3.48 names the x3650 M3 or 7945. Its last mentions are 3.40 (x3650 M3 5454 added,
+  line 302) and 3.10 (7945/4255 added, line 357). Fixes 9.00 items 1-2 name the x3650 M2 and appear to concern the
+  OS-resident (Portable) DSA (<span class="tl tl-candidate">CANDIDATE</span>: the .chg mixes Portable and Preboot items).</li>
+<li>Version jump 3.x -&gt; 9.x: the .chg has no explanation; it goes 3.48 -&gt; 4.00 -&gt; 4.01 -&gt; 4.02 -&gt; 9.00. <span class="tl tl-candidate">CANDIDATE</span>: the
+  9.x numbering follows the ToolsCenter 9.x family (the readme cites UXSPI 9.00, .txt section 2.3); not documented.</li>
+<li>9.53 vs 9.27: the only listed change is "Fix several CVEs". Which components were patched is <span class="tl tl-unknown">UNKNOWN</span>; the
+  extracted kernel/initrd/rootfs are still the 2011-07-08 builds (5.7.2), so the fixes are <span class="tl tl-candidate">CANDIDATE</span> in the DSA
+  payload (2014-02-17 files), not in the boot environment.</li>
+<li>Date conflict (recorded, not resolved): file dates and dsap.xml say 2014-02-17; XML releaseDate/timestamp say
+  2019-05-20 (<span class="tl tl-candidate">CANDIDATE</span>: catalog re-publication date); readme copyright "2004, 2012"; FIRMWARE_HISTORY marks 9.53 as
+  final release UNVERIFIED.</li>
+</ul>
+<h4 id="575-prerequisites-and-known-issues-relevant-to-this-server">5.7.5 Prerequisites and known issues relevant to this server <a class="anchor" href="#575-prerequisites-and-known-issues-relevant-to-this-server" aria-label="Link to this section">#</a></h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Statement</th>
+<th>Source</th>
+<th>Status for this machine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Update order</td>
+<td>IMM, then UEFI, then (FPGA), then DSA Preboot</td>
+<td>.txt lines 280-281; IMM 1.55 .chg lines 47-48</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>Minimum IMM</td>
+<td>IMM at 1.14 or later before a DSA Preboot update</td>
+<td>IMM 1.55 .chg lines 45-46 (the DSA .chg and XML list no prerequisite)</td>
+<td>installed 1.30 (<span class="tl tl-measured">MEASURED</span>) satisfies it</td>
+</tr>
+<tr>
+<td>IMM build mismatch</td>
+<td>with wflash/lflash a build mismatch error needs IMM "minimum 29B"</td>
+<td>.txt lines 885-888</td>
+<td><span class="tl tl-candidate">CANDIDATE</span> satisfied (YUOOC7E is a later build letter sequence than 29B); this server uses iflash64 anyway</td>
+</tr>
+<tr>
+<td>Signature / IMM2</td>
+<td>"update IMM to 1AOO34V or later before updating pDSA"</td>
+<td><a class="sref" href="../catalog/sources.html#s-028">S-028</a> text lines 2116-2117</td>
+<td>other generation (1AOO = IMM2, FIRMWARE_HISTORY); not applicable to IMM v1</td>
+</tr>
+<tr>
+<td>ServeRAID M1015</td>
+<td>uEFI D6E145C or later for x3650 M3</td>
+<td>.chg lines 331-335, 393-397; .txt lines 709-711</td>
+<td>installed D6E154A (<span class="tl tl-measured">MEASURED</span>) satisfies it</td>
+</tr>
+<tr>
+<td>Naming convention</td>
+<td>flashing between levels with different prefixes (DSYT, D6YT, TMYT, yuoo, y4yt) may fail; workaround <code>iflash64 --package &lt;upd&gt; --openoptions 16 --force</code></td>
+<td>.txt lines 968-977</td>
+<td>installed DSYT89P and DSYTC5F share the DSYT prefix (<span class="tl tl-candidate">CANDIDATE</span>: not affected)</td>
+</tr>
+<tr>
+<td>Linux runtime</td>
+<td>package must run as root on ext2/ext3; 32-bit Linux may need C-states disabled (RETAIN H195678)</td>
+<td>XML installationNotes; .txt lines 283-287</td>
+<td>host is Debian 12 / Proxmox, not a supported OS; see 9.2</td>
+</tr>
+<tr>
+<td>Run requirements</td>
+<td>at least 1 GB memory; USB or optical device for boot media</td>
+<td>.txt lines 230-233</td>
+<td>8 GB installed (<span class="tl tl-measured">MEASURED</span>, docs/X3650M3_MEMORY.md) satisfies it</td>
+</tr>
+<tr>
+<td>MCP 5.2 limits</td>
+<td>embedded Preboot on IMM v1 stays on MCP 5.2: no Brocade Tuatara support, traditional Chinese license text issue, no new drivers</td>
+<td>.txt lines 914-925, 1010-1011; <a class="sref" href="../catalog/sources.html#s-028">S-028</a> text lines 1811-1812</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+<tr>
+<td>IMMv1 inventory</td>
+<td>PCI devices may miss slot mapping on uEFI IMMv1 systems; GPT disks show "Unknown" PartitionSubType</td>
+<td>.txt section 9.0</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>Readme conflicts (recorded): .txt section 2.1.3 names the update file <code>dsa_dsytc5f_95232_9.upd</code>, the package contains
+<code>dsa_dsytc5f_96224_7_imm1.upd</code> (<span class="tl tl-extracted">EXTRACTED</span>); the standalone .txt says "Customized Linux Kernerl 5.2/6.1" where the
+readme inside the package says "MCP 5.2/6.1" (lines 916-925, 962, 1011; otherwise identical).</p>
+<h4 id="576-update-notes-candidate-not-performed">5.7.6 Update notes (<span class="tl tl-candidate">CANDIDATE</span>, not performed) <a class="anchor" href="#576-update-notes-candidate-not-performed" aria-label="Link to this section">#</a></h4>
+<ul>
+<li>Supported paths for 7945 are the Linux/Windows package with iflash (.txt section 2.1), BoMC media, or the IMM web
+  firmware update (section 9.3); the UXSPI .uxz path of .txt section 2.2 is for M4/Flex systems.</li>
+<li>Running the .bin on this Proxmox host is not possible as shipped (section 9.2) and is STATE-CHANGING (IMM flash
+  write over LAN over USB); it needs owner approval. The DSA image does not touch UEFI or IMM firmware, but a
+  failed transfer would leave the embedded diagnostics unusable until reflashed (<span class="tl tl-candidate">CANDIDATE</span>).</li>
+<li>Using the new image requires a host reboot into F2 (section 5.5).</li>
+</ul>
+<p><span class="tl tl-not-verified">NOT VERIFIED</span>: installed 3.48 image size and contents; IMM staging volume size and free space; the CVE list fixed in
+9.53; whether 9.53 is the final Preboot DSA release for 7945; behavior of iflash64 <code>--force --bypass_platform</code> on
+IMM 1.30.</p>
+<h2 id="6-uxspi---updatexpress-system-pack-installer">6. UXSPI - UpdateXpress System Pack Installer <a class="anchor" href="#6-uxspi---updatexpress-system-pack-installer" aria-label="Link to this section">#</a></h2>
+<h3 id="61-purpose-documented">6.1 Purpose (<span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#61-purpose-documented" aria-label="Link to this section">#</a></h3>
+<p>Applies UpdateXpress System Packs (UXSPs) and individual firmware/driver updates; acquires updates from the vendor
+and compares installed with available levels (UXSPI 10.2 readme chapter 1). Commands <code>acquire</code>, <code>compare</code>, <code>update</code>
+(<a class="sref" href="../catalog/sources.html#s-029">S-029</a> 10.0 PDF p40-45). <a class="sref" href="../catalog/sources.html#s-022">S-022</a> (IMMv1 firmware update best practices) names UXSPI and BoMC as the preferred update
+tools (docs/X3650M3_IMM_ARCHITECTURE.md 9.2).</p>
+<h3 id="62-local-copies">6.2 Local copies <a class="anchor" href="#62-local-copies" aria-label="Link to this section">#</a></h3>
+<p>Only metadata (readme .txt, .chg, .xml, SOURCE.txt, SHA256SUMS) of version 10.2 (build VULT03A) is local:
+firmware/lenovo/update-xpress-system-packs/DS118758 (RHEL5), DS118760 (RHEL6), DS118766 (SLES11), DS118768
+(Windows). The installers (lnvgy_utl_uxspi_10.2_rhel6_32-64.bin 116.44 MB etc., catalog lines 1836-1848) were not
+downloaded. All four XMLs list <code>System x3650 M3-[7945]-</code>; <a class="sref" href="../catalog/sources.html#s-029">S-029</a> 10.0 Table 1 lists "IBM System x3650 M3, 4255,
+5454, 7945, UXSP support Yes" (PDF p26). The IBM UXSP content pages in firmware/ibm/uxsp/ (*.html) are changelog
+listings of pack contents, not the installer.</p>
+<h3 id="63-operating-system-and-runtime-documented">6.3 Operating system and runtime (<span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#63-operating-system-and-runtime-documented" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Linux: RHEL 4/5/6/7 and SLES 10/11 executables only (<a class="sref" href="../catalog/sources.html#s-029">S-029</a> PDF p28-29); Windows Server 2008-2012 R2 (PDF p27).
+  Debian/Proxmox not listed. Linux driver updates need rpm-build, perl and bash (RHEL) (PDF p29; readme 5.1).</li>
+<li>"64-bit Linux requires compat-libstdc++" to run 32-bit binaries including UXSPI (readme 5.1, <code>rpm -qa | grep
+  compat-libstdc++-296</code>); libstdc++.so.6 required (readme).</li>
+<li><span class="tl tl-candidate">CANDIDATE</span>: not usable on this host (reason: RPM-based OS detection and update packages, 32-bit dependencies, no
+  Debian support in any local source). Not tried; no binary local.</li>
+</ul>
+<h3 id="64-transport-and-commands-documented">6.4 Transport and commands (<span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#64-transport-and-commands-documented" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>In-band on the target OS. IMM version detection needs IPMI drivers; the IMM update itself does not (readme 5.1).
+  IMM/uEFI/DSA updates use LAN over USB (169.254.95.118/.120) and can duplicate addresses or change routes (readme,
+  "Duplicate IP addresses when updating IMM, uEFI, and DSA").</li>
+<li><code>--remote=&lt;address&gt;</code> runs compare/update on another server's OS (not the IMM); only Windows-to-Windows or
+  Linux-to-Linux; update over remote is unattended only (<a class="sref" href="../catalog/sources.html#s-029">S-029</a> PDF p38, p45).</li>
+</ul>
+<pre><code>&lt;uxspi&gt; compare --local=&lt;uxsp_dir&gt;                     # read-only (inventory/compare); uses IPMI/LAN over USB
+&lt;uxspi&gt; acquire --local=&lt;dir&gt; ...                      # read-only on the server; downloads from the vendor (network)
+&lt;uxspi&gt; update --local=&lt;uxsp_dir&gt; -u                   # STATE-CHANGING (flashes firmware / installs drivers)
+&lt;uxspi&gt; update --remote=&lt;os_ip&gt; --remote-user=&lt;user&gt; --remote-password=&lt;pw&gt; ...   # STATE-CHANGING on a remote OS
+</code></pre>
+<h3 id="65-caveats-documented-list-only">6.5 Caveats (<span class="tl tl-documented">DOCUMENTED</span>, list only) <a class="anchor" href="#65-caveats-documented-list-only" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>The Windows LSI driver is always installed even when the controller is disabled (readme 5.1).</li>
+<li>Updating the IMM from a USB key unmounts the key; do other updates first (readme).</li>
+<li>Updates via BoMC, UXSPI, AMM or individual in-band packages take at least 17 minutes; never power off during
+  "Secure Region Update in Progress" (<a class="sref" href="../catalog/sources.html#s-022">S-022</a> p9-10, via docs/X3650M3_IMM_ARCHITECTURE.md 9.1).</li>
+</ul>
+<h2 id="7-bomc---bootable-media-creator">7. BoMC - Bootable Media Creator <a class="anchor" href="#7-bomc---bootable-media-creator" aria-label="Link to this section">#</a></h2>
+<h3 id="71-purpose-documented">7.1 Purpose (<span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#71-purpose-documented" aria-label="Link to this section">#</a></h3>
+<p>Creates one bootable image (CD, DVD, ISO, USB flash drive or PXE files) that bundles Preboot DSA, UXSPI and update
+packages (and, in older versions, ServerGuide) for selected machine types (BoMC 10.3 readme chapter 1; <a class="sref" href="../catalog/sources.html#s-030">S-030</a> 9.63
+PDF p14-15). For diagnostic or update media "only the Linux update packages for your selected machine types are
+included" (BoMC 10.3 readme).</p>
+<h3 id="72-local-copies">7.2 Local copies <a class="anchor" href="#72-local-copies" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Path</th>
+<th>SHA256</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.3 (build 10_3_08)</td>
+<td>firmware/lenovo/lenovo-xclarity-essentials-lxce-onecli-bomc-updatexpress/DS119115/lnvgy_utl_bomc_10.3_windows_i386.exe</td>
+<td>119829686af3d07260957e80d210fe2239a5b1d08723ed9bab57f8683660be95</td>
+<td><span class="tl tl-extracted">EXTRACTED</span>: PE32 console executable, Intel 80386</td>
+</tr>
+<tr>
+<td>13.0.1 (bomc01g, 2023-03)</td>
+<td>DS561299: .txt/.chg/.xml only (rhel/sles x86-64 .bin and Windows .exe in the catalog, not downloaded)</td>
+<td>-</td>
+<td>XML lists x3650 M3 7945; .chg "Supported Systems: ThinkSystem, ThinkServer, System X, Lenovo Storage System"</td>
+</tr>
+<tr>
+<td>SGBoMC 10.0 / 10.2</td>
+<td>DS117901 / DS118639: metadata only</td>
+<td>-</td>
+<td>ServerGuide variant; DS118639 XML declares 10.1 (T-2)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="73-operating-system-and-runtime-documented">7.3 Operating system and runtime (<span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#73-operating-system-and-runtime-documented" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>BoMC 9.63 runs on Windows (Server 2003-2012 R2, 7, Vista, XP) and on RHEL 4/5/6/7 and SLES 10/11; not on WinPE
+  (<a class="sref" href="../catalog/sources.html#s-030">S-030</a> PDF p14). BoMC 13.0.1: Windows 8/10/11, Server 2012-2022, RHEL 7/8/9, SLES 12/15 (.chg 13.0.1 overview).</li>
+<li>Linux needs libcurl 7.15 or higher for image creation and, for 32-bit binaries on 64-bit Linux, compat-libstdc++
+  (BoMC 10.3 readme). PXE media: only a TFTP server on Linux is supported (same readme).</li>
+<li>Disk space: at least 4 times the working directory; booted system: at least 1.5 GB memory; PXE: 4 times the image
+  size in memory (<a class="sref" href="../catalog/sources.html#s-030">S-030</a> PDF p11).</li>
+<li>Boot mode: BoMC media need UEFI Only or UEFI and Legacy; legacy-only boot mode is no longer supported (<a class="sref" href="../catalog/sources.html#s-030">S-030</a> PDF
+  p11 says since 9.20; the 13.0.1 .chg lists it under 9.50, conflict T-7).</li>
+<li><span class="tl tl-candidate">CANDIDATE</span>: run BoMC on a separate Windows or RHEL-family workstation/VM, not on the Proxmox host (reason: no
+  Debian support documented; only the Windows 10.3 executable is local).</li>
+</ul>
+<h3 id="74-transport-and-commands">7.4 Transport and commands <a class="anchor" href="#74-transport-and-commands" aria-label="Link to this section">#</a></h3>
+<p>Creating media touches no server (read-only for the server). Booting the media on the x3650 M3 is STATE-CHANGING
+(reboot; updates if selected). <span class="tl tl-documented">DOCUMENTED</span> (BoMC 13.0.1 readme 2.0): when updating via BoMC, LAN over USB must be
+enabled so that BoMC can compare installed firmware with the repository on the media; BoMC is in-band only, no
+out-of-band mode (13.0.1 readme 1.2). Unattended mode exists (<a class="sref" href="../catalog/sources.html#s-030">S-030</a>); exact CLI syntax was not extracted.</p>
+<h2 id="8-lenovo-xclarity-essentials-onecli">8. Lenovo XClarity Essentials OneCLI <a class="anchor" href="#8-lenovo-xclarity-essentials-onecli" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span>: "Lenovo XClarity Essentials OneCLI is a command line based utility, which covers the server
+  management scope including firmware configuration, system inventory, firmware and driver update. It will replace
+  ToolsCenter 1.x tools in Lenovo -- ASU, DSA and UXSPI" (BoMC 13.0.1 readme 1.2). OneCLI is in-band and
+  out-of-band (same table). In the in-band case "OneCLI need to get an temp account to communicate with BMC through
+  ipmi KCS" (13.0.1 readme 2.0, <span class="tl tl-candidate">CANDIDATE</span> reading: it creates a temporary IMM/BMC account, i.e. STATE-CHANGING).</li>
+<li><span class="tl tl-documented">DOCUMENTED</span> absence: the Lenovo downloads catalog for machine type 7945 (sources/lenovo/CATALOG.md, 495 documents)
+  contains no OneCLI package; "OneCLI" appears only in the category title "Lenovo XClarity Essentials (LXCE)
+  (OneCLI, BOMC, UpdateXpress)", whose 18 files are all BoMC/SGBoMC (catalog lines 149-172).</li>
+<li>Support of OneCLI for the x3650 M3 / IMM v1 is <span class="tl tl-unknown">UNKNOWN</span>: no local document lists or excludes it. No OneCLI
+  command is documented here.</li>
+</ul>
+<h2 id="9-iflash-and-the-ibm-firmware-update-packages">9. iflash and the IBM firmware update packages <a class="anchor" href="#9-iflash-and-the-ibm-firmware-update-packages" aria-label="Link to this section">#</a></h2>
+<p>The package format and the flash flow are documented in docs/X3650M3_FIRMWARE_FORMATS.md sections 3, 7 and 8 and in
+docs/X3650M3_IMM_ARCHITECTURE.md sections 9.1-9.5; this section only adds tool/runtime facts.</p>
+<h3 id="91-local-copies-extracted-with-scriptsibm_fw_unpackpy-nothing-executed">9.1 Local copies (<span class="tl tl-extracted">EXTRACTED</span> with scripts/ibm_fw_unpack.py, nothing executed) <a class="anchor" href="#91-local-copies-extracted-with-scriptsibm_fw_unpackpy-nothing-executed" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Source package</th>
+<th>SHA256</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>package stub (.bin)</td>
+<td>firmware/ibm/uefi/1.14-d6e156b/ibm_fw_uefi_d6e156b-1.14_linux_32-64.bin (2d10c29d337a5584ebc5fd2ba7bcb600ebffeddb0ff036d2a30f3e29dcfcc254)</td>
+<td>(whole package)</td>
+<td>ELF 32-bit i386, dynamic, NEEDED libdl.so.2, libc.so.6</td>
+</tr>
+<tr>
+<td>zip/linwrap (wrapper)</td>
+<td>same</td>
+<td>not recorded</td>
+<td>ELF 32-bit i386, dynamic, NEEDED libdl.so.2, libm.so.6, libc.so.6</td>
+</tr>
+<tr>
+<td>zip/image/iflash64</td>
+<td>same</td>
+<td>b938c264257603e692b361e6f84e4afbaccaef2d3eada67edfed778ff4e9f0a2</td>
+<td>ELF 64-bit x86-64, dynamic, NEEDED libpthread.so.0, librt.so.1, libdl.so.2, libm.so.6, libc.so.6</td>
+</tr>
+<tr>
+<td>zip/image/iflash</td>
+<td>same</td>
+<td>e237666ca5f444faec09b7849bc788937e08210aca91dce93ee45a9550281a84</td>
+<td>ELF 32-bit i386, dynamic, same libraries</td>
+</tr>
+<tr>
+<td>zip/image/cdc_interface.sh</td>
+<td>same</td>
+<td>5fc16ee9f1298f4c71c2060c9e01a0f9d997ff1ed0bf636931f83ad2463718e6</td>
+<td>shell script v1.0.5</td>
+</tr>
+<tr>
+<td>UEFI 1.22 Windows package</td>
+<td>firmware/ibm/uefi/1.22-d6e164a/ibm_fw_uefi_d6e164a-1.22_windows_32-64.exe</td>
+<td>117e41f5c1f1021954c962f75ef17d27825c8c058c91bf8d93ffb0e84c04842b</td>
+<td>PE32 stub; same image set (FIRMWARE_FORMATS 2)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The iflash64/iflash hashes match those recorded in docs/X3650M3_IMM_ARCHITECTURE.md 9.3. No IMM package binary
+(1.55 YUOOH5A) is local; only its .chg and README.</p>
+<h3 id="92-runtime-on-this-host-candidate">9.2 Runtime on this host (<span class="tl tl-candidate">CANDIDATE</span>) <a class="anchor" href="#92-runtime-on-this-host-candidate" aria-label="Link to this section">#</a></h3>
+<p>Running a Linux <code>.bin</code> package directly needs a 32-bit i386 dynamic loader and glibc (stub and linwrap are i386,
+<span class="tl tl-extracted">EXTRACTED</span>). The host has neither an i386 dpkg architecture nor /lib/ld-linux.so.2 (<span class="tl tl-measured">MEASURED</span> 2026-10-20, section 2).
+<span class="tl tl-candidate">CANDIDATE</span> consequence: the package stub, linwrap and the 32-bit iflash cannot start on this host as it is (reason:
+a dynamic i386 ELF needs its interpreter /lib/ld-linux.so.2); making them run would need i386 multiarch libraries
+(<code>dpkg --add-architecture i386</code> plus libc6:i386; kernel IA32 emulation is already enabled, <span class="tl tl-measured">MEASURED</span> section 2) - a host change that needs
+owner approval and is not recommended for the hypervisor. iflash64 itself is x86-64 with only glibc
+dependencies, but running it outside the vendor wrapper is not a documented method. The package readme names
+supported Linux distributions only as "linux" builds (FIRMWARE_FORMATS 8); Debian is not mentioned in any local
+source.</p>
+<h3 id="93-commands-documented-package-readme-firmware_formats-8">9.3 Commands (<span class="tl tl-documented">DOCUMENTED</span>, package README; FIRMWARE_FORMATS 8) <a class="anchor" href="#93-commands-documented-package-readme-firmware_formats-8" aria-label="Link to this section">#</a></h3>
+<pre><code>python3 -I scripts/ibm_fw_unpack.py extract &lt;package&gt; &lt;out_dir&gt;   # read-only, no vendor code executed (preferred)
+&lt;package&gt;.bin -x &lt;path&gt;                                           # read-only for firmware, but executes the vendor stub (avoid; use the line above)
+&lt;package&gt;.bin -s                                                  # STATE-CHANGING (silent flash)
+./iflash64 --package &lt;file&gt;.upd [--backup] [--no-reboot] [--kcs] ... # STATE-CHANGING (flash; --backup writes the backup bank)
+</code></pre>
+<p>Caveats: update order IMM, then UEFI, then DSA Preboot; IMM must be at least 1.07 (README) or 1.14 (changelog
+header) before UEFI/DSA updates; wait times and the 17 to 20 minute IMM restart are in FIRMWARE_FORMATS 7 and
+IMM_ARCHITECTURE 9.1. <code>--user</code> disables KCS authentication failover (README via IMM_ARCHITECTURE 9.3). The packages
+cannot change UEFI settings; ASU does that (FIRMWARE_FORMATS 8). Any flash on this host needs owner approval and a
+rollback plan; for the IMM there is no verified rollback (IMM_ARCHITECTURE 9.5).</p>
+<h2 id="10-storcli-serveraid-m1015">10. StorCLI (ServeRAID M1015) <a class="anchor" href="#10-storcli-serveraid-m1015" aria-label="Link to this section">#</a></h2>
+<h3 id="101-purpose-and-applicability-documented">10.1 Purpose and applicability (<span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#101-purpose-and-applicability-documented" aria-label="Link to this section">#</a></h3>
+<p>Command-line management of MegaRAID-based ServeRAID adapters. The StorCLI 1.14.12 change history lists "ServeRAID
+M1015 SAS/SATA Controller (46M0831)" among supported adapters
+(firmware/lenovo/raid-sas-hba-controllers-backplanes-storage-expanders-switches-bootable-storage/DS111345/lsi_utl_sraidmr_storcli-1.14.12_linux_32-64.chg,
+SHA256 0712f0c3e42fb0f0bcb60ee312a37b6ee93f63cdf03426416991b542f4937189); so does the 1.16.14 readme (DS118409,
+docs/X3650M3_STORAGE_RAID.md 8). It does not manage the second controller (IBM 6Gb SAS HBA, mpt3sas); use SAS2IRCU
+(section 11).</p>
+<h3 id="102-local-copies">10.2 Local copies <a class="anchor" href="#102-local-copies" aria-label="Link to this section">#</a></h3>
+<p>Directory prefix R = firmware/lenovo/raid-sas-hba-controllers-backplanes-storage-expanders-switches-bootable-storage.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>OS</th>
+<th>Path</th>
+<th>SHA256</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.16.14</td>
+<td>Linux</td>
+<td>R/DS118409/lsi_utl_sraidmr_storcli-1.16.14_linux_32-64.zip</td>
+<td>b015313f307fde42da1e941cf8fd0003acf502332c18b9865700f394865109b3</td>
+</tr>
+<tr>
+<td>1.16.10</td>
+<td>Linux</td>
+<td>R/DS118392/lsi_utl_sraidmr_storcli-1.16.10_linux_32-64.zip</td>
+<td>69b107ff7d25413c1ce952923bb6b591342ba0f89ef9af6c5f3ec7e8ed7ebda6</td>
+</tr>
+<tr>
+<td>1.14.12</td>
+<td>Linux</td>
+<td>R/DS111345/lsi_utl_sraidmr_storcli-1.14.12_linux_32-64.zip</td>
+<td>de5ecb949fb2687c2c06bfee365573ce643bbfd80b5ccb9698b0d4b8aadf1671</td>
+</tr>
+<tr>
+<td>1.07.07</td>
+<td>Linux</td>
+<td>R/DS111254/ and R/DS115772/lsi_utl_sraidmr_storcli-1.07.07_linux_32-64.zip (same file)</td>
+<td>a4b087b724a0bd701d0dac1443221a1d3a37b35fea1e078a21339d1580c4b327</td>
+</tr>
+<tr>
+<td>1.16.14</td>
+<td>Windows</td>
+<td>R/DS117312/lsi_utl_sraidmr_storcli-1.16.14_windows_32-64.zip</td>
+<td>6719070c99414a2fc37f00f7ab2b972e6ce150586a8661f324375a4085818019</td>
+</tr>
+<tr>
+<td>1.14.12</td>
+<td>Windows</td>
+<td>R/DS111346/ and R/DS117759/lsi_utl_sraidmr_storcli-1.14.12_windows_32-64.zip</td>
+<td>5a3b1ffbb6fcf3d09c720157d37adc5a5910086b468abe1605a1e2c3a54ef78c</td>
+</tr>
+<tr>
+<td>1.07.07</td>
+<td>Windows</td>
+<td>R/DS111252/ and R/DS117896/lsi_utl_sraidmr_storcli-1.07.07_windows_32-64.zip</td>
+<td>408f99c2d7bb3d36749aced44c92d1a0153330a037744d982281ef72dc46c3d8</td>
+</tr>
+<tr>
+<td>1.16.14</td>
+<td>VMware</td>
+<td>R/DS111650/ and R/DS117802/lsi_utl_sraidmr_storcli-1.16.14_vmwesx_32-64.zip</td>
+<td>d5c892588070057cea05c61e2e72526245f74d6c390267f59278f4b77e78dd19</td>
+</tr>
+<tr>
+<td>1.14.12</td>
+<td>VMware</td>
+<td>R/DS111354/lsi_utl_sraidmr_storcli-1.14.12_vmwesx_32-64.zip</td>
+<td>4618af3bc4a7f91018678e98e296a5d5b6259bfdcb8534acd19e78ce8debf3d2</td>
+</tr>
+<tr>
+<td>1.07.07</td>
+<td>VMware</td>
+<td>R/DS111253/ and R/DS117747/lsi_utl_sraidmr_storcli-1.07.07_vmwesx_32-64.zip</td>
+<td>e195de84c0cacb67391992a3d4d41c9c97928301389ce8de47b9772e2847fbf4</td>
+</tr>
+</tbody>
+</table></div>
+<p>Contents of the 1.14.12 Linux zip (<span class="tl tl-extracted">EXTRACTED</span>): Linux/license.txt, Linux/LINUX_Readme.txt (install with <code>rpm -ivh</code>),
+Linux/storcli-1.14.12-1.noarch.rpm (SHA256 4ce85849126b8ace6dd7e12dbec74d5ad7b445fae21d709b31e2e21d9aa4cea2).
+The rpm payload holds /opt/MegaRAID/storcli/storcli64 (7386640 B, SHA256
+25b66015b5e067f7ca8c922ce549b9a7cfe00d68f8fc7b26069ee524220f63c3, "ELF 64-bit LSB executable, x86-64, statically
+linked, for GNU/Linux 2.4.0, stripped"), /opt/MegaRAID/storcli/storcli (i386, static, SHA256
+e03031d3c7f4855bf71717e03cd49cdec31ec7248ae7acc2c6f26b6cee1edc7e) and libstorelibir-2.so.14.07-0 (x86-64 shared
+object, SHA256 7c45e92e2acb146f3793c0abcbf77ee36ad6ddb1b2b7e9e404b7451c2574a3fa). The storcli64 hash equals the
+one in the capture header (captures/2026-10-20_storage_storcli.txt line 6), so the captured binary is this file.</p>
+<h3 id="103-operating-system-and-runtime">10.3 Operating system and runtime <a class="anchor" href="#103-operating-system-and-runtime" aria-label="Link to this section">#</a></h3>
+<p><span class="tl tl-measured">MEASURED</span>: storcli64 1.14.12 ran on this host (kernel 6.8.12-43-pve) and reported "Status = Success" and "Operating
+System = Linux6.8.12-43-pve" (capture lines 10-17). Being statically linked, it needs no host libraries
+(<span class="tl tl-extracted">EXTRACTED</span>). It uses the megaraid_sas ioctl node /dev/megaraid_sas_ioctl_node (present, <span class="tl tl-measured">MEASURED</span>; use by storcli is
+<span class="tl tl-candidate">CANDIDATE</span>, reason: the only MegaRAID management device node on the host).</p>
+<h3 id="104-procedure-used-on-2026-10-20-measured-capture-header-lines-1-8">10.4 Procedure used on 2026-10-20 (<span class="tl tl-measured">MEASURED</span>, capture header lines 1-8) <a class="anchor" href="#104-procedure-used-on-2026-10-20-measured-capture-header-lines-1-8" aria-label="Link to this section">#</a></h3>
+<ol>
+<li>Source: R/DS111345/lsi_utl_sraidmr_storcli-1.14.12_linux_32-64.zip (zip SHA256 de5ecb94...); storcli64 taken
+   from the rpm inside the zip (SHA256 25b66015...). Extraction (Master session record, 2026-10-20): <code>unzip</code>
+   into a scratch directory; rpm2cpio was not installed, so the gzip payload was located by its magic bytes
+   (offset 3203 in storcli-1.14.12-1.noarch.rpm), decompressed with Python and the newc cpio archive parsed;
+   files /opt/MegaRAID/storcli/{storcli64,storcli,libstorelibir-2.so.14.07-0}. Only storcli64 and the
+   libstorelibir library were copied to the host.</li>
+<li>Copied to /tmp/kb_storcli on the host; not installed (no rpm/dpkg install).</li>
+<li>Run over SSH with key login: <code>ssh -o BatchMode=yes root@[lab-ip] ./storcli64 &lt;cmd&gt;</code> (working directory
+   /tmp/kb_storcli); only <code>show</code> commands; owner approval given on 2026-10-20. storcli wrote a MegaSAS.log
+   ("Generating detailed summary of the adapter") into the working directory; it was removed together with the
+   binaries and the directory.</li>
+<li>Commands run (capture section markers): <code>show</code>, <code>/c0 show all</code>, <code>/c0/vall show all</code>, <code>/c0/eall/sall show all</code>,
+   <code>/c0/eall show all</code>, <code>/c0/bbu show</code>, <code>/c0 show patrolread</code>, <code>/c0 show cc</code>, <code>/c0 show rebuildrate</code>,
+   <code>/c0 show eventloginfo</code>.</li>
+<li>The binary was removed after the capture. Results are documented in docs/X3650M3_STORAGE_RAID.md (sections 4, 6,
+   7, 9).</li>
+</ol>
+<h3 id="105-commands">10.5 Commands <a class="anchor" href="#105-commands" aria-label="Link to this section">#</a></h3>
+<p>Read-only (<code>show</code> family):</p>
+<pre><code>./storcli64 show                                        # read-only
+./storcli64 /c0 show all                                # read-only
+./storcli64 /c0/vall show all                           # read-only
+./storcli64 /c0/eall/sall show all                      # read-only
+./storcli64 /c0/eall show all                           # read-only
+./storcli64 /c0/bbu show                                # read-only
+./storcli64 /c0 show patrolread                         # read-only
+./storcli64 /c0 show cc                                 # read-only
+./storcli64 /c0 show rebuildrate                        # read-only
+./storcli64 /c0 show eventloginfo                       # read-only
+./storcli64 /c0/fall show                               # read-only (foreign configurations; not yet run, STORAGE_RAID 13)
+</code></pre>
+<p>STATE-CHANGING (examples of command classes; syntax per StorCLI documentation, not verified on this system):</p>
+<pre><code>./storcli64 /c0 add vd ...                              # STATE-CHANGING (creates a virtual drive)
+./storcli64 /c0/v0 del                                  # STATE-CHANGING (destroys data)
+./storcli64 /c0/v0 set ...                              # STATE-CHANGING (cache policy etc.)
+./storcli64 /c0/e64/s1 set good|jbod|online|offline     # STATE-CHANGING (drive state)
+./storcli64 /c0/fall import|del                         # STATE-CHANGING (foreign configuration)
+./storcli64 /c0 set patrolread=... | cc=... | rebuildrate=...   # STATE-CHANGING
+./storcli64 /c0 download file=&lt;fw.rom&gt;                  # STATE-CHANGING (controller firmware; no M1015 firmware is local)
+</code></pre>
+<p>Caveats: the installed controller firmware is 20.10.1-0052, several releases behind 20.11.1-0184 (STORAGE_RAID 7);
+the M5000 package in firmware/ibm/serveraid-m5000 must not be used on the M1015 (STORAGE_RAID 7). The DS111345
+"readme" file is the wrong document (T-4).</p>
+<h2 id="11-sas2ircu-and-sas2flash-ibm-6gb-sas-hba">11. SAS2IRCU and SAS2FLASH (IBM 6Gb SAS HBA) <a class="anchor" href="#11-sas2ircu-and-sas2flash-ibm-6gb-sas-hba" aria-label="Link to this section">#</a></h2>
+<h3 id="111-sas2ircu-documented--extracted">11.1 SAS2IRCU (<span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-extracted">EXTRACTED</span>) <a class="anchor" href="#111-sas2ircu-documented--extracted" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Package: R/DS117061/lsi_utl_mpt2sas_sas2ircu-20.00.00.00_linux_32-64.zip, SHA256
+  216bf98e511fef17c8549619381144a5e31718d5ca0ea4760d9954bdaaf477bd. Contents (<span class="tl tl-extracted">EXTRACTED</span>): one file
+  sas2ircu_linux_x86_rel/sas2ircu, 559164 B, SHA256 37467826d0b22aad47287efe70bb34e47f475d70e9b1b64cbd63f57607701e73,
+  "ELF 32-bit LSB executable, Intel 80386, statically linked, for GNU/Linux 2.2.5".</li>
+<li>Readme: supported controllers N2125, N2115, ServeRAID H1110, H1135, "6Gb SAS HBA (46M0907)", 6Gb SSD HBA, onboard
+  LSI 2004; dependency "The mpt2sas.ko module must be loaded and running"; usage is printed when run without
+  parameters; scriptable; no command list in the readme.</li>
+<li>Applicability: the installed second controller is "IBM 6Gb SAS HBA [9212-4i4e]" (1000:0072, subsystem 1014:03ca);
+  its mapping to part 46M0907 is <span class="tl tl-candidate">CANDIDATE</span> (docs/X3650M3_STORAGE_RAID.md 4.2).</li>
+<li>Runtime on this host (<span class="tl tl-candidate">CANDIDATE</span>): static i386, so no libraries are needed and the missing i386 user space
+  (<span class="tl tl-measured">MEASURED</span> 2026-10-20, section 2) does not matter, and the kernel allows 32-bit execution (CONFIG_IA32_EMULATION=y,
+  not default-disabled; <span class="tl tl-measured">MEASURED</span>, captures/2026-10-20_host_probes_boot_apt.txt lines 4-6). The host uses mpt3sas, which registers the controller as mpt2sas_cm0
+  (<span class="tl tl-measured">MEASURED</span>); whether sas2ircu accepts the mpt3sas driver in place of mpt2sas.ko is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+</ul>
+<pre><code>./sas2ircu                                              # read-only (prints usage, readme 3.0)
+./sas2ircu LIST                                         # read-only - CANDIDATE syntax (common LSI usage, not in local sources)
+./sas2ircu 0 DISPLAY                                    # read-only - CANDIDATE syntax
+./sas2ircu 0 STATUS                                     # read-only - CANDIDATE syntax
+./sas2ircu 0 CREATE|DELETE|HOTSPARE|ACTIVATE ...        # STATE-CHANGING - CANDIDATE syntax
+./sas2ircu 0 LOCATE &lt;enc:bay&gt; ON|OFF                    # STATE-CHANGING (LED) - CANDIDATE syntax
+</code></pre>
+<h3 id="112-sas2flash">11.2 SAS2FLASH <a class="anchor" href="#112-sas2flash" aria-label="Link to this section">#</a></h3>
+<p>No SAS2FLASH package exists in the repository or in the 7945 catalog (searched sources/lenovo/CATALOG.md,
+firmware/, sources/text/). The HBA firmware package that would contain a flasher (IBM "HBA 6Gb Controllers
+BIOS/FW/UEFI Update", ibm_fw_mpt2sas, newest documented 1.10.05) is known only from a UXSP changelog
+(STORAGE_RAID 7). Availability and command set: <span class="tl tl-unknown">UNKNOWN</span>. Any firmware write to the HBA is STATE-CHANGING; read-only
+listing such as <code>sas2flash -listall</code> is <span class="tl tl-candidate">CANDIDATE</span> syntax only.</p>
+<h2 id="12-ipmitool">12. ipmitool <a class="anchor" href="#12-ipmitool" aria-label="Link to this section">#</a></h2>
+<h3 id="121-purpose-and-availability">12.1 Purpose and availability <a class="anchor" href="#121-purpose-and-availability" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> PDF p125): "You can use IPMItool in-band or out-of-band to manage and configure the IMM";
+  <a class="sref" href="../catalog/sources.html#s-020">S-020</a> PDF p108: it can be used to view the system event log.</li>
+<li><span class="tl tl-measured">MEASURED</span>: installed on the host as /usr/bin/ipmitool; used for captures/2026-10-19_ipmi_inband.txt through
+  /dev/ipmi0. Version 1.8.19 (<code>ipmitool -V</code>, captures/2026-10-20_host_probes_wave2.txt lines 8-9). Not stored in the
+  repository (distribution package).</li>
+</ul>
+<h3 id="122-transport">12.2 Transport <a class="anchor" href="#122-transport" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>In-band: OpenIPMI driver, KCS at I/O 0xCA2, no authentication (<span class="tl tl-measured">MEASURED</span>, section 2).</li>
+</ul>
+<h3 id="123-commands">12.3 Commands <a class="anchor" href="#123-commands" aria-label="Link to this section">#</a></h3>
+<p>Read-only (all of these were run in captures/2026-10-19_ipmi_inband.txt unless marked):</p>
+<pre><code>ipmitool mc info                                        # read-only
+ipmitool fru print                                      # read-only (prints &quot;Received a response with unexpected ID&quot; warnings, capture lines 32-33)
+ipmitool sdr elist full                                 # read-only
+ipmitool sdr type list                                  # read-only
+ipmitool sensor                                         # read-only
+ipmitool sel info                                       # read-only
+ipmitool sel elist                                      # read-only
+ipmitool chassis status                                 # read-only
+ipmitool lan print 1                                    # read-only
+ipmitool channel info 1                                 # read-only
+ipmitool user list 1                                    # read-only
+ipmitool sol info 1                                     # read-only
+ipmitool mc getenables                                  # read-only
+ipmitool mc guid                                        # read-only
+ipmitool sel save &lt;file&gt;                                # read-only on the IMM; writes &lt;file&gt; (not run yet)
+ipmitool -I lanplus -C 3 -H &lt;IMM_IP&gt; -U &lt;IMM_USER&gt; -f &lt;IMM_PASSWORD_FILE&gt; sdr elist full   # read-only, out-of-band (not run)
+</code></pre>
+<p>Not implemented by this IMM (<span class="tl tl-measured">MEASURED</span>): <code>mc getsysinfo system_fw_version</code> and <code>dcmi discover</code> return "Invalid
+command".</p>
+<p>STATE-CHANGING (owner approval required):</p>
+<pre><code>ipmitool chassis power off|on|cycle|reset|soft         # STATE-CHANGING (takes the Proxmox host down)
+ipmitool chassis bootdev &lt;device&gt; [options=...]        # STATE-CHANGING (next boot device)
+ipmitool chassis identify [seconds]                    # STATE-CHANGING (identify LED; low risk)
+ipmitool chassis policy always-on|previous|always-off  # STATE-CHANGING (power restore policy; current: previous)
+ipmitool sel clear                                     # STATE-CHANGING (log loss; the SEL is 100% full since 2025-05-05)
+ipmitool mc reset warm|cold                            # STATE-CHANGING (IMM restart, up to 17-20 minutes per S-022)
+ipmitool lan set 1 ...                                 # STATE-CHANGING (IMM network; can cut out-of-band access)
+ipmitool user set|enable|disable|priv ...              # STATE-CHANGING (IMM accounts)
+ipmitool sensor thresh &lt;sensor&gt; ...                    # STATE-CHANGING
+ipmitool sol activate                                  # STATE-CHANGING (opens the serial console session)
+ipmitool raw &lt;netfn&gt; &lt;cmd&gt; ...                         # treat as STATE-CHANGING unless the command is known to be a read
+</code></pre>
+<p>Caveat: <code>-P &lt;password&gt;</code> exposes the password in the process list and shell history; use <code>-f &lt;file&gt;</code> or <code>-E</code>
+(environment variable IPMI_PASSWORD) instead (<span class="tl tl-candidate">CANDIDATE</span> good practice, not from a vendor source).</p>
+<h2 id="13-related-tools-list-only">13. Related tools (list only) <a class="anchor" href="#13-related-tools-list-only" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Local copy</th>
+<th>Note</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MegaRAID Storage Manager (MSM)</td>
+<td>R/DS107598 (15.03.01.00-jp, SHA256 b6e42c6ff41c6f1a29672b4abc49a8211ae82cb666f3d4aab197f728e31b360b), R/DS117920 (14.05.02.03-jp, SHA256 c88f950f347c92fff3776cb17aa0c4cf827a1c25f33a50f428e824c600e746dc)</td>
+<td>GUI for M-series; UXSPI can upgrade MSM only if the old MSM discovers the host (UXSPI readme)</td>
+<td>STORAGE_RAID 8</td>
+</tr>
+<tr>
+<td>MegaCLI</td>
+<td>none</td>
+<td>named in <a class="sref" href="../catalog/sources.html#s-033">S-033</a> for the M5000 series; not in the catalog</td>
+<td>STORAGE_RAID 8</td>
+</tr>
+<tr>
+<td>OSA SMBridge</td>
+<td>none</td>
+<td>IPMI 1.5 and SOL remote management</td>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a> PDF p125</td>
+</tr>
+<tr>
+<td>OSA IPMI driver (Windows)</td>
+<td>firmware/lenovo/motherboard-devices-backplanes-core-chipset-onboard-video-pcie-switches/DS109494/osa_dd_ipmi_jap410a_winsrvr_32-64.exe (SHA256 e21ed521a34e7c5c15b5f3913e01fe74c3a535690d088b2726f170d5b617e74d)</td>
+<td>Windows only; not needed on Linux (OpenIPMI in-kernel)</td>
+<td>SHA256SUMS</td>
+</tr>
+<tr>
+<td>ToolsCenter Customized Linux Image 7.4.20</td>
+<td>DS111388 metadata only (zip 465.07 MB not local)</td>
+<td>boot environment used by BoMC</td>
+<td>CATALOG.md line 1231-1234</td>
+</tr>
+<tr>
+<td>ServerGuide 10.x</td>
+<td>DS117971, DS117763, DS121041, DS121042, DS500831, DS116299, DS119166: metadata only</td>
+<td>OS installation media; deprecated in BoMC for System x (13.0.1 .chg)</td>
+<td>catalog / .chg</td>
+</tr>
+<tr>
+<td>IMM web, SSH/Telnet CLI, SNMP</td>
+<td>-</td>
+<td>docs/X3650M3_IMM_ARCHITECTURE.md 5 and 8; X3650M3_IMM_INTERFACES.md (wave 2, pending)</td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="14-project-scripts-scripts">14. Project scripts (scripts/) <a class="anchor" href="#14-project-scripts-scripts" aria-label="Link to this section">#</a></h2>
+<p>The Python scripts are Python 3 standard library only (module docstrings); the vzdump hook is bash. Tests: <code>python3
+-m unittest discover -s tests -v</code> (tests/test_ibm_fw_unpack.py, test_uefi_fv.py, test_lenovo_downloads.py,
+test_wayback_mirror.py, test_vzdump_verify_prune.py). None of the Python scripts talks to the server or the IMM; the
+vzdump hook runs on the Proxmox host itself.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Script</th>
+<th>Purpose</th>
+<th>Sub-commands</th>
+<th>Network</th>
+<th>Documented in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scripts/ibm_fw_unpack.py</td>
+<td>offline analysis of IBM PKG SDK packages (.bin/.exe), .upd images, CIM-XML descriptors, UEFI FVs, microcode, HII forms; never executes package content</td>
+<td>info, extract, xml, upd, fv, microcode, hii [--forms], baseline, diff</td>
+<td>none</td>
+<td>docs/X3650M3_FIRMWARE_FORMATS.md 9-10</td>
+</tr>
+<tr>
+<td>scripts/uefi_fv.py</td>
+<td>UEFI PI firmware volume / FFS / section parser with EFI/Tiano/LZMA decompression; input treated as untrusted</td>
+<td>list [--json --depex], extract (-o OUTDIR or positional), diff [--json --all], microcode</td>
+<td>none</td>
+<td>FIRMWARE_FORMATS 9-10; X3650M3_UEFI.md</td>
+</tr>
+<tr>
+<td>scripts/lenovo_downloads.py</td>
+<td>Lenovo Data Center Support catalog and fetcher for machine type 7945; verifies hashes, writes SHA256SUMS and SOURCE.txt</td>
+<td>catalog [--from-json --out --md --fetched --save-raw], fetch [--catalog --dest --category --max-size --dry-run], status</td>
+<td>internet (catalog, fetch)</td>
+<td>sources/lenovo/CATALOG.md header</td>
+</tr>
+<tr>
+<td>scripts/wayback_mirror.py</td>
+<td>mirrors retired infocenter topics from the Internet Archive into sources/infocenter/7945</td>
+<td>mirror, text (offline), plugins</td>
+<td>internet (mirror, plugins)</td>
+<td>sources/infocenter/7945/INDEX.md</td>
+</tr>
+<tr>
+<td>scripts/vzdump-verify-prune.sh</td>
+<td>bash vzdump hook for Proxmox VE 8: in phase backup-end, for the managed storage only (default hitachi-data), verifies the new archive and then deletes the older backups of the same guest, so exactly one verified backup per guest remains; DRY_RUN=1 deletes nothing (script header)</td>
+<td>hook phases from vzdump (<code>&lt;phase&gt; [&lt;mode&gt; &lt;vmid&gt;]</code>); acts only on backup-end</td>
+<td>none (local files on the host)</td>
+<td>captures/2026-10-20_host_backup_setup.txt (deployed as /usr/local/bin/vzdump-verify-prune.sh, SHA256 059ea246b1cd752fb8c53a2a3dbbf19de866536d47a1d6627064bffd2536baf3 = the repository file, used by job hitachi-weekly); tests/test_vzdump_verify_prune.py, 44 tests (9 skip without zstd / vma)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The Python script commands are read-only with respect to the server (they write only into their output directories).
+The vzdump hook is state-changing on the host by design (it deletes older backup archives on the managed storage
+after verification); it was deployed at the owner's request (2026-10-20).
+Recommended form: <code>python3 -I scripts/&lt;script&gt;.py ...</code> (isolated mode, as used in FIRMWARE_FORMATS 9).</p>
+<h2 id="15-static-inspection-done-for-this-document">15. Static inspection done for this document <a class="anchor" href="#15-static-inspection-done-for-this-document" aria-label="Link to this section">#</a></h2>
+<p>Offline, in a scratch directory outside the repository, on 2026-10-20; no vendor binary or script was executed;
+nothing was sent to [lab-ip], [lab-ip] or the internet.</p>
+<pre><code>unzip -l &lt;zip&gt;; tar tzvf &lt;tgz&gt;                          # archive listings
+unzip / tar x into an empty scratch directory           # copies for inspection
+python3 -I &lt;scratch&gt;/rpm2cpio.py &lt;rpm&gt; payload.cpio     # scratch helper (not committed): strips RPM lead/headers, decompresses payload
+cpio -itv &lt; payload.cpio; cpio -idm --no-absolute-filenames &lt; payload.cpio
+python3 -I scripts/ibm_fw_unpack.py extract firmware/ibm/uefi/1.14-d6e156b/ibm_fw_uefi_d6e156b-1.14_linux_32-64.bin &lt;scratch&gt;
+file &lt;binary&gt;; readelf -d &lt;binary&gt; | grep NEEDED; readelf -V &lt;binary&gt;; sha256sum &lt;file&gt;
+grep on package .xml (applicableMachineTypes, Version) and on cdc_interface.sh
+</code></pre>
+<p>Readme files in ISO-8859-1 were converted with <code>iconv -f latin1</code> before reading (DSA, UXSPI, BoMC readmes).</p>
+<h2 id="16-practical-tool-matrix-for-this-host-candidate">16. Practical tool matrix for this host (<span class="tl tl-candidate">CANDIDATE</span>) <a class="anchor" href="#16-practical-tool-matrix-for-this-host-candidate" aria-label="Link to this section">#</a></h2>
+<p>Reasoning from sections 2-12; nothing here is verified by running the tools, except where <span class="tl tl-measured">MEASURED</span> is stated.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Lowest-risk tool path</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sensor, SEL, FRU, LAN config reading</td>
+<td><code>ipmitool</code> in-band (<span class="tl tl-measured">MEASURED</span> working)</td>
+<td>already installed; KCS; no network changes</td>
+</tr>
+<tr>
+<td>M1015 state</td>
+<td><code>storcli64 ... show</code> from /tmp (<span class="tl tl-measured">MEASURED</span> working)</td>
+<td>static binary; no install</td>
+</tr>
+<tr>
+<td>UEFI/IMM settings reading</td>
+<td><code>asu64 show ... --kcs</code> from the 10.3 tgz</td>
+<td><code>--kcs</code> avoids LAN-over-USB reconfiguration of the hypervisor (section 3)</td>
+</tr>
+<tr>
+<td>Out-of-band settings or power control</td>
+<td>ASU <code>--host</code> or ipmitool <code>-I lanplus</code> from another machine</td>
+<td>works with the host down; needs IMM credentials (placeholders only)</td>
+</tr>
+<tr>
+<td>Full inventory/diagnostics</td>
+<td>DSA Portable with <code>--no-imm-lan</code> (runtime <span class="tl tl-unknown">UNKNOWN</span> on Debian), or Preboot DSA (reboot)</td>
+<td>Portable DSA is not built for Debian</td>
+</tr>
+<tr>
+<td>Firmware updates (IMM 1.55, UEFI 1.22, DSA)</td>
+<td>BoMC media built on a Windows/RHEL machine, or the IMM web update for IMM/UEFI</td>
+<td>UXSPI and the Linux packages target RHEL/SLES and need i386 user space (absent on this host, <span class="tl tl-measured">MEASURED</span> 2026-10-20); every update needs owner approval and takes the lab down</td>
+</tr>
+<tr>
+<td>HBA (9212-4i4e) status</td>
+<td>SAS2IRCU (runtime <span class="tl tl-candidate">CANDIDATE</span>) or sysfs (already captured)</td>
+<td>i386 static binary; mpt3sas compatibility <span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="17-source-conflicts">17. Source conflicts <a class="anchor" href="#17-source-conflicts" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Topic</th>
+<th>Values</th>
+<th>Handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T-1</td>
+<td>ASU 10.3 readme version</td>
+<td>DS118233 readme header: "Version 10.1 (Build ID ASUT92I)"; package XML: "Version 10.3 -[asut92i-10.3]-"; catalog: 10.3</td>
+<td>recorded; the build ID asut92i matches 10.3 in XML and catalog, the readme header looks stale (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>T-2</td>
+<td>SGBoMC 10.2 version</td>
+<td>DS118639 file names and catalog: 10.2; its XML: "Version 10.1 -[SGTK-10.1]-"</td>
+<td>recorded, not resolved</td>
+</tr>
+<tr>
+<td>T-3</td>
+<td>DSA DS121668 vs DS121674</td>
+<td>rhel5_x86-64.bin and vmware_4.x.bin have the same SHA256 57e6a35d... (vendor SHA256 match for both)</td>
+<td>not an error: the Portable readme says to use the RHEL5 x64 build on VMware ESX 4.x</td>
+</tr>
+<tr>
+<td>T-4</td>
+<td>StorCLI 1.14.12 Linux readme</td>
+<td>DS111345 lnvgy_readme_v1.5.9_anyos_32-64.txt (SHA256 3250dccd613ae42058af12752469915dd399d2963f0c169c07771d67d6abadfa) is the "Lenovo Capacity Planner" readme</td>
+<td>vendor attached the wrong file; use the .chg for adapter support</td>
+</tr>
+<tr>
+<td>T-5</td>
+<td>ASU support for x3650 M3</td>
+<td>ASU 10.1/10.3 XMLs and ASU 9.30 guide (PDF p14): supported; ASU 10.6 guide supported-systems list (PDF p11): not listed</td>
+<td>recorded; package XMLs (closest to the binaries) say 7945 is applicable</td>
+</tr>
+<tr>
+<td>T-6</td>
+<td>IMM level for ASU certificate management</td>
+<td><a class="sref" href="../catalog/sources.html#s-026">S-026</a> v10.6 PDF p7: "yuoo78m or later"; PDF p19: "yuoo71a or later"</td>
+<td>not resolved; neither YUOO71A nor YUOO78M occurs in the IMM v1 build list (docs/X3650M3_FIRMWARE_HISTORY.md; IMM 1.55 .chg), so the builds may belong to another IMM line; whether installed YUOOC7E (1.30) meets the requirement is <span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>T-7</td>
+<td>BoMC legacy-only boot mode removal</td>
+<td><a class="sref" href="../catalog/sources.html#s-030">S-030</a> 9.63 PDF p11: since 9.20; BoMC 13.0.1 .chg: listed under 9.50</td>
+<td>recorded</td>
+</tr>
+<tr>
+<td>T-8</td>
+<td>LAN-over-USB host address</td>
+<td><a class="sref" href="../catalog/sources.html#s-026">S-026</a> PDF p21 and cdc_interface.sh 1.0.5: host 169.254.95.120; <a class="sref" href="../catalog/sources.html#s-020">S-020</a>: 169.254.95.130</td>
+<td>already conflict 1 in docs/X3650M3_IMM_ARCHITECTURE.md 12</td>
+</tr>
+<tr>
+<td>T-9</td>
+<td>SAS2IRCU driver dependency</td>
+<td>readme: mpt2sas.ko; host: mpt3sas registering mpt2sas_cm0</td>
+<td>compatibility <span class="tl tl-unknown">UNKNOWN</span> (section 11.1)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="18-open-questions--unknown">18. Open questions / <span class="tl tl-unknown">UNKNOWN</span> <a class="anchor" href="#18-open-questions--unknown" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Host user space: resolved 2026-10-20 except libcrypt.so.1 (<span class="tl tl-measured">MEASURED</span>): Debian 12, no i386 foreign architecture,
+   no /lib/ld-linux.so.2 (captures/2026-10-20_host_probes_wave2.txt lines 101-104); kernel CONFIG_IA32_EMULATION=y
+   and not default-disabled (captures/2026-10-20_host_probes_boot_apt.txt lines 4-6). <span class="tl tl-candidate">CANDIDATE</span> consequence: static
+   i386 binaries such as sas2ircu and the i386 storcli can run; dynamic i386 binaries (IBM package stub, linwrap,
+   iflash, 32-bit DSA builds) still need i386 libraries (section 9.2). Still open: libcrypt.so.1 for asu64.</li>
+<li>Resolved: ipmitool 1.8.19 (captures/2026-10-20_host_probes_wave2.txt).</li>
+<li>Whether asu64 10.3 runs on this host and returns the 209 UEFI settings via <code>--kcs</code> (read-only test; needs owner
+   approval to run a vendor binary as root on the hypervisor).</li>
+<li>Behavior of cdc_interface.sh on Debian/Proxmox (no Debian branch found); whether ASU/DSA/iflash would alter
+   ifupdown2/bridge configuration.</li>
+<li>OneCLI support for IMM v1 / machine type 7945: no local evidence either way.</li>
+<li>TCP port and protocol ASU uses out-of-band against IMM v1 (CIM 5988/5989 is <span class="tl tl-candidate">CANDIDATE</span>).</li>
+<li>DSA Portable payload dependencies (not extracted) and whether any Portable build runs on Debian 12.</li>
+<li>Resolved: storcli extraction method recorded in 10.4 (step 1).</li>
+<li>SAS2IRCU command syntax from a vendor source, its compatibility with mpt3sas, and a source for SAS2FLASH and the
+   HBA firmware package.</li>
+<li>Installed Preboot DSA version: ANSWERED 2026-10-21 - 3.48, <span class="tl tl-measured">MEASURED</span> by three sources: NVRAM System_Data
+    <code>DSYT89P 10/28/2011 3.48</code> (captures/2026-10-21_host_efivars_contents.txt), SMBIOS <code>$DS Preboot Diagnostics (DSA)
+    3.48 -[DSYT89P]-</code> (captures/2026-10-19_os_inventory.txt line 827) and IMM CIM_SoftwareIdentity DSA Major 3 Minor 48
+    (captures/2026-10-21_imm_cim_read_inventory.txt). Still open: the newest Preboot DSA package for the x3650 M3.</li>
+<li>Exact BoMC and UXSPI CLI syntax for unattended operation (guides <a class="sref" href="../catalog/sources.html#s-029">S-029</a>/<a class="sref" href="../catalog/sources.html#s-030">S-030</a> have it; not extracted here).</li>
+</ol>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="error-codes.html"><span>Previous</span>Error Codes, Event Messages and Diagnostics</a>
+<a class="next" href="optimization.html"><span>Next</span>Proxmox Host Optimization Guide</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#contents">Contents</a></li><li class="l2"><a href="#1-summary">1. Summary</a></li><li class="l2"><a href="#2-host-environment-relevant-to-the-tools-measured">2. Host environment relevant to the tools (MEASURED)</a></li><li class="l2"><a href="#3-transports-kcs-lan-over-usb-imm-external-lan-bootable-media">3. Transports: KCS, LAN over USB, IMM external LAN, bootable media</a></li><li class="l2"><a href="#4-asu---advanced-settings-utility">4. ASU - Advanced Settings Utility</a></li><li class="l3"><a href="#41-purpose-documented">4.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#42-local-copies">4.2 Local copies</a></li><li class="l3"><a href="#43-operating-system-and-runtime">4.3 Operating system and runtime</a></li><li class="l3"><a href="#44-transport-documented-s-026-v106-pdf-p19-21-p67-70">4.4 Transport (DOCUMENTED, S-026 v10.6 PDF p19-21, p67-70)</a></li><li class="l3"><a href="#45-commands">4.5 Commands</a></li><li class="l3"><a href="#46-caveats-documented-unless-marked">4.6 Caveats (DOCUMENTED unless marked)</a></li><li class="l2"><a href="#5-dsa---dynamic-system-analysis-portable-and-preboot">5. DSA - Dynamic System Analysis (Portable and Preboot)</a></li><li class="l3"><a href="#51-purpose-documented">5.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#52-local-copies-portable-101-build-dsala5q-all-xmls-list-x3650-m3-7945">5.2 Local copies (Portable 10.1, build DSALA5Q; all XMLs list x3650 M3 7945)</a></li><li class="l3"><a href="#53-operating-system-and-runtime">5.3 Operating system and runtime</a></li><li class="l3"><a href="#54-transport-documented">5.4 Transport (DOCUMENTED)</a></li><li class="l3"><a href="#55-commands">5.5 Commands</a></li><li class="l3"><a href="#56-caveats-documented">5.6 Caveats (DOCUMENTED)</a></li><li class="l3"><a href="#57-preboot-dsa-953-package-analysis-installed-348">5.7 Preboot DSA 9.53 package analysis (installed 3.48)</a></li><li class="l2"><a href="#6-uxspi---updatexpress-system-pack-installer">6. UXSPI - UpdateXpress System Pack Installer</a></li><li class="l3"><a href="#61-purpose-documented">6.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#62-local-copies">6.2 Local copies</a></li><li class="l3"><a href="#63-operating-system-and-runtime-documented">6.3 Operating system and runtime (DOCUMENTED)</a></li><li class="l3"><a href="#64-transport-and-commands-documented">6.4 Transport and commands (DOCUMENTED)</a></li><li class="l3"><a href="#65-caveats-documented-list-only">6.5 Caveats (DOCUMENTED, list only)</a></li><li class="l2"><a href="#7-bomc---bootable-media-creator">7. BoMC - Bootable Media Creator</a></li><li class="l3"><a href="#71-purpose-documented">7.1 Purpose (DOCUMENTED)</a></li><li class="l3"><a href="#72-local-copies">7.2 Local copies</a></li><li class="l3"><a href="#73-operating-system-and-runtime-documented">7.3 Operating system and runtime (DOCUMENTED)</a></li><li class="l3"><a href="#74-transport-and-commands">7.4 Transport and commands</a></li><li class="l2"><a href="#8-lenovo-xclarity-essentials-onecli">8. Lenovo XClarity Essentials OneCLI</a></li><li class="l2"><a href="#9-iflash-and-the-ibm-firmware-update-packages">9. iflash and the IBM firmware update packages</a></li><li class="l3"><a href="#91-local-copies-extracted-with-scriptsibm_fw_unpackpy-nothing-executed">9.1 Local copies (EXTRACTED with scripts/ibm_fw_unpack.py, nothing executed)</a></li><li class="l3"><a href="#92-runtime-on-this-host-candidate">9.2 Runtime on this host (CANDIDATE)</a></li><li class="l3"><a href="#93-commands-documented-package-readme-firmware_formats-8">9.3 Commands (DOCUMENTED, package README; FIRMWARE_FORMATS 8)</a></li><li class="l2"><a href="#10-storcli-serveraid-m1015">10. StorCLI (ServeRAID M1015)</a></li><li class="l3"><a href="#101-purpose-and-applicability-documented">10.1 Purpose and applicability (DOCUMENTED)</a></li><li class="l3"><a href="#102-local-copies">10.2 Local copies</a></li><li class="l3"><a href="#103-operating-system-and-runtime">10.3 Operating system and runtime</a></li><li class="l3"><a href="#104-procedure-used-on-2026-10-20-measured-capture-header-lines-1-8">10.4 Procedure used on 2026-10-20 (MEASURED, capture header lines 1-8)</a></li><li class="l3"><a href="#105-commands">10.5 Commands</a></li><li class="l2"><a href="#11-sas2ircu-and-sas2flash-ibm-6gb-sas-hba">11. SAS2IRCU and SAS2FLASH (IBM 6Gb SAS HBA)</a></li><li class="l3"><a href="#111-sas2ircu-documented--extracted">11.1 SAS2IRCU (DOCUMENTED / EXTRACTED)</a></li><li class="l3"><a href="#112-sas2flash">11.2 SAS2FLASH</a></li><li class="l2"><a href="#12-ipmitool">12. ipmitool</a></li><li class="l3"><a href="#121-purpose-and-availability">12.1 Purpose and availability</a></li><li class="l3"><a href="#122-transport">12.2 Transport</a></li><li class="l3"><a href="#123-commands">12.3 Commands</a></li><li class="l2"><a href="#13-related-tools-list-only">13. Related tools (list only)</a></li><li class="l2"><a href="#14-project-scripts-scripts">14. Project scripts (scripts/)</a></li><li class="l2"><a href="#15-static-inspection-done-for-this-document">15. Static inspection done for this document</a></li><li class="l2"><a href="#16-practical-tool-matrix-for-this-host-candidate">16. Practical tool matrix for this host (CANDIDATE)</a></li><li class="l2"><a href="#17-source-conflicts">17. Source conflicts</a></li><li class="l2"><a href="#18-open-questions--unknown">18. Open questions / UNKNOWN</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source documents - x3650 M3 Library</title>
+<meta name="description" content="30 catalogued vendor documents (S-xxx ids used throughout the volumes) with editions, dates and public URLs, plus a summary of the Lenovo download catalog for machine type 7945.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="catalog" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="../pages/reading-guide.html">Reading Guide</a></li>
+<li><a href="../pages/system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="../pages/firmware-guide.html">Firmware Guide</a></li>
+<li><a href="../pages/imm-guide.html">IMM Guide</a></li>
+<li><a href="../pages/uefi-guide.html">UEFI Guide</a></li>
+<li><a href="../pages/troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="../pages/tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="../pages/glossary.html">Glossary</a></li>
+<li><a href="../pages/faq.html">FAQ</a></li>
+<li><a href="../pages/timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="../pages/about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="../volumes/knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="../volumes/system-architecture.html">System Architecture</a></li>
+<li><a href="../volumes/hardware-components.html">Hardware Components</a></li>
+<li><a href="../volumes/memory.html">Memory</a></li>
+<li><a href="../volumes/storage-raid.html">Storage and RAID</a></li>
+<li><a href="../volumes/power-thermal.html">Power and Thermal</a></li>
+<li><a href="../volumes/sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="../volumes/imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="../volumes/imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="../volumes/imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="../volumes/serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="../volumes/uefi.html">UEFI Firmware</a></li>
+<li><a href="../volumes/firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="../volumes/firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="../volumes/firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="../volumes/error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="../volumes/tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="../volumes/optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="firmware.html">Firmware packages</a></li>
+<li><a href="sources.html" aria-current="page">Source documents</a></li>
+<li><a href="tools.html">Scripts and tools</a></li>
+<li><a href="files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Catalogs</li><li aria-current="page">Source documents</li></ol></nav>
+<article>
+<header class="page-head">
+<h1>Source documents</h1>
+<p class="lede">30 catalogued vendor documents (S-xxx ids used throughout the volumes) with editions, dates and public URLs, plus a summary of the Lenovo download catalog for machine type 7945.</p>
+<p class="meta"><span class="source">source: <code>sources/SOURCES.md, sources/lenovo/CATALOG.md</code></span> <span>5 sections</span> <span class="tl-stats"><span class="tl tl-unknown">UNKNOWN</span><span class="n">2</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#machine-types">Machine types</a></li><li class="l2"><a href="#core-product-documents">Core product documents</a></li><li class="l2"><a href="#firmware-management-and-tools-documents">Firmware, management and tools documents</a></li><li class="l2"><a href="#key-facts-and-conflicts-for-the-topic-documents">Key facts and conflicts (for the topic documents)</a></li><li class="l2"><a href="#lenovo-download-catalog">Lenovo download catalog</a></li><li class="l3"><a href="#categories">Categories</a></li></ul></nav></details>
+<div class="prose">
+<p>Vendor documents used by the volumes. The <strong>ID</strong> column (S-xxx) is the citation key used throughout the library; every S-xxx mention in a volume links here. Local copies are kept in the private repository only.</p>
+<p>Inventory of documentation for the IBM System x3650 M3. Research pass P1, 2026-10-19.
+"Verified" = page or file fetched and title/version/date confirmed; "listed" = seen in a search result or a
+page's link list only. "Local copy" = mirrored file under sources/ (hashes in sources/pdf/SHA256SUMS,
+downloaded 2026-10-19). <a href="#s-010">S-010</a> returned 403 to direct download. Lenovo download catalog (firmware/drivers): <code>sources/lenovo/CATALOG.md</code>.</p>
+<h2 id="machine-types">Machine types <a class="anchor" href="#machine-types" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Product</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4255, 7376, 7945</td>
+<td>System x3650 M3</td>
+<td>Same IUG/PDSG; owner's unit is 7945KEG</td>
+</tr>
+<tr>
+<td>7949</td>
+<td>IBM Smart Analytics System 5600</td>
+<td>Same IUG/PDSG</td>
+</tr>
+<tr>
+<td>5454</td>
+<td>System x3650 M3 HF</td>
+<td>Different guides; do not mix</td>
+</tr>
+<tr>
+<td>7944</td>
+<td>System x3550 M3</td>
+<td>Not this server</td>
+</tr>
+</tbody>
+</table></div>
+<p>Https mirror of IBM ftp links: <code>ftp://ftp.software.ibm.com/systems/support/system_x_pdf/&lt;file&gt;</code> ==
+<code>https://public.dhe.ibm.com/systems/support/system_x_pdf/&lt;file&gt;</code> (observed for several files).
+datacentersupport.lenovo.com HTML pages return 403 to plain fetches; the JSON API works with a session
+cookie (see scripts/lenovo_downloads.py).</p>
+<h2 id="core-product-documents">Core product documents <a class="anchor" href="#core-product-documents" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Title</th>
+<th>Version / date</th>
+<th>URL</th>
+<th>Verified</th>
+<th>Local copy</th>
+</tr>
+</thead>
+<tbody>
+<tr id="s-001">
+<td><a href="#s-001">S-001</a></td>
+<td>Product Guide TIPS0805 (withdrawn product)</td>
+<td>updated 2014-03-21, 47 pp</td>
+<td><a href="https://lenovopress.lenovo.com/tips0805-system-x3650-m3" rel="noopener">https://lenovopress.lenovo.com/tips0805-system-x3650-m3</a> ; <a href="https://lenovopress.lenovo.com/tips0805.pdf" rel="noopener">https://lenovopress.lenovo.com/tips0805.pdf</a></td>
+<td>yes</td>
+<td>pdf/S-001_tips0805.pdf</td>
+</tr>
+<tr id="s-002">
+<td><a href="#s-002">S-002</a></td>
+<td>Installation and User's Guide, x3650 M3 (4255, 7945) / 7949</td>
+<td>11th ed., 2014-06-13, MIGR-5083595, 00kc218.pdf</td>
+<td><a href="https://www.ibm.com/support/pages/node/823124" rel="noopener">https://www.ibm.com/support/pages/node/823124</a> ; <a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/00kc218.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/00kc218.pdf</a> ; <a href="https://pubs.lenovo.com/x3650-m4/PDF_4255_7945_7949_iug.pdf" rel="noopener">https://pubs.lenovo.com/x3650-m4/PDF_4255_7945_7949_iug.pdf</a></td>
+<td>yes (page)</td>
+<td>pdf/S-002_00kc218.pdf</td>
+</tr>
+<tr id="s-003">
+<td><a href="#s-003">S-003</a></td>
+<td>IUG translations de/fr/ja/zh-CN</td>
+<td>00ak762 / 00ak761 / 00ak763 / 00ak764</td>
+<td><a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/00ak762_x3650m3_7945_4255_iug_de.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/00ak762_x3650m3_7945_4255_iug_de.pdf</a> (others same path)</td>
+<td>listed</td>
+<td>pdf/S-003_00ak762_x3650m3_7945_4255_iug_de.pdf</td>
+</tr>
+<tr id="s-004">
+<td><a href="#s-004">S-004</a></td>
+<td>Problem Determination and Service Guide, x3650 M3 (4255, 7376, 7945) / 7949</td>
+<td>16th ed., 2014-06-13, MIGR-5083596, 00kc219.pdf</td>
+<td><a href="https://www.ibm.com/support/pages/problem-determination-and-service-guide-ibm-system-x3650-m3-4255-7376-7945-and-ibm-smart-analytics-system-5600-7949" rel="noopener">https://www.ibm.com/support/pages/problem-determination-and-service-guide-ibm-system-x3650-m3-4255-7376-7945-and-ibm-smart-analytics-system-5600-7949</a> ; <a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/00kc219.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/00kc219.pdf</a> ; <a href="https://pubs.lenovo.com/x3650-m4/PDF_4255_7945_7949_PDSG.pdf" rel="noopener">https://pubs.lenovo.com/x3650-m4/PDF_4255_7945_7949_PDSG.pdf</a></td>
+<td>yes (page)</td>
+<td>pdf/S-004_00kc219.pdf</td>
+</tr>
+<tr id="s-005">
+<td><a href="#s-005">S-005</a></td>
+<td>PDSG older editions (diff only)</td>
+<td>15th 2014-02 (00fl000), 12th 2013-05 (46w8286)</td>
+<td><a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/00fl000.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/00fl000.pdf</a> ; <a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/46w8286.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/46w8286.pdf</a></td>
+<td>listed</td>
+<td>pdf/S-005_00fl000.pdf ; pdf/S-005_46w8286.pdf</td>
+</tr>
+<tr id="s-006">
+<td><a href="#s-006">S-006</a></td>
+<td>System service parts x3650 M3</td>
+<td>modified 2019-01-24, MIGR-5083912</td>
+<td><a href="https://www.ibm.com/support/pages/system-service-parts-ibm-system-x3650-m3-4255-7376-7945" rel="noopener">https://www.ibm.com/support/pages/system-service-parts-ibm-system-x3650-m3-4255-7376-7945</a></td>
+<td>yes</td>
+<td>-</td>
+</tr>
+<tr id="s-007">
+<td><a href="#s-007">S-007</a></td>
+<td>Warranty and support information</td>
+<td>v2.0, 2011-06-08, 81y6203.pdf</td>
+<td><a href="https://www.ibm.com/support/pages/warranty-and-support-information-ibm-system-x3650-m3-4255-7945-and-ibm-smart-analytics-system-5600-7949" rel="noopener">https://www.ibm.com/support/pages/warranty-and-support-information-ibm-system-x3650-m3-4255-7945-and-ibm-smart-analytics-system-5600-7949</a></td>
+<td>yes</td>
+<td>pdf/S-007_81y6203.pdf</td>
+</tr>
+<tr id="s-008">
+<td><a href="#s-008">S-008</a></td>
+<td>Rack installation instructions x3650 M2/M3, x3550 M2/M3</td>
+<td>v3.0, 2011-10-26, 90y5438.pdf</td>
+<td><a href="https://www.ibm.com/support/pages/node/822592" rel="noopener">https://www.ibm.com/support/pages/node/822592</a></td>
+<td>yes</td>
+<td>pdf/S-008_90y5438.pdf</td>
+</tr>
+<tr id="s-009">
+<td><a href="#s-009">S-009</a></td>
+<td>Rack installation, Gen-II slides kit</td>
+<td>v3.0, 2012-04-09, 00d9198.pdf</td>
+<td><a href="https://www.ibm.com/support/pages/node/822950" rel="noopener">https://www.ibm.com/support/pages/node/822950</a></td>
+<td>yes</td>
+<td>pdf/S-009_00d9198.pdf</td>
+</tr>
+<tr id="s-010">
+<td><a href="#s-010">S-010</a></td>
+<td>EMEA announcement ZG11-0012 (Xeon 5600 models)</td>
+<td>2011-02-15</td>
+<td><a href="https://www.ibm.com/docs/en/announcement_archive/ENUSZG11-0012/ENUSZG11-0012.PDF" rel="noopener">https://www.ibm.com/docs/en/announcement_archive/ENUSZG11-0012/ENUSZG11-0012.PDF</a></td>
+<td>yes (pp. 1-12)</td>
+<td>-</td>
+</tr>
+<tr id="s-011">
+<td><a href="#s-011">S-011</a></td>
+<td>Launch announcement letters 2010 (US/EMEA)</td>
+<td>~2010-03</td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+<td>no</td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="firmware-management-and-tools-documents">Firmware, management and tools documents <a class="anchor" href="#firmware-management-and-tools-documents" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Title</th>
+<th>Version / date</th>
+<th>URL</th>
+<th>Verified</th>
+<th>Local copy</th>
+</tr>
+</thead>
+<tbody>
+<tr id="s-020">
+<td><a href="#s-020">S-020</a></td>
+<td>IMM (v1) User's Guide, System x and BladeCenter</td>
+<td>"First Edition" 2015-02-05, MIGR-5079770, 00wa171_en.pdf</td>
+<td><a href="https://www.ibm.com/support/pages/node/822630" rel="noopener">https://www.ibm.com/support/pages/node/822630</a> ; <a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/00wa171_en.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/00wa171_en.pdf</a></td>
+<td>yes</td>
+<td>pdf/S-020_00wa171_en.pdf</td>
+</tr>
+<tr id="s-021">
+<td><a href="#s-021">S-021</a></td>
+<td>Integrated Management Module I User's Guide</td>
+<td>6th ed., 2013-05, 47c9202.pdf</td>
+<td><a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/47c9202.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/47c9202.pdf</a></td>
+<td>listed</td>
+<td>pdf/S-021_47c9202.pdf</td>
+</tr>
+<tr id="s-022">
+<td><a href="#s-022">S-022</a></td>
+<td>Firmware update best practices for IMMv1 systems</td>
+<td>2012-11</td>
+<td><a href="https://www.ibm.com/support/pages/firmware-update-guides-ibm-bladecenter-and-system-x" rel="noopener">https://www.ibm.com/support/pages/firmware-update-guides-ibm-bladecenter-and-system-x</a> ; <a href="ftp://ftp.software.ibm.com/systems/support/system_x_pdf/firmware_update_best_practices_for_immv1_systems_nov2012.pdf" rel="noopener">ftp://ftp.software.ibm.com/systems/support/system_x_pdf/firmware_update_best_practices_for_immv1_systems_nov2012.pdf</a></td>
+<td>yes (page)</td>
+<td>pdf/S-022_firmware_update_best_practices_for_immv1_systems_nov2012.pdf</td>
+</tr>
+<tr id="s-023">
+<td><a href="#s-023">S-023</a></td>
+<td>IBM System x Update Tools Transition</td>
+<td>2011-10-10</td>
+<td><a href="ftp://ftp.software.ibm.com/systems/support/system_x_pdf/ibm_system_x_update_tools_transition_2011-10-10.pdf" rel="noopener">ftp://ftp.software.ibm.com/systems/support/system_x_pdf/ibm_system_x_update_tools_transition_2011-10-10.pdf</a></td>
+<td>listed</td>
+<td>pdf/S-023_ibm_system_x_update_tools_transition_2011-10-10.pdf</td>
+</tr>
+<tr id="s-024">
+<td><a href="#s-024">S-024</a></td>
+<td>Introducing uEFI-Compliant Firmware on IBM System x and BladeCenter</td>
+<td>v1.10, 2010-04-29, MIGR-5083207</td>
+<td><a href="https://www.ibm.com/support/pages/introducing-uefi-compliant-firmware-ibm-bladecenter-and-system-x" rel="noopener">https://www.ibm.com/support/pages/introducing-uefi-compliant-firmware-ibm-bladecenter-and-system-x</a></td>
+<td>yes (page)</td>
+<td>pdf/S-024_introducing_uefi-compliant_firmware_on_ibm_system_x.1.2.pdf</td>
+</tr>
+<tr id="s-025">
+<td><a href="#s-025">S-025</a></td>
+<td>Transitioning to UEFI and IMM</td>
+<td>v1.0, 2009-03-30, MIGR-5079769 (.doc)</td>
+<td><a href="https://www.ibm.com/support/pages/transitioning-uefi-and-imm-white-paper-ibm-bladecenter-and-system-x" rel="noopener">https://www.ibm.com/support/pages/transitioning-uefi-and-imm-white-paper-ibm-bladecenter-and-system-x</a></td>
+<td>yes (page)</td>
+<td>pdf/S-025_transitioning_to_uefi_and_imm.doc</td>
+</tr>
+<tr id="s-026">
+<td><a href="#s-026">S-026</a></td>
+<td>ASU User Guide</td>
+<td>v10.6, 2019-04 (Lenovo); IBM 9.30/9.60/10.0</td>
+<td><a href="https://pubs.lenovo.com/static/asu_ug_pdf.pdf" rel="noopener">https://pubs.lenovo.com/static/asu_ug_pdf.pdf</a> ; <a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/ibm_util_asu_asu79n_9.30_anyos_noarch.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/ibm_util_asu_asu79n_9.30_anyos_noarch.pdf</a></td>
+<td>listed</td>
+<td>pdf/S-026_asu_ug_pdf.pdf ; pdf/S-026_ibm_util_asu_asu79n_9.30_anyos_noarch.pdf</td>
+</tr>
+<tr id="s-027">
+<td><a href="#s-027">S-027</a></td>
+<td>IMM2 configurations with ASU (IMM1 vs IMM2 differences)</td>
+<td>2013</td>
+<td><a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/imm2_configurations_usersguide.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/imm2_configurations_usersguide.pdf</a></td>
+<td>listed</td>
+<td>pdf/S-027_imm2_configurations_usersguide.pdf</td>
+</tr>
+<tr id="s-028">
+<td><a href="#s-028">S-028</a></td>
+<td>DSA Installation and User's Guide</td>
+<td>9.60 (~2014)</td>
+<td><a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/dsa_bk_9.60.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/dsa_bk_9.60.pdf</a></td>
+<td>listed</td>
+<td>pdf/S-028_dsa_bk_9.60.pdf</td>
+</tr>
+<tr id="s-029">
+<td><a href="#s-029">S-029</a></td>
+<td>UpdateXpress System Pack Installer User's Guide</td>
+<td>9.63 / 10.0</td>
+<td><a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/uxspi_userguide.963.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/uxspi_userguide.963.pdf</a> ; <a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/uspi_bk_10.0.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/uspi_bk_10.0.pdf</a></td>
+<td>listed</td>
+<td>pdf/S-029_uspi_bk_10.0.pdf ; pdf/S-029_uxspi_userguide.963.pdf</td>
+</tr>
+<tr id="s-030">
+<td><a href="#s-030">S-030</a></td>
+<td>ToolsCenter Bootable Media Creator User's Guide</td>
+<td>9.63</td>
+<td><a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/bomc_userguide.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/bomc_userguide.pdf</a></td>
+<td>listed</td>
+<td>pdf/S-030_bomc_userguide.pdf</td>
+</tr>
+<tr id="s-031">
+<td><a href="#s-031">S-031</a></td>
+<td>ServeRAID M1015 Product Guide TIPS0740 (installed controller)</td>
+<td>2011-05-17</td>
+<td><a href="https://lenovopress.lenovo.com/tips0740.pdf" rel="noopener">https://lenovopress.lenovo.com/tips0740.pdf</a></td>
+<td>yes</td>
+<td>pdf/S-031_tips0740.pdf</td>
+</tr>
+<tr id="s-032">
+<td><a href="#s-032">S-032</a></td>
+<td>ServeRAID M1015 User's Guide</td>
+<td>2nd ed., 2010-09</td>
+<td><a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/ibm_doc_sraidmr_m1015_2ndedition_userguide.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/ibm_doc_sraidmr_m1015_2ndedition_userguide.pdf</a></td>
+<td>listed</td>
+<td>pdf/S-032_ibm_doc_sraidmr_m1015_2ndedition_userguide.pdf</td>
+</tr>
+<tr id="s-033">
+<td><a href="#s-033">S-033</a></td>
+<td>ServeRAID M5014/M5015 Product Guide TIPS0738 / User's Guide 81y1027</td>
+<td>2016-04-22 / 2012-05</td>
+<td><a href="https://lenovopress.lenovo.com/tips0738.pdf" rel="noopener">https://lenovopress.lenovo.com/tips0738.pdf</a> ; <a href="https://public.dhe.ibm.com/systems/support/system_x_pdf/81y1027.pdf" rel="noopener">https://public.dhe.ibm.com/systems/support/system_x_pdf/81y1027.pdf</a></td>
+<td>yes / listed</td>
+<td>pdf/S-033_81y1027.pdf ; pdf/S-033_tips0738.pdf</td>
+</tr>
+<tr id="s-034">
+<td><a href="#s-034">S-034</a></td>
+<td>ServeRAID-BR10il v2 TIPS0741, BR10i TIPS0737</td>
+<td>-</td>
+<td><a href="https://lenovopress.lenovo.com/tips0741" rel="noopener">https://lenovopress.lenovo.com/tips0741</a> ; <a href="https://lenovopress.lenovo.com/tips0737" rel="noopener">https://lenovopress.lenovo.com/tips0737</a></td>
+<td>listed</td>
+<td>pdf/S-034_tips0737.pdf ; pdf/S-034_tips0741.pdf</td>
+</tr>
+<tr id="s-035">
+<td><a href="#s-035">S-035</a></td>
+<td>Tuning IBM System x Servers for Performance SG24-5287-05</td>
+<td>6th ed., 2009-08</td>
+<td><a href="https://lenovopress.lenovo.com/sg245287.pdf" rel="noopener">https://lenovopress.lenovo.com/sg245287.pdf</a></td>
+<td>listed</td>
+<td>pdf/S-035_sg245287.pdf</td>
+</tr>
+<tr id="s-036">
+<td><a href="#s-036">S-036</a></td>
+<td>SPEC results LP0239 / LP0244 / LP0283 / LP0314 (SPECpower)</td>
+<td>2010-2011</td>
+<td><a href="https://lenovopress.lenovo.com/lp0239.pdf" rel="noopener">https://lenovopress.lenovo.com/lp0239.pdf</a> (same pattern)</td>
+<td>listed</td>
+<td>pdf/S-036_lp0239.pdf ; pdf/S-036_lp0244.pdf ; pdf/S-036_lp0283.pdf ; pdf/S-036_lp0314.pdf</td>
+</tr>
+<tr id="s-037">
+<td><a href="#s-037">S-037</a></td>
+<td>ServerProven 7945 (old)</td>
+<td>gone (301)</td>
+<td><a href="http://static.lenovo.com/us/en/serverproven/xseries_old/7945.shtml" rel="noopener">http://static.lenovo.com/us/en/serverproven/xseries_old/7945.shtml</a> (try web.archive.org)</td>
+<td>no</td>
+<td>-</td>
+</tr>
+<tr id="s-038">
+<td><a href="#s-038">S-038</a></td>
+<td>Lenovo OS Interoperability Guide</td>
+<td>live</td>
+<td><a href="https://lenovopress.lenovo.com/osig#servers=x3650-m3-7945" rel="noopener">https://lenovopress.lenovo.com/osig#servers=x3650-m3-7945</a></td>
+<td>listed</td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="key-facts-and-conflicts-for-the-topic-documents">Key facts and conflicts (for the topic documents) <a class="anchor" href="#key-facts-and-conflicts-for-the-topic-documents" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>TIPS0805: 2U; up to 2x Xeon 5600; Intel 5520 chipset; 18 DIMM sockets (9 per CPU); up to 16x 2.5-inch
+  SAS/SATA; up to 5 PCIe 2.0 x8 slots (4 usable, 1 for RAID); 2x GbE + optional 2x GbE card; PSU 460 W,
+  675 W, 675 W HE AC; IMM with IPMI 2.0, SNMP v3, optional Virtual Media Key. Model 7945-22x = 1x E5606,
+  1x 4 GB, M1015, 1x 460 W (closest to 7945KEG).</li>
+<li>ZG11-0012: dual Broadcom 5709 GbE; IMM shares one onboard port; IPMI 2.0 implemented with "OSA firmware";
+  6 hot-swap fans (3 pairs); altimeter sensor; internal USB for embedded ESXi 4.1; model suffix "G" = EMEA.</li>
+<li>Conflicts: chipset 5520 (TIPS0805) vs "5600" (ZG11-0012 p.4); max memory 288 GB vs 192 GB; PSU 81Y6558
+  "465W" vs 460 W elsewhere. Resolve with <a href="#s-002">S-002</a>/<a href="#s-004">S-004</a>.</li>
+<li>Parts (<a href="#s-006">S-006</a>): system board 81Y6625; 675 W HE PSU 39Y7218; fan 49Y5361; backplanes 43V7070, 69Y0650,
+  94Y6670; risers 69Y4324 (PCIe x8), 69Y4326 (PCI-X). The owner's board FRU reads 94Y7614 / 69Y5082
+  (captures/2026-10-19_ipmi_inband.txt) - relation to 81Y6625 is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+</ul>
+<h2 id="lenovo-download-catalog">Lenovo download catalog <a class="anchor" href="#lenovo-download-catalog" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Source API: <a href="https://datacentersupport.lenovo.com/us/en/api/v4/downloads/drivers?productId=servers%2Fsystem-x%2Fsystem-x3650-m3%2F7945" rel="noopener">https://datacentersupport.lenovo.com/us/en/api/v4/downloads/drivers?productId=servers%2Fsystem-x%2Fsystem-x3650-m3%2F7945</a></li>
+<li>Source page: <a href="https://datacentersupport.lenovo.com/us/en/products/servers/system-x/system-x3650-m3/7945/downloads/driver-list/" rel="noopener">https://datacentersupport.lenovo.com/us/en/products/servers/system-x/system-x3650-m3/7945/downloads/driver-list/</a></li>
+<li>Fetched (UTC): 2026-10-19T16:13:33Z (saved response file mtime)</li>
+<li>Generated by: scripts/lenovo_downloads.py catalog</li>
+<li>Documents: 495, unique file URLs: 1699, with SHA256: 669, without any hash: 1023</li>
+<li>Sizes are the vendor's rounded display values (approximate).</li>
+<li>Files referenced by several DocIds are listed once, under the first (sorted) category and DocId.</li>
+</ul>
+<h3 id="categories">Categories <a class="anchor" href="#categories" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Files</th>
+<th>Total size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIOS/UEFI</td>
+<td>5</td>
+<td>2.08 MB</td>
+</tr>
+<tr>
+<td>Diagnostic</td>
+<td>1</td>
+<td>815 B</td>
+</tr>
+<tr>
+<td>Display and Video Graphics</td>
+<td>78</td>
+<td>2.35 GB</td>
+</tr>
+<tr>
+<td>Hard Drive and Solid State Drives, NVMe</td>
+<td>4</td>
+<td>15.24 MB</td>
+</tr>
+<tr>
+<td>Lenovo XClarity Essentials (LXCE) (OneCLI, BOMC, UpdateXpress)</td>
+<td>18</td>
+<td>2.11 GB</td>
+</tr>
+<tr>
+<td>Lenovo XClarity Integrator (LXCI)</td>
+<td>112</td>
+<td>11.63 GB</td>
+</tr>
+<tr>
+<td>Management Module (IMM, IMM2, AMM, CMM, SMM)</td>
+<td>11</td>
+<td>73.19 MB</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>1</td>
+<td>2.29 KB</td>
+</tr>
+<tr>
+<td>Microsoft OEM Media</td>
+<td>19</td>
+<td>154.62 GB</td>
+</tr>
+<tr>
+<td>Motherboard Devices (Backplanes, core chipset, onboard video, PCIe switches)</td>
+<td>8</td>
+<td>9.11 MB</td>
+</tr>
+<tr>
+<td>Networking: LAN (Ethernet)</td>
+<td>665</td>
+<td>7.22 GB</td>
+</tr>
+<tr>
+<td>Power Distribution Units (PDU)</td>
+<td>7</td>
+<td>6.43 MB</td>
+</tr>
+<tr>
+<td>Power Management</td>
+<td>5</td>
+<td>522.51 KB</td>
+</tr>
+<tr>
+<td>RAID/SAS HBA Controllers, Backplanes, Storage Expanders/Switches, Bootable Storage</td>
+<td>118</td>
+<td>466.69 MB</td>
+</tr>
+<tr>
+<td>Software and Utilities</td>
+<td>272</td>
+<td>20.65 GB</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>359</td>
+<td>3.11 GB</td>
+</tr>
+<tr>
+<td>Update Xpress System Packs</td>
+<td>16</td>
+<td>463.63 MB</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="firmware.html"><span>Previous</span>Firmware packages</a>
+<a class="next" href="tools.html"><span>Next</span>Scripts and tools</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#machine-types">Machine types</a></li><li class="l2"><a href="#core-product-documents">Core product documents</a></li><li class="l2"><a href="#firmware-management-and-tools-documents">Firmware, management and tools documents</a></li><li class="l2"><a href="#key-facts-and-conflicts-for-the-topic-documents">Key facts and conflicts (for the topic documents)</a></li><li class="l2"><a href="#lenovo-download-catalog">Lenovo download catalog</a></li><li class="l3"><a href="#categories">Categories</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

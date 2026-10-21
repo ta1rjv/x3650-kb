@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary - x3650 M3 Library</title>
+<meta name="description" content="More than 100 terms of the x3650 M3 platform, its IMM, UEFI, firmware packaging, storage and tools, each with a one-line definition and a link to the volume section that explains it.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="page" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="reading-guide.html">Reading Guide</a></li>
+<li><a href="system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="firmware-guide.html">Firmware Guide</a></li>
+<li><a href="imm-guide.html">IMM Guide</a></li>
+<li><a href="uefi-guide.html">UEFI Guide</a></li>
+<li><a href="troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="glossary.html" aria-current="page">Glossary</a></li>
+<li><a href="faq.html">FAQ</a></li>
+<li><a href="timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="../volumes/knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="../volumes/system-architecture.html">System Architecture</a></li>
+<li><a href="../volumes/hardware-components.html">Hardware Components</a></li>
+<li><a href="../volumes/memory.html">Memory</a></li>
+<li><a href="../volumes/storage-raid.html">Storage and RAID</a></li>
+<li><a href="../volumes/power-thermal.html">Power and Thermal</a></li>
+<li><a href="../volumes/sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="../volumes/imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="../volumes/imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="../volumes/imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="../volumes/serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="../volumes/uefi.html">UEFI Firmware</a></li>
+<li><a href="../volumes/firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="../volumes/firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="../volumes/firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="../volumes/error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="../volumes/tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="../volumes/optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Reference</li><li aria-current="page">Glossary</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">Reference</p>
+<h1>Glossary</h1>
+<p class="lede">More than 100 terms of the x3650 M3 platform, its IMM, UEFI, firmware packaging, storage and tools, each with a one-line definition and a link to the volume section that explains it.</p>
+<p class="meta"><span class="source">source: <code>site/pages/glossary.md</code></span> <span>4 sections</span> <span class="tl-stats"><span class="tl tl-candidate">CANDIDATE</span><span class="n">2</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#a---c">A - C</a></li><li class="l2"><a href="#d---i">D - I</a></li><li class="l2"><a href="#j---p">J - P</a></li><li class="l2"><a href="#q---z">Q - Z</a></li></ul></nav></details>
+<div class="prose">
+<p>One line per term; follow the link for sources and detail. Terms specific to IBM System x of the IMM v1 era are
+explained as used on the x3650 M3; IMM2 or XClarity meanings are noted where they differ.</p>
+<h2 id="a---c">A - C <a class="anchor" href="#a---c" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+<th>See</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ABR</td>
+<td>Automatic boot failure recovery: the IMM starts the backup UEFI bank when the primary fails during start (POST 3048006).</td>
+<td><a href="../volumes/error-codes.html#13-firmware-recovery-features-abr-nx-boot-failure">Error codes 13</a></td>
+</tr>
+<tr>
+<td>ACPI</td>
+<td>Firmware tables (DSDT, SSDT, MADT, DMAR, MCFG, HPET, FACP) that describe the platform to the OS.</td>
+<td><a href="../volumes/system-architecture.html#12-acpi-tables-summary">System architecture 12</a></td>
+</tr>
+<tr>
+<td>Action catalog (A01-A64, D01-D28)</td>
+<td>Condensed vendor "user response" texts shared by many IMM events (A) and DSA messages (D).</td>
+<td><a href="../volumes/error-codes.html#5-imm-action-catalog-a01-a64">Error codes 5</a>, <a href="../volumes/error-codes.html#11-dsa-action-catalog-d01-d28">11</a></td>
+</tr>
+<tr>
+<td>AEM</td>
+<td>Active Energy Manager: IBM Systems Director extension for power metering and capping through the IMM; UEFI "Capping Enabled" by default.</td>
+<td><a href="../volumes/power-thermal.html#51-documented-features">Power and thermal 5.1</a></td>
+</tr>
+<tr>
+<td>Altimeter</td>
+<td>Pressure sensor that works with the IMM to govern fan speed.</td>
+<td><a href="../volumes/hardware-components.html#111-documented-design">Hardware 11.1</a></td>
+</tr>
+<tr>
+<td>ASU</td>
+<td>Advanced Settings Utility: reads and writes UEFI, IMM and iSCSI settings by name, in-band or out-of-band.</td>
+<td><a href="../volumes/tools.html#4-asu---advanced-settings-utility">Tools 4</a></td>
+</tr>
+<tr>
+<td>Authority level</td>
+<td>IMM v1 user rights: Supervisor, Read Only or Custom (individual rights); mapped to IPMI privileges.</td>
+<td><a href="../volumes/imm-architecture.html#6-users-authentication-ldap-ipmi-privileges">IMM architecture 6</a></td>
+</tr>
+<tr>
+<td>Backup bank</td>
+<td>Second firmware copy of the IMM or UEFI used for recovery; selected by J147 / J29 or automatically.</td>
+<td><a href="../volumes/imm-architecture.html#32-flash-and-banks">IMM architecture 3.2</a></td>
+</tr>
+<tr>
+<td>BBU</td>
+<td>Battery backup unit for RAID cache; not used by the cacheless M1015, optional on M5014/M5015.</td>
+<td><a href="../volumes/storage-raid.html#9-raid-levels-feature-keys-and-limits">Storage 9</a></td>
+</tr>
+<tr>
+<td>BCM5709</td>
+<td>Broadcom NetXtreme II dual-port Gigabit Ethernet controller on the system board (TOE, WoL, VLAN).</td>
+<td><a href="../volumes/system-architecture.html#10-network-interfaces">System architecture 10</a></td>
+</tr>
+<tr>
+<td>BDS</td>
+<td>Boot Device Selection, the last UEFI phase, which runs the boot manager.</td>
+<td><a href="../volumes/uefi.html#2-architecture-and-post-flow">UEFI 2</a></td>
+</tr>
+<tr>
+<td>Beep codes</td>
+<td>Not used: "This server does not use beep codes for server status".</td>
+<td><a href="../volumes/error-codes.html#8-beep-codes">Error codes 8</a></td>
+</tr>
+<tr>
+<td>BMC</td>
+<td>Baseboard management controller; on this server the BMC function is part of the IMM.</td>
+<td><a href="../volumes/imm-architecture.html#31-integration-and-soc">IMM architecture 3.1</a></td>
+</tr>
+<tr>
+<td>BoMC</td>
+<td>Bootable Media Creator: builds bootable media with Preboot DSA, UXSPI and update packages.</td>
+<td><a href="../volumes/tools.html#7-bomc---bootable-media-creator">Tools 7</a></td>
+</tr>
+<tr>
+<td>Bootcode</td>
+<td>Boot firmware component of the BCM5709 NVRAM (bc), one of several images in the NIC package.</td>
+<td><a href="../volumes/firmware-formats.html#12-broadcom-netxtreme-ii-nic-firmware-package-241c">Firmware formats 12</a></td>
+</tr>
+<tr>
+<td>BRD LED</td>
+<td>Light path LED for a system-board problem: battery, missing riser, or failed voltage regulator.</td>
+<td><a href="../volumes/hardware-components.html#63-light-path-led-meanings-icr_light_path_diagnostics_leds-s-004-chapter-3">Hardware 6.3</a></td>
+</tr>
+<tr>
+<td>Build ID</td>
+<td>Firmware build name such as YUOOC7E (IMM), D6E164A (UEFI), DSYTC5F (DSA); maps to a version number.</td>
+<td><a href="../volumes/firmware-history.html#naming-documented">Firmware history, naming</a></td>
+</tr>
+<tr>
+<td>Capsule_P.scap</td>
+<td>UEFI image holding the early boot code (SEC/PEI) with an RSA2048-SHA256 signature trailer.</td>
+<td><a href="../volumes/firmware-formats.html#6-uefi-flash-image-structure">Firmware formats 6</a></td>
+</tr>
+<tr>
+<td>CDC Ethernet / RNDIS</td>
+<td>USB network device classes used by the IMM for LAN over USB (USB ID 04b3:4010).</td>
+<td><a href="../volumes/imm-architecture.html#42-lan-over-usb">IMM architecture 4.2</a></td>
+</tr>
+<tr>
+<td>cdc_interface.sh</td>
+<td>IBM helper script in tool and firmware packages that configures the host side of LAN over USB.</td>
+<td><a href="../volumes/tools.html#3-transports-kcs-lan-over-usb-imm-external-lan-bootable-media">Tools 3</a></td>
+</tr>
+<tr>
+<td>.chg</td>
+<td>Change-history file published next to each IBM firmware package.</td>
+<td><a href="../volumes/firmware-formats.html#4-descriptor-files-xml-chg-txt">Firmware formats 4</a></td>
+</tr>
+<tr>
+<td>Checkpoint code</td>
+<td>Two-digit progress code shown on the light path panel during boot; a location, not an error code.</td>
+<td><a href="../volumes/error-codes.html#7-checkpoint-codes">Error codes 7</a></td>
+</tr>
+<tr>
+<td>Chipkill</td>
+<td>Memory error correction that tolerates a failed DRAM chip; requires x4-based DIMMs.</td>
+<td><a href="../volumes/memory.html#7-ras-features">Memory 7</a></td>
+</tr>
+<tr>
+<td>CIM</td>
+<td>Common Information Model; the IMM serves CIM-XML over HTTP 5988 / HTTPS 5989 for IBM Systems Director.</td>
+<td><a href="../volumes/imm-interfaces.html#8-cim--ibm-systems-director-5988-5989-and-ws-man">IMM interfaces 8</a></td>
+</tr>
+<tr>
+<td>CNFG LED</td>
+<td>Light path LED for a configuration error, lit together with CPU or MEM.</td>
+<td><a href="../volumes/error-codes.html#91-light-path-diagnostics-panel-leds">Error codes 9.1</a></td>
+</tr>
+<tr>
+<td>COM1 / COM2</td>
+<td>Host serial ports; on rack servers COM1 carries IPMI SOL and COM2 serves CLI serial redirection.</td>
+<td><a href="../volumes/imm-interfaces.html#6-serial-over-lan-and-serial-redirection">IMM interfaces 6</a></td>
+</tr>
+<tr>
+<td>Cooling zone</td>
+<td>Fan-control zone exposed as an IPMI sensor (Cooling Zone 1-3).</td>
+<td><a href="../volumes/sensors-sdr.html#5-fans-and-cooling-zones">Sensors and SDR 5</a></td>
+</tr>
+<tr>
+<td>CRTM</td>
+<td>Core Root of Trust for Measurement: locked boot-block region of UEFI, updated by a staged capsule at the next boot.</td>
+<td><a href="../volumes/uefi.html#2-architecture-and-post-flow">UEFI 2</a></td>
+</tr>
+<tr>
+<td>CRU / FRU</td>
+<td>Customer replaceable unit (Tier 1 by the customer, Tier 2 optional) versus field replaceable unit (trained technician).</td>
+<td><a href="../volumes/hardware-components.html#13-cru--fru-part-number-tables">Hardware 13</a></td>
+</tr>
+<tr>
+<td>CSM</td>
+<td>Compatibility support module: legacy BIOS boot inside UEFI (LegacyBios module).</td>
+<td><a href="../volumes/uefi.html#2-architecture-and-post-flow">UEFI 2</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="d---i">D - I <a class="anchor" href="#d---i" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+<th>See</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DASD</td>
+<td>Direct access storage device: IBM term for disk drives (DASD LED, DASD backplane).</td>
+<td><a href="../volumes/hardware-components.html#9-drive-bays-and-backplanes-reference">Hardware 9</a></td>
+</tr>
+<tr>
+<td>DPC</td>
+<td>DIMMs per channel; determines the maximum memory speed (1 DPC 1333, 3 DPC 800 MHz).</td>
+<td><a href="../volumes/memory.html#51-speed-vs-dimms-per-channel-dpc">Memory 5.1</a></td>
+</tr>
+<tr>
+<td>DSA</td>
+<td>Dynamic System Analysis: IBM inventory, log collection and diagnostics tool (Preboot and Portable editions).</td>
+<td><a href="../volumes/tools.html#5-dsa---dynamic-system-analysis-portable-and-preboot">Tools 5</a></td>
+</tr>
+<tr>
+<td>DSA message (CCC-TTT-xxx)</td>
+<td>DSA Preboot result id: component, test state (8xx aborted, 9xx failed).</td>
+<td><a href="../volumes/error-codes.html#10-dsa-preboot-diagnostic-messages">Error codes 10</a></td>
+</tr>
+<tr>
+<td>DXE</td>
+<td>Driver Execution Environment, the UEFI phase that loads drivers and the Setup engine.</td>
+<td><a href="../volumes/uefi.html#2-architecture-and-post-flow">UEFI 2</a></td>
+</tr>
+<tr>
+<td>ESI</td>
+<td>Enterprise Southbridge Interface, the DMI-compatible x4 link between the 5520 IOH and ICH10.</td>
+<td><a href="../volumes/system-architecture.html#4-intel-5520-ioh-and-the-esidmi-link">System architecture 4</a></td>
+</tr>
+<tr>
+<td>Event ID</td>
+<td>IMM message id <code>AABBCCDD-EEFFxxxx</code>; structure inferred from IPMI sensor events (<span class="tl tl-candidate">CANDIDATE</span>).</td>
+<td><a href="../volumes/error-codes.html#3-imm-event-id-structure">Error codes 3</a></td>
+</tr>
+<tr>
+<td>Fix Central</td>
+<td>IBM's firmware download portal; some x3650 M3 packages need an IBM ID login there.</td>
+<td><a href="../volumes/firmware-history.html#open-items">Firmware history, open items</a></td>
+</tr>
+<tr>
+<td>FoD</td>
+<td>Features on Demand: license-key mechanism of IMM2-era systems; not an IMM v1 feature, although the 1.55 image carries FoD key-import code.</td>
+<td><a href="../volumes/firmware-formats.html#79-imm-155-yuooh5a-differences-from-110-extracted">Firmware formats 7.9</a></td>
+</tr>
+<tr>
+<td>FRU (IPMI)</td>
+<td>IPMI inventory record of a part (board, supply, DIMM, backplane) with part and serial numbers.</td>
+<td><a href="../volumes/hardware-components.html#14-installed-frus-measured-from-ipmi-fru-and-sdr">Hardware 14</a></td>
+</tr>
+<tr>
+<td>FV / FFS</td>
+<td>UEFI firmware volume and its file system; the x3650 M3 image has five FFS2 volumes and 178 modules.</td>
+<td><a href="../volumes/firmware-formats.html#6-uefi-flash-image-structure">Firmware formats 6</a></td>
+</tr>
+<tr>
+<td>G200eV</td>
+<td>Matrox video controller integrated in the IMM, 16 MB.</td>
+<td><a href="../volumes/system-architecture.html#8-video">System architecture 8</a></td>
+</tr>
+<tr>
+<td>HII</td>
+<td>Human Interface Infrastructure: UEFI forms and strings from which Setup pages are rendered.</td>
+<td><a href="../volumes/uefi.html#5-setup-forms-and-options-from-extracted-hii-forms">UEFI 5</a></td>
+</tr>
+<tr>
+<td>ICH10</td>
+<td>Intel I/O controller hub (southbridge): USB, SATA, LPC, SMBus, serial ports.</td>
+<td><a href="../volumes/system-architecture.html#6-ich10-southbridge-functions">System architecture 6</a></td>
+</tr>
+<tr>
+<td>IFR</td>
+<td>Internal Forms Representation, the byte code of HII forms (questions, defaults, conditions).</td>
+<td><a href="../volumes/uefi.html#5-setup-forms-and-options-from-extracted-hii-forms">UEFI 5</a></td>
+</tr>
+<tr>
+<td>iflash / iflash64</td>
+<td>Host-side flash utility inside IBM IMM, UEFI and DSA packages.</td>
+<td><a href="../volumes/firmware-formats.html#8-iflash-and-package-command-line">Firmware formats 8</a></td>
+</tr>
+<tr>
+<td>IMM</td>
+<td>Integrated Management Module: the service processor (BMC, video, remote presence) of the x3650 M3.</td>
+<td><a href="../volumes/imm-architecture.html#3-imm-v1-internals">IMM architecture 3</a></td>
+</tr>
+<tr>
+<td>IMM event log</td>
+<td>The IMM's text event log (filtered SEL plus IMM events), read with <code>readlog</code> or the web page.</td>
+<td><a href="../volumes/imm-architecture.html#10-event-logging-sel-and-imm-event-log">IMM architecture 10</a></td>
+</tr>
+<tr>
+<td>IMM v1 / IMM2 / XCC</td>
+<td>First IMM generation (x3650 M3, YUOO builds) versus its successors on M4/M5 and later servers; facts are not interchangeable.</td>
+<td><a href="../volumes/firmware-history.html#naming-documented">Firmware history, naming</a></td>
+</tr>
+<tr>
+<td>IOH (5520)</td>
+<td>Intel 5520 I/O hub: PCIe root ports, QuickData DMA, VT-d; linked to the CPUs by QPI.</td>
+<td><a href="../volumes/system-architecture.html#4-intel-5520-ioh-and-the-esidmi-link">System architecture 4</a></td>
+</tr>
+<tr>
+<td>IPMI</td>
+<td>Intelligent Platform Management Interface 2.0, implemented by the IMM over KCS and LAN.</td>
+<td><a href="../volumes/imm-interfaces.html#5-ipmi-kcs-and-lan">IMM interfaces 5</a></td>
+</tr>
+<tr>
+<td>IT / IR firmware</td>
+<td>LSI SAS2 HBA personalities: IT = initiator-target (plain HBA), IR = integrated RAID; flashers refuse to cross them.</td>
+<td><a href="../volumes/storage-raid.html#42-ibm-6gb-sas-hba-9212-4i4e-second-controller">Storage 4.2</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="j---p">J - P <a class="anchor" href="#j---p" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+<th>See</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>J29</td>
+<td>UEFI boot recovery jumper; pins 2-3 load the backup UEFI page.</td>
+<td><a href="../volumes/hardware-components.html#41-jumpers">Hardware 4.1</a></td>
+</tr>
+<tr>
+<td>J147</td>
+<td>IMM recovery jumper; pins 2-3 load the backup IMM page.</td>
+<td><a href="../volumes/hardware-components.html#41-jumpers">Hardware 4.1</a></td>
+</tr>
+<tr>
+<td>JFFS2</td>
+<td>Flash file system used for the IMM root and boot file systems (big-endian).</td>
+<td><a href="../volumes/firmware-formats.html#7-imm-packages-upd">Firmware formats 7</a></td>
+</tr>
+<tr>
+<td>KCS</td>
+<td>Keyboard Controller Style: the in-band IPMI system interface (I/O 0xCA2); no authentication from the host.</td>
+<td><a href="../volumes/imm-architecture.html#41-kcs--ipmi-system-interface">IMM architecture 4.1</a></td>
+</tr>
+<tr>
+<td>LAN over USB</td>
+<td>Virtual Ethernet link between host OS and IMM (IMM 169.254.95.118) used by ASU and firmware updates.</td>
+<td><a href="../volumes/imm-interfaces.html#10-lan-over-usb-in-band-network-interface">IMM interfaces 10</a></td>
+</tr>
+<tr>
+<td>LDAP</td>
+<td>Directory authentication for IMM web and CLI logins; IPMI always uses local accounts.</td>
+<td><a href="../volumes/imm-architecture.html#6-users-authentication-ldap-ipmi-privileges">IMM architecture 6</a></td>
+</tr>
+<tr>
+<td>Legacy CLI</td>
+<td>IMM v1 command line over SSH or Telnet (<code>system&gt;</code> prompt).</td>
+<td><a href="../volumes/imm-interfaces.html#4-legacy-cli-ssh-and-telnet">IMM interfaces 4</a></td>
+</tr>
+<tr>
+<td>Light path diagnostics</td>
+<td>Front pull-out LED panel plus board LEDs that point to the failing component.</td>
+<td><a href="../volumes/hardware-components.html#6-operator-information-panel-and-light-path-diagnostics">Hardware 6</a></td>
+</tr>
+<tr>
+<td>linwrap / wrapcfg</td>
+<td>Linux wrapper and its configuration inside IBM packages that start the flash tool.</td>
+<td><a href="../volumes/firmware-formats.html#3-pkg-sdk-self-extractor-anatomy">Firmware formats 3</a></td>
+</tr>
+<tr>
+<td>Locator LED</td>
+<td>Blue LED to identify the server in a rack; also controlled by CLI <code>identify</code>.</td>
+<td><a href="../volumes/hardware-components.html#61-operator-information-panel-front-s-002-p16-17-s-004-p12">Hardware 6.1</a></td>
+</tr>
+<tr>
+<td>M1015</td>
+<td>IBM ServeRAID M1015: LSI SAS2008 MegaRAID adapter, RAID 0/1/10 (5/50 with key), no cache.</td>
+<td><a href="../volumes/storage-raid.html#41-serveraid-m1015-raid">Storage 4.1</a></td>
+</tr>
+<tr>
+<td>MegaRAID</td>
+<td>LSI RAID firmware family used by ServeRAID M-series adapters; managed with StorCLI, WebBIOS, MSM.</td>
+<td><a href="../volumes/storage-raid.html#8-configuration-utilities">Storage 8</a></td>
+</tr>
+<tr>
+<td>Memory mirroring</td>
+<td>Mode that duplicates memory across channel pairs (3+6, 2+5, 1+4); half the capacity usable.</td>
+<td><a href="../volumes/memory.html#62-memory-mirroring">Memory 6.2</a></td>
+</tr>
+<tr>
+<td>Microcode</td>
+<td>CPU patch shipped in the UEFI <code>FvMicrocode.fv</code> volume (six updates per image).</td>
+<td><a href="../volumes/uefi.html#9-microcode">UEFI 9</a></td>
+</tr>
+<tr>
+<td>mriName</td>
+<td>Attribute in the UEFI setup XML that forms the ASU setting name (<code>uEFI.&lt;mriName&gt;</code>).</td>
+<td><a href="../volumes/uefi.html#7-asu-settings-s-026-and-the-setup-xml">UEFI 7</a></td>
+</tr>
+<tr>
+<td>NC-SI</td>
+<td>Network controller sideband interface: lets a BMC share a host NIC port; the BCM5709 runs NC-SI firmware.</td>
+<td><a href="../volumes/firmware-formats.html#124-changes-215b---241c-relevant-to-the-5709">Firmware formats 12.4</a></td>
+</tr>
+<tr>
+<td>NMI</td>
+<td>Non-maskable interrupt; NMI LED and recessed NMI button on the light path panel.</td>
+<td><a href="../volumes/hardware-components.html#63-light-path-led-meanings-icr_light_path_diagnostics_leds-s-004-chapter-3">Hardware 6.3</a></td>
+</tr>
+<tr>
+<td>Nx boot failure</td>
+<td>After N failed POST attempts (3, 6, 9) the firmware loads defaults and starts Setup.</td>
+<td><a href="../volumes/error-codes.html#13-firmware-recovery-features-abr-nx-boot-failure">Error codes 13</a></td>
+</tr>
+<tr>
+<td>NVDATA</td>
+<td>Non-volatile configuration data of an LSI controller, versioned separately from its firmware.</td>
+<td><a href="../volumes/storage-raid.html#7-firmware-levels-installed-vs-available">Storage 7</a></td>
+</tr>
+<tr>
+<td>NVRAM variables</td>
+<td>UEFI variables (boot entries, console paths, Setup store) kept in flash.</td>
+<td><a href="../volumes/uefi.html#12-live-uefi-variables-on-the-owners-server-2026-10-21">UEFI 12</a></td>
+</tr>
+<tr>
+<td>oem_ibm.xml</td>
+<td>Descriptor inside a UEFI <code>.upd</code> with firmware type, build, version and release date.</td>
+<td><a href="../volumes/firmware-formats.html#5-the-upd-archive-oem_ibmxml-and-image-tarball">Firmware formats 5</a></td>
+</tr>
+<tr>
+<td>Online spare</td>
+<td>Memory sparing mode: one DIMM per CPU set held in reserve (Xeon 5600 only); 2/3 usable.</td>
+<td><a href="../volumes/memory.html#63-online-spare-sparing">Memory 6.3</a></td>
+</tr>
+<tr>
+<td>Operating mode</td>
+<td>UEFI preset (Acoustic, Efficiency, Performance, Custom) for speed, C-state and turbo settings.</td>
+<td><a href="../volumes/uefi.html#6-operating-modes">UEFI 6</a></td>
+</tr>
+<tr>
+<td>OVER SPEC</td>
+<td>Light path LED: shutdown because a 12 V power channel was overloaded.</td>
+<td><a href="../volumes/error-codes.html#94-power-channel-error-leds-12-v-channels-a-e-and-aux">Error codes 9.4</a></td>
+</tr>
+<tr>
+<td>Patrol Read</td>
+<td>RAID controller background scan of drives for media errors.</td>
+<td><a href="../volumes/storage-raid.html#9-raid-levels-feature-keys-and-limits">Storage 9</a></td>
+</tr>
+<tr>
+<td>Patrol / demand scrub</td>
+<td>Memory scrubbing settings in UEFI (<code>uEFI.PatrolScrub</code>, <code>uEFI.DemandScrub</code>).</td>
+<td><a href="../volumes/memory.html#7-ras-features">Memory 7</a></td>
+</tr>
+<tr>
+<td>PEI / SEC</td>
+<td>Earliest UEFI phases (security and pre-EFI initialisation: CPU, QPI, memory).</td>
+<td><a href="../volumes/uefi.html#2-architecture-and-post-flow">UEFI 2</a></td>
+</tr>
+<tr>
+<td>PET</td>
+<td>Platform Event Trap: IPMI alert sent as an SNMP trap.</td>
+<td><a href="../volumes/imm-interfaces.html#56-alerting-pet-and-the-ipmi-snmp-community-string">IMM interfaces 5.6</a></td>
+</tr>
+<tr>
+<td>PFA</td>
+<td>Predictive Failure Analysis alerts (memory, drives).</td>
+<td><a href="../volumes/memory.html#7-ras-features">Memory 7</a></td>
+</tr>
+<tr>
+<td>PKG SDK</td>
+<td>IBM self-extracting package format: stub + unzip + image.tar + image.zip + imgboot.cfg + 20-byte trailer.</td>
+<td><a href="../volumes/firmware-formats.html#3-pkg-sdk-self-extractor-anatomy">Firmware formats 3</a></td>
+</tr>
+<tr>
+<td>POST</td>
+<td>Power-on self-test; POST error codes are seven hex digits on this server.</td>
+<td><a href="../volumes/error-codes.html#6-post--uefi-error-codes">Error codes 6</a></td>
+</tr>
+<tr>
+<td>POST event log</td>
+<td>Setup view of the three most recent POST errors.</td>
+<td><a href="../volumes/error-codes.html#2-where-errors-are-reported-logs-leds-displays">Error codes 2</a></td>
+</tr>
+<tr>
+<td>Power channel</td>
+<td>One of the 12 V rails A-E and AUX on the system board, each with an error LED.</td>
+<td><a href="../volumes/error-codes.html#94-power-channel-error-leds-12-v-channels-a-e-and-aux">Error codes 9.4</a></td>
+</tr>
+<tr>
+<td>Power restore policy</td>
+<td>What the server does when AC returns (Restore, Always Off, Always On).</td>
+<td><a href="../volumes/uefi.html#7-asu-settings-s-026-and-the-setup-xml">UEFI 7</a></td>
+</tr>
+<tr>
+<td>Preboot DSA</td>
+<td>DSA stored in IMM flash and started with F2 at POST.</td>
+<td><a href="../volumes/tools.html#57-preboot-dsa-953-package-analysis-installed-348">Tools 5.7</a></td>
+</tr>
+<tr>
+<td>Premium (IMM)</td>
+<td>IMM feature level enabled by the Virtual Media Key: remote presence, virtual media, failure screen capture.</td>
+<td><a href="../volumes/imm-architecture.html#7-standard-vs-premium-virtual-media-key">IMM architecture 7</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="q---z">Q - Z <a class="anchor" href="#q---z" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+<th>See</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QPI</td>
+<td>QuickPath Interconnect, the CPU-to-CPU and CPU-to-IOH link (up to 6.4 GT/s).</td>
+<td><a href="../volumes/system-architecture.html#3-processor-complex">System architecture 3</a></td>
+</tr>
+<tr>
+<td>RDIMM / UDIMM</td>
+<td>Registered versus unbuffered DDR3 DIMMs; never mixed; different maximum counts.</td>
+<td><a href="../volumes/memory.html#41-general-rules">Memory 4.1</a></td>
+</tr>
+<tr>
+<td>readlog</td>
+<td>IMM CLI command that pages through the IMM event log five entries at a time.</td>
+<td><a href="../volumes/imm-architecture.html#10-event-logging-sel-and-imm-event-log">IMM architecture 10</a></td>
+</tr>
+<tr>
+<td>Remind button</td>
+<td>Light path button that puts the system-error LED into a slow-flash remind mode.</td>
+<td><a href="../volumes/hardware-components.html#62-light-path-diagnostics-panel">Hardware 6.2</a></td>
+</tr>
+<tr>
+<td>Remote presence</td>
+<td>Graphical remote console (KVM) and virtual media on port 3900; Premium feature.</td>
+<td><a href="../volumes/imm-architecture.html#43-video-and-remote-presence">IMM architecture 4.3</a></td>
+</tr>
+<tr>
+<td>RETAIN tip</td>
+<td>IBM service tip (Hxxxxxx) documenting a known problem, for example H206034 (IMM failover defect).</td>
+<td><a href="../volumes/imm-architecture.html#32-flash-and-banks">IMM architecture 3.2</a></td>
+</tr>
+<tr>
+<td>Riser</td>
+<td>PCIe riser-card assembly; two on the board (slots 1-2 and 3-4), plus the SAS riser with the RAID slot.</td>
+<td><a href="../volumes/hardware-components.html#8-risers-and-pci-slots-reference">Hardware 8</a></td>
+</tr>
+<tr>
+<td>RMCP / RMCP+</td>
+<td>IPMI-over-LAN session protocols (IPMI 1.5 / 2.0) on UDP 623.</td>
+<td><span class="unlinked">IMM architecture 5.5</span></td>
+</tr>
+<tr>
+<td>SAS2008</td>
+<td>LSI 6 Gb/s SAS controller chip used by both the M1015 and the IBM 6Gb SAS HBA.</td>
+<td><a href="../volumes/storage-raid.html#1-summary-of-the-installed-storage-subsystem">Storage 1</a></td>
+</tr>
+<tr>
+<td>SAS2IRCU / SAS2FLASH</td>
+<td>LSI command-line tools for SAS2 HBA volumes and firmware flashing.</td>
+<td><a href="../volumes/tools.html#11-sas2ircu-and-sas2flash-ibm-6gb-sas-hba">Tools 11</a></td>
+</tr>
+<tr>
+<td>SDR</td>
+<td>Sensor data repository: IPMI records describing every sensor (type, entity, thresholds, hysteresis).</td>
+<td><a href="../volumes/sensors-sdr.html#3-how-to-read-the-values-columns-threshold-names-discrete-state-bytes">Sensors and SDR 3</a></td>
+</tr>
+<tr>
+<td>SEL</td>
+<td>System event log (IPMI); fixed size, does not overwrite when full.</td>
+<td><a href="../volumes/error-codes.html#2-where-errors-are-reported-logs-leds-displays">Error codes 2</a></td>
+</tr>
+<tr>
+<td>Sensor type / entity</td>
+<td>IPMI codes classifying a sensor (for example 02 voltage) and the part it watches (28 battery).</td>
+<td><a href="../volumes/error-codes.html#3-imm-event-id-structure">Error codes 3</a></td>
+</tr>
+<tr>
+<td>Serial redirection</td>
+<td>IMM CLI <code>console 1</code>: host COM2 carried over SSH or Telnet.</td>
+<td><a href="../volumes/imm-interfaces.html#6-serial-over-lan-and-serial-redirection">IMM interfaces 6</a></td>
+</tr>
+<tr>
+<td>ServerProven</td>
+<td>IBM/Lenovo compatibility list of options per server; the x3650 M3 page is gone.</td>
+<td><a href="../volumes/memory.html#14-open-questions--unknown">Memory 14</a></td>
+</tr>
+<tr>
+<td>SFCB</td>
+<td>Small Footprint CIM Broker, the CIM server inside the IMM (<code>sfcHttpd</code>).</td>
+<td><a href="../volumes/imm-interfaces.html#8-cim--ibm-systems-director-5988-5989-and-ws-man">IMM interfaces 8</a></td>
+</tr>
+<tr>
+<td>SLP</td>
+<td>Service Location Protocol (427): the IMM advertises its management services for discovery.</td>
+<td><a href="../volumes/imm-interfaces.html#9-slp-427">IMM interfaces 9</a></td>
+</tr>
+<tr>
+<td>SMBIOS OEM strings</td>
+<td>Type 11 strings where IBM records firmware builds and banks (for example "$CF Current UEFI Flash Bank").</td>
+<td><a href="../volumes/imm-architecture.html#2-identity-and-measured-configuration-summary">IMM architecture 2</a></td>
+</tr>
+<tr>
+<td>SNMP</td>
+<td>IMM agent (v1 and v3) on 161/udp and traps on 162/udp.</td>
+<td><a href="../volumes/imm-interfaces.html#7-snmp">IMM interfaces 7</a></td>
+</tr>
+<tr>
+<td>SOL</td>
+<td>Serial over LAN: IPMI payload carrying the host COM1 console over UDP 623.</td>
+<td><a href="../volumes/imm-interfaces.html#6-serial-over-lan-and-serial-redirection">IMM interfaces 6</a></td>
+</tr>
+<tr>
+<td>SPD</td>
+<td>Serial presence detect: DIMM EEPROM with size, ranks, device width and timing.</td>
+<td><a href="../volumes/memory.html#7-ras-features">Memory 7</a></td>
+</tr>
+<tr>
+<td>StorCLI</td>
+<td>Command-line utility for MegaRAID controllers such as the M1015.</td>
+<td><a href="../volumes/tools.html#10-storcli-serveraid-m1015">Tools 10</a></td>
+</tr>
+<tr>
+<td>SW3 / SW4</td>
+<td>System-board switch blocks: clear CMOS, TPM physical presence, password and power overrides.</td>
+<td><a href="../volumes/hardware-components.html#4-jumpers-and-switches">Hardware 4</a></td>
+</tr>
+<tr>
+<td>Tier 1 / Tier 2 CRU</td>
+<td>Tier 1 parts are replaced by the customer; Tier 2 by the customer or, on request, by IBM service.</td>
+<td><a href="../volumes/hardware-components.html#13-cru--fru-part-number-tables">Hardware 13</a></td>
+</tr>
+<tr>
+<td>TOE</td>
+<td>TCP offload engine feature of the BCM5709.</td>
+<td><a href="../volumes/system-architecture.html#10-network-interfaces">System architecture 10</a></td>
+</tr>
+<tr>
+<td>TPM</td>
+<td>Trusted Platform Module 1.2 on the LPC bus; disabled by default in UEFI.</td>
+<td><a href="../volumes/uefi.html#7-asu-settings-s-026-and-the-setup-xml">UEFI 7</a></td>
+</tr>
+<tr>
+<td>U-Boot</td>
+<td>Boot loader of the IMM SoC; selects the active firmware side.</td>
+<td><a href="../volumes/imm-architecture.html#32-flash-and-banks">IMM architecture 3.2</a></td>
+</tr>
+<tr>
+<td>UBI</td>
+<td>Linux volume layer on the IMM NAND with two copies (sides) of kernel and file systems.</td>
+<td><a href="../volumes/imm-architecture.html#32-flash-and-banks">IMM architecture 3.2</a></td>
+</tr>
+<tr>
+<td>UEFI</td>
+<td>Unified Extensible Firmware Interface: the x3650 M3 system firmware (UEFI 2.1, IBM builds D6Exxx).</td>
+<td><a href="../volumes/uefi.html#1-summary">UEFI 1</a></td>
+</tr>
+<tr>
+<td>uImage</td>
+<td>U-Boot kernel image; in IMM packages a big-endian MIPS Linux 2.6.16.46 kernel.</td>
+<td><a href="../volumes/firmware-formats.html#7-imm-packages-upd">Firmware formats 7</a></td>
+</tr>
+<tr>
+<td>.upd</td>
+<td>Flash payload inside IBM packages: a tar of a descriptor and the images.</td>
+<td><a href="../volumes/firmware-formats.html#5-the-upd-archive-oem_ibmxml-and-image-tarball">Firmware formats 5</a></td>
+</tr>
+<tr>
+<td>UXSP / UXSPI</td>
+<td>UpdateXpress System Pack (tested bundle of updates) and its installer.</td>
+<td><a href="../volumes/tools.html#6-uxspi---updatexpress-system-pack-installer">Tools 6</a></td>
+</tr>
+<tr>
+<td>VBAT</td>
+<td>Planar VBAT sensor: CMOS battery voltage (lower critical 2.095 V on the reference unit).</td>
+<td><a href="../volumes/hardware-components.html#12-battery-cmos">Hardware 12</a></td>
+</tr>
+<tr>
+<td>Virtual Light Path</td>
+<td>IMM web page showing the state of every light path LED remotely.</td>
+<td><a href="../volumes/imm-interfaces.html#32-navigation-map-left-pane-imm-v1">IMM interfaces 3.2</a></td>
+</tr>
+<tr>
+<td>Virtual Media Key</td>
+<td>Option 46C7526 that upgrades the IMM to Premium.</td>
+<td><a href="../volumes/imm-architecture.html#7-standard-vs-premium-virtual-media-key">IMM architecture 7</a></td>
+</tr>
+<tr>
+<td>VPD</td>
+<td>Vital product data: machine type, serial and firmware levels reported by the IMM (<code>vpd</code> command).</td>
+<td><a href="../volumes/imm-interfaces.html#32-navigation-map-left-pane-imm-v1">IMM interfaces 3.2</a></td>
+</tr>
+<tr>
+<td>VSC452</td>
+<td>Vitesse "SuperBMC" PCI identity of the IMM; <span class="tl tl-candidate">CANDIDATE</span> as the IMM SoC.</td>
+<td><a href="../volumes/imm-architecture.html#31-integration-and-soc">IMM architecture 3.1</a></td>
+</tr>
+<tr>
+<td>VT-d / DMAR</td>
+<td>Intel I/O virtualisation (IOMMU) in the 5520 IOH, described by the ACPI DMAR table; off by default in UEFI 1.22.</td>
+<td><a href="../volumes/system-architecture.html#4-intel-5520-ioh-and-the-esidmi-link">System architecture 4</a></td>
+</tr>
+<tr>
+<td>Watchdog</td>
+<td>POST watchdog (UEFI) and OS / loader watchdogs (IMM) that restart a hung server.</td>
+<td><a href="../volumes/imm-architecture.html#45-other-host-visible-items">IMM architecture 4.5</a></td>
+</tr>
+<tr>
+<td>WebBIOS</td>
+<td>Pre-boot configuration utility of MegaRAID adapters (Ctrl+H; HII browser under UEFI).</td>
+<td><a href="../volumes/storage-raid.html#8-configuration-utilities">Storage 8</a></td>
+</tr>
+<tr>
+<td>Westmere-EP</td>
+<td>Intel Xeon 5600 generation (CPUID 0x206Cx); the Xeon 5500 predecessor is Nehalem-EP.</td>
+<td><a href="../volumes/uefi.html#9-microcode">UEFI 9</a></td>
+</tr>
+<tr>
+<td>WS-Man</td>
+<td>WS-Management SOAP interface on <code>/wsman</code>; the IMM web UI uses it for almost every page (133 operations).</td>
+<td><a href="../volumes/imm-web-api.html#5-ws-man-client">IMM web API 5</a></td>
+</tr>
+<tr>
+<td>YUOO</td>
+<td>Prefix of IMM v1 build ids (letter O twice, not zeros).</td>
+<td><a href="../volumes/firmware-history.html#naming-documented">Firmware history, naming</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="tools-guide.html"><span>Previous</span>Tools Guide</a>
+<a class="next" href="faq.html"><span>Next</span>FAQ</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#a---c">A - C</a></li><li class="l2"><a href="#d---i">D - I</a></li><li class="l2"><a href="#j---p">J - P</a></li><li class="l2"><a href="#q---z">Q - Z</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

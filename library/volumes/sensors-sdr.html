@@ -1,0 +1,3752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sensors and SDR Decode - x3650 M3 Library</title>
+<meta name="description" content="decode of every sensor that the IMM (v1, build YUOOC7E, IPMI firmware 1.30) of the owner&#x27;s server exposes in its sensor data record (SDR) repository: name, sensor number, sensor type, event/reading ...">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="volume" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="../pages/reading-guide.html">Reading Guide</a></li>
+<li><a href="../pages/system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="../pages/firmware-guide.html">Firmware Guide</a></li>
+<li><a href="../pages/imm-guide.html">IMM Guide</a></li>
+<li><a href="../pages/uefi-guide.html">UEFI Guide</a></li>
+<li><a href="../pages/troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="../pages/tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="../pages/glossary.html">Glossary</a></li>
+<li><a href="../pages/faq.html">FAQ</a></li>
+<li><a href="../pages/timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="../pages/about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="system-architecture.html">System Architecture</a></li>
+<li><a href="hardware-components.html">Hardware Components</a></li>
+<li><a href="memory.html">Memory</a></li>
+<li><a href="storage-raid.html">Storage and RAID</a></li>
+<li><a href="power-thermal.html">Power and Thermal</a></li>
+<li><a href="sensors-sdr.html" aria-current="page">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="uefi.html">UEFI Firmware</a></li>
+<li><a href="firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Volumes</li><li>Platform hardware</li><li aria-current="page">Sensors and SDR Decode</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">Volume 7 - Platform hardware</p>
+<h1>Sensors and SDR Decode</h1>
+<p class="subtitle">IBM System x3650 M3 (7945KEG) - Sensors and SDR Decode</p>
+<p class="lede">decode of every sensor that the IMM (v1, build YUOOC7E, IPMI firmware 1.30) of the owner&#x27;s server exposes in its sensor data record (SDR) repository: name, sensor number, sensor type, event/reading type, entity ID/instance, unit, thresholds ...</p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_SENSORS_SDR.md</code></span> <span>14 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">77</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">17</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">1</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">63</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">20</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#table-of-contents">Table of contents</a></li><li class="l2"><a href="#1-sources-conventions-and-truth-levels">1. Sources, conventions and truth levels</a></li><li class="l2"><a href="#2-capture-summary">2. Capture summary</a></li><li class="l3"><a href="#21-second-snapshot-2026-10-20-c-w2-measured">2.1 Second snapshot 2026-10-20 (C-W2, MEASURED)</a></li><li class="l2"><a href="#3-how-to-read-the-values-columns-threshold-names-discrete-state-bytes">3. How to read the values (columns, threshold names, discrete state bytes)</a></li><li class="l3"><a href="#31-ipmitool-sensor-columns-measured-layout">3.1 ipmitool sensor columns (MEASURED layout)</a></li><li class="l3"><a href="#32-threshold-names-across-interfaces">3.2 Threshold names across interfaces</a></li><li class="l3"><a href="#33-discrete-sensor-columns">3.3 Discrete sensor columns</a></li><li class="l2"><a href="#4-threshold-analog-sensors">4. Threshold (analog) sensors</a></li><li class="l3"><a href="#41-full-threshold-records-c-v-measured-2026-10-20-2105">4.1 Full threshold records (C-V, MEASURED 2026-10-20 ~21:05)</a></li><li class="l2"><a href="#5-fans-and-cooling-zones">5. Fans and cooling zones</a></li><li class="l3"><a href="#51-fan-sensor-set">5.1 Fan sensor set</a></li><li class="l3"><a href="#52-zone-decode">5.2 Zone decode</a></li><li class="l2"><a href="#6-discrete-sensors---decoding-reference">6. Discrete sensors - decoding reference</a></li><li class="l3"><a href="#61-generic-reading-types">6.1 Generic reading types</a></li><li class="l3"><a href="#62-sensor-specific-reading-type-0x6f-offsets-used-on-this-server">6.2 Sensor-specific (reading type 0x6F) offsets used on this server</a></li><li class="l2"><a href="#7-discrete-sensors---measured-states">7. Discrete sensors - measured states</a></li><li class="l3"><a href="#71-presence-risers-and-connectors">7.1 Presence, risers and connectors</a></li><li class="l3"><a href="#72-processor-chipset-and-temperature-status">7.2 Processor, chipset and temperature status</a></li><li class="l3"><a href="#73-memory">7.3 Memory</a></li><li class="l3"><a href="#74-power">7.4 Power</a></li><li class="l3"><a href="#75-drives">7.5 Drives</a></li><li class="l3"><a href="#76-pci">7.6 PCI</a></li><li class="l3"><a href="#77-firmware-system-and-logging">7.7 Firmware, system and logging</a></li><li class="l2"><a href="#8-sensors-in-the-event-catalog-but-not-in-the-sdr-and-the-reverse">8. Sensors in the event catalog but not in the SDR (and the reverse)</a></li><li class="l2"><a href="#9-mapping-to-light-path-leds-and-imm-events">9. Mapping to light path LEDs and IMM events</a></li><li class="l2"><a href="#10-abnormal-readings-and-findings">10. Abnormal readings and findings</a></li><li class="l2"><a href="#11-contradictions">11. Contradictions</a></li><li class="l2"><a href="#12-open-questions--next-captures">12. Open questions / next captures</a></li><li class="l2"><a href="#13-verbose-sdr-dump-2026-10-20-all-135-sensors">13. Verbose SDR dump 2026-10-20 (all 135 sensors)</a></li><li class="l3"><a href="#131-record-table">13.1 Record table</a></li><li class="l3"><a href="#132-comparison-with-the-catalog-derived-values-of-section-7">13.2 Comparison with the catalog-derived values of section 7</a></li></ul></nav></details>
+<div class="prose">
+<p>Scope: decode of every sensor that the IMM (v1, build YUOOC7E, IPMI firmware 1.30) of the owner's server exposes
+in its sensor data record (SDR) repository: name, sensor number, sensor type, event/reading type, entity
+ID/instance, unit, thresholds (lnr/lc/lnc/unc/uc/unr), measured value and state; fan and cooling zones; meaning
+of the discrete states; links to IMM event IDs and light path LEDs; abnormal readings, contradictions and the
+read-only captures that would close the gaps. Generation: IMM v1 (not IMM2/XCC). Rules: docs/AGENT.md.</p>
+<p>Offline compilation: no command was run against the server, the IMM or the internet for this document. All
+<span class="tl tl-measured">MEASURED</span> values come from the captures listed in section 1 (taken 2026-10-19 and 2026-10-20). The full verbose SDR
+dump of 2026-10-20 (C-V) is tabulated in section 13.</p>
+<h2 id="table-of-contents">Table of contents <a class="anchor" href="#table-of-contents" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Sources, conventions and truth levels</li>
+<li>Capture summary</li>
+<li>How to read the values (columns, threshold names, discrete state bytes)</li>
+<li>Threshold (analog) sensors</li>
+<li>Fans and cooling zones</li>
+<li>Discrete sensors - decoding reference</li>
+<li>Discrete sensors - measured states</li>
+<li>Sensors in the event catalog but not in the SDR (and the reverse)</li>
+<li>Mapping to light path LEDs and IMM events</li>
+<li>Abnormal readings and findings</li>
+<li>Contradictions</li>
+<li>Open questions / next captures</li>
+<li>Verbose SDR dump 2026-10-20 (all 135 sensors)</li>
+</ol>
+<h2 id="1-sources-conventions-and-truth-levels">1. Sources, conventions and truth levels <a class="anchor" href="#1-sources-conventions-and-truth-levels" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Source</th>
+<th>Use here</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C-IPMI</td>
+<td>captures/2026-10-19_ipmi_inband.txt: <code>ipmitool mc info</code>, <code>fru print</code>, <code>sdr elist full</code>, <code>sdr type list</code>, <code>sensor</code>, <code>sel info</code>, <code>sel elist</code>, <code>chassis status</code>, <code>dcmi discover</code> (in-band, /dev/ipmi0)</td>
+<td>All <span class="tl tl-measured">MEASURED</span> sensor values, thresholds, entity IDs and numbers of full records</td>
+</tr>
+<tr>
+<td>C-CLI</td>
+<td>captures/2026-10-19_imm_cli_baseline.txt: IMM legacy CLI <code>syshealth</code>, <code>fans</code>, <code>temps</code>, <code>volts</code>, <code>vpd</code></td>
+<td><span class="tl tl-measured">MEASURED</span> IMM-side view of the same sensors (percent fan speed, threshold labels)</td>
+</tr>
+<tr>
+<td>C-STOR</td>
+<td>captures/2026-10-20_storage_storcli.txt (storcli64 1.14.12, <code>show</code> only)</td>
+<td>Drive population for the drive-sensor cross-check</td>
+</tr>
+<tr>
+<td>C-DRV</td>
+<td>captures/2026-10-19_mem_storage_drives.txt (smartctl scan of megaraid device IDs 0-20, 252-254)</td>
+<td>Drive population on the SDR capture day</td>
+</tr>
+<tr>
+<td>C-LOG</td>
+<td>captures/2026-10-20_imm_readlog.txt (IMM event log, legacy CLI <code>readlog</code>, 781 entries 2024-04-23..2026-10-20; "#N" = entry index, 1 = newest; decode in docs/X3650M3_ERROR_CODES.md 15.6-15.8)</td>
+<td>Sensor event history (VBAT, drives)</td>
+</tr>
+<tr>
+<td>C-W2</td>
+<td>captures/2026-10-20_host_probes_wave2.txt (~20:35 +03 host time): <code>ipmitool -V</code>, <code>sdr info</code>, <code>sensor get</code> for Planar VBAT, Drive 0, Drive 1, Power Unit, SEL Fullness, Avg Power; <code>sdr elist all | wc -l</code> (in-band)</td>
+<td>Second snapshot of selected sensors; SDR repository size</td>
+</tr>
+<tr>
+<td>C-V</td>
+<td>captures/2026-10-20_sdr_verbose_and_pd0.txt (~21:05 +03 host time, in-band KCS): <code>ipmitool sdr elist event</code> (lines 5-6), <code>ipmitool -v sdr list all</code> (lines 7-2349); the same file holds the M1015 slot 0/1 detail used in docs/X3650M3_STORAGE_RAID.md</td>
+<td>Sensor number, entity, sensor type, thresholds, hysteresis, nominal and normal range, readable/settable thresholds and assertion masks of all 135 sensors (sections 4.1, 13)</td>
+</tr>
+<tr>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a></td>
+<td>Problem Determination and Service Guide x3650 M3, 16th ed. 2014-06-13 (00kc219.pdf), via docs/X3650M3_ERROR_CODES.md section 4</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> IMM event IDs and messages per sensor name; light path LEDs (p.363-367)</td>
+</tr>
+<tr>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a></td>
+<td>Integrated Management Module I User's Guide 00wa171 (2015-02-05), sources/text/S-020_00wa171_en.txt</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> threshold classes (p.93-95) and CLI column labels for <code>temps</code> (p.129) and <code>volts</code> (p.130). In this document <a class="sref" href="../catalog/sources.html#s-020">S-020</a> pages are printed page numbers (PDF index = printed + 8; the IMM documents cite the PDF index)</td>
+</tr>
+<tr>
+<td><a class="sref" href="../catalog/sources.html#s-001">S-001</a></td>
+<td>IBM Redbooks Product Guide TIPS0805 (x3650 M3), sources/text/S-001_tips0805.txt</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> altimeter-based fan control</td>
+</tr>
+<tr>
+<td>KB</td>
+<td>docs/X3650M3_ERROR_CODES.md (sections 3, 4, 9, 15, 16), docs/X3650M3_HARDWARE_COMPONENTS.md (sections 5.3, 6, 10.3, 11, 12, 14.4), docs/X3650M3_STORAGE_RAID.md (C-9)</td>
+<td>Cross references; not repeated here</td>
+</tr>
+</tbody>
+</table></div>
+<p>Conventions:</p>
+<ul>
+<li>Truth levels: <span class="tl tl-documented">DOCUMENTED</span>, <span class="tl tl-extracted">EXTRACTED</span>, <span class="tl tl-measured">MEASURED</span>, <span class="tl tl-candidate">CANDIDATE</span> (reason given), <span class="tl tl-unknown">UNKNOWN</span>. A table states its level;
+  rows inherit it unless a cell says otherwise.</li>
+<li>Hex values: <code>0x..</code>. ipmitool prints entity IDs in decimal ("29.1" = entity 29 = 0x1D, instance 1); this
+  document gives both forms. ipmitool prints sensor numbers of full records as "32h" = 0x32.</li>
+<li>"Event ID" = the IMM event ID format <code>AABBCCDD-EEFFxxxx</code> of docs/X3650M3_ERROR_CODES.md section 3: BB =
+  event/reading type, CC = offset, DD = sensor type, EE = entity ID, FF = entity instance. That field decode is
+  <span class="tl tl-candidate">CANDIDATE</span> (ERROR_CODES Q-03); the IDs and messages themselves are <span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-004">S-004</a>).</li>
+<li>Sensor type, reading type and entity of a discrete sensor in sections 7.1-7.7 were first taken from the <a class="sref" href="../catalog/sources.html#s-004">S-004</a>
+  event IDs that name the sensor ("catalog-derived", <span class="tl tl-candidate">CANDIDATE</span>). Since 2026-10-20 the verbose dump (C-V, section 13)
+  gives sensor number, entity and sensor type of every sensor as <span class="tl tl-measured">MEASURED</span>; it agrees with every catalog-derived value
+  (section 13.2). <code>ipmitool -v</code> does not print the event/reading type code of a discrete record; it is inferred from
+  the offset names that ipmitool prints (for example "Transition to OK" = severity 0x07), which stays <span class="tl tl-candidate">CANDIDATE</span>.</li>
+<li>IPMI v2.0 offset tables (section 6) are quoted from knowledge of the specification, which is not in sources/
+  (ERROR_CODES Q-03); they are <span class="tl tl-candidate">CANDIDATE</span>, and each offset used for a decode is cross-checked against the <a class="sref" href="../catalog/sources.html#s-004">S-004</a>
+  message text for the same offset where the catalog has one ("corroborated").</li>
+</ul>
+<h2 id="2-capture-summary">2. Capture summary <a class="anchor" href="#2-capture-summary" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Truth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Controller</td>
+<td>IMM, IPMI 2.0, Device ID 32, firmware revision 1.30, manufacturer ID 2 (IBM), product ID 0xDC; "Provides Device SDRs: no", SDR Repository Device yes</td>
+<td><span class="tl tl-measured">MEASURED</span> (C-IPMI <code>mc info</code>)</td>
+</tr>
+<tr>
+<td>Firmware levels</td>
+<td>IMM YUOOC7E (2011-09-30), UEFI D6E154A (2011-09-23), DSA DSYT89P (2011-10-28)</td>
+<td><span class="tl tl-measured">MEASURED</span> (C-CLI <code>vpd fw</code>)</td>
+</tr>
+<tr>
+<td>Rows in <code>ipmitool sensor</code></td>
+<td>135</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Full (analog) records in <code>sdr elist full</code></td>
+<td>13: 1 temperature, 1 altitude, 1 power, 4 voltages, 6 fan tachometers</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Discrete sensors</td>
+<td>122 rows; raw reading 0x0: 77, 0x1: 37, 0x2: 1, 0x40: 1, 0x80: 1, "na" (no reading): 5</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Sensors with "na"</td>
+<td>CPU 2, CPU 2 OverTemp, Power Supply 1, DASD Backplane 3, DASD Backplane 4</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Sensor numbers known</td>
+<td>All 135 (C-V, section 13): 13 threshold sensors and 122 discrete sensors, numbers 0x01 (Host Power) .. 0xF6</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Record types</td>
+<td>Discrete sensors do not appear in <code>sdr elist full</code>, so they are not type 01h full records; <span class="tl tl-candidate">CANDIDATE</span>: they are compact (type 02h) records, reason: <code>elist full</code> lists only full records and every discrete sensor is readable. <code>-v sdr list all</code> prints 135 sensor records, 24 FRU device locator records (Power Supply 1-2, DASD Backplane 1-4, DIMM 1-18) and 1 management controller locator ("Basebrd Mgt Ctlr", entity 46.1, slave address 0x20) = 160, the <code>elist all</code> line count of C-W2; <code>sdr elist event</code> prints nothing (no event-only record)</td>
+<td><span class="tl tl-measured">MEASURED</span> (counts) / <span class="tl tl-candidate">CANDIDATE</span> (02h)</td>
+</tr>
+<tr>
+<td>SEL</td>
+<td>512 entries, 100% used, Overflow true, last add 05/05/2025 03:07:29 PM +03</td>
+<td><span class="tl tl-measured">MEASURED</span> (decode: ERROR_CODES section 15)</td>
+</tr>
+<tr>
+<td>IMM event log</td>
+<td>781 entries; sensor events in it: Planar VBAT (103), Drive 0 added (1), Drive 1 added (1), Drive 0 disabled due to a detected fault (1); no other sensor event</td>
+<td><span class="tl tl-measured">MEASURED</span> (C-LOG; decode: ERROR_CODES 15.7)</td>
+</tr>
+<tr>
+<td>Chassis status</td>
+<td>Power on; Power Overload, Main Power Fault, Power Control Fault, Drive Fault, Cooling/Fan Fault all false; Chassis Intrusion inactive</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>DCMI</td>
+<td><code>dcmi discover</code>: "Invalid command (c1)" - no DCMI power readings/capping via DCMI</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>Timing</td>
+<td>One snapshot each (2026-10-19), a second snapshot of six sensors on 2026-10-20 ~20:35 (C-W2, section 2.1) and a full verbose snapshot on 2026-10-20 ~21:05 (C-V, during the initial vzdump backup); no time series</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="21-second-snapshot-2026-10-20-c-w2-measured">2.1 Second snapshot 2026-10-20 (C-W2, <span class="tl tl-measured">MEASURED</span>) <a class="anchor" href="#21-second-snapshot-2026-10-20-c-w2-measured" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Capture lines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ipmitool</td>
+<td>version 1.8.19</td>
+<td>8-9</td>
+</tr>
+<tr>
+<td>SDR repository (<code>sdr info</code>)</td>
+<td>SDR Version 0x51, Record Count 229, Free Space 56804 bytes, overflow no, update support non-modal, Delete SDR not supported, Partial Add and Reserve supported; "Most recent Addition S+ 00:00:00", "Most recent Erase NA"</td>
+<td>10-21</td>
+</tr>
+<tr>
+<td><code>sdr elist all</code></td>
+<td>160 output lines (content not captured)</td>
+<td>70-71</td>
+</tr>
+<tr>
+<td>Planar VBAT (0x1C, entity 7.1, threshold, Voltage)</td>
+<td>1.791 V, status Lower Critical; lc 2.095, lnc 2.248, no other thresholds; hysteresis +/-0.025 V; assertion events lnc- lcr- (both asserted); assertions and deassertions enabled lnc- lcr-</td>
+<td>24-39</td>
+</tr>
+<tr>
+<td>Drive 0 (0x60, entity 4.0, discrete Drive Slot / Bay)</td>
+<td>[Drive Present]</td>
+<td>41-45</td>
+</tr>
+<tr>
+<td>Drive 1 (0x61, entity 4.1, discrete Drive Slot / Bay)</td>
+<td>[Drive Present]</td>
+<td>47-51</td>
+</tr>
+<tr>
+<td>Power Unit (0x7F, entity 19.1, discrete Power Supply)</td>
+<td>no state asserted</td>
+<td>53-55</td>
+</tr>
+<tr>
+<td>SEL Fullness (0xB6, entity 33.1, discrete Event Logging Disabled)</td>
+<td>no state asserted</td>
+<td>57-59</td>
+</tr>
+<tr>
+<td>Avg Power (0x2E, entity 21.0, threshold, sensor type printed "Current")</td>
+<td>80 W, status ok, "Sensor Threshold Settings not available"</td>
+<td>61-68</td>
+</tr>
+</tbody>
+</table></div>
+<p>Notes:</p>
+<ul>
+<li>The 229 SDR records against 160 <code>elist all</code> lines leave 69 records not printed. The verbose dump (C-V) explains
+  the 160 (135 sensors + 24 FRU locators + 1 MC locator, <span class="tl tl-measured">MEASURED</span>) and prints no further record either, and
+  <code>sdr elist event</code> is empty, so the 69 are not event-only records (<span class="tl tl-measured">MEASURED</span> absence). <span class="tl tl-candidate">CANDIDATE</span>: they are OEM
+  (type C0h) or other record types that ipmitool 1.8.19 does not print, reason: every other record type is printed;
+  their content needs a raw <code>sdr dump</code> (Q-S3).</li>
+<li>VBAT 1.791 V on 2026-10-20 vs 1.727 V on 2026-10-19 (+0.064 V): both below lc 2.095 V; the difference is
+  <span class="tl tl-measured">MEASURED</span>, its cause <span class="tl tl-unknown">UNKNOWN</span> (single readings at different times and host power states).</li>
+<li>The sensor numbers 0x60, 0x61, 0x7F, 0xB6 and the entities 4.0, 4.1, 19.1, 33.1 are now <span class="tl tl-measured">MEASURED</span> for these four
+  discrete sensors. Drive sensors: entity 0x04 instance n and type Drive Slot / Bay confirm the catalog-derived values
+  (section 7.5). Power Unit: measured entity 19.1 vs catalog EE/FF 13/81 (800b0008-1381); the instance byte 0x81 vs
+  1 is not explained (<span class="tl tl-candidate">CANDIDATE</span>: bit 7 marks a device-relative instance in the event ID; not verified).</li>
+</ul>
+<h2 id="3-how-to-read-the-values-columns-threshold-names-discrete-state-bytes">3. How to read the values (columns, threshold names, discrete state bytes) <a class="anchor" href="#3-how-to-read-the-values-columns-threshold-names-discrete-state-bytes" aria-label="Link to this section">#</a></h2>
+<h3 id="31-ipmitool-sensor-columns-measured-layout">3.1 ipmitool <code>sensor</code> columns (<span class="tl tl-measured">MEASURED</span> layout) <a class="anchor" href="#31-ipmitool-sensor-columns-measured-layout" aria-label="Link to this section">#</a></h3>
+<p><code>name | value | unit | status | lnr | lcr | lnc | unc | ucr | unr</code>. For threshold sensors status is "ok" or the
+crossed threshold class ("cr" = critical on this capture). <code>sdr elist full</code> prints a shorter status ("lcr" =
+lower critical for Planar VBAT). This document writes lc/uc for lcr/ucr.</p>
+<h3 id="32-threshold-names-across-interfaces">3.2 Threshold names across interfaces <a class="anchor" href="#32-threshold-names-across-interfaces" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>IPMI (ipmitool)</th>
+<th>IMM CLI <code>volts</code> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p.130)</th>
+<th>IMM CLI <code>temps</code> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p.129)</th>
+<th>IMM action class (<a class="sref" href="../catalog/sources.html#s-020">S-020</a> p.93-95)</th>
+<th>Evidence on this server</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lnr / unr (non-recoverable)</td>
+<td>HSL / HSH (hard shutdown low/high)</td>
+<td>HS (hard shutdown)</td>
+<td>"Fatal": server shuts down immediately and sends an alert</td>
+<td>Ambient unr 45 = CLI HS 45.00 C (<span class="tl tl-measured">MEASURED</span>)</td>
+</tr>
+<tr>
+<td>lc / uc (critical)</td>
+<td>SSL / SSH (soft shutdown low/high)</td>
+<td>SS (soft shutdown)</td>
+<td>"Critical": alert, then orderly OS shutdown and power off</td>
+<td>Ambient uc 41 = SS 41.00; 3.3V lc 3.039 = SSL 3.04; VBAT lc 2.095 = SSL 2.10 (<span class="tl tl-measured">MEASURED</span>)</td>
+</tr>
+<tr>
+<td>lnc / unc (non-critical)</td>
+<td>WL / WH (warning low/high)</td>
+<td>W (warning)</td>
+<td>"Non-Critical": alert only</td>
+<td>Ambient unc 38 = W 38.00; VBAT lnc 2.248 = WL 2.25 (<span class="tl tl-measured">MEASURED</span>)</td>
+</tr>
+<tr>
+<td>(hysteresis, not shown by ipmitool <code>sensor</code>)</td>
+<td>WRL / WRH (warning reset low/high)</td>
+<td>WR (warning reset)</td>
+<td>-</td>
+<td>All WR/WRL/WRH print "<em>" on this server (<span class="tl tl-measured">MEASURED</span>) although the SDR defines hysteresis for every threshold sensor except Avg Power (C-V, section 4.1: e.g. Ambient +4.000, VBAT +/-0.025); so "</em>" does not mean "no hysteresis". Meaning of "*" (not defined) is <span class="tl tl-candidate">CANDIDATE</span>: not provided by this firmware</td>
+</tr>
+<tr>
+<td>-</td>
+<td>V</td>
+<td>T</td>
+<td>current value</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>The equivalence of the IPMI and CLI columns is <span class="tl tl-measured">MEASURED</span> by value identity on this server; the action classes are
+<span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a>). <a class="sref" href="../catalog/sources.html#s-020">S-020</a> also states that thresholds are preset and cannot be changed (p.94 temperature, p.95
+voltage; PDF p102-103), while the SDR marks lc/uc of the planar voltages and lc/lnc of VBAT as settable (C-V,
+SC-11).</p>
+<h3 id="33-discrete-sensor-columns">3.3 Discrete sensor columns <a class="anchor" href="#33-discrete-sensor-columns" aria-label="Link to this section">#</a></h3>
+<p>For a discrete sensor ipmitool <code>sensor</code> prints <code>| 0x&lt;reading&gt; | discrete | 0x&lt;b1&gt;&lt;b2&gt; |</code>. On this capture the
+reading column equals the first state byte in all 117 readable discrete rows (e.g. 0x1 / 0x0180, 0x40 / 0x4080,
+0x80 / 0x8080, 0x2 / 0x0280) - <span class="tl tl-measured">MEASURED</span>. Interpretation (<span class="tl tl-candidate">CANDIDATE</span>, IPMI v2.0 Get Sensor Reading response from
+knowledge, not in sources/): b1 = state bits for offsets 00-07 (bit n = offset n asserted), b2 = offsets 08-0E
+with bit 7 reserved and returned as 1 - which explains why every b2 reads 0x80 (<span class="tl tl-measured">MEASURED</span>). So:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Raw (b1b2)</th>
+<th>Asserted offset(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0080</td>
+<td>none</td>
+</tr>
+<tr>
+<td>0x0180</td>
+<td>00</td>
+</tr>
+<tr>
+<td>0x0280</td>
+<td>01</td>
+</tr>
+<tr>
+<td>0x4080</td>
+<td>06</td>
+</tr>
+<tr>
+<td>0x8080</td>
+<td>07</td>
+</tr>
+<tr>
+<td>na</td>
+<td>no reading returned (sensor not scanning / entity absent)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="4-threshold-analog-sensors">4. Threshold (analog) sensors <a class="anchor" href="#4-threshold-analog-sensors" aria-label="Link to this section">#</a></h2>
+<p>Truth level: <span class="tl tl-measured">MEASURED</span> (C-IPMI <code>sdr elist full</code> and <code>sensor</code>, C-CLI) unless marked. Entity: decimal.instance
+(hex). "na" = threshold not provided by the SDR. IMM event IDs: <span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-004">S-004</a>, pages in
+docs/X3650M3_ERROR_CODES.md section 4.2); their link to the measured sensor by name is <span class="tl tl-candidate">CANDIDATE</span>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>No.</th>
+<th>Type (sdr type list)</th>
+<th>Entity</th>
+<th>Unit</th>
+<th>lnr</th>
+<th>lc</th>
+<th>lnc</th>
+<th>unc</th>
+<th>uc</th>
+<th>unr</th>
+<th>Value</th>
+<th>Status</th>
+<th>IMM event IDs (assert; deassert = 81...)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ambient Temp</td>
+<td>0x32</td>
+<td>Temperature (0x01)</td>
+<td>12.1 (0x0C front panel board, <span class="tl tl-candidate">CANDIDATE</span> name)</td>
+<td>degrees C</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>38.000</td>
+<td>41.000</td>
+<td>45.000</td>
+<td>27.000</td>
+<td>ok</td>
+<td>80010701-0c01 (unc, Warning, A17), 80010901-0c01 (uc, Error, A18), 80010b01-0c01 (unr, Error, A20)</td>
+</tr>
+<tr>
+<td>Altitude</td>
+<td>0x33</td>
+<td>Other (0x0b) (C-V)</td>
+<td>12.1 (0x0C)</td>
+<td>feet</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>40.000</td>
+<td>ok</td>
+<td>none documented</td>
+</tr>
+<tr>
+<td>Avg Power</td>
+<td>0x2E</td>
+<td>printed "Current (0x03)" with unit Watts (C-V)</td>
+<td>21.0 (0x15, ipmitool name "Power Management")</td>
+<td>Watts</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>80.000</td>
+<td>ok</td>
+<td>none documented</td>
+</tr>
+<tr>
+<td>Planar 3.3V</td>
+<td>0x16</td>
+<td>Voltage (0x02)</td>
+<td>7.1 (0x07 system board)</td>
+<td>Volts</td>
+<td>na</td>
+<td>3.039</td>
+<td>na</td>
+<td>na</td>
+<td>3.564</td>
+<td>na</td>
+<td>3.351</td>
+<td>ok</td>
+<td>80010202-0701 (lc, Error, A15), 80010902-0701 (uc, Error, call home Yes, A19)</td>
+</tr>
+<tr>
+<td>Planar 5V</td>
+<td>0x17</td>
+<td>Voltage (0x02)</td>
+<td>7.1 (0x07)</td>
+<td>Volts</td>
+<td>na</td>
+<td>4.475</td>
+<td>na</td>
+<td>na</td>
+<td>5.582</td>
+<td>na</td>
+<td>4.995</td>
+<td>ok</td>
+<td>same IDs as Planar 3.3V</td>
+</tr>
+<tr>
+<td>Planar 12V</td>
+<td>0x18</td>
+<td>Voltage (0x02)</td>
+<td>7.1 (0x07)</td>
+<td>Volts</td>
+<td>na</td>
+<td>10.692</td>
+<td>na</td>
+<td>na</td>
+<td>13.446</td>
+<td>na</td>
+<td>12.204</td>
+<td>ok</td>
+<td>same IDs as Planar 3.3V</td>
+</tr>
+<tr>
+<td>Planar VBAT</td>
+<td>0x1C</td>
+<td>Voltage (0x02) (<span class="tl tl-candidate">CANDIDATE</span>: reading in Volts, see SC-2)</td>
+<td>7.1 (0x07)</td>
+<td>Volts</td>
+<td>na</td>
+<td>2.095</td>
+<td>2.248</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>1.727</td>
+<td><strong>cr</strong> (sdr: lcr)</td>
+<td>catalog name "CMOS Battery": 80010002-2801 (lnc, Warning, A14), 80010202-2801 (lc, Error, call home Yes) - mapping <span class="tl tl-candidate">CANDIDATE</span>, see SC-2</td>
+</tr>
+<tr>
+<td>Fan 1A Tach</td>
+<td>0x40</td>
+<td>Fan (0x04)</td>
+<td>29.1 (0x1D fan/cooling device)</td>
+<td>RPM</td>
+<td>na</td>
+<td>290.000</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>1595</td>
+<td>ok</td>
+<td>80010204-1d01 (lc, Error, A16)</td>
+</tr>
+<tr>
+<td>Fan 1B Tach</td>
+<td>0x41</td>
+<td>Fan (0x04)</td>
+<td>29.1 (0x1D)</td>
+<td>RPM</td>
+<td>na</td>
+<td>250.000</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>1125</td>
+<td>ok</td>
+<td>80010204-1d01 (shared with 1A)</td>
+</tr>
+<tr>
+<td>Fan 2A Tach</td>
+<td>0x42</td>
+<td>Fan (0x04)</td>
+<td>29.2 (0x1D)</td>
+<td>RPM</td>
+<td>na</td>
+<td>290.000</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>1595</td>
+<td>ok</td>
+<td>80010204-1d02</td>
+</tr>
+<tr>
+<td>Fan 2B Tach</td>
+<td>0x43</td>
+<td>Fan (0x04)</td>
+<td>29.2 (0x1D)</td>
+<td>RPM</td>
+<td>na</td>
+<td>250.000</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>1100</td>
+<td>ok</td>
+<td>80010204-1d02 (shared with 2A)</td>
+</tr>
+<tr>
+<td>Fan 3A Tach</td>
+<td>0x44</td>
+<td>Fan (0x04)</td>
+<td>29.3 (0x1D)</td>
+<td>RPM</td>
+<td>na</td>
+<td>290.000</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>3103</td>
+<td>ok</td>
+<td>80010204-1d03</td>
+</tr>
+<tr>
+<td>Fan 3B Tach</td>
+<td>0x45</td>
+<td>Fan (0x04)</td>
+<td>29.3 (0x1D)</td>
+<td>RPM</td>
+<td>na</td>
+<td>250.000</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>2450</td>
+<td>ok</td>
+<td>80010204-1d03 (shared with 3A)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Notes:</p>
+<ul>
+<li>Sensor type column: <code>sdr elist full</code> does not print the type; the values were first <span class="tl tl-candidate">CANDIDATE</span> from the <a class="sref" href="../catalog/sources.html#s-004">S-004</a>
+  event IDs (DD byte 01/02/04) and the unit. The verbose dump (C-V, section 4.1) prints them and confirms every row
+  (<span class="tl tl-measured">MEASURED</span>). The entity numbers are <span class="tl tl-measured">MEASURED</span> and agree with the EE/FF bytes of the <a class="sref" href="../catalog/sources.html#s-004">S-004</a> IDs (Ambient 0c01,
+  Planar 0701, fans 1d01-1d03); entity names are the ipmitool names (C-V).</li>
+<li>The IMM CLI shows the same values rounded: Ambient 27.00 C (W 38.00, SS 41.00, HS 45.00); 3.3V 3.34, 5V 4.99,
+  12V 12.20, VBAT 1.73 (<span class="tl tl-measured">MEASURED</span>, C-CLI). 3.351 V vs CLI 3.34 V is a sampling or rounding difference (<span class="tl tl-candidate">CANDIDATE</span>;
+  the two reads were not simultaneous).</li>
+<li>Voltage margins (computed from <span class="tl tl-measured">MEASURED</span> values; nominal = sensor name): 3.3V +1.55% (window -7.9% / +8.0%),
+  5V -0.10% (window -10.5% / +11.6%), 12V +1.70% (window -10.9% / +12.05%). All rails are well inside their windows.</li>
+<li>Planar VBAT: 1.727 V is 0.368 V below lc and 0.521 V below lnc; 57.6% of the 3.0 V rating of battery CRU
+  33F8354 (rating <span class="tl tl-documented">DOCUMENTED</span>, docs/X3650M3_HARDWARE_COMPONENTS.md section 12). No lnr is defined, so the IMM has no
+  hard-shutdown level for VBAT.</li>
+<li>Planar VBAT history (<span class="tl tl-measured">MEASURED</span>, C-LOG): first below lnc on 2025-11-28 18:25:33 (#362), first below lc on
+  2026-02-11 16:08:22 (#324); in total 44 lnc and 36 lc assertions and 12 lnc / 11 lc deassertions (last deassertion
+  #36 2026-10-04); latest assertions #10/#9 2026-10-20 11:38:09 with no deassertion after them, which agrees with the
+  1.727 V reading. 75 of the 80 assertions come 10-24 s (median 17 s) after an IMM network start ("LAN: Ethernet[eth1]
+  interface is now active"). <span class="tl tl-candidate">CANDIDATE</span>: the IMM re-evaluates the threshold after each start and logs the assertion
+  again because the state is not kept across IMM starts (reason: the fixed delay); the deassertions are not tied to
+  IMM starts and their trigger is <span class="tl tl-unknown">UNKNOWN</span>. No VBAT event exists before 2025-11-28 in the IMM log; the SEL (full since
+  2025-05-05) holds none either.</li>
+<li>Ambient Temp: 11 C below the warning threshold. <a class="sref" href="../catalog/sources.html#s-002">S-002</a> operating range 10-35 C (docs/X3650M3_HARDWARE_COMPONENTS.md
+  11.1) is lower than the IMM warning level 38 C; the IMM thresholds are therefore not the environmental spec.</li>
+<li>Altitude: 40 ft. <a class="sref" href="../catalog/sources.html#s-001">S-001</a> documents "An altimeter works in conjunction with the IMM to govern fan rotation". The
+  derating rule (1 C per 1000 ft above 914.4 m) does not apply at this reading (<span class="tl tl-documented">DOCUMENTED</span> rule, applied). Whether
+  the reading follows barometric pressure (weather dependent) is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>Avg Power: 80 W (2026-10-19), 80 W (C-W2) and 90 W (C-V, during the initial vzdump backup). No thresholds
+  ("No Thresholds" readable and settable, C-V), no DCMI (section 2); the SDR "Minimum sensor range" prints 2550.000
+  (C-V line 56), above every reading, so that field is not a usable range (<span class="tl tl-candidate">CANDIDATE</span>: unset or vendor-specific
+  value). Averaging window <span class="tl tl-unknown">UNKNOWN</span>. Power metering and capping: docs/X3650M3_POWER_THERMAL.md section 5.</li>
+<li>Altitude: 40 ft on 2026-10-19, 0 ft on 2026-10-20 (C-V); nominal 520 ft, hysteresis +/-80 ft, no thresholds
+  (<span class="tl tl-measured">MEASURED</span>). Whether the reading follows air pressure or is a coarse step value is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+</ul>
+<h3 id="41-full-threshold-records-c-v-measured-2026-10-20-2105">4.1 Full threshold records (C-V, <span class="tl tl-measured">MEASURED</span> 2026-10-20 ~21:05) <a class="anchor" href="#41-full-threshold-records-c-v-measured-2026-10-20-2105" aria-label="Link to this section">#</a></h3>
+<p>All fields as printed by <code>ipmitool -v sdr list all</code> (captures/2026-10-20_sdr_verbose_and_pd0.txt; "Line" = first line
+of the record). lnr is not defined for any sensor. "na" = field not printed. Minimum and maximum sensor range are
+"Unspecified" for all except Avg Power (minimum 2550.000).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>No.</th>
+<th>Type</th>
+<th>Reading</th>
+<th>Nominal</th>
+<th>Normal min / max</th>
+<th>lc</th>
+<th>lnc</th>
+<th>unc</th>
+<th>uc</th>
+<th>unr</th>
+<th>Hysteresis +/-</th>
+<th>Readable / settable</th>
+<th>Assert / deassert enabled</th>
+<th>Line</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ambient Temp</td>
+<td>0x32</td>
+<td>Temperature (0x01)</td>
+<td>26 degrees C (ok)</td>
+<td>21.000</td>
+<td>na / na</td>
+<td>na</td>
+<td>na</td>
+<td>38.000</td>
+<td>41.000</td>
+<td>45.000</td>
+<td>4.000 / Unspecified</td>
+<td>unc ucr unr / -</td>
+<td>unc+ ucr+ unr+ / unc+ ucr+ unr+</td>
+<td>12</td>
+</tr>
+<tr>
+<td>Altitude</td>
+<td>0x33</td>
+<td>Other (0x0b)</td>
+<td>0 feet (ok)</td>
+<td>520.000</td>
+<td>na / na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>80.000 / 80.000</td>
+<td>- / -</td>
+<td>- / -</td>
+<td>33</td>
+</tr>
+<tr>
+<td>Avg Power</td>
+<td>0x2E</td>
+<td>Current (0x03)</td>
+<td>90 Watts (ok)</td>
+<td>na</td>
+<td>na / na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>Unspecified / Unspecified</td>
+<td>No Thresholds / No Thresholds</td>
+<td>- / -</td>
+<td>49</td>
+</tr>
+<tr>
+<td>Planar 3.3V</td>
+<td>0x16</td>
+<td>Voltage (0x02)</td>
+<td>3.351 Volts (ok)</td>
+<td>3.309</td>
+<td>na / na</td>
+<td>3.039</td>
+<td>na</td>
+<td>na</td>
+<td>3.564</td>
+<td>na</td>
+<td>0.028 / 0.028</td>
+<td>lcr ucr / lcr ucr</td>
+<td>lcr- ucr+ / lcr- ucr+</td>
+<td>64</td>
+</tr>
+<tr>
+<td>Planar 5V</td>
+<td>0x17</td>
+<td>Voltage (0x02)</td>
+<td>4.995 Volts (ok)</td>
+<td>4.995</td>
+<td>na / na</td>
+<td>4.475</td>
+<td>na</td>
+<td>na</td>
+<td>5.582</td>
+<td>na</td>
+<td>0.045 / 0.045</td>
+<td>lcr ucr / lcr ucr</td>
+<td>lcr- ucr+ / lcr- ucr+</td>
+<td>84</td>
+</tr>
+<tr>
+<td>Planar 12V</td>
+<td>0x18</td>
+<td>Voltage (0x02)</td>
+<td>12.204 Volts (ok)</td>
+<td>12.042</td>
+<td>na / na</td>
+<td>10.692</td>
+<td>na</td>
+<td>na</td>
+<td>13.446</td>
+<td>na</td>
+<td>0.108 / 0.108</td>
+<td>lcr ucr / lcr ucr</td>
+<td>lcr- ucr+ / lcr- ucr+</td>
+<td>104</td>
+</tr>
+<tr>
+<td>Planar VBAT</td>
+<td>0x1C</td>
+<td>Voltage (0x02)</td>
+<td>1.791 Volts (Lower Critical)</td>
+<td>3.010</td>
+<td>na / na</td>
+<td>2.095</td>
+<td>2.248</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>0.025 / 0.025</td>
+<td>lcr lnc / lcr lnc</td>
+<td>lnc- lcr- / lnc- lcr-</td>
+<td>124</td>
+</tr>
+<tr>
+<td>Fan 1A Tach</td>
+<td>0x40</td>
+<td>Fan (0x04)</td>
+<td>1595 RPM (ok)</td>
+<td>4756.000</td>
+<td>1247.000 / 7395.000</td>
+<td>290.000</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>58.000 / 58.000</td>
+<td>lcr / -</td>
+<td>lcr- / lcr-</td>
+<td>144</td>
+</tr>
+<tr>
+<td>Fan 1B Tach</td>
+<td>0x41</td>
+<td>Fan (0x04)</td>
+<td>1125 RPM (ok)</td>
+<td>4100.000</td>
+<td>950.000 / 6375.000</td>
+<td>250.000</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>50.000 / 50.000</td>
+<td>lcr / -</td>
+<td>lcr- / lcr-</td>
+<td>165</td>
+</tr>
+<tr>
+<td>Fan 2A Tach</td>
+<td>0x42</td>
+<td>Fan (0x04)</td>
+<td>1595 RPM (ok)</td>
+<td>4756.000</td>
+<td>1247.000 / 7395.000</td>
+<td>290.000</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>58.000 / 58.000</td>
+<td>lcr / -</td>
+<td>lcr- / lcr-</td>
+<td>186</td>
+</tr>
+<tr>
+<td>Fan 2B Tach</td>
+<td>0x43</td>
+<td>Fan (0x04)</td>
+<td>1100 RPM (ok)</td>
+<td>4100.000</td>
+<td>950.000 / 6375.000</td>
+<td>250.000</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>50.000 / 50.000</td>
+<td>lcr / -</td>
+<td>lcr- / lcr-</td>
+<td>207</td>
+</tr>
+<tr>
+<td>Fan 3A Tach</td>
+<td>0x44</td>
+<td>Fan (0x04)</td>
+<td>3074 RPM (ok)</td>
+<td>4756.000</td>
+<td>1247.000 / 7395.000</td>
+<td>290.000</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>58.000 / 58.000</td>
+<td>lcr / -</td>
+<td>lcr- / lcr-</td>
+<td>228</td>
+</tr>
+<tr>
+<td>Fan 3B Tach</td>
+<td>0x45</td>
+<td>Fan (0x04)</td>
+<td>2425 RPM (ok)</td>
+<td>4100.000</td>
+<td>950.000 / 6375.000</td>
+<td>250.000</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>50.000 / 50.000</td>
+<td>lcr / -</td>
+<td>lcr- / lcr-</td>
+<td>249</td>
+</tr>
+</tbody>
+</table></div>
+<p>Findings (<span class="tl tl-measured">MEASURED</span> unless marked):</p>
+<ul>
+<li>Nominal readings: 3.309 V, 4.995 V, 12.042 V for the rails, 3.010 V for VBAT, 21 C ambient. VBAT 1.791 V is 59.5% of
+  its nominal 3.010 V (arithmetic).</li>
+<li>Only the voltage sensors have settable thresholds (lc/uc, VBAT lc/lnc); temperature, fan, altitude and power
+  thresholds are read-only (SC-11).</li>
+<li>Fan records carry a nominal and a normal range: A rotors 4756 RPM nominal, 1247-7395 normal; B rotors 4100, 950-6375
+  (section 5.1).</li>
+<li>
+<p>Ambient Temp has only a positive-going hysteresis (4 C); its negative hysteresis is "Unspecified".</p>
+</li>
+<li>
+<p>No CPU, DIMM, IOH or drive temperature is exposed as an analog sensor; those exist only as discrete status
+  sensors (section 7.2, 7.3). <span class="tl tl-measured">MEASURED</span>.</p>
+</li>
+</ul>
+<h2 id="5-fans-and-cooling-zones">5. Fans and cooling zones <a class="anchor" href="#5-fans-and-cooling-zones" aria-label="Link to this section">#</a></h2>
+<h3 id="51-fan-sensor-set">5.1 Fan sensor set <a class="anchor" href="#51-fan-sensor-set" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Fan module</th>
+<th>Tach sensors (No., entity)</th>
+<th>lc (RPM)</th>
+<th>RPM</th>
+<th>CLI %</th>
+<th>RPM / % x 100</th>
+<th>Presence sensor</th>
+<th>Zone sensor (catalog entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fan 1</td>
+<td>1A 0x40, 1B 0x41 (29.1)</td>
+<td>290 / 250</td>
+<td>1595 / 1125</td>
+<td>21 / 17</td>
+<td>7595 / 6618</td>
+<td>Fan 1 = 0x0180</td>
+<td>Cooling Zone 1 (0x1E/0x81) = 0x0180</td>
+</tr>
+<tr>
+<td>Fan 2</td>
+<td>2A 0x42, 2B 0x43 (29.2)</td>
+<td>290 / 250</td>
+<td>1595 / 1100</td>
+<td>21 / 17</td>
+<td>7595 / 6471</td>
+<td>Fan 2 = 0x0180</td>
+<td>Cooling Zone 2 (0x1E/0x82) = 0x0180</td>
+</tr>
+<tr>
+<td>Fan 3</td>
+<td>3A 0x44, 3B 0x45 (29.3)</td>
+<td>290 / 250</td>
+<td>3103 / 2450</td>
+<td>41 / 38</td>
+<td>7568 / 6447</td>
+<td>Fan 3 = 0x0180</td>
+<td>Cooling Zone 3 (0x1E/0x83) = 0x0180</td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="tl tl-measured">MEASURED</span> except: "RPM / % x 100" is a computed estimate of the 100% speed (<span class="tl tl-candidate">CANDIDATE</span>, reason: the CLI percent is
+rounded to whole percent and its reference speed is not documented); it suggests about 7.6k RPM for "A" rotors
+and about 6.5k RPM for "B" rotors. Fan model and maximum RPM are not documented (<span class="tl tl-unknown">UNKNOWN</span>).</p>
+<p>SDR fan ranges (C-V, section 4.1, <span class="tl tl-measured">MEASURED</span>): A rotors normal maximum 7395 RPM, B rotors 6375 RPM. The CLI percent
+equals reading / normal maximum, truncated, for all six fans on 2026-10-19 (1595/7395 = 21.6 -&gt; 21, 1125/6375 =
+17.6 -&gt; 17, 1100/6375 = 17.3 -&gt; 17, 3103/7395 = 42.0 -&gt; 41, 2450/6375 = 38.4 -&gt; 38) and with the 2026-10-20 CLI
+values (captures/2026-10-20_imm_cli_settings.txt lines 190-195: 21/17/21/17/41/38) against the C-V readings
+(3074/7395 = 41.6, 2425/6375 = 38.0). <span class="tl tl-candidate">CANDIDATE</span> (strong): the IMM CLI fan percent is RPM / SDR normal maximum x 100,
+rounded down; reason: all twelve pairs match; the CLI and SDR reads were not simultaneous. 3103/7395 = 41.96 also
+shows the rounding is downward, not to nearest.</p>
+<p>Each fan module is a "double fan" with two counter-rotating rotors (<span class="tl tl-documented">DOCUMENTED</span>, HARDWARE_COMPONENTS 11.1); the
+SDR gives both rotors of a module the same entity instance (<span class="tl tl-measured">MEASURED</span> 29.1/29.1, 29.2/29.2, 29.3/29.3), and the
+lower critical limits differ by rotor (A 290, B 250 RPM). There is no lnc (warning) fan threshold, so a slowing
+fan produces no warning before the critical event.</p>
+<h3 id="52-zone-decode">5.2 Zone decode <a class="anchor" href="#52-zone-decode" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Cooling Zone 1-3: catalog IDs 800b010a-1e8n ("Redundancy Lost", Error, A30) and 800b050a-1e8n ("Non-redundant:
+  Insufficient Resources", Error) - sensor type 0x0A (cooling device), reading type 0x0B (redundancy), entity
+  0x1E (cooling unit/domain), instances 0x81-0x83 (<span class="tl tl-documented">DOCUMENTED</span> IDs; field decode <span class="tl tl-candidate">CANDIDATE</span>). Measured state
+  0x0180 = offset 00 = "fully redundant" (<span class="tl tl-candidate">CANDIDATE</span>, corroborated: catalog 800b000x offset 00 = "Redundancy ...
+  has been restored" for the same reading type).</li>
+<li>Zone-to-fan mapping: not documented. <span class="tl tl-candidate">CANDIDATE</span>: Cooling Zone n corresponds to fan module n, reason: three zones,
+  three modules, same numbering; not verified.</li>
+<li>Speed policy: Fan 3 runs at about twice the speed of fans 1-2 at 27 C ambient (<span class="tl tl-measured">MEASURED</span>). <a class="sref" href="../catalog/sources.html#s-001">S-001</a> documents only
+  the altimeter input. Reason for the asymmetry is <span class="tl tl-unknown">UNKNOWN</span> (<span class="tl tl-candidate">CANDIDATE</span>: zone-based control driven by the populated
+  CPU 1/DIMM 3 and the single power supply side; see HARDWARE_COMPONENTS 11.2).</li>
+<li>Light path link (<span class="tl tl-documented">DOCUMENTED</span>, <a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.365, FAN LED): "With BRD lit and all cooling zones asserted", check the PCI
+  riser-card 2 LED - i.e. a missing riser in connector 2 is reported through the cooling-zone sensors. At capture
+  time no cooling zone shows a fault offset and PCI Riser 1/2 are present (section 7.1).</li>
+</ul>
+<h2 id="6-discrete-sensors---decoding-reference">6. Discrete sensors - decoding reference <a class="anchor" href="#6-discrete-sensors---decoding-reference" aria-label="Link to this section">#</a></h2>
+<p>Truth level: <span class="tl tl-candidate">CANDIDATE</span> (IPMI v2.0 tables from knowledge, spec not in sources/). "Corroborated" = the <a class="sref" href="../catalog/sources.html#s-004">S-004</a>
+catalog message for the same reading type, sensor type and offset says the same thing (<span class="tl tl-documented">DOCUMENTED</span> text).</p>
+<h3 id="61-generic-reading-types">6.1 Generic reading types <a class="anchor" href="#61-generic-reading-types" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Reading type</th>
+<th>Offset meanings</th>
+<th>Corroboration (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> message for the offset)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x03 digital discrete</td>
+<td>00 state deasserted, 01 state asserted</td>
+<td>80030012 "Sensor [Sensor] has deasserted" (offset 00) - corroborated</td>
+</tr>
+<tr>
+<td>0x07 severity</td>
+<td>00 transition to OK, 01 to non-critical from OK, 02 to critical from less severe, 03 to non-recoverable from less severe, 04 to non-critical from more severe, 05 to critical from non-recoverable, 06 to non-recoverable, 07 monitor, 08 informational</td>
+<td>8007 02xx "transitioned to critical from a less severe state", 8007 03xx "to non-recoverable from a less severe state", 8007 06xx "transitioned to non-recoverable" - corroborated</td>
+</tr>
+<tr>
+<td>0x0B redundancy</td>
+<td>00 fully redundant, 01 redundancy lost, 02 degraded, 03 non-redundant (sufficient, from redundant), 04 non-redundant (sufficient, from insufficient), 05 non-redundant (insufficient), 06 degraded from fully redundant, 07 degraded from non-redundant</td>
+<td>800b00 "restored", 800b01 "Redundancy Lost", 800b03 "Non-redundant:Sufficient Resources from Redundancy Degraded or Fully Redundant", 800b05 "Non-redundant:Insufficient Resources" - corroborated</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="62-sensor-specific-reading-type-0x6f-offsets-used-on-this-server">6.2 Sensor-specific (reading type 0x6F) offsets used on this server <a class="anchor" href="#62-sensor-specific-reading-type-0x6f-offsets-used-on-this-server" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Sensor type</th>
+<th>Offsets (meaning)</th>
+<th>Corroboration (<a class="sref" href="../catalog/sources.html#s-004">S-004</a>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x07 Processor</td>
+<td>00 IERR, 01 thermal trip, 02 FRB1/BIST, 03 FRB2, 04 FRB3, 05 configuration error, 06 SMBIOS uncorrectable CPU-complex error, 07 processor presence detected, 08 disabled, 09 terminator presence, 0A throttled</td>
+<td>00, 01 (over-temperature), 02, 05, 06, 08, 0A ("Degraded State") corroborated; 07 not in catalog (presence is not logged)</td>
+</tr>
+<tr>
+<td>0x08 Power supply</td>
+<td>00 presence detected, 01 failure, 02 predictive failure, 03 input lost, 04 input lost or out of range, 05 input out of range, 06 configuration error</td>
+<td>00 ("added to container"), 01, 03, 06 corroborated</td>
+</tr>
+<tr>
+<td>0x09 Power unit</td>
+<td>00 power off/down, 01 power cycle, 02 240VA power down, 03 interlock power down, 04 AC lost, 05 soft power control failure, 06 power unit failure, 07 predictive failure</td>
+<td>00 ("turned off"), 01 ("Power Cycled") corroborated; SEL decode "Power off/down" <span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>0x0C Memory</td>
+<td>00 correctable ECC, 01 uncorrectable ECC, 02 parity, 03 scrub failed, 04 device disabled, 05 correctable-ECC logging limit, 06 presence detected, 07 configuration error, 08 spare, 09 throttled, 0A critical overtemperature</td>
+<td>01, 03, 04, 05, 07 corroborated; 06 not in catalog</td>
+</tr>
+<tr>
+<td>0x0D Drive slot/bay</td>
+<td>00 drive presence, 01 drive fault, 02 predictive failure, 03 hot spare, 04 consistency check, 05 in critical array, 06 in failed array, 07 rebuild in progress, 08 rebuild aborted</td>
+<td>00, 01, 02, 05, 06, 07 corroborated; SEL "Drive Present" <span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>0x0F System firmware progress</td>
+<td>00 system firmware error (POST error), 01 firmware hang, 02 firmware progress</td>
+<td>00 (POST error IDs 806f000f-2201xx), 01 ("firmware hang") corroborated; 02 <span class="tl tl-measured">MEASURED</span> in SEL ("System Firmwares Progress")</td>
+</tr>
+<tr>
+<td>0x10 Event logging disabled</td>
+<td>00 correctable memory logging disabled, 01 event type logging disabled, 02 log area reset/cleared, 03 all event logging disabled, 04 SEL full, 05 SEL almost full</td>
+<td>04/05 <span class="tl tl-measured">MEASURED</span> in SEL ("Log full", "Log almost full")</td>
+</tr>
+<tr>
+<td>0x12 System event</td>
+<td>00 system reconfigured, 01 OEM system boot event, 02 undetermined system hardware failure, 03 entry added to auxiliary log, 04 PEF action, 05 timestamp clock synch</td>
+<td>02 ("unknown system hardware fault") corroborated</td>
+</tr>
+<tr>
+<td>0x13 Critical interrupt</td>
+<td>00 front panel NMI/diagnostic interrupt, 01 bus timeout, 02 I/O channel check NMI, 03 software NMI, 04 PCI PERR, 05 PCI SERR, 06 EISA fail-safe timeout, 07 bus correctable error, 08 bus uncorrectable error, 09 fatal NMI, 0A bus fatal error, 0B bus degraded</td>
+<td>00, 03, 04, 05, 08 corroborated</td>
+</tr>
+<tr>
+<td>0x1B Cable/interconnect</td>
+<td>00 connected, 01 incorrect cable / interconnection (configuration error)</td>
+<td>01 ("configuration error") corroborated</td>
+</tr>
+<tr>
+<td>0x21 Slot/connector</td>
+<td>00 fault status asserted, 01 identify, 02 device installed/attached, ...</td>
+<td>00 ("Fault in slot") corroborated</td>
+</tr>
+<tr>
+<td>0x23 Watchdog 2</td>
+<td>00 timer expired, 01 hard reset, 02 power down, 03 power cycle, 08 timer interrupt</td>
+<td>00, 01, 02, 03, 08 corroborated</td>
+</tr>
+<tr>
+<td>0x25 Entity presence</td>
+<td>00 entity present, 01 entity absent, 02 entity disabled</td>
+<td>01 ("detected as absent"), deassertion of 01 ("detected as present") corroborated</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="7-discrete-sensors---measured-states">7. Discrete sensors - measured states <a class="anchor" href="#7-discrete-sensors---measured-states" aria-label="Link to this section">#</a></h2>
+<p>Columns: Raw = ipmitool <code>sensor</code> state bytes (<span class="tl tl-measured">MEASURED</span>, C-IPMI); Type/RT = sensor type / reading type and
+Entity = EE/FF from the <a class="sref" href="../catalog/sources.html#s-004">S-004</a> event IDs (catalog-derived; "-" = sensor not in the catalog); Decoded = section 6
+applied (<span class="tl tl-candidate">CANDIDATE</span>). Since 2026-10-20 sensor numbers, entities, sensor types and the asserted states as named by
+ipmitool are <span class="tl tl-measured">MEASURED</span> for every sensor (C-V, section 13); the catalog-derived Type and Entity agree with them, with
+the instance difference described in 13.2. Rows below keep the 2026-10-19 raw states; changes on 2026-10-20 are
+noted per row.</p>
+<h3 id="71-presence-risers-and-connectors">7.1 Presence, risers and connectors <a class="anchor" href="#71-presence-risers-and-connectors" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Type/RT</th>
+<th>Entity</th>
+<th>Raw</th>
+<th>Decoded state</th>
+<th>Cross-check</th>
+<th>IMM events (catalog)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fan 1</td>
+<td>0x25/6F</td>
+<td>0x1D/01</td>
+<td>0x0180</td>
+<td>00 entity present</td>
+<td>tach 1A/1B running</td>
+<td>806f0125-1d01 absent / 816f0125-1d01 present (Info)</td>
+</tr>
+<tr>
+<td>Fan 2</td>
+<td>0x25/6F</td>
+<td>0x1D/02</td>
+<td>0x0180</td>
+<td>00 entity present</td>
+<td>tach running</td>
+<td>806f0125-1d02</td>
+</tr>
+<tr>
+<td>Fan 3</td>
+<td>0x25/6F</td>
+<td>0x1D/03</td>
+<td>0x0180</td>
+<td>00 entity present</td>
+<td>tach running</td>
+<td>806f0125-1d03</td>
+</tr>
+<tr>
+<td>Front Panel</td>
+<td>0x25/6F</td>
+<td>0x0C/01</td>
+<td>0x0180</td>
+<td>00 entity present</td>
+<td>-</td>
+<td>806f0125-0c01</td>
+</tr>
+<tr>
+<td>SAS Riser</td>
+<td>0x25/6F</td>
+<td>0x0B/01</td>
+<td>0x0180</td>
+<td>00 entity present</td>
+<td>M1015 detected by storcli (C-STOR)</td>
+<td>806f0125-0b01</td>
+</tr>
+<tr>
+<td>PCI Riser 1</td>
+<td>0x25/6F</td>
+<td>0x0B/02</td>
+<td>0x0180</td>
+<td>00 entity present</td>
+<td>-</td>
+<td>806f0125-0b02</td>
+</tr>
+<tr>
+<td>PCI Riser 2</td>
+<td>0x25/6F</td>
+<td>0x0B/03</td>
+<td>0x0180</td>
+<td>00 entity present</td>
+<td>riser 2 is mandatory (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.365)</td>
+<td>806f0125-0b03</td>
+</tr>
+<tr>
+<td>DASD Backplane 1</td>
+<td>0x25 (C-V; RT <span class="tl tl-candidate">CANDIDATE</span> 6F)</td>
+<td>0x0F/01 (C-V, 15.1 "Drive Backplane")</td>
+<td>0x0180</td>
+<td>00 entity present; C-V: [Present]</td>
+<td>FRU ID 3 present, part 81Y4592 (C-IPMI)</td>
+<td>none documented</td>
+</tr>
+<tr>
+<td>DASD Backplane 2</td>
+<td>0x25 (C-V)</td>
+<td>0x0F/02 (C-V)</td>
+<td>0x0280</td>
+<td>01 entity absent; C-V: [Absent] asserted (<span class="tl tl-measured">MEASURED</span> decode by ipmitool)</td>
+<td>FRU ID 4 "Device not present"</td>
+<td>none documented</td>
+</tr>
+<tr>
+<td>DASD Backplane 3</td>
+<td>0x25 (C-V)</td>
+<td>0x0F/03 (C-V)</td>
+<td>na</td>
+<td>no reading (C-V: "No Reading")</td>
+<td>FRU ID 5 not present</td>
+<td>none documented</td>
+</tr>
+<tr>
+<td>DASD Backplane 4</td>
+<td>0x25 (C-V)</td>
+<td>0x0F/04 (C-V)</td>
+<td>na</td>
+<td>no reading (C-V: "No Reading")</td>
+<td>FRU ID 6 not present</td>
+<td>none documented</td>
+</tr>
+<tr>
+<td>Video USB</td>
+<td>0x1B/6F</td>
+<td>0x07/01</td>
+<td>0x0180</td>
+<td>00 cable/interconnect connected</td>
+<td>-</td>
+<td>806f011b-0701 configuration error (Error)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The DASD Backplane decode is consistent with the FRU inventory in all four positions (<span class="tl tl-measured">MEASURED</span> FRU vs <span class="tl tl-candidate">CANDIDATE</span>
+decode): one 8-bay backplane installed (docs/X3650M3_STORAGE_RAID.md).</p>
+<h3 id="72-processor-chipset-and-temperature-status">7.2 Processor, chipset and temperature status <a class="anchor" href="#72-processor-chipset-and-temperature-status" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Type/RT</th>
+<th>Entity</th>
+<th>Raw</th>
+<th>Decoded state</th>
+<th>IMM events (catalog)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU 1</td>
+<td>0x07/6F</td>
+<td>0x03/01</td>
+<td>0x8080</td>
+<td>07 processor presence detected; no fault offset</td>
+<td>806f0007..0a07-0301 (IERR, over-temperature, FRB1/BIST, configuration mismatch, SMBIOS uncorrectable, disabled, degraded)</td>
+</tr>
+<tr>
+<td>CPU 2</td>
+<td>0x07/6F</td>
+<td>0x03/02</td>
+<td>na</td>
+<td>no reading (socket empty; one Xeon E5606 installed, HARDWARE_COMPONENTS 13.2)</td>
+<td>same set, instance 02</td>
+</tr>
+<tr>
+<td>All CPUs</td>
+<td>0x07/6F</td>
+<td>0x25/84</td>
+<td>0x0080</td>
+<td>none asserted</td>
+<td>2 IDs (<a class="sref" href="../catalog/sources.html#s-004">S-004</a>)</td>
+</tr>
+<tr>
+<td>One of The CPUs</td>
+<td>0x07/6F</td>
+<td>0x25/84</td>
+<td>0x0080</td>
+<td>none asserted</td>
+<td>2 IDs</td>
+</tr>
+<tr>
+<td>CPUs</td>
+<td>0x13/6F</td>
+<td>0x25/84</td>
+<td>0x0080</td>
+<td>none asserted (no NMI/bus error)</td>
+<td>2 IDs</td>
+</tr>
+<tr>
+<td>CPU 1 OverTemp</td>
+<td>0x01/07</td>
+<td>0x03/01</td>
+<td>0x0180</td>
+<td>00 transition to OK</td>
+<td>80070201-0301 critical, 80070301-0301 non-recoverable (Error)</td>
+</tr>
+<tr>
+<td>CPU 2 OverTemp</td>
+<td>0x01/07</td>
+<td>0x03/02</td>
+<td>na</td>
+<td>no reading (CPU absent)</td>
+<td>instance 02</td>
+</tr>
+<tr>
+<td>IOH Temp Status</td>
+<td>0x01/07</td>
+<td>0x2D/01</td>
+<td>0x0180</td>
+<td>00 transition to OK</td>
+<td>80070201-2d01, 80070301-2d01 (Error)</td>
+</tr>
+<tr>
+<td>CPU Fault Reboot</td>
+<td>0x12/6F</td>
+<td>0x25/84</td>
+<td>0x0080</td>
+<td>none asserted</td>
+<td>806f0212-2584 unknown system hardware fault (Error)</td>
+</tr>
+<tr>
+<td>Sys Board Fault</td>
+<td>0x19/07</td>
+<td>0x07/01</td>
+<td>0x0080</td>
+<td>none asserted (no severity state at all, see SC-9)</td>
+<td>80070219-0701 critical (Error, A22)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="73-memory">7.3 Memory <a class="anchor" href="#73-memory" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Type/RT</th>
+<th>Entity</th>
+<th>Raw</th>
+<th>Decoded state</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All DIMMS</td>
+<td>0x0C/6F</td>
+<td>0x25/81</td>
+<td>0x0080</td>
+<td>none asserted</td>
+</tr>
+<tr>
+<td>One of the DIMMs</td>
+<td>0x0C/6F</td>
+<td>0x25/81</td>
+<td>0x0080</td>
+<td>none asserted</td>
+</tr>
+<tr>
+<td>DIMMs</td>
+<td>0x13/6F</td>
+<td>0x25/81</td>
+<td>0x0080</td>
+<td>none asserted</td>
+</tr>
+<tr>
+<td>Backup Memory</td>
+<td>0x0C/0B</td>
+<td>0x25/81</td>
+<td>0x0080</td>
+<td>no redundancy state (no mirroring/sparing configured with one DIMM; <span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Per-DIMM sensors (DIMM n: 0x0C/6F, entity 0x20/n hex; DIMM n Temp: 0x01/07, entity 0x20/n hex):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>DIMM</th>
+<th>DIMM n raw</th>
+<th>Decoded</th>
+<th>DIMM n Temp raw</th>
+<th>Decoded</th>
+<th>FRU (C-IPMI)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0x0080</td>
+<td>none</td>
+<td>0x0080</td>
+<td>none</td>
+<td>not present</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0x0080</td>
+<td>none</td>
+<td>0x0080</td>
+<td>none</td>
+<td>not present</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0x4080</td>
+<td>06 presence detected</td>
+<td>0x0180</td>
+<td>00 transition to OK</td>
+<td>8 GB DDR3 RDIMM, SK Hynix HMT31GR7BFR4A-H9</td>
+</tr>
+<tr>
+<td>4-18</td>
+<td>0x0080 each</td>
+<td>none</td>
+<td>0x0080 each</td>
+<td>none</td>
+<td>not present</td>
+</tr>
+</tbody>
+</table></div>
+<p>The DIMM n presence decode matches the FRU inventory for all 18 slots (<span class="tl tl-measured">MEASURED</span> FRU vs <span class="tl tl-candidate">CANDIDATE</span> decode).
+Catalog IDs per DIMM: 806f010c/030c/040c/050c/070c-20nn (uncorrectable, scrub failure, disabled, logging limit,
+configuration error) and 80070201-20nn (DIMM temperature critical); see ERROR_CODES section 4.</p>
+<h3 id="74-power">7.4 Power <a class="anchor" href="#74-power" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Type/RT</th>
+<th>Entity</th>
+<th>Raw</th>
+<th>Decoded state</th>
+<th>IMM events (catalog)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Power Supply 1</td>
+<td>0x08/6F</td>
+<td>0x0A/01</td>
+<td>na</td>
+<td>no reading (bay empty; FRU ID 1 not present)</td>
+<td>806f0008/0108/0308/0608-0a01</td>
+</tr>
+<tr>
+<td>Power Supply 2</td>
+<td>0x08/6F</td>
+<td>0x0A/02</td>
+<td>0x0180</td>
+<td>00 presence detected; no failure, no input lost</td>
+<td>806f0008/0108/0308/0608-0a02</td>
+</tr>
+<tr>
+<td>PS 1 Fan Fault</td>
+<td>0x04/07</td>
+<td>0x0A/01</td>
+<td>0x0180</td>
+<td>00 OK (see SC-6: supply absent)</td>
+<td>80070204-0a01 (Error, A23)</td>
+</tr>
+<tr>
+<td>PS 2 Fan Fault</td>
+<td>0x04/07</td>
+<td>0x0A/02</td>
+<td>0x0180</td>
+<td>00 OK</td>
+<td>80070204-0a02</td>
+</tr>
+<tr>
+<td>PS 1 Therm Fault</td>
+<td>0x08/07</td>
+<td>0x0A/01</td>
+<td>0x0180</td>
+<td>00 OK (SC-6)</td>
+<td>80070208-0a01 (shared with PS 1 OP Fault, Error, A24)</td>
+</tr>
+<tr>
+<td>PS 2 Therm Fault</td>
+<td>0x08/07</td>
+<td>0x0A/02</td>
+<td>0x0180</td>
+<td>00 OK</td>
+<td>80070208-0a02 (shared with PS 2 OP Fault)</td>
+</tr>
+<tr>
+<td>PS 1 OP Fault</td>
+<td>0x08/07</td>
+<td>0x0A/01</td>
+<td>0x0180</td>
+<td>00 OK (SC-6)</td>
+<td>80070208-0a01 (Error, A24)</td>
+</tr>
+<tr>
+<td>PS 2 OP Fault</td>
+<td>0x08/07</td>
+<td>0x0A/02</td>
+<td>0x0180</td>
+<td>00 OK</td>
+<td>80070208-0a02</td>
+</tr>
+<tr>
+<td>PS1 12V OV Fault / UV Fault / OC Fault</td>
+<td>0x08/07</td>
+<td>0x0A/01</td>
+<td>0x0180 each</td>
+<td>00 OK (SC-6)</td>
+<td>80070608-0a01 non-recoverable (Error, A28)</td>
+</tr>
+<tr>
+<td>PS2 12V OV Fault / UV Fault / OC Fault</td>
+<td>0x08/07</td>
+<td>0x0A/02</td>
+<td>0x0180 each</td>
+<td>00 OK</td>
+<td>80070608-0a02</td>
+</tr>
+<tr>
+<td>PS 1 VCO Fault</td>
+<td>0x08/07</td>
+<td>0x0A/01</td>
+<td>0x0180</td>
+<td>00 OK (SC-6)</td>
+<td>80070608-0a01</td>
+</tr>
+<tr>
+<td>PS 2 VCO Fault</td>
+<td>0x08/07</td>
+<td>0x0A/02</td>
+<td>0x0180</td>
+<td>00 OK</td>
+<td>80070608-0a02</td>
+</tr>
+<tr>
+<td>Pwr Rail A Fault .. Pwr Rail E Fault</td>
+<td>0x03/07</td>
+<td>0x07/01</td>
+<td>0x0180 each</td>
+<td>00 OK</td>
+<td>80070603-0701 non-recoverable (Error, A27)</td>
+</tr>
+<tr>
+<td>VT Fault</td>
+<td>0x08/07</td>
+<td>0x07/01</td>
+<td>0x0080</td>
+<td>none asserted (SC-9)</td>
+<td>80070608-0701 (Error, A28)</td>
+</tr>
+<tr>
+<td>Planar Fault</td>
+<td>0x02/07</td>
+<td>0x07/01</td>
+<td>0x0180</td>
+<td>00 OK - resolves ERROR_CODES Q-05 as <span class="tl tl-candidate">CANDIDATE</span></td>
+<td>80070202-0701 critical (Error, A22)</td>
+</tr>
+<tr>
+<td>Power Unit</td>
+<td>0x08/0B</td>
+<td>0x13/81</td>
+<td>0x0080</td>
+<td>no redundancy state asserted (SC-4)</td>
+<td>800b0008-1381 restored, 800b0108-1381 redundancy lost (Error, A29)</td>
+</tr>
+<tr>
+<td>Host Power</td>
+<td>0x09/6F</td>
+<td>0x13/81</td>
+<td>0x0080</td>
+<td>00 power off/down not asserted = host on</td>
+<td>806f0009-1381 turned off, 816f0009-1381 turned on, 806f0109-1381 power cycled (Info)</td>
+</tr>
+</tbody>
+</table></div>
+<p>"Pwr Rail A-E Fault" correspond by name to the 12 V power channels A-E with their own board LEDs
+(HARDWARE_COMPONENTS 5.3; ERROR_CODES 9.4) - <span class="tl tl-candidate">CANDIDATE</span> mapping, reason: name and count (A-E) match; there is no
+sensor for the AUX channel in this SDR. Chassis status (<span class="tl tl-measured">MEASURED</span>) agrees: no main power fault, no overload.</p>
+<h3 id="75-drives">7.5 Drives <a class="anchor" href="#75-drives" aria-label="Link to this section">#</a></h3>
+<p>All "Drive n": sensor type 0x0D, reading type 0x6F, entity 0x04 (disk/disk bay), instance n (0x00-0x0F)
+(catalog-derived; Drive 0 sensor type <span class="tl tl-measured">MEASURED</span> via SEL "Drive Slot / Bay Drive 0").</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Raw</th>
+<th>Decoded</th>
+<th>storcli 2026-10-20 (C-STOR)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Drive 0</td>
+<td>0x0180</td>
+<td>00 drive presence; no fault/predictive-failure offset</td>
+<td>slot 64:0 DID 11 Toshiba MK2546GSX, Onln, DG 0 (RAID0 VD)</td>
+</tr>
+<tr>
+<td>Drive 1</td>
+<td>0x0080 on 2026-10-19 (no drive presence); [Drive Present] on 2026-10-20 (C-W2)</td>
+<td>none asserted on 2026-10-19 because the drive was not installed (owner statement 2026-10-20: inserted that day); present on 2026-10-20</td>
+<td>slot 64:1 DID 12 Hitachi HTS542512K9SA00, UGood, spun down ("D"); VD 1 since 2026-10-20 - SC-5 resolved</td>
+</tr>
+<tr>
+<td>Drive 2-7</td>
+<td>0x0080 each</td>
+<td>none</td>
+<td>slots 2-7 empty (enclosure 64 has 8 slots, PD count 2)</td>
+</tr>
+<tr>
+<td>Drive 8-15</td>
+<td>0x0080 each</td>
+<td>none</td>
+<td>no second backplane (DASD Backplane 2-4 absent)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Catalog IDs: 806f000d-04nn added, 806f010d-04nn disabled due to fault (Error, call home), 806f020d predictive
+failure (Warning), 806f050d/060d array critical/failed, 806f070d rebuild (ERROR_CODES section 4.5).</p>
+<h3 id="76-pci">7.6 PCI <a class="anchor" href="#76-pci" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Type/RT</th>
+<th>Entity</th>
+<th>Raw</th>
+<th>Decoded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCI 1 .. PCI 5</td>
+<td>0x21/6F</td>
+<td>0x30/01 (catalog lists PCI 1-5 under the same ID 806f0021-3001)</td>
+<td>0x0080 each</td>
+<td>no slot fault</td>
+</tr>
+<tr>
+<td>PCIs</td>
+<td>0x13/6F</td>
+<td>0x25/82</td>
+<td>0x0080</td>
+<td>no PERR/SERR/uncorrectable bus error</td>
+</tr>
+<tr>
+<td>All PCI Error</td>
+<td>0x21/6F</td>
+<td>0x25/82</td>
+<td>0x0080</td>
+<td>none</td>
+</tr>
+<tr>
+<td>One of PCI Error</td>
+<td>0x21/6F</td>
+<td>0x25/82</td>
+<td>0x0080</td>
+<td>none</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="77-firmware-system-and-logging">7.7 Firmware, system and logging <a class="anchor" href="#77-firmware-system-and-logging" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Type/RT</th>
+<th>Entity</th>
+<th>Raw</th>
+<th>Decoded state</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ABR Status</td>
+<td>0x0F/6F</td>
+<td>0x22/01 (system firmware)</td>
+<td>0x0080</td>
+<td>no POST error asserted</td>
+<td>catalog 806f000f-2201xx POST error IDs (ABR Status / Firmware Error); ABR = automatic boot recovery (ERROR_CODES section 13)</td>
+</tr>
+<tr>
+<td>Firmware Error</td>
+<td>0x0F/6F</td>
+<td>0x22/01</td>
+<td>0x0080</td>
+<td>no firmware error / hang</td>
+<td>806f010f-2201 firmware hang</td>
+</tr>
+<tr>
+<td>Progress</td>
+<td>0x0F / RT <span class="tl tl-unknown">UNKNOWN</span> (C-V enables only "Unknown Progress")</td>
+<td>0x22/01 (C-V, 34.1 BIOS)</td>
+<td>0x0080</td>
+<td>none</td>
+<td>306 SEL entries (progress "Unspecified" 161, "System boot initiated" 145); offset 02 is event-only (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>NMI State</td>
+<td>0x13/6F</td>
+<td>0x17/01</td>
+<td>0x0080</td>
+<td>no NMI</td>
+<td>806f0013/0313-1701 (Error)</td>
+</tr>
+<tr>
+<td>IPMI Watchdog</td>
+<td>0x23/6F</td>
+<td>0x21/01</td>
+<td>0x0080</td>
+<td>no watchdog action</td>
+<td>806f0x23-2101 (Info)</td>
+</tr>
+<tr>
+<td>OS RealTime Mod</td>
+<td>0x12/03</td>
+<td>0x23/01 (operating system)</td>
+<td>0x0080</td>
+<td>neither offset asserted</td>
+<td>catalog 80030012 "has deasserted" (Info); meaning of the sensor (OS real-time module?) <span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>Aux Log</td>
+<td>0x12 (C-V)</td>
+<td>0x22/01 (C-V, 34.1 BIOS)</td>
+<td>0x0080</td>
+<td>none</td>
+<td>C-V enables "Entry added to auxiliary log" (offset 03 of sensor type 0x12): the earlier <span class="tl tl-candidate">CANDIDATE</span> from the name is confirmed</td>
+</tr>
+<tr>
+<td>SEL Fullness</td>
+<td>0x10 / 6F</td>
+<td>0x21/01 (C-V, 33.1 System Management Software)</td>
+<td>0x0080</td>
+<td>none asserted (C-W2 and C-V)</td>
+<td>contradicts the full SEL (SC-3); C-V enables "Log area reset/cleared", "Log full", "Log almost full"</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="8-sensors-in-the-event-catalog-but-not-in-the-sdr-and-the-reverse">8. Sensors in the event catalog but not in the SDR (and the reverse) <a class="anchor" href="#8-sensors-in-the-event-catalog-but-not-in-the-sdr-and-the-reverse" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Where</th>
+<th>Catalog IDs</th>
+<th>Meaning for this server</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CMOS Battery</td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> only</td>
+<td>80010002/80010202-2801</td>
+<td><span class="tl tl-candidate">CANDIDATE</span>: the same battery measured by "Planar VBAT" (SC-2)</td>
+</tr>
+<tr>
+<td>IMM FW Failover</td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> only</td>
+<td>806f052b-2101 "Invalid or Unsupported firmware"</td>
+<td>not exposed as a sensor by YUOOC7E; may be event-only (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>No I/O Resources</td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> only</td>
+<td>8007020f-2582</td>
+<td>same (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>No Op ROM Space</td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> only</td>
+<td>806f0021-2201</td>
+<td>same (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>Altitude, Avg Power, Planar VBAT, DASD Backplane 1-4, Progress, Aux Log, SEL Fullness</td>
+<td>SDR only</td>
+<td>none</td>
+<td>no documented IMM event message for these names; SEL events for Progress and SEL Fullness are <span class="tl tl-measured">MEASURED</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>Event-only records: <code>ipmitool sdr elist event</code> printed nothing on 2026-10-20 (C-V lines 5-6), so the SDR holds no
+event-only (type 03h) record that ipmitool 1.8.19 lists (<span class="tl tl-measured">MEASURED</span> absence; the mapping of <code>elist event</code> to type 03h
+is ipmitool usage, not in sources/). The <span class="tl tl-candidate">CANDIDATE</span> "event-only" explanation for CMOS Battery, IMM FW Failover, No
+I/O Resources and No Op ROM Space is therefore not supported. Whether these catalog names belong to later firmware
+(<a class="sref" href="../catalog/sources.html#s-004">S-004</a> 16th ed. describes later IMM builds than YUOOC7E), are raised by the IMM without an SDR record, or sit in the
+69 records ipmitool does not print (section 2.1) is <span class="tl tl-unknown">UNKNOWN</span>.</p>
+<h2 id="9-mapping-to-light-path-leds-and-imm-events">9. Mapping to light path LEDs and IMM events <a class="anchor" href="#9-mapping-to-light-path-leds-and-imm-events" aria-label="Link to this section">#</a></h2>
+<p>LED meanings: <span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.363-367; ERROR_CODES 9.1). Sensor mapping: <span class="tl tl-candidate">CANDIDATE</span> unless the <a class="sref" href="../catalog/sources.html#s-004">S-004</a> text
+names the condition, reason given per row. Current LED state: <span class="tl tl-unknown">UNKNOWN</span> for all LEDs - the panel was not
+inspected; the "expected" column is a <span class="tl tl-candidate">CANDIDATE</span> prediction from the sensor states.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>LED</th>
+<th>Documented trigger</th>
+<th>Related sensors (mapping reason)</th>
+<th>Sensor state at capture</th>
+<th>Expected LED now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BRD</td>
+<td>System board error: battery, missing PCI riser-card assembly, failed voltage regulator</td>
+<td>Planar VBAT (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> names "battery"); PCI Riser 1/2 (names "missing riser"); Planar Fault, Sys Board Fault, VT Fault (system-board entity 0x07, action A22 "Check for an error LED on the system board")</td>
+<td>VBAT below lc; risers present; faults OK</td>
+<td>possibly lit because of the battery (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>FAN</td>
+<td>Fan failed, too slow or removed</td>
+<td>Fan nA/nB Tach lc (A16: "lit LED near the fan connector"), Fan n presence, Cooling Zone n (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.365 names cooling zones)</td>
+<td>all OK</td>
+<td>off</td>
+</tr>
+<tr>
+<td>TEMP</td>
+<td>Temperature above a threshold</td>
+<td>Ambient Temp, CPU n OverTemp, IOH Temp Status, DIMM n Temp (all temperature-type sensors)</td>
+<td>all OK</td>
+<td>off</td>
+</tr>
+<tr>
+<td>PS (+CNFG)</td>
+<td>Supply 1 or 2 failed; with CNFG invalid supply configuration</td>
+<td>Power Supply n offsets 01/03/06, PS n * Fault (entity 0x0A; actions A23/A28/A41 "check power supply n LED")</td>
+<td>PS 2 OK, PS 1 absent</td>
+<td>off (<span class="tl tl-candidate">CANDIDATE</span>: an empty bay is not a failure)</td>
+</tr>
+<tr>
+<td>OVER SPEC</td>
+<td>Shutdown due to supply overload on a power channel</td>
+<td>Pwr Rail A-E Fault (12 V channels A-E; A15 refers to OVER SPEC actions)</td>
+<td>OK</td>
+<td>off</td>
+</tr>
+<tr>
+<td>CPU (+CNFG)</td>
+<td>CPU failed / invalid configuration</td>
+<td>CPU n offsets 00-06/08/0A (A55: "Check the CPU LED")</td>
+<td>CPU 1 present, no fault</td>
+<td>off</td>
+</tr>
+<tr>
+<td>MEM (+CNFG)</td>
+<td>Memory error / invalid configuration or option ROM out of resource</td>
+<td>DIMM n, All DIMMS, One of the DIMMs offsets 01/03/04/05/07 (A42/A56: "error LEDs on the system board"); No Op ROM Space (not in SDR)</td>
+<td>DIMM 3 present, no fault</td>
+<td>off</td>
+</tr>
+<tr>
+<td>DASD</td>
+<td>Drive failed or missing</td>
+<td>Drive n offset 01 (A43, A57: "drive indicated by a lit status LED")</td>
+<td>Drive 0 present, no fault</td>
+<td>off</td>
+</tr>
+<tr>
+<td>PCI</td>
+<td>PCI bus or board error; LED next to the slot</td>
+<td>PCI 1-5, PCIs, All/One of PCI Error (A38/A54: "Check the PCI LED")</td>
+<td>no fault</td>
+<td>off</td>
+</tr>
+<tr>
+<td>NMI</td>
+<td>NMI occurred or button pressed</td>
+<td>NMI State</td>
+<td>none</td>
+<td>off</td>
+</tr>
+<tr>
+<td>LOG</td>
+<td>Error written to the system-event log</td>
+<td>any SEL/IMM log entry</td>
+<td>SEL full since 2025-05-05; no Error/Warning entries in the 512 stored entries</td>
+<td><span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>SP</td>
+<td>IMM failed</td>
+<td>no sensor (IMM FW Failover is not in the SDR)</td>
+<td>IMM responding</td>
+<td>off</td>
+</tr>
+<tr>
+<td>System-error LED (front)</td>
+<td>System error; a light path LED is also lit</td>
+<td>any critical condition</td>
+<td>VBAT critical</td>
+<td>possibly lit (<span class="tl tl-candidate">CANDIDATE</span>)</td>
+</tr>
+<tr>
+<td>LINK, RAID, VRM</td>
+<td>Reserved</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="10-abnormal-readings-and-findings">10. Abnormal readings and findings <a class="anchor" href="#10-abnormal-readings-and-findings" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Finding</th>
+<th>Evidence</th>
+<th>Severity / meaning</th>
+<th>Truth</th>
+<th>Next step</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>CMOS battery voltage below lower critical</td>
+<td>Planar VBAT 1.727 V (CLI 1.73; 1.791 V with lnc and lcr asserted on 2026-10-20, C-W2 and C-V; CLI 1.79 V at 18:05, captures/2026-10-20_imm_cli_settings.txt line 211) &lt; lc 2.095 V (CLI SSL 2.10) and &lt; lnc 2.248 V (WL 2.25); status cr/lcr</td>
+<td>Critical class threshold; battery at 57.6% of 3.0 V rating; risk of lost Setup/RTC after AC loss (ERROR_CODES 15.4)</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+<td>Replace battery CRU 33F8354 (HARDWARE_COMPONENTS 12); save UEFI settings first</td>
+</tr>
+<tr>
+<td>2</td>
+<td>VBAT below the "soft shutdown" threshold without a shutdown</td>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a> p.95: critical voltage starts an orderly OS shutdown; server running (syshealth Power On); IMM log: 36 lc assertions since 2026-02-11, none followed by an IMM-initiated shutdown (C-LOG)</td>
+<td>IMM evidently does not apply the shutdown action to VBAT</td>
+<td><span class="tl tl-measured">MEASURED</span> state and history; explanation <span class="tl tl-candidate">CANDIDATE</span> (SC-1)</td>
+<td>Replace the battery (finding 1); no further capture needed for SC-1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Single power supply, seen as "Power Supply 2"</td>
+<td>PS 1: sensor na, FRU not present; PS 2: 0x0180, FRU present</td>
+<td>No PSU redundancy; Power Unit redundancy sensor shows no state (SC-4)</td>
+<td><span class="tl tl-measured">MEASURED</span>; bay <span class="tl tl-candidate">CANDIDATE</span> (HARDWARE_COMPONENTS C-5)</td>
+<td>Inspect rear bays</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Drive sensor showed one drive, storcli two</td>
+<td>Drive 0 present, Drive 1 0x0080 (2026-10-19); storcli 64:0 + 64:1 (2026-10-20); Drive 1 [Drive Present] in <code>sensor get</code> 2026-10-20 (C-W2)</td>
+<td>Resolved: the Hitachi drive was not installed on 2026-10-19 and was inserted on 2026-10-20 (owner statement; controller event log, docs/X3650M3_STORAGE_RAID.md 14.2). Open: the IMM logged no "Drive 1 added" for this insertion (SC-5)</td>
+<td><span class="tl tl-measured">MEASURED</span>; owner statement</td>
+<td>-</td>
+</tr>
+<tr>
+<td>5</td>
+<td>SEL full; SEL Fullness sensor not asserted</td>
+<td><code>sel info</code> 100%, Overflow true; SEL Fullness 0x0080</td>
+<td>Any sensor event after 2025-05-05 (including the VBAT events) is missing from the SEL; the IMM event log still records them (C-LOG)</td>
+<td><span class="tl tl-measured">MEASURED</span> (SC-3)</td>
+<td>Save, then clear SEL (owner approval)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Fan 3 about twice the speed of fans 1-2</td>
+<td>3103/2450 vs 1595/1125 and 1595/1100 RPM</td>
+<td>Within limits; cause <span class="tl tl-unknown">UNKNOWN</span></td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+<td>Time series of <code>fans</code> / <code>sensor</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td>IMM state "Booting OS" with the OS running</td>
+<td>C-CLI <code>syshealth</code></td>
+<td>IMM does not see the OS as booted (SC-8)</td>
+<td><span class="tl tl-measured">MEASURED</span>; cause <span class="tl tl-unknown">UNKNOWN</span></td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+<p>Normal readings (<span class="tl tl-measured">MEASURED</span>): Ambient 27 C (11 C below warning); all planar rails within 1.7% of nominal; all six
+fan tachs far above their lc; all fault, presence and redundancy sensors in their non-fault state (<span class="tl tl-candidate">CANDIDATE</span>
+decode); chassis status without faults. Absent CPU 2, DIMM 1-2/4-18, PS 1 and DASD Backplane 2-4 match the
+installed configuration and are not faults.</p>
+<h2 id="11-contradictions">11. Contradictions <a class="anchor" href="#11-contradictions" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Contradiction</th>
+<th>Values</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SC-1</td>
+<td>VBAT critical vs no soft shutdown</td>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a> p.95: crossing a critical voltage threshold sends an alert and starts an orderly OS shutdown; the CLI labels the VBAT lc "SSL" (soft shutdown low); VBAT 1.727 V is below it and the server keeps running (C-CLI <code>syshealth</code> Power On, C-IPMI chassis status on). IMM log (C-LOG): 36 lc assertions from 2026-02-11 (#324) to 2026-10-20 (#9); 8 are followed within 5 s by "Host Power turned off", each directly after an IMM start (<span class="tl tl-candidate">CANDIDATE</span>: host-state report after the IMM start, ERROR_CODES 15.8); no other power-off follows an lc assertion within 10 min and no shutdown request without a user is logged</td>
+<td>not resolved; <span class="tl tl-candidate">CANDIDATE</span> (supported by the IMM log history): the IMM firmware excludes the battery sensor from shutdown actions, reason: the <a class="sref" href="../catalog/sources.html#s-004">S-004</a> catalog marks CMOS Battery lc as an Error event with a "replace battery" action (12th ed.), not as a shutdown condition</td>
+</tr>
+<tr>
+<td>SC-2</td>
+<td>Battery sensor name and entity</td>
+<td>SDR: "Planar VBAT", entity 7.1 (system board), number 0x1C (<span class="tl tl-measured">MEASURED</span>). <a class="sref" href="../catalog/sources.html#s-004">S-004</a> catalog: "CMOS Battery", event IDs 8001xx02-2801 = entity 0x28 (battery) instance 01</td>
+<td>partly resolved: the IMM log names the sensor "Planar VBAT" (SDR name, not "CMOS Battery") with the exact <a class="sref" href="../catalog/sources.html#s-004">S-004</a> message texts of 80010002/80010202/81010002/81010202-2801xxxx and severities W/E/I/I matching the catalog (<span class="tl tl-measured">MEASURED</span>, C-LOG #9, #10, #36, #46). The event ID itself is not printed by <code>readlog</code> in the capture, so whether the IMM uses entity 0x28 or 0x07 in it is <span class="tl tl-unknown">UNKNOWN</span> (ERROR_CODES Q-11)</td>
+</tr>
+<tr>
+<td>SC-3</td>
+<td>SEL Fullness state vs SEL</td>
+<td>SEL Fullness reads 0x0080 (no offset asserted) while <code>sel info</code> reports 100% used, Overflow true, and SEL entries 0x181 "Log almost full" and 0x200 "Log full" were asserted. C-V (2026-10-20): sensor 0xB6, entity 33.1, assertions enabled for "Log area reset/cleared", "Log full", "Log almost full", no state asserted</td>
+<td>not resolved; <span class="tl tl-candidate">CANDIDATE</span>: the IMM generates the SEL-full events without keeping the sensor state, reason: all other event-style sensors (Progress, Host Power) also read 0x0080. It is a normal (non event-only) record: <code>sdr elist event</code> is empty (C-V)</td>
+</tr>
+<tr>
+<td>SC-4</td>
+<td>Power Unit redundancy state</td>
+<td>Power Unit (0x08/0x0B, entity 0x13/0x81) reads 0x0080 with one supply installed; a redundancy sensor would be expected to assert a non-redundant offset (03/04/05). C-V: number 0x7F, entity 19.1, assertions enabled only for "Fully Redundant" and "Redundancy Lost" (offsets 00, 01), no state asserted</td>
+<td>not resolved; <span class="tl tl-candidate">CANDIDATE</span>: redundancy is evaluated only with two supplies installed; the SDR does not even enable the non-redundant offsets 03-05 (<span class="tl tl-measured">MEASURED</span>), so the IMM cannot report "non-redundant" through this sensor</td>
+</tr>
+<tr>
+<td>SC-5</td>
+<td>Drive sensors vs storcli and IMM log (= docs/X3650M3_STORAGE_RAID.md C-9)</td>
+<td>SDR 2026-10-19: Drive 0 present, Drive 1-15 not; smartctl scan of 2026-10-19 (C-DRV): only DID 11. storcli 2026-10-20: slots 64:0 (Onln) and 64:1 (UGood, spun down). <code>sensor get</code> 2026-10-20 ~20:35 (C-W2 lines 41-51): Drive 0 and Drive 1 [Drive Present]. IMM log (C-LOG): "Drive 0 added" #774 2024-04-23; "Drive 1 added" #294 2026-03-06 05:44:40; no "Drive 1 removed" entry; no new "Drive 1 added" entry up to the end of the readlog (IMM 2026-10-20 17:04:04); "Drive 0 disabled due to a detected fault" #25 2026-10-17</td>
+<td>resolved. Owner statement 2026-10-20: the Hitachi drive was physically inserted on 2026-10-20, so it was absent on 2026-10-19. The M1015 event log agrees: the drive was present at every controller start 2026-03-06 .. 2026-08-24 (the period of #294) and absent at all starts 2026-08-24 22:37 .. 2026-10-19 (docs/X3650M3_STORAGE_RAID.md 14.2; removal on 2026-08-24 is <span class="tl tl-candidate">CANDIDATE</span>). <span class="tl tl-candidate">CANDIDATE</span>: IMM "Drive 1" = storcli slot 64:1 (both changed with the insertion). Observed and still open: the IMM logged neither the removal nor the 2026-10-20 insertion although its sensor reads Drive 1 present; cause <span class="tl tl-unknown">UNKNOWN</span> (<span class="tl tl-candidate">CANDIDATE</span>: the IMM logs "added" only in some host power states, or the entry would appear in a later read). The Drive 0 fault #25 is a separate question (STORAGE_RAID C-10)</td>
+</tr>
+<tr>
+<td>SC-6</td>
+<td>Fault sensors of the absent supply report OK</td>
+<td>Power Supply 1 reads na, FRU 1 not present, but PS 1 Fan/Therm/OP/12V OV/UV/OC/VCO Fault all read 0x0180 (offset 00 "transition to OK")</td>
+<td>not resolved; <span class="tl tl-candidate">CANDIDATE</span>: these severity sensors are defaulted to OK by the IMM, not measured from a supply; they carry no information about bay 1</td>
+</tr>
+<tr>
+<td>SC-7</td>
+<td>Fan tach event instances (= ERROR_CODES C-02)</td>
+<td><a class="sref" href="../catalog/sources.html#s-004">S-004</a> 15th/16th ed.: A and B rotor share IDs 80010204-1d01..1d03; 12th ed.: six instances 1d01..1d06. Measured SDR entities: 29.1/29.1, 29.2/29.2, 29.3/29.3</td>
+<td>measurement supports the 15th/16th-edition IDs (<span class="tl tl-candidate">CANDIDATE</span>, reason: the EE/FF bytes of the IDs equal the SDR entity/instance for every other sensor checked); final proof needs a logged fan event</td>
+</tr>
+<tr>
+<td>SC-8</td>
+<td>IMM system state</td>
+<td><code>syshealth</code> "State Booting OS" while Proxmox is running; Progress sensor shows no state</td>
+<td>not resolved; <span class="tl tl-candidate">CANDIDATE</span>: no OS-side agent or watchdog reports "OS booted" to the IMM v1</td>
+</tr>
+<tr>
+<td>SC-9</td>
+<td>Idle state of severity sensors</td>
+<td>Severity (0x07) sensors Planar Fault, Pwr Rail A-E, PS faults, CPU 1 OverTemp, IOH Temp Status, DIMM 3 Temp read 0x0180 (offset 00 OK); VT Fault and Sys Board Fault, same reading type and entity 0x07, read 0x0080 (no state). C-V (2026-10-20) shows the same split: the first group asserts "Transition to OK", VT Fault (enables only "Transition to Non-recoverable") and Sys Board Fault (enables only "Transition to Critical from less severe") assert nothing; absent DIMM n Temp sensors also assert nothing</td>
+<td>not a fault indication; why some severity sensors never set offset 00 is <span class="tl tl-unknown">UNKNOWN</span> (the enable masks of both groups contain no OK offset, so the masks do not explain it)</td>
+</tr>
+<tr>
+<td>SC-11</td>
+<td>Settable thresholds vs documentation</td>
+<td><a class="sref" href="../catalog/sources.html#s-020">S-020</a> printed p.94-95 (PDF p102-103): temperature and voltage threshold values "are preset ... and cannot be changed" (<span class="tl tl-documented">DOCUMENTED</span>). C-V: Planar 3.3V/5V/12V "Settable Thresholds: lcr ucr", Planar VBAT "lcr lnc"; Ambient Temp and the fan tachs have no settable threshold (<span class="tl tl-measured">MEASURED</span>, section 4.1)</td>
+<td>open; the SDR flag was not tested (setting a threshold is a write and is excluded, section 12). <span class="tl tl-candidate">CANDIDATE</span>: the <a class="sref" href="../catalog/sources.html#s-020">S-020</a> statement describes the web/CLI interface, while the IPMI SDR still flags the voltage thresholds as settable</td>
+</tr>
+<tr>
+<td>SC-10</td>
+<td>VBAT severity wording</td>
+<td>an earlier docs/STATUS.md called the battery below the "2.10 V warning threshold"; 2.10 V is the critical (SSL) level, warning is 2.25 V (= HARDWARE_COMPONENTS C-6)</td>
+<td>resolved: STATUS.md now says "below the 2.095 V lower critical threshold (sensor status cr)"</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="12-open-questions--next-captures">12. Open questions / next captures <a class="anchor" href="#12-open-questions--next-captures" aria-label="Link to this section">#</a></h2>
+<p>All probes below are read-only. They must run only against the owner's server with owner approval for the
+session (docs/AGENT.md); <code>ipmitool sensor thresh</code>, <code>sel clear</code>, <code>mc reset</code> and any <code>raw</code> write command are
+excluded.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Question</th>
+<th>Read-only probe (in-band on [lab-ip] unless noted)</th>
+<th>Closes / status 2026-10-20</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q-S1</td>
+<td>Sensor numbers, record types and entities of the 122 discrete sensors</td>
+<td><code>ipmitool sdr elist all</code>; <code>ipmitool sdr list all</code></td>
+<td>resolved 2026-10-20 by <code>ipmitool -v sdr list all</code> (C-V, section 13): numbers, entities and sensor types of all 135 sensors <span class="tl tl-measured">MEASURED</span>; record type of discrete sensors (compact 02h) stays <span class="tl tl-candidate">CANDIDATE</span> (not printed)</td>
+</tr>
+<tr>
+<td>Q-S2</td>
+<td>Full SDR fields: sensor type, event/reading type, assertion/deassertion masks, readable/settable thresholds, hysteresis, nominal reading, M/B/R conversion factors, sensor initialization flags</td>
+<td><code>ipmitool -v sdr list all</code> (equivalently <code>ipmitool sdr -v</code>); <code>ipmitool sdr info</code> (record count, SDR version, last update)</td>
+<td>mostly done: <code>sdr info</code> (C-W2) and the <code>-v</code> dump (C-V, sections 4.1 and 13) give sensor type, assertion/deassertion masks, readable/settable thresholds, hysteresis, nominal and normal range. Still open: the event/reading type code of discrete records, M/B/R conversion factors and sensor initialization flags, which ipmitool -v does not print (needs the raw records, Q-S3)</td>
+</tr>
+<tr>
+<td>Q-S3</td>
+<td>Raw SDR repository for offline decode and diff after firmware updates</td>
+<td><code>ipmitool sdr dump captures/&lt;date&gt;_sdr.bin</code> (writes a local file only)</td>
+<td>open (not run); would show the 69 records that neither <code>elist all</code> nor <code>-v sdr list all</code> prints (section 2.1) and the raw fields of Q-S2</td>
+</tr>
+<tr>
+<td>Q-S4</td>
+<td>Current state of specific sensors with decoded assertion names</td>
+<td><code>ipmitool sensor get "Planar VBAT" "Drive 0" "Drive 1" "Power Unit" "SEL Fullness" "Cooling Zone 1" "Planar Fault" "VT Fault"</code></td>
+<td>resolved 2026-10-20 (C-W2, section 2.1; C-V, section 13): VBAT lnc+lcr asserted at 1.791 V; Drive 0 and Drive 1 present (SC-5 resolved); Power Unit and SEL Fullness no state asserted (SC-4 and SC-3 still open); Cooling Zone 1-3 [Fully Redundant]; Planar Fault [Transition to OK]; VT Fault none asserted (SC-9 still open)</td>
+</tr>
+<tr>
+<td>Q-S5</td>
+<td>Event-only records (type 03h) such as CMOS Battery, IMM FW Failover, No I/O Resources, No Op ROM Space</td>
+<td><code>ipmitool sdr elist event</code></td>
+<td>resolved 2026-10-20 (C-V lines 5-6): empty output, no event-only record; section 8</td>
+</tr>
+<tr>
+<td>Q-S6</td>
+<td>IMM log text and event ID used for the VBAT condition</td>
+<td>resolved for the text (C-LOG: "Numeric sensor "Planar VBAT" going low (lower non-critical/critical) has asserted/deasserted"); the event ID is not in the readlog capture (ERROR_CODES Q-11)</td>
+<td>SC-1 (history captured), SC-2 (partly)</td>
+</tr>
+<tr>
+<td>Q-S7</td>
+<td>Fan control behaviour and zone mapping</td>
+<td>repeated <code>ipmitool sensor</code> and CLI <code>fans</code>/<code>temps</code> at intervals (e.g. 10 samples over 30 min, idle vs load)</td>
+<td>section 5.2, finding 6</td>
+</tr>
+<tr>
+<td>Q-S8</td>
+<td>Avg Power averaging window and other power data</td>
+<td><code>ipmitool sdr get "Avg Power"</code> (-v); IMM web power page (read-only view); IBM OEM power commands are <span class="tl tl-unknown">UNKNOWN</span> for IMM v1 (docs/X3650M3_IMM_INTERFACES.md section 5.5)</td>
+<td>open; <code>-v</code> record captured (C-V, section 4.1: no thresholds, no averaging window field); window still <span class="tl tl-unknown">UNKNOWN</span></td>
+</tr>
+<tr>
+<td>Q-S9</td>
+<td>Physical LEDs and bays</td>
+<td>Owner inspection: light path panel (BRD, LOG, system-error LED), rear PSU bay LEDs, front drive bay LEDs and labels</td>
+<td>section 9 expected states, SC-5 (c), HARDWARE_COMPONENTS C-5</td>
+</tr>
+<tr>
+<td>Q-S10</td>
+<td>SDR changes after the battery replacement and after an IMM firmware update</td>
+<td>repeat Q-S1..Q-S4 and diff against this document</td>
+<td>firmware-level dependence of sensor names (section 8)</td>
+</tr>
+<tr>
+<td>Q-S11</td>
+<td>Whether the IMM SNMP agent exposes the same thresholds</td>
+<td><code>snmpwalk</code> of the IMM sensor tables with the read community (do not store the community string in the repository)</td>
+<td>cross-check of section 4</td>
+</tr>
+</tbody>
+</table></div>
+<p>Other open points: entity and sensor-type names in sections 4-7 rely on the IPMI v2.0 specification from
+knowledge; adding the specification to sources/ would raise them to <span class="tl tl-documented">DOCUMENTED</span> (ERROR_CODES Q-03).</p>
+<h2 id="13-verbose-sdr-dump-2026-10-20-all-135-sensors">13. Verbose SDR dump 2026-10-20 (all 135 sensors) <a class="anchor" href="#13-verbose-sdr-dump-2026-10-20-all-135-sensors" aria-label="Link to this section">#</a></h2>
+<p>Source: C-V, captures/2026-10-20_sdr_verbose_and_pd0.txt, <code>ipmitool -v sdr list all</code> (ipmitool 1.8.19, in-band KCS,
+~21:05 +03, during the initial vzdump backup). Truth level: <span class="tl tl-measured">MEASURED</span> for every cell (as printed by ipmitool); the
+hex entity form is a conversion of the printed decimal value. Before the records ipmitool printed "Get VSO
+Capabilities ... Invalid completion code received: Invalid command" (lines 9-10): the IMM does not support that
+query (<span class="tl tl-measured">MEASURED</span>; not an error of the dump).</p>
+<h3 id="131-record-table">13.1 Record table <a class="anchor" href="#131-record-table" aria-label="Link to this section">#</a></h3>
+<p>Columns: T = threshold (full) record, D = discrete record; Reading = the reading as printed (for discrete sensors
+<code>-v</code> prints "0h" for every readable sensor, while <code>ipmitool sensor</code> printed state bytes 0x0-0x80 on 2026-10-19;
+<span class="tl tl-candidate">CANDIDATE</span>: <code>-v</code> shows the unused analog reading byte, the state is in "States asserted"); States asserted =
+ipmitool's decoded asserted offsets (threshold sensors: status); Assertions enabled = the assertion event mask by
+name; Line = first line of the record in the capture.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Sensor</th>
+<th>No.</th>
+<th>Entity (dec, hex, ipmitool name)</th>
+<th>Sensor type</th>
+<th>Reading</th>
+<th>States asserted</th>
+<th>Assertions enabled</th>
+<th>Line</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Ambient Temp</td>
+<td>0x32</td>
+<td>12.1 (0x0C/01, Front Panel Board)</td>
+<td>T: Temperature (0x01)</td>
+<td>26 degrees C</td>
+<td>ok</td>
+<td>unc+ ucr+ unr+</td>
+<td>12</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Altitude</td>
+<td>0x33</td>
+<td>12.1 (0x0C/01, Front Panel Board)</td>
+<td>T: Other (0x0b)</td>
+<td>0 feet</td>
+<td>ok</td>
+<td>-</td>
+<td>33</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Avg Power</td>
+<td>0x2E</td>
+<td>21.0 (0x15/00, Power Management)</td>
+<td>T: Current (0x03)</td>
+<td>90 Watts</td>
+<td>ok</td>
+<td>-</td>
+<td>49</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Planar 3.3V</td>
+<td>0x16</td>
+<td>7.1 (0x07/01, System Board)</td>
+<td>T: Voltage (0x02)</td>
+<td>3.351 Volts</td>
+<td>ok</td>
+<td>lcr- ucr+</td>
+<td>64</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Planar 5V</td>
+<td>0x17</td>
+<td>7.1 (0x07/01, System Board)</td>
+<td>T: Voltage (0x02)</td>
+<td>4.995 Volts</td>
+<td>ok</td>
+<td>lcr- ucr+</td>
+<td>84</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Planar 12V</td>
+<td>0x18</td>
+<td>7.1 (0x07/01, System Board)</td>
+<td>T: Voltage (0x02)</td>
+<td>12.204 Volts</td>
+<td>ok</td>
+<td>lcr- ucr+</td>
+<td>104</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Planar VBAT</td>
+<td>0x1C</td>
+<td>7.1 (0x07/01, System Board)</td>
+<td>T: Voltage (0x02)</td>
+<td>1.791 Volts</td>
+<td>Lower Critical (events lnc- lcr-)</td>
+<td>lnc- lcr-</td>
+<td>124</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Fan 1A Tach</td>
+<td>0x40</td>
+<td>29.1 (0x1D/01, Fan Device)</td>
+<td>T: Fan (0x04)</td>
+<td>1595 RPM</td>
+<td>ok</td>
+<td>lcr-</td>
+<td>144</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Fan 1B Tach</td>
+<td>0x41</td>
+<td>29.1 (0x1D/01, Fan Device)</td>
+<td>T: Fan (0x04)</td>
+<td>1125 RPM</td>
+<td>ok</td>
+<td>lcr-</td>
+<td>165</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Fan 2A Tach</td>
+<td>0x42</td>
+<td>29.2 (0x1D/02, Fan Device)</td>
+<td>T: Fan (0x04)</td>
+<td>1595 RPM</td>
+<td>ok</td>
+<td>lcr-</td>
+<td>186</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Fan 2B Tach</td>
+<td>0x43</td>
+<td>29.2 (0x1D/02, Fan Device)</td>
+<td>T: Fan (0x04)</td>
+<td>1100 RPM</td>
+<td>ok</td>
+<td>lcr-</td>
+<td>207</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Fan 3A Tach</td>
+<td>0x44</td>
+<td>29.3 (0x1D/03, Fan Device)</td>
+<td>T: Fan (0x04)</td>
+<td>3074 RPM</td>
+<td>ok</td>
+<td>lcr-</td>
+<td>228</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Fan 3B Tach</td>
+<td>0x45</td>
+<td>29.3 (0x1D/03, Fan Device)</td>
+<td>T: Fan (0x04)</td>
+<td>2425 RPM</td>
+<td>ok</td>
+<td>lcr-</td>
+<td>249</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Fan 1</td>
+<td>0x50</td>
+<td>29.1 (0x1D/01, Fan Device)</td>
+<td>D: Entity Presence (0x25)</td>
+<td>0h</td>
+<td>Present</td>
+<td>Absent</td>
+<td>270</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Fan 2</td>
+<td>0x51</td>
+<td>29.2 (0x1D/02, Fan Device)</td>
+<td>D: Entity Presence (0x25)</td>
+<td>0h</td>
+<td>Present</td>
+<td>Absent</td>
+<td>285</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Fan 3</td>
+<td>0x52</td>
+<td>29.3 (0x1D/03, Fan Device)</td>
+<td>D: Entity Presence (0x25)</td>
+<td>0h</td>
+<td>Present</td>
+<td>Absent</td>
+<td>300</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Front Panel</td>
+<td>0x83</td>
+<td>12.1 (0x0C/01, Front Panel Board)</td>
+<td>D: Entity Presence (0x25)</td>
+<td>0h</td>
+<td>Present</td>
+<td>Absent</td>
+<td>315</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Video USB</td>
+<td>0x84</td>
+<td>7.1 (0x07/01, System Board)</td>
+<td>D: Cable / Interconnect (0x1b)</td>
+<td>0h</td>
+<td>Connected</td>
+<td>Config Error</td>
+<td>330</td>
+</tr>
+<tr>
+<td>19</td>
+<td>DASD Backplane 1</td>
+<td>0x85</td>
+<td>15.1 (0x0F/01, Drive Backplane)</td>
+<td>D: Entity Presence (0x25)</td>
+<td>0h</td>
+<td>Present</td>
+<td>-</td>
+<td>345</td>
+</tr>
+<tr>
+<td>20</td>
+<td>SAS Riser</td>
+<td>0x82</td>
+<td>11.1 (0x0B/01, Add-in Card)</td>
+<td>D: Entity Presence (0x25)</td>
+<td>0h</td>
+<td>Present</td>
+<td>Absent</td>
+<td>356</td>
+</tr>
+<tr>
+<td>21</td>
+<td>PCI Riser 1</td>
+<td>0x89</td>
+<td>11.2 (0x0B/02, Add-in Card)</td>
+<td>D: Entity Presence (0x25)</td>
+<td>0h</td>
+<td>Present</td>
+<td>Absent</td>
+<td>371</td>
+</tr>
+<tr>
+<td>22</td>
+<td>PCI Riser 2</td>
+<td>0x8A</td>
+<td>11.3 (0x0B/03, Add-in Card)</td>
+<td>D: Entity Presence (0x25)</td>
+<td>0h</td>
+<td>Present</td>
+<td>Absent</td>
+<td>386</td>
+</tr>
+<tr>
+<td>23</td>
+<td>CPU 1</td>
+<td>0x90</td>
+<td>3.1 (0x03/01, Processor)</td>
+<td>D: Processor (0x07)</td>
+<td>0h</td>
+<td>Presence detected</td>
+<td>IERR; Thermal Trip; FRB1/BIST failure; Configuration Error; SM BIOS Uncorrectable CPU-complex Error; Disabled; Throttled</td>
+<td>401</td>
+</tr>
+<tr>
+<td>24</td>
+<td>CPU 2</td>
+<td>0x91</td>
+<td>3.2 (0x03/02, Processor)</td>
+<td>D: Processor (0x07)</td>
+<td>No Reading</td>
+<td>-</td>
+<td>-</td>
+<td>428</td>
+</tr>
+<tr>
+<td>25</td>
+<td>All CPUs</td>
+<td>0x93</td>
+<td>37.4 (0x25/04, Group)</td>
+<td>D: Processor (0x07)</td>
+<td>0h</td>
+<td>-</td>
+<td>Disabled</td>
+<td>435</td>
+</tr>
+<tr>
+<td>26</td>
+<td>One of The CPUs</td>
+<td>0x94</td>
+<td>37.4 (0x25/04, Group)</td>
+<td>D: Processor (0x07)</td>
+<td>0h</td>
+<td>-</td>
+<td>Disabled</td>
+<td>446</td>
+</tr>
+<tr>
+<td>27</td>
+<td>IOH Temp Status</td>
+<td>0x31</td>
+<td>45.1 (0x2D/01, Processor/IO Module)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Critical from less severe; Transition to Non-recoverable from less severe</td>
+<td>457</td>
+</tr>
+<tr>
+<td>28</td>
+<td>CPU 1 OverTemp</td>
+<td>0xC0</td>
+<td>3.1 (0x03/01, Processor)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Critical from less severe; Transition to Non-recoverable from less severe</td>
+<td>474</td>
+</tr>
+<tr>
+<td>29</td>
+<td>CPU 2 OverTemp</td>
+<td>0xC1</td>
+<td>3.2 (0x03/02, Processor)</td>
+<td>D: Temperature (0x01)</td>
+<td>No Reading</td>
+<td>-</td>
+<td>-</td>
+<td>491</td>
+</tr>
+<tr>
+<td>30</td>
+<td>CPU Fault Reboot</td>
+<td>0xCB</td>
+<td>37.4 (0x25/04, Group)</td>
+<td>D: System Event (0x12)</td>
+<td>0h</td>
+<td>-</td>
+<td>Undetermined system hardware failure</td>
+<td>498</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Aux Log</td>
+<td>0xCC</td>
+<td>34.1 (0x22/01, BIOS)</td>
+<td>D: System Event (0x12)</td>
+<td>0h</td>
+<td>-</td>
+<td>Entry added to auxiliary log</td>
+<td>509</td>
+</tr>
+<tr>
+<td>32</td>
+<td>NMI State</td>
+<td>0x80</td>
+<td>23.1 (0x17/01, System Chassis)</td>
+<td>D: Critical Interrupt (0x13)</td>
+<td>0h</td>
+<td>-</td>
+<td>NMI/Diag Interrupt; Software NMI</td>
+<td>518</td>
+</tr>
+<tr>
+<td>33</td>
+<td>ABR Status</td>
+<td>0x92</td>
+<td>34.1 (0x22/01, BIOS)</td>
+<td>D: System Firmwares (0x0f)</td>
+<td>0h</td>
+<td>-</td>
+<td>Unknown Error</td>
+<td>531</td>
+</tr>
+<tr>
+<td>34</td>
+<td>Firmware Error</td>
+<td>0xB4</td>
+<td>34.1 (0x22/01, BIOS)</td>
+<td>D: System Firmwares (0x0f)</td>
+<td>0h</td>
+<td>-</td>
+<td>Unknown Error; Unknown Hang</td>
+<td>542</td>
+</tr>
+<tr>
+<td>35</td>
+<td>PCIs</td>
+<td>0xB0</td>
+<td>37.2 (0x25/02, Group)</td>
+<td>D: Critical Interrupt (0x13)</td>
+<td>0h</td>
+<td>-</td>
+<td>PCI PERR; PCI SERR; Bus Uncorrectable error</td>
+<td>555</td>
+</tr>
+<tr>
+<td>36</td>
+<td>CPUs</td>
+<td>0xB1</td>
+<td>37.4 (0x25/04, Group)</td>
+<td>D: Critical Interrupt (0x13)</td>
+<td>0h</td>
+<td>-</td>
+<td>Bus Uncorrectable error</td>
+<td>570</td>
+</tr>
+<tr>
+<td>37</td>
+<td>DIMMs</td>
+<td>0xB2</td>
+<td>37.1 (0x25/01, Group)</td>
+<td>D: Critical Interrupt (0x13)</td>
+<td>0h</td>
+<td>-</td>
+<td>Bus Uncorrectable error</td>
+<td>581</td>
+</tr>
+<tr>
+<td>38</td>
+<td>Sys Board Fault</td>
+<td>0xB3</td>
+<td>7.1 (0x07/01, System Board)</td>
+<td>D: Chip Set (0x19)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>592</td>
+</tr>
+<tr>
+<td>39</td>
+<td>Power Supply 1</td>
+<td>0x70</td>
+<td>10.1 (0x0A/01, Power Supply)</td>
+<td>D: Power Supply (0x08)</td>
+<td>No Reading</td>
+<td>- (event status Unavailable)</td>
+<td>Presence detected; Failure detected; Power Supply AC lost; Config Error</td>
+<td>603</td>
+</tr>
+<tr>
+<td>40</td>
+<td>Power Supply 2</td>
+<td>0x71</td>
+<td>10.2 (0x0A/02, Power Supply)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>Presence detected</td>
+<td>Presence detected; Failure detected; Power Supply AC lost; Config Error</td>
+<td>620</td>
+</tr>
+<tr>
+<td>41</td>
+<td>PS 1 Fan Fault</td>
+<td>0x73</td>
+<td>10.1 (0x0A/01, Power Supply)</td>
+<td>D: Fan (0x04)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Critical from less severe</td>
+<td>640</td>
+</tr>
+<tr>
+<td>42</td>
+<td>PS 2 Fan Fault</td>
+<td>0x74</td>
+<td>10.2 (0x0A/02, Power Supply)</td>
+<td>D: Fan (0x04)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Critical from less severe</td>
+<td>655</td>
+</tr>
+<tr>
+<td>43</td>
+<td>VT Fault</td>
+<td>0x28</td>
+<td>7.1 (0x07/01, System Board)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Non-recoverable</td>
+<td>670</td>
+</tr>
+<tr>
+<td>44</td>
+<td>Pwr Rail A Fault</td>
+<td>0x29</td>
+<td>7.1 (0x07/01, System Board)</td>
+<td>D: Current (0x03)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Non-recoverable</td>
+<td>681</td>
+</tr>
+<tr>
+<td>45</td>
+<td>Pwr Rail B Fault</td>
+<td>0x2A</td>
+<td>7.1 (0x07/01, System Board)</td>
+<td>D: Current (0x03)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Non-recoverable</td>
+<td>696</td>
+</tr>
+<tr>
+<td>46</td>
+<td>Pwr Rail C Fault</td>
+<td>0x2B</td>
+<td>7.1 (0x07/01, System Board)</td>
+<td>D: Current (0x03)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Non-recoverable</td>
+<td>711</td>
+</tr>
+<tr>
+<td>47</td>
+<td>Pwr Rail D Fault</td>
+<td>0x2C</td>
+<td>7.1 (0x07/01, System Board)</td>
+<td>D: Current (0x03)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Non-recoverable</td>
+<td>726</td>
+</tr>
+<tr>
+<td>48</td>
+<td>Pwr Rail E Fault</td>
+<td>0x2D</td>
+<td>7.1 (0x07/01, System Board)</td>
+<td>D: Current (0x03)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Non-recoverable</td>
+<td>741</td>
+</tr>
+<tr>
+<td>49</td>
+<td>PS 1 Therm Fault</td>
+<td>0x75</td>
+<td>10.1 (0x0A/01, Power Supply)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Critical from less severe</td>
+<td>756</td>
+</tr>
+<tr>
+<td>50</td>
+<td>PS 1 OP Fault</td>
+<td>0xF5</td>
+<td>10.1 (0x0A/01, Power Supply)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Critical from less severe</td>
+<td>771</td>
+</tr>
+<tr>
+<td>51</td>
+<td>PS 2 OP Fault</td>
+<td>0xF6</td>
+<td>10.2 (0x0A/02, Power Supply)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Critical from less severe</td>
+<td>786</td>
+</tr>
+<tr>
+<td>52</td>
+<td>PS 2 Therm Fault</td>
+<td>0x76</td>
+<td>10.2 (0x0A/02, Power Supply)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Critical from less severe</td>
+<td>801</td>
+</tr>
+<tr>
+<td>53</td>
+<td>PS1 12V OV Fault</td>
+<td>0x77</td>
+<td>10.1 (0x0A/01, Power Supply)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Non-recoverable</td>
+<td>816</td>
+</tr>
+<tr>
+<td>54</td>
+<td>PS2 12V OV Fault</td>
+<td>0x78</td>
+<td>10.2 (0x0A/02, Power Supply)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Non-recoverable</td>
+<td>831</td>
+</tr>
+<tr>
+<td>55</td>
+<td>PS1 12V UV Fault</td>
+<td>0x79</td>
+<td>10.1 (0x0A/01, Power Supply)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Non-recoverable</td>
+<td>846</td>
+</tr>
+<tr>
+<td>56</td>
+<td>PS2 12V UV Fault</td>
+<td>0x7A</td>
+<td>10.2 (0x0A/02, Power Supply)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Non-recoverable</td>
+<td>861</td>
+</tr>
+<tr>
+<td>57</td>
+<td>PS1 12V OC Fault</td>
+<td>0x7B</td>
+<td>10.1 (0x0A/01, Power Supply)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Non-recoverable</td>
+<td>876</td>
+</tr>
+<tr>
+<td>58</td>
+<td>PS2 12V OC Fault</td>
+<td>0x7C</td>
+<td>10.2 (0x0A/02, Power Supply)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Non-recoverable</td>
+<td>891</td>
+</tr>
+<tr>
+<td>59</td>
+<td>PS 1 VCO Fault</td>
+<td>0x7D</td>
+<td>10.1 (0x0A/01, Power Supply)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Non-recoverable</td>
+<td>906</td>
+</tr>
+<tr>
+<td>60</td>
+<td>PS 2 VCO Fault</td>
+<td>0x7E</td>
+<td>10.2 (0x0A/02, Power Supply)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Non-recoverable</td>
+<td>921</td>
+</tr>
+<tr>
+<td>61</td>
+<td>Power Unit</td>
+<td>0x7F</td>
+<td>19.1 (0x13/01, Power Unit)</td>
+<td>D: Power Supply (0x08)</td>
+<td>0h</td>
+<td>-</td>
+<td>Fully Redundant; Redundancy Lost</td>
+<td>936</td>
+</tr>
+<tr>
+<td>62</td>
+<td>Cooling Zone 1</td>
+<td>0x5C</td>
+<td>30.1 (0x1E/01, Cooling Unit)</td>
+<td>D: Cooling Device (0x0a)</td>
+<td>0h</td>
+<td>Fully Redundant</td>
+<td>Redundancy Lost; Non-Redundant: Insufficient Resources</td>
+<td>946</td>
+</tr>
+<tr>
+<td>63</td>
+<td>Cooling Zone 2</td>
+<td>0x5D</td>
+<td>30.2 (0x1E/02, Cooling Unit)</td>
+<td>D: Cooling Device (0x0a)</td>
+<td>0h</td>
+<td>Fully Redundant</td>
+<td>Redundancy Lost; Non-Redundant: Insufficient Resources</td>
+<td>963</td>
+</tr>
+<tr>
+<td>64</td>
+<td>Cooling Zone 3</td>
+<td>0x5E</td>
+<td>30.3 (0x1E/03, Cooling Unit)</td>
+<td>D: Cooling Device (0x0a)</td>
+<td>0h</td>
+<td>Fully Redundant</td>
+<td>Redundancy Lost; Non-Redundant: Insufficient Resources</td>
+<td>980</td>
+</tr>
+<tr>
+<td>65</td>
+<td>Drive 0</td>
+<td>0x60</td>
+<td>4.0 (0x04/00, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>Drive Present</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>997</td>
+</tr>
+<tr>
+<td>66</td>
+<td>Drive 1</td>
+<td>0x61</td>
+<td>4.1 (0x04/01, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>Drive Present</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1022</td>
+</tr>
+<tr>
+<td>67</td>
+<td>Drive 2</td>
+<td>0x62</td>
+<td>4.2 (0x04/02, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>-</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1047</td>
+</tr>
+<tr>
+<td>68</td>
+<td>Drive 3</td>
+<td>0x63</td>
+<td>4.3 (0x04/03, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>-</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1068</td>
+</tr>
+<tr>
+<td>69</td>
+<td>Drive 4</td>
+<td>0x64</td>
+<td>4.4 (0x04/04, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>-</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1089</td>
+</tr>
+<tr>
+<td>70</td>
+<td>Drive 5</td>
+<td>0x65</td>
+<td>4.5 (0x04/05, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>-</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1110</td>
+</tr>
+<tr>
+<td>71</td>
+<td>Drive 6</td>
+<td>0x66</td>
+<td>4.6 (0x04/06, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>-</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1131</td>
+</tr>
+<tr>
+<td>72</td>
+<td>Drive 7</td>
+<td>0x67</td>
+<td>4.7 (0x04/07, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>-</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1152</td>
+</tr>
+<tr>
+<td>73</td>
+<td>Drive 8</td>
+<td>0x68</td>
+<td>4.8 (0x04/08, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>-</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1173</td>
+</tr>
+<tr>
+<td>74</td>
+<td>Drive 9</td>
+<td>0x69</td>
+<td>4.9 (0x04/09, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>-</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1194</td>
+</tr>
+<tr>
+<td>75</td>
+<td>Drive 10</td>
+<td>0x6A</td>
+<td>4.10 (0x04/0A, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>-</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1215</td>
+</tr>
+<tr>
+<td>76</td>
+<td>Drive 11</td>
+<td>0x6B</td>
+<td>4.11 (0x04/0B, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>-</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1236</td>
+</tr>
+<tr>
+<td>77</td>
+<td>Drive 12</td>
+<td>0x6C</td>
+<td>4.12 (0x04/0C, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>-</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1257</td>
+</tr>
+<tr>
+<td>78</td>
+<td>Drive 13</td>
+<td>0x6D</td>
+<td>4.13 (0x04/0D, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>-</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1278</td>
+</tr>
+<tr>
+<td>79</td>
+<td>Drive 14</td>
+<td>0x6E</td>
+<td>4.14 (0x04/0E, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>-</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1299</td>
+</tr>
+<tr>
+<td>80</td>
+<td>Drive 15</td>
+<td>0x6F</td>
+<td>4.15 (0x04/0F, Disk or Disk Bay)</td>
+<td>D: Drive Slot / Bay (0x0d)</td>
+<td>0h</td>
+<td>-</td>
+<td>Drive Present; Drive Fault; Predictive Failure; In Critical Array; In Failed Array; Rebuild In Progress</td>
+<td>1320</td>
+</tr>
+<tr>
+<td>81</td>
+<td>All DIMMS</td>
+<td>0x34</td>
+<td>37.1 (0x25/01, Group)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1341</td>
+</tr>
+<tr>
+<td>82</td>
+<td>One of the DIMMs</td>
+<td>0x35</td>
+<td>37.1 (0x25/01, Group)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1360</td>
+</tr>
+<tr>
+<td>83</td>
+<td>DIMM 1</td>
+<td>0xD0</td>
+<td>32.1 (0x20/01, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1379</td>
+</tr>
+<tr>
+<td>84</td>
+<td>DIMM 2</td>
+<td>0xD1</td>
+<td>32.2 (0x20/02, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1398</td>
+</tr>
+<tr>
+<td>85</td>
+<td>DIMM 3</td>
+<td>0xD2</td>
+<td>32.3 (0x20/03, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>Presence Detected</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1417</td>
+</tr>
+<tr>
+<td>86</td>
+<td>DIMM 4</td>
+<td>0xD3</td>
+<td>32.4 (0x20/04, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1440</td>
+</tr>
+<tr>
+<td>87</td>
+<td>DIMM 5</td>
+<td>0xD4</td>
+<td>32.5 (0x20/05, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1459</td>
+</tr>
+<tr>
+<td>88</td>
+<td>DIMM 6</td>
+<td>0xD5</td>
+<td>32.6 (0x20/06, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1478</td>
+</tr>
+<tr>
+<td>89</td>
+<td>DIMM 7</td>
+<td>0xD6</td>
+<td>32.7 (0x20/07, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1497</td>
+</tr>
+<tr>
+<td>90</td>
+<td>DIMM 8</td>
+<td>0xD7</td>
+<td>32.8 (0x20/08, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1516</td>
+</tr>
+<tr>
+<td>91</td>
+<td>DIMM 9</td>
+<td>0xD8</td>
+<td>32.9 (0x20/09, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1535</td>
+</tr>
+<tr>
+<td>92</td>
+<td>DIMM 10</td>
+<td>0xD9</td>
+<td>32.10 (0x20/0A, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1554</td>
+</tr>
+<tr>
+<td>93</td>
+<td>DIMM 11</td>
+<td>0xDA</td>
+<td>32.11 (0x20/0B, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1573</td>
+</tr>
+<tr>
+<td>94</td>
+<td>DIMM 12</td>
+<td>0xDB</td>
+<td>32.12 (0x20/0C, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1592</td>
+</tr>
+<tr>
+<td>95</td>
+<td>DIMM 13</td>
+<td>0xDC</td>
+<td>32.13 (0x20/0D, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1611</td>
+</tr>
+<tr>
+<td>96</td>
+<td>DIMM 14</td>
+<td>0xDD</td>
+<td>32.14 (0x20/0E, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1630</td>
+</tr>
+<tr>
+<td>97</td>
+<td>DIMM 15</td>
+<td>0xDE</td>
+<td>32.15 (0x20/0F, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1649</td>
+</tr>
+<tr>
+<td>98</td>
+<td>DIMM 16</td>
+<td>0xDF</td>
+<td>32.16 (0x20/10, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1668</td>
+</tr>
+<tr>
+<td>99</td>
+<td>DIMM 17</td>
+<td>0xF1</td>
+<td>32.17 (0x20/11, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1687</td>
+</tr>
+<tr>
+<td>100</td>
+<td>DIMM 18</td>
+<td>0xF2</td>
+<td>32.18 (0x20/12, Memory Device)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Uncorrectable ECC; Memory Scrub Failed; Memory Device Disabled; Correctable ECC logging limit reached; Configuration Error</td>
+<td>1706</td>
+</tr>
+<tr>
+<td>101</td>
+<td>DIMM 1 Temp</td>
+<td>0xE0</td>
+<td>32.1 (0x20/01, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1725</td>
+</tr>
+<tr>
+<td>102</td>
+<td>DIMM 2 Temp</td>
+<td>0xE1</td>
+<td>32.2 (0x20/02, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1736</td>
+</tr>
+<tr>
+<td>103</td>
+<td>DIMM 3 Temp</td>
+<td>0xE2</td>
+<td>32.3 (0x20/03, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Critical from less severe</td>
+<td>1747</td>
+</tr>
+<tr>
+<td>104</td>
+<td>DIMM 4 Temp</td>
+<td>0xE3</td>
+<td>32.4 (0x20/04, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1762</td>
+</tr>
+<tr>
+<td>105</td>
+<td>DIMM 5 Temp</td>
+<td>0xE4</td>
+<td>32.5 (0x20/05, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1773</td>
+</tr>
+<tr>
+<td>106</td>
+<td>DIMM 6 Temp</td>
+<td>0xE5</td>
+<td>32.6 (0x20/06, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1784</td>
+</tr>
+<tr>
+<td>107</td>
+<td>DIMM 7 Temp</td>
+<td>0xE6</td>
+<td>32.7 (0x20/07, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1795</td>
+</tr>
+<tr>
+<td>108</td>
+<td>DIMM 8 Temp</td>
+<td>0xE7</td>
+<td>32.8 (0x20/08, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1806</td>
+</tr>
+<tr>
+<td>109</td>
+<td>DIMM 9 Temp</td>
+<td>0xE8</td>
+<td>32.9 (0x20/09, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1817</td>
+</tr>
+<tr>
+<td>110</td>
+<td>DIMM 10 Temp</td>
+<td>0xE9</td>
+<td>32.10 (0x20/0A, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1828</td>
+</tr>
+<tr>
+<td>111</td>
+<td>DIMM 11 Temp</td>
+<td>0xEA</td>
+<td>32.11 (0x20/0B, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1839</td>
+</tr>
+<tr>
+<td>112</td>
+<td>DIMM 12 Temp</td>
+<td>0xEB</td>
+<td>32.12 (0x20/0C, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1850</td>
+</tr>
+<tr>
+<td>113</td>
+<td>DIMM 13 Temp</td>
+<td>0xEC</td>
+<td>32.13 (0x20/0D, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1861</td>
+</tr>
+<tr>
+<td>114</td>
+<td>DIMM 14 Temp</td>
+<td>0xED</td>
+<td>32.14 (0x20/0E, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1872</td>
+</tr>
+<tr>
+<td>115</td>
+<td>DIMM 15 Temp</td>
+<td>0xEE</td>
+<td>32.15 (0x20/0F, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1883</td>
+</tr>
+<tr>
+<td>116</td>
+<td>DIMM 16 Temp</td>
+<td>0xEF</td>
+<td>32.16 (0x20/10, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1894</td>
+</tr>
+<tr>
+<td>117</td>
+<td>DIMM 17 Temp</td>
+<td>0xF3</td>
+<td>32.17 (0x20/11, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1905</td>
+</tr>
+<tr>
+<td>118</td>
+<td>DIMM 18 Temp</td>
+<td>0xF4</td>
+<td>32.18 (0x20/12, Memory Device)</td>
+<td>D: Temperature (0x01)</td>
+<td>0h</td>
+<td>-</td>
+<td>Transition to Critical from less severe</td>
+<td>1916</td>
+</tr>
+<tr>
+<td>119</td>
+<td>PCI 1</td>
+<td>0xC4</td>
+<td>48.1 (0x30/01, PCI Bus)</td>
+<td>D: Slot / Connector (0x21)</td>
+<td>0h</td>
+<td>-</td>
+<td>Fault Status</td>
+<td>1927</td>
+</tr>
+<tr>
+<td>120</td>
+<td>PCI 2</td>
+<td>0xC5</td>
+<td>48.1 (0x30/01, PCI Bus)</td>
+<td>D: Slot / Connector (0x21)</td>
+<td>0h</td>
+<td>-</td>
+<td>Fault Status</td>
+<td>1938</td>
+</tr>
+<tr>
+<td>121</td>
+<td>PCI 3</td>
+<td>0xC6</td>
+<td>48.1 (0x30/01, PCI Bus)</td>
+<td>D: Slot / Connector (0x21)</td>
+<td>0h</td>
+<td>-</td>
+<td>Fault Status</td>
+<td>1949</td>
+</tr>
+<tr>
+<td>122</td>
+<td>PCI 4</td>
+<td>0xC7</td>
+<td>48.1 (0x30/01, PCI Bus)</td>
+<td>D: Slot / Connector (0x21)</td>
+<td>0h</td>
+<td>-</td>
+<td>Fault Status</td>
+<td>1960</td>
+</tr>
+<tr>
+<td>123</td>
+<td>All PCI Error</td>
+<td>0xC3</td>
+<td>37.2 (0x25/02, Group)</td>
+<td>D: Slot / Connector (0x21)</td>
+<td>0h</td>
+<td>-</td>
+<td>Fault Status</td>
+<td>1971</td>
+</tr>
+<tr>
+<td>124</td>
+<td>One of PCI Error</td>
+<td>0xC9</td>
+<td>37.2 (0x25/02, Group)</td>
+<td>D: Slot / Connector (0x21)</td>
+<td>0h</td>
+<td>-</td>
+<td>Fault Status</td>
+<td>1982</td>
+</tr>
+<tr>
+<td>125</td>
+<td>IPMI Watchdog</td>
+<td>0x03</td>
+<td>33.1 (0x21/01, System Management Software)</td>
+<td>D: Watchdog2 (0x23)</td>
+<td>0h</td>
+<td>-</td>
+<td>Timer expired; Hard reset; Power down; Power cycle; Timer interrupt</td>
+<td>1993</td>
+</tr>
+<tr>
+<td>126</td>
+<td>Host Power</td>
+<td>0x01</td>
+<td>19.1 (0x13/01, Power Unit)</td>
+<td>D: Power Unit (0x09)</td>
+<td>0h</td>
+<td>-</td>
+<td>Power off/down; Power cycle</td>
+<td>2006</td>
+</tr>
+<tr>
+<td>127</td>
+<td>DASD Backplane 2</td>
+<td>0x86</td>
+<td>15.2 (0x0F/02, Drive Backplane)</td>
+<td>D: Entity Presence (0x25)</td>
+<td>0h</td>
+<td>Absent</td>
+<td>-</td>
+<td>2091</td>
+</tr>
+<tr>
+<td>128</td>
+<td>DASD Backplane 3</td>
+<td>0x87</td>
+<td>15.3 (0x0F/03, Drive Backplane)</td>
+<td>D: Entity Presence (0x25)</td>
+<td>No Reading</td>
+<td>-</td>
+<td>-</td>
+<td>2102</td>
+</tr>
+<tr>
+<td>129</td>
+<td>DASD Backplane 4</td>
+<td>0x88</td>
+<td>15.4 (0x0F/04, Drive Backplane)</td>
+<td>D: Entity Presence (0x25)</td>
+<td>No Reading</td>
+<td>-</td>
+<td>-</td>
+<td>2109</td>
+</tr>
+<tr>
+<td>130</td>
+<td>Backup Memory</td>
+<td>0x36</td>
+<td>37.1 (0x25/01, Group)</td>
+<td>D: Memory (0x0c)</td>
+<td>0h</td>
+<td>-</td>
+<td>Redundancy Lost; Non-Redundant: Sufficient from Redundant; Non-Redundant: Insufficient Resources</td>
+<td>2116</td>
+</tr>
+<tr>
+<td>131</td>
+<td>Progress</td>
+<td>0xB5</td>
+<td>34.1 (0x22/01, BIOS)</td>
+<td>D: System Firmwares (0x0f)</td>
+<td>0h</td>
+<td>-</td>
+<td>Unknown Progress</td>
+<td>2131</td>
+</tr>
+<tr>
+<td>132</td>
+<td>Planar Fault</td>
+<td>0xF0</td>
+<td>7.1 (0x07/01, System Board)</td>
+<td>D: Voltage (0x02)</td>
+<td>0h</td>
+<td>Transition to OK</td>
+<td>Transition to Critical from less severe</td>
+<td>2302</td>
+</tr>
+<tr>
+<td>133</td>
+<td>SEL Fullness</td>
+<td>0xB6</td>
+<td>33.1 (0x21/01, System Management Software)</td>
+<td>D: Event Logging Disabled (0x10)</td>
+<td>0h</td>
+<td>-</td>
+<td>Log area reset/cleared; Log full; Log almost full</td>
+<td>2317</td>
+</tr>
+<tr>
+<td>134</td>
+<td>PCI 5</td>
+<td>0xC8</td>
+<td>48.1 (0x30/01, PCI Bus)</td>
+<td>D: Slot / Connector (0x21)</td>
+<td>0h</td>
+<td>-</td>
+<td>Fault Status</td>
+<td>2328</td>
+</tr>
+<tr>
+<td>135</td>
+<td>OS RealTime Mod</td>
+<td>0x39</td>
+<td>35.1 (0x23/01, Operating System)</td>
+<td>D: System Event (0x12)</td>
+<td>0h</td>
+<td>-</td>
+<td>State Deasserted</td>
+<td>2339</td>
+</tr>
+</tbody>
+</table></div>
+<p>Counts (<span class="tl tl-measured">MEASURED</span>, from the table): 13 threshold and 122 discrete records; 5 sensors return "No Reading" (CPU 2, CPU 2
+OverTemp, Power Supply 1, DASD Backplane 3, DASD Backplane 4), the same five as on 2026-10-19; Power Supply 1 also
+prints "Event Status: Unavailable". Changes since 2026-10-19 (C-IPMI): Drive 1 [Drive Present] (Hitachi inserted
+2026-10-20), VBAT 1.727 -&gt; 1.791 V, Ambient 27 -&gt; 26 C, Altitude 40 -&gt; 0 ft, Avg Power 80 -&gt; 90 W, Fan 3A/3B 3103/2450 -&gt;
+3074/2425 RPM.</p>
+<h3 id="132-comparison-with-the-catalog-derived-values-of-section-7">13.2 Comparison with the catalog-derived values of section 7 <a class="anchor" href="#132-comparison-with-the-catalog-derived-values-of-section-7" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Sensor type: every catalog-derived sensor type in sections 7.1-7.7 equals the C-V sensor type (<span class="tl tl-measured">MEASURED</span>
+  comparison). Sensors without a catalog entry now have <span class="tl tl-measured">MEASURED</span> types: DASD Backplane 1-4 Entity Presence (0x25),
+  Aux Log System Event (0x12), Progress System Firmwares (0x0F), SEL Fullness Event Logging Disabled (0x10).</li>
+<li>Entity: the catalog EE byte equals the C-V entity ID for every sensor. The FF byte equals the C-V instance for
+  physical entities (fans, front panel, risers, CPU 1/2, DIMM n, PS n, drives, PCI 1-5, system board, BIOS, IOH,
+  watchdog, NMI). For group or logical entities the catalog FF byte equals the C-V instance with bit 7 set: Power Unit
+  and Host Power 19.1 vs 13/81; All CPUs, One of The CPUs, CPUs, CPU Fault Reboot 37.4 vs 25/84; All DIMMS, One of the
+  DIMMs, DIMMs, Backup Memory 37.1 vs 25/81; PCIs, All PCI Error, One of PCI Error 37.2 vs 25/82; Cooling Zone n 30.n
+  vs 1E/8n. <span class="tl tl-candidate">CANDIDATE</span>: the IMM event ID sets bit 7 of the instance for these entities (reason: consistent over 16
+  sensors in 5 entity groups; no source defines the event ID instance field, ERROR_CODES Q-03). This replaces the
+  single-sensor note on Power Unit in section 2.1.</li>
+<li>Asserted states agree with the <span class="tl tl-candidate">CANDIDATE</span> decode of section 7 wherever both exist (e.g. CPU 1 "Presence detected" =
+  offset 07; DIMM 3 "Presence Detected" = offset 06; DASD Backplane 2 "Absent" = offset 01; Cooling Zones "Fully
+  Redundant" = offset 00); ipmitool's decoding uses the IPMI tables built into ipmitool, so this corroborates but does
+  not raise the section 6 offset tables to <span class="tl tl-documented">DOCUMENTED</span>.</li>
+<li>PCI 1-5 share entity 48.1 (0x30/01) and differ only by sensor number (0xC4-0xC8), consistent with the single
+  catalog ID 806f0021-3001 for all five.</li>
+</ul>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="power-thermal.html"><span>Previous</span>Power and Thermal</a>
+<a class="next" href="imm-architecture.html"><span>Next</span>IMM (v1) Architecture</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#table-of-contents">Table of contents</a></li><li class="l2"><a href="#1-sources-conventions-and-truth-levels">1. Sources, conventions and truth levels</a></li><li class="l2"><a href="#2-capture-summary">2. Capture summary</a></li><li class="l3"><a href="#21-second-snapshot-2026-10-20-c-w2-measured">2.1 Second snapshot 2026-10-20 (C-W2, MEASURED)</a></li><li class="l2"><a href="#3-how-to-read-the-values-columns-threshold-names-discrete-state-bytes">3. How to read the values (columns, threshold names, discrete state bytes)</a></li><li class="l3"><a href="#31-ipmitool-sensor-columns-measured-layout">3.1 ipmitool sensor columns (MEASURED layout)</a></li><li class="l3"><a href="#32-threshold-names-across-interfaces">3.2 Threshold names across interfaces</a></li><li class="l3"><a href="#33-discrete-sensor-columns">3.3 Discrete sensor columns</a></li><li class="l2"><a href="#4-threshold-analog-sensors">4. Threshold (analog) sensors</a></li><li class="l3"><a href="#41-full-threshold-records-c-v-measured-2026-10-20-2105">4.1 Full threshold records (C-V, MEASURED 2026-10-20 ~21:05)</a></li><li class="l2"><a href="#5-fans-and-cooling-zones">5. Fans and cooling zones</a></li><li class="l3"><a href="#51-fan-sensor-set">5.1 Fan sensor set</a></li><li class="l3"><a href="#52-zone-decode">5.2 Zone decode</a></li><li class="l2"><a href="#6-discrete-sensors---decoding-reference">6. Discrete sensors - decoding reference</a></li><li class="l3"><a href="#61-generic-reading-types">6.1 Generic reading types</a></li><li class="l3"><a href="#62-sensor-specific-reading-type-0x6f-offsets-used-on-this-server">6.2 Sensor-specific (reading type 0x6F) offsets used on this server</a></li><li class="l2"><a href="#7-discrete-sensors---measured-states">7. Discrete sensors - measured states</a></li><li class="l3"><a href="#71-presence-risers-and-connectors">7.1 Presence, risers and connectors</a></li><li class="l3"><a href="#72-processor-chipset-and-temperature-status">7.2 Processor, chipset and temperature status</a></li><li class="l3"><a href="#73-memory">7.3 Memory</a></li><li class="l3"><a href="#74-power">7.4 Power</a></li><li class="l3"><a href="#75-drives">7.5 Drives</a></li><li class="l3"><a href="#76-pci">7.6 PCI</a></li><li class="l3"><a href="#77-firmware-system-and-logging">7.7 Firmware, system and logging</a></li><li class="l2"><a href="#8-sensors-in-the-event-catalog-but-not-in-the-sdr-and-the-reverse">8. Sensors in the event catalog but not in the SDR (and the reverse)</a></li><li class="l2"><a href="#9-mapping-to-light-path-leds-and-imm-events">9. Mapping to light path LEDs and IMM events</a></li><li class="l2"><a href="#10-abnormal-readings-and-findings">10. Abnormal readings and findings</a></li><li class="l2"><a href="#11-contradictions">11. Contradictions</a></li><li class="l2"><a href="#12-open-questions--next-captures">12. Open questions / next captures</a></li><li class="l2"><a href="#13-verbose-sdr-dump-2026-10-20-all-135-sensors">13. Verbose SDR dump 2026-10-20 (all 135 sensors)</a></li><li class="l3"><a href="#131-record-table">13.1 Record table</a></li><li class="l3"><a href="#132-comparison-with-the-catalog-derived-values-of-section-7">13.2 Comparison with the catalog-derived values of section 7</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

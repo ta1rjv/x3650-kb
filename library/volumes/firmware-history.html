@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Firmware History and Naming - x3650 M3 Library</title>
+<meta name="description" content="Truth levels per docs/AGENT.md. Research pass P1, 2026-10-19.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="volume" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="../pages/reading-guide.html">Reading Guide</a></li>
+<li><a href="../pages/system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="../pages/firmware-guide.html">Firmware Guide</a></li>
+<li><a href="../pages/imm-guide.html">IMM Guide</a></li>
+<li><a href="../pages/uefi-guide.html">UEFI Guide</a></li>
+<li><a href="../pages/troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="../pages/tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="../pages/glossary.html">Glossary</a></li>
+<li><a href="../pages/faq.html">FAQ</a></li>
+<li><a href="../pages/timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="../pages/about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="system-architecture.html">System Architecture</a></li>
+<li><a href="hardware-components.html">Hardware Components</a></li>
+<li><a href="memory.html">Memory</a></li>
+<li><a href="storage-raid.html">Storage and RAID</a></li>
+<li><a href="power-thermal.html">Power and Thermal</a></li>
+<li><a href="sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="uefi.html">UEFI Firmware</a></li>
+<li><a href="firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="firmware-history.html" aria-current="page">Firmware History and Naming</a></li>
+<li><a href="firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Volumes</li><li>Firmware</li><li aria-current="page">Firmware History and Naming</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">Volume 14 - Firmware</p>
+<h1>Firmware History and Naming</h1>
+<p class="subtitle">x3650 M3 Firmware History and Naming</p>
+<p class="lede">Truth levels per docs/AGENT.md. Research pass P1, 2026-10-19.</p>
+<p class="meta"><span class="source">source: <code>docs/X3650M3_FIRMWARE_HISTORY.md</code></span> <span>8 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">4</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">5</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">5</span> <span class="tl tl-inferred">INFERRED</span><span class="n">1</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">2</span> <span class="tl tl-planned">PLANNED</span><span class="n">1</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#installed-levels-measured">Installed levels (MEASURED)</a></li><li class="l2"><a href="#naming-documented">Naming (DOCUMENTED)</a></li><li class="l2"><a href="#latest-available-documented">Latest available (DOCUMENTED)</a></li><li class="l2"><a href="#imm-v1-history-documented-uxsp-500--750-pages-imm-155-chg">IMM v1 history (DOCUMENTED: UXSP 5.00 / 7.50 pages, IMM 1.55 .chg)</a></li><li class="l2"><a href="#uefi-history-documented-uxsp-pages-uefi-122-chg">UEFI history (DOCUMENTED: UXSP pages, UEFI 1.22 .chg)</a></li><li class="l2"><a href="#update-order-and-safety-documented">Update order and safety (DOCUMENTED)</a></li><li class="l2"><a href="#conflicts">Conflicts</a></li><li class="l2"><a href="#open-items">Open items</a></li></ul></nav></details>
+<div class="prose">
+<p>Truth levels per docs/AGENT.md. Research pass P1, 2026-10-19.</p>
+<h2 id="installed-levels-measured">Installed levels (<span class="tl tl-measured">MEASURED</span>) <a class="anchor" href="#installed-levels-measured" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Build</th>
+<th>Version</th>
+<th>Date</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IMM</td>
+<td>YUOOC7E</td>
+<td>1.30 (IPMI <code>mc info</code> Firmware Revision 1.30)</td>
+<td>2011-09-30</td>
+<td>captures/2026-10-19_imm_cli_baseline.txt, captures/2026-10-19_ipmi_inband.txt</td>
+</tr>
+<tr>
+<td>UEFI</td>
+<td>D6E154A</td>
+<td>1.13 per SMBIOS <code>-[D6E154AUS-1.13]-</code> (captures/2026-10-19_os_inventory.txt lines 580, 835; <span class="tl tl-measured">MEASURED</span>) and per the IMM (CIM_SoftwareIdentity UEFI MajorVersion 1, MinorVersion 13, captures/2026-10-21_imm_cim_read_inventory.txt; WS-Man <code>GetVitalProductData</code> D6E154A 09/23/2011, captures/2026-10-21_imm_wsman_read_inventory.txt); the .chg names 1.13 D6E154B, see conflicts</td>
+<td>2011-09-23</td>
+<td>captures/2026-10-19_imm_cli_baseline.txt</td>
+</tr>
+<tr>
+<td>UEFI CRTM</td>
+<td>D6CP54A</td>
+<td>1.13 per SMBIOS <code>$CR CRTM Code 1.13 -[D6CP54AUS]-</code> (captures/2026-10-19_os_inventory.txt line 823)</td>
+<td>09/23/2011 per NVRAM System_Data (docs/X3650M3_UEFI.md 12.5)</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+</tr>
+<tr>
+<td>DSA Preboot</td>
+<td>DSYT89P</td>
+<td>3.48 (SMBIOS <code>$DS Preboot Diagnostics (DSA) 3.48 -[DSYT89P]-</code>, captures/2026-10-19_os_inventory.txt line 827; CIM_SoftwareIdentity DSA MajorVersion 3, MinorVersion 48, captures/2026-10-21_imm_cim_read_inventory.txt; NVRAM System_Data)</td>
+<td>2011-10-28</td>
+<td>same</td>
+</tr>
+<tr>
+<td>ServeRAID M1015</td>
+<td>20.10.1-0052 (Firmware Package Build)</td>
+<td>Firmware 2.120.144-1325; BIOS 4.27.00_4.11.05.00_0x05060000; WebBIOS 4.0-49-e_37-Rel; NVDATA 3.09.03-0024; Boot Block 2.02.00.00-0001</td>
+<td>not captured</td>
+<td>captures/2026-10-20_storage_storcli.txt lines 61-67; newest documented 20.11.1-0184, gap in docs/X3650M3_STORAGE_RAID.md section 7</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="naming-documented">Naming (<span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#naming-documented" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Build prefix</th>
+<th>Package file name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IMM v1</td>
+<td><code>YUOOxxx</code> (letter O, not zero)</td>
+<td><code>ibm_fw_imm_yuooXXX-1.NN_&lt;os&gt;_&lt;arch&gt;.&lt;bin/exe&gt;</code> + <code>.chg/.txt/.xml</code>; inner image <code>imm_yuooXXX.upd</code>, flasher <code>iflash</code>/<code>iflash64</code></td>
+</tr>
+<tr>
+<td>UEFI</td>
+<td><code>D6Exxx</code> (setup/VPD may add <code>US</code> suffix)</td>
+<td><code>ibm_fw_uefi_d6eXXXa-1.NN_&lt;os&gt;_&lt;arch&gt;</code></td>
+</tr>
+<tr>
+<td>DSA Preboot</td>
+<td><code>DSYTxxx</code></td>
+<td><code>ibm_fw_dsa_dsytXXX-&lt;ver&gt;_&lt;os&gt;_&lt;arch&gt;</code></td>
+</tr>
+<tr>
+<td>IMM2 (M4/M5 - other generation)</td>
+<td><code>1AOO</code>, <code>TCOO</code></td>
+<td><code>ibm_fw_imm2_...</code>, <code>.uxz</code> - do not mix with IMM v1</td>
+</tr>
+</tbody>
+</table></div>
+<p>Linux <code>.bin</code> packages are self-extracting; <code>-x &lt;path&gt;</code> extracts without flashing, <code>-s</code>/<code>-u</code> silent
+(IMM 1.55 README, firmware/ibm/imm/1.55-yuooh5a/). iflash options: <code>--package --user --password
+--unattended --force --backup --no-reboot</code>; <code>--backup</code> writes the secondary (backup) bank.</p>
+<h2 id="latest-available-documented">Latest available (<span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#latest-available-documented" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Latest</th>
+<th>Date</th>
+<th>Local copy</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IMM</td>
+<td>1.55 YUOOH5A</td>
+<td>2018 (bulletin 2018-05-23; image release_date 2018-01-16)</td>
+<td>firmware/ibm/imm/1.55-yuooh5a/ (.bin, SHA256 04946b35..a5d, <span class="tl tl-extracted">EXTRACTED</span> and analysed)</td>
+<td>CVE-2017-17833 (OpenSLP). Same unsigned MD5/CRC .upd format as 1.10; OpenSSL 1.0.2d, kernel 2.6.16.46-377 (docs/X3650M3_FIRMWARE_FORMATS.md 7.9)</td>
+</tr>
+<tr>
+<td>UEFI</td>
+<td>1.22 D6E164A</td>
+<td>2018-07-06 (page); .xml releaseDate 2018-07-03, oem_ibm.xml release_date 2018-06-04 (docs/X3650M3_FIRMWARE_FORMATS.md)</td>
+<td>firmware/ibm/uefi/1.22-d6e164a/ (Windows .exe)</td>
+<td>SSB microcode CVE-2018-3639/3640; 1.21 D6E163A = Spectre v2</td>
+</tr>
+<tr>
+<td>DSA Preboot</td>
+<td>9.53 DSYTC5F (newest seen in UXSP 7.50)</td>
+<td>-</td>
+<td>-</td>
+<td>final release UNVERIFIED</td>
+</tr>
+<tr>
+<td>ServeRAID M5000</td>
+<td>12.15.0-0248</td>
+<td>2017-06-21</td>
+<td>firmware/ibm/serveraid-m5000/</td>
+<td>M5014/M5015; installed controller is M1015</td>
+</tr>
+<tr>
+<td>Broadcom NetXtreme II</td>
+<td>2.1.5b (lists 7945); 2.1.8e in UXSP 5.00; 2.3.1e exists</td>
+<td>2010-12-16 (2.1.5b)</td>
+<td>firmware/ibm/broadcom-nic/</td>
+<td></td>
+</tr>
+<tr>
+<td>FPGA / backplane / PSU</td>
+<td>no package found</td>
+<td>-</td>
+<td>-</td>
+<td>FPGA exists only on X5-class systems per IMMv1 best practices p.7 (<span class="tl tl-inferred">INFERRED</span>)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="imm-v1-history-documented-uxsp-500--750-pages-imm-155-chg">IMM v1 history (<span class="tl tl-documented">DOCUMENTED</span>: UXSP 5.00 / 7.50 pages, IMM 1.55 .chg) <a class="anchor" href="#imm-v1-history-documented-uxsp-500--750-pages-imm-155-chg" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Ver</th>
+<th>Build</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.00</td>
+<td>YUOO18D</td>
+<td>initial</td>
+</tr>
+<tr>
+<td>1.01</td>
+<td>YUOO19E</td>
+<td></td>
+</tr>
+<tr>
+<td>1.02</td>
+<td>YUOO19G</td>
+<td></td>
+</tr>
+<tr>
+<td>1.03</td>
+<td>YUOO23C</td>
+<td></td>
+</tr>
+<tr>
+<td>1.04</td>
+<td>YUOO24I</td>
+<td></td>
+</tr>
+<tr>
+<td>1.05</td>
+<td>YUOO32F</td>
+<td></td>
+</tr>
+<tr>
+<td>1.06</td>
+<td>YUOO39B</td>
+<td></td>
+</tr>
+<tr>
+<td>1.07</td>
+<td>YUOO48E</td>
+<td></td>
+</tr>
+<tr>
+<td>1.08</td>
+<td>YUOO48F</td>
+<td></td>
+</tr>
+<tr>
+<td>1.09</td>
+<td>YUOO56K</td>
+<td></td>
+</tr>
+<tr>
+<td>1.10</td>
+<td>YUOO57H</td>
+<td>first with x3550 M3 / x3650 M3; SSH on by default. <span class="tl tl-extracted">EXTRACTED</span> binary: imm_yuoo57h.upd (28774400 B, SHA256 d6705ca4...dede1, release_date 2010-03-03, BUILD_NUM 43, branch prebvt_57) in Lenovo DS109380 cogent_22781_immcrtmv7_002.zip; contains an x3650 M3 platform profile (docs/X3650M3_FIRMWARE_FORMATS.md 7)</td>
+</tr>
+<tr>
+<td>1.10</td>
+<td>YUOO57X</td>
+<td>not in the UXSP/.chg lists: special "CRTM fix" build for iDataPlex dx360 M2 (UEFI 45B/45C, issue TME145B); YUOO57H plus a /bin/uefi payload that rewrites the host primary UEFI bank and CRTM to 32A. <span class="tl tl-extracted">EXTRACTED</span> binary: imm_yuoo57x_v2.upd (31098880 B, SHA256 b1009523...76a5, release_date 2010-11-04, BUILD_NUM 000) in DS109380 cogent_22781_immcrtmv7_001.zip; never meant for the x3650 M3</td>
+</tr>
+<tr>
+<td>1.11</td>
+<td>YUOO56O</td>
+<td></td>
+</tr>
+<tr>
+<td>1.12</td>
+<td>YUOO67C</td>
+<td>DC PSU support for M3</td>
+</tr>
+<tr>
+<td>1.14</td>
+<td>YUOO73M</td>
+<td>performance-mode fan control; M3 power accuracy (YUOO73K = X5 multinode only)</td>
+</tr>
+<tr>
+<td>1.16</td>
+<td>YUOO73O</td>
+<td></td>
+</tr>
+<tr>
+<td>1.17</td>
+<td>YUOO75H</td>
+<td></td>
+</tr>
+<tr>
+<td>1.18</td>
+<td>YUOO75J</td>
+<td></td>
+</tr>
+<tr>
+<td>1.19</td>
+<td>YUOO75X</td>
+<td></td>
+</tr>
+<tr>
+<td>1.20</td>
+<td>YUOO75T</td>
+<td></td>
+</tr>
+<tr>
+<td>1.21</td>
+<td>YUOO75V</td>
+<td></td>
+</tr>
+<tr>
+<td>1.22</td>
+<td>YUOO84C</td>
+<td>IPv6; downgrade below this needs factory reset</td>
+</tr>
+<tr>
+<td>1.24</td>
+<td>YUOO91E</td>
+<td></td>
+</tr>
+<tr>
+<td>1.25</td>
+<td>YUOO91K</td>
+<td></td>
+</tr>
+<tr>
+<td>1.26</td>
+<td>YUOOA6A</td>
+<td></td>
+</tr>
+<tr>
+<td>1.27</td>
+<td>YUOOA7C</td>
+<td></td>
+</tr>
+<tr>
+<td>1.28</td>
+<td>YUOOB7C</td>
+<td>32-bit ActiveX remote control</td>
+</tr>
+<tr>
+<td>1.29</td>
+<td>YUOOB7F</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>1.30</strong></td>
+<td><strong>YUOOC7E</strong></td>
+<td><strong>installed</strong>; SSL fix; needs &gt;= 1.10; 64-bit ActiveX</td>
+</tr>
+<tr>
+<td>1.31</td>
+<td>YUOOC7F</td>
+<td></td>
+</tr>
+<tr>
+<td>1.32</td>
+<td>YUOOD4G</td>
+<td>SSH lockout bypass fixed</td>
+</tr>
+<tr>
+<td>1.33</td>
+<td>YUOOE3C</td>
+<td></td>
+</tr>
+<tr>
+<td>1.34</td>
+<td>YUOOE3E</td>
+<td></td>
+</tr>
+<tr>
+<td>1.35</td>
+<td>YUOOE9B</td>
+<td></td>
+</tr>
+<tr>
+<td>1.36</td>
+<td>YUOOF2A</td>
+<td></td>
+</tr>
+<tr>
+<td>1.37</td>
+<td>YUOOE9C</td>
+<td></td>
+</tr>
+<tr>
+<td>1.38</td>
+<td>YUOOF2B</td>
+<td></td>
+</tr>
+<tr>
+<td>1.39</td>
+<td>YUOOF2C</td>
+<td></td>
+</tr>
+<tr>
+<td>1.40</td>
+<td>YUOOF7A</td>
+<td>auto-failover to backup bank on corruption</td>
+</tr>
+<tr>
+<td>1.41</td>
+<td>YUOOF7C</td>
+<td></td>
+</tr>
+<tr>
+<td>1.42</td>
+<td>YUOOG2C</td>
+<td>SHA256/512</td>
+</tr>
+<tr>
+<td>1.43</td>
+<td>YUOOG6B</td>
+<td></td>
+</tr>
+<tr>
+<td>1.44</td>
+<td>YUOOG6C</td>
+<td>OpenSSL CVE-2014-0224, CVE-2014-0076</td>
+</tr>
+<tr>
+<td>1.45</td>
+<td>YUOOG6D</td>
+<td></td>
+</tr>
+<tr>
+<td>1.46</td>
+<td>YUOOG7A</td>
+<td></td>
+</tr>
+<tr>
+<td>1.47</td>
+<td>YUOOG7C</td>
+<td>POODLE CVE-2014-3566, CVE-2014-3568; HttpOnly cookie</td>
+</tr>
+<tr>
+<td>1.48</td>
+<td>YUOOG8C</td>
+<td>CVE-2015-0204 etc.</td>
+</tr>
+<tr>
+<td>1.49</td>
+<td>YUOOG9A</td>
+<td>Logjam CVE-2015-4000, OpenSSL</td>
+</tr>
+<tr>
+<td>1.50</td>
+<td>YUOOH1C</td>
+<td>OpenSSL 1.0.2d; CVE-2015-3195</td>
+</tr>
+<tr>
+<td>1.51</td>
+<td>YUOOH2B</td>
+<td>CVE-2016-0705/0797/0798/0799</td>
+</tr>
+<tr>
+<td>1.52</td>
+<td>YUOOH3A</td>
+<td>clickjacking; CVE-2016-0701/2177/2178</td>
+</tr>
+<tr>
+<td>1.53</td>
+<td>YUOOH4B</td>
+<td>OpenSSL/libxml2 CVEs; weak ciphers removed</td>
+</tr>
+<tr>
+<td>1.54</td>
+<td>YUOOH4C</td>
+<td></td>
+</tr>
+<tr>
+<td>1.55</td>
+<td>YUOOH5A</td>
+<td>OpenSLP CVE-2017-17833. <span class="tl tl-extracted">EXTRACTED</span> binary: ibm_fw_imm_yuooh5a-1.55_linux_32-64.bin (SHA256 04946b35..a5d), release_date 2018-01-16, BUILD_NUM 26 branch lifecycle; kernel 2.6.16.46-377, OpenSSL 1.0.2d; same unsigned .upd format as 1.10 (docs/X3650M3_FIRMWARE_FORMATS.md 7.9)</td>
+</tr>
+</tbody>
+</table></div>
+<p>No 1.13, 1.15 or 1.23. The installed 1.30 predates every security fix from 1.32 on (SSH lockout bypass,
+Heartbleed-era OpenSSL, POODLE, Logjam).</p>
+<h2 id="uefi-history-documented-uxsp-pages-uefi-122-chg">UEFI history (<span class="tl tl-documented">DOCUMENTED</span>: UXSP pages, UEFI 1.22 .chg) <a class="anchor" href="#uefi-history-documented-uxsp-pages-uefi-122-chg" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Ver</th>
+<th>Build</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.00</td>
+<td>D6E123A</td>
+<td></td>
+</tr>
+<tr>
+<td>1.01</td>
+<td>D6E124A</td>
+<td></td>
+</tr>
+<tr>
+<td>1.02</td>
+<td>D6E126A</td>
+<td>power profile setup option</td>
+</tr>
+<tr>
+<td>1.03</td>
+<td>D6E128A</td>
+<td></td>
+</tr>
+<tr>
+<td>1.04</td>
+<td>D6E131B</td>
+<td></td>
+</tr>
+<tr>
+<td>1.05</td>
+<td>D6E131C</td>
+<td></td>
+</tr>
+<tr>
+<td>1.06</td>
+<td>D6E145C</td>
+<td>Xeon 5600 support</td>
+</tr>
+<tr>
+<td>1.07</td>
+<td>D6E145F</td>
+<td></td>
+</tr>
+<tr>
+<td>1.08</td>
+<td>D6E148B</td>
+<td>LUN &gt; 2 TB data errors; needs IMM YUOO73M first</td>
+</tr>
+<tr>
+<td>1.09</td>
+<td>D6E149C</td>
+<td>Xeon 5600 C6 false memory errors</td>
+</tr>
+<tr>
+<td>1.10</td>
+<td>D6E150A</td>
+<td></td>
+</tr>
+<tr>
+<td>1.11</td>
+<td>D6E150D</td>
+<td></td>
+</tr>
+<tr>
+<td>1.12</td>
+<td>D6E153A</td>
+<td></td>
+</tr>
+<tr>
+<td>1.13</td>
+<td>D6E154B</td>
+<td></td>
+</tr>
+<tr>
+<td>1.14</td>
+<td>D6E156B</td>
+<td>local copy firmware/ibm/uefi/1.14-d6e156b/</td>
+</tr>
+<tr>
+<td>1.15</td>
+<td>D6E157A</td>
+<td></td>
+</tr>
+<tr>
+<td>1.16</td>
+<td>D6E158A</td>
+<td></td>
+</tr>
+<tr>
+<td>1.17</td>
+<td>D6E159A</td>
+<td>Intel MRC 2.50; C2_C3 ACPI fix</td>
+</tr>
+<tr>
+<td>1.18</td>
+<td>D6E160A</td>
+<td>microcode BD131/BD132/AAK167</td>
+</tr>
+<tr>
+<td>1.19</td>
+<td>D6E161A</td>
+<td></td>
+</tr>
+<tr>
+<td>1.20</td>
+<td>D6E162A</td>
+<td></td>
+</tr>
+<tr>
+<td>1.21</td>
+<td>D6E163A</td>
+<td>Spectre v2 microcode</td>
+</tr>
+<tr>
+<td>1.22</td>
+<td>D6E164A</td>
+<td>SSB microcode; local copy firmware/ibm/uefi/1.22-d6e164a/</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="update-order-and-safety-documented">Update order and safety (<span class="tl tl-documented">DOCUMENTED</span>) <a class="anchor" href="#update-order-and-safety-documented" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Recommended order: IMM, then UEFI, then DSA Preboot (IMM 1.55 README). Full plan for this server (<span class="tl tl-planned">PLANNED</span>,
+  nothing executed): docs/X3650M3_FIRMWARE_UPDATE_PLAN.md.</li>
+<li>The IMM runs "a full operating system" and can take up to 17 minutes to be ready after an update
+  (Firmware update best practices for IMMv1 systems, p.7, sources/pdf/S-022_*).</li>
+<li>IMM has primary and backup banks. A "firmware architecture change from Q3 2011" makes mixed-bank images
+  unpredictable (<a href="https://www.ibm.com/support/pages/node/860842" rel="noopener">https://www.ibm.com/support/pages/node/860842</a>).</li>
+<li>Physical IMM recovery jumper: J147 (pins 1-2 primary IMM image, 2-3 secondary) and UEFI boot backup jumper J29
+  (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Table 4, printed p.18-20; <a class="sref" href="../catalog/sources.html#s-002">S-002</a> printed p.29-31; details in docs/X3650M3_IMM_ARCHITECTURE.md).</li>
+<li>This server hosts the lab (docs/AGENT.md): any update needs explicit owner approval and a rollback plan.</li>
+</ul>
+<h2 id="conflicts">Conflicts <a class="anchor" href="#conflicts" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Installed UEFI build D6E154A is not in the 1.22 <code>.chg</code> (which lists 1.13 = D6E154B); UXSP 5.00 lists
+  <code>d6e154a</code>. SMBIOS reports D6E154A as version 1.13 (<span class="tl tl-measured">MEASURED</span>), so it is a 1.13 build; why the .chg names D6E154B is <span class="tl tl-unknown">UNKNOWN</span>.</li>
+<li>UEFI 1.11: D6E150C (IBM tip snippet) vs D6E150D (<code>.chg</code>).</li>
+<li>IMM build strings appear as "YU00..." (digit zero) in some field reports; the measured VPD reads <code>YUOOC7E</code>.</li>
+</ul>
+<h2 id="open-items">Open items <a class="anchor" href="#open-items" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>IMM 1.55 binary: IBM Fix Central needs an IBM ID login. The same IMM package is listed for QRadar M3
+  appliances (<a href="https://www.ibm.com/support/pages/qradar-m3-firmware-v22-xseries-2u-xx05-and-xx24-appliances-premusb" rel="noopener">https://www.ibm.com/support/pages/qradar-m3-firmware-v22-xseries-2u-xx05-and-xx24-appliances-premusb</a>).</li>
+<li>IMM SoC, kernel, flash layout: <span class="tl tl-extracted">EXTRACTED</span> for 1.10 (MIPS32, vsc452 drivers, Linux 2.6.16.46, NAND/UBI two-side
+  layout; docs/X3650M3_FIRMWARE_FORMATS.md 7, docs/X3650M3_IMM_ARCHITECTURE.md 3.1-3.2); <span class="tl tl-unknown">UNKNOWN</span> for the installed
+  1.30 (no 1.30 <code>imm_*.upd</code> locally).</li>
+<li>RE lead <a href="https://github.com/smx-smx/tools" rel="noopener">https://github.com/smx-smx/tools</a> (<code>ibmextract</code>): inspected 2026-10-21, POWER .pak only, not applicable
+  (docs/X3650M3_FIRMWARE_FORMATS.md 7).</li>
+</ul>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="firmware-formats.html"><span>Previous</span>Firmware Package and Image Formats</a>
+<a class="next" href="firmware-update-plan.html"><span>Next</span>Firmware Update Plan</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#installed-levels-measured">Installed levels (MEASURED)</a></li><li class="l2"><a href="#naming-documented">Naming (DOCUMENTED)</a></li><li class="l2"><a href="#latest-available-documented">Latest available (DOCUMENTED)</a></li><li class="l2"><a href="#imm-v1-history-documented-uxsp-500--750-pages-imm-155-chg">IMM v1 history (DOCUMENTED: UXSP 5.00 / 7.50 pages, IMM 1.55 .chg)</a></li><li class="l2"><a href="#uefi-history-documented-uxsp-pages-uefi-122-chg">UEFI history (DOCUMENTED: UXSP pages, UEFI 1.22 .chg)</a></li><li class="l2"><a href="#update-order-and-safety-documented">Update order and safety (DOCUMENTED)</a></li><li class="l2"><a href="#conflicts">Conflicts</a></li><li class="l2"><a href="#open-items">Open items</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

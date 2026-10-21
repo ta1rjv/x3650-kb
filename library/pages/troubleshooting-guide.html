@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Troubleshooting Guide - x3650 M3 Library</title>
+<meta name="description" content="How to diagnose an x3650 M3 - where errors are reported, light path LEDs, POST codes, IMM event ids, the SEL, sensors, DSA Preboot, and a symptom-to-source table.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="page" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="reading-guide.html">Reading Guide</a></li>
+<li><a href="system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="firmware-guide.html">Firmware Guide</a></li>
+<li><a href="imm-guide.html">IMM Guide</a></li>
+<li><a href="uefi-guide.html">UEFI Guide</a></li>
+<li><a href="troubleshooting-guide.html" aria-current="page">Troubleshooting Guide</a></li>
+<li><a href="tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="faq.html">FAQ</a></li>
+<li><a href="timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="../volumes/knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="../volumes/system-architecture.html">System Architecture</a></li>
+<li><a href="../volumes/hardware-components.html">Hardware Components</a></li>
+<li><a href="../volumes/memory.html">Memory</a></li>
+<li><a href="../volumes/storage-raid.html">Storage and RAID</a></li>
+<li><a href="../volumes/power-thermal.html">Power and Thermal</a></li>
+<li><a href="../volumes/sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="../volumes/imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="../volumes/imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="../volumes/imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="../volumes/serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="../volumes/uefi.html">UEFI Firmware</a></li>
+<li><a href="../volumes/firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="../volumes/firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="../volumes/firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="../volumes/error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="../volumes/tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="../volumes/optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Guides</li><li aria-current="page">Troubleshooting Guide</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">Guides</p>
+<h1>Troubleshooting Guide</h1>
+<p class="lede">How to diagnose an x3650 M3 - where errors are reported, light path LEDs, POST codes, IMM event ids, the SEL, sensors, DSA Preboot, and a symptom-to-source table.</p>
+<p class="meta"><span class="source">source: <code>site/pages/troubleshooting-guide.md</code></span> <span>10 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">1</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">2</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">3</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">1</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#where-errors-appear">Where errors appear</a></li><li class="l2"><a href="#step-1-the-light-path-panel">Step 1: the light path panel</a></li><li class="l2"><a href="#step-2-the-checkpoint-code-if-the-server-stops-in-post">Step 2: the checkpoint code (if the server stops in POST)</a></li><li class="l2"><a href="#step-3-post-error-codes">Step 3: POST error codes</a></li><li class="l2"><a href="#step-4-imm-event-ids">Step 4: IMM event ids</a></li><li class="l2"><a href="#step-5-the-sel-and-the-imm-event-log">Step 5: the SEL and the IMM event log</a></li><li class="l2"><a href="#step-6-sensors">Step 6: sensors</a></li><li class="l2"><a href="#step-7-dsa-preboot">Step 7: DSA Preboot</a></li><li class="l2"><a href="#symptom-to-source">Symptom to source</a></li><li class="l2"><a href="#good-practice-drawn-from-the-documents">Good practice drawn from the documents</a></li></ul></nav></details>
+<div class="prose">
+<p>The x3650 M3 reports problems through several channels that complement each other. This guide shows which channel
+to read first and how to decode what it shows. The complete catalogues (655 IMM event ids, 45 POST codes, 63 DSA
+messages, symptom tables) are in the <a href="../volumes/error-codes.html#2-where-errors-are-reported-logs-leds-displays">Error codes volume</a>;
+everything there is <span class="tl tl-documented">DOCUMENTED</span> from the Problem Determination and Service Guide (<a class="sref" href="../catalog/sources.html#s-004">S-004</a>, 16th edition) and cross-checked
+against the archived infocenter. Actions marked "trained service technician only" in <a class="sref" href="../catalog/sources.html#s-004">S-004</a> are kept that way.</p>
+<h2 id="where-errors-appear">Where errors appear <a class="anchor" href="#where-errors-appear" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Channel</th>
+<th>What it holds</th>
+<th>How to read it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Light path diagnostics panel</td>
+<td>LEDs per subsystem; stay lit only while AC is connected</td>
+<td>Slide the blue release latch on the operator information panel left and pull the panel out</td>
+</tr>
+<tr>
+<td>System-board and riser LEDs</td>
+<td>Error LEDs next to DIMMs, CPUs, fans, PCI slots; 12 V power-channel LEDs A-E and AUX; IMM heartbeat</td>
+<td>Cover removed, AC connected</td>
+</tr>
+<tr>
+<td>Checkpoint display</td>
+<td>Two-digit code of the last boot step reached; not an error code</td>
+<td>Light path panel</td>
+</tr>
+<tr>
+<td>POST event log</td>
+<td>The three most recent POST error codes</td>
+<td>F1 Setup -&gt; System Event Logs -&gt; POST Event Viewer</td>
+</tr>
+<tr>
+<td>System event log (SEL)</td>
+<td>All BMC, POST and SMI events; fixed size; when full, new entries are NOT written</td>
+<td>F1 Setup -&gt; System Event Log; <code>ipmitool sel elist</code>; DSA ("IPMI event log")</td>
+</tr>
+<tr>
+<td>IMM event log</td>
+<td>Filtered text messages with event ids, plus IMM events (logins, network changes)</td>
+<td>IMM web Event Log; CLI <code>readlog</code>; DSA ("ASM event log")</td>
+</tr>
+<tr>
+<td>DSA log</td>
+<td>Merge of SEL, IMM log and OS logs plus test results</td>
+<td>DSA Preboot (F2 at POST) or DSA Portable</td>
+</tr>
+<tr>
+<td>Beep codes</td>
+<td>None: "This server does not use beep codes for server status"</td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+<p>Source: <a class="sref" href="../catalog/sources.html#s-004">S-004</a> pp.28-31, 274, 360; <a class="sref" href="../catalog/sources.html#s-020">S-020</a> pp.97-98
+(<a href="../volumes/error-codes.html#2-where-errors-are-reported-logs-leds-displays">Error codes 2</a>,
+<a href="../volumes/error-codes.html#8-beep-codes">8</a>).</p>
+<p>Severities: Information (no action), Warning (possible problem) and Error (may need action); the IMM web log marks
+Warning "W" and Error "E" (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.31, <a class="sref" href="../catalog/sources.html#s-020">S-020</a> p.99).</p>
+<h2 id="step-1-the-light-path-panel">Step 1: the light path panel <a class="anchor" href="#step-1-the-light-path-panel" aria-label="Link to this section">#</a></h2>
+<p>The panel (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Fig 4) has three rows of LEDs, a Remind button, a recessed NMI button, the checkpoint display and a
+recessed Reset button (<a href="../volumes/hardware-components.html#62-light-path-diagnostics-panel">Hardware 6.2</a>):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Row</th>
+<th>LEDs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>OVER SPEC, LOG, LINK, PS, PCI, SP</td>
+</tr>
+<tr>
+<td>2</td>
+<td>FAN, TEMP, MEM, NMI</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CNFG, CPU, VRM, DASD, RAID, BRD</td>
+</tr>
+</tbody>
+</table></div>
+<p>What each LED means (<span class="tl tl-documented">DOCUMENTED</span>, <a class="sref" href="../catalog/sources.html#s-004">S-004</a> pp.363-367; <a href="../volumes/error-codes.html#91-light-path-diagnostics-panel-leds">Error codes 9.1</a>):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>LED</th>
+<th>Meaning</th>
+<th>First place to look</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(none, system-error LED lit)</td>
+<td>Undiagnosable error or IMM failure</td>
+<td>System event log in Setup</td>
+</tr>
+<tr>
+<td>BRD</td>
+<td>System board: battery, missing PCI riser assembly, or failed voltage regulator</td>
+<td>Board LEDs; CMOS battery; riser in connector 2</td>
+</tr>
+<tr>
+<td>CNFG</td>
+<td>Configuration error, together with CPU or MEM</td>
+<td>Mismatched CPUs; invalid DIMM population; option ROM out of resources</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>CPU failed, or invalid CPU configuration with CNFG</td>
+<td>CPU LEDs on the board</td>
+</tr>
+<tr>
+<td>DASD</td>
+<td>Drive failed or missing</td>
+<td>Drive status LEDs; backplane</td>
+</tr>
+<tr>
+<td>FAN</td>
+<td>Fan failed, slow or removed (TEMP may also light)</td>
+<td>LED next to the fan connector</td>
+</tr>
+<tr>
+<td>LOG</td>
+<td>An error was written to the event log</td>
+<td>IMM and system event logs</td>
+</tr>
+<tr>
+<td>MEM</td>
+<td>Memory error, or invalid configuration with CNFG</td>
+<td>DIMM LEDs; logs</td>
+</tr>
+<tr>
+<td>NMI</td>
+<td>Non-maskable interrupt</td>
+<td>System event log</td>
+</tr>
+<tr>
+<td>OVER SPEC</td>
+<td>Shutdown due to overload on a power channel</td>
+<td>Power-channel LEDs A-E/AUX; supply LEDs</td>
+</tr>
+<tr>
+<td>PCI</td>
+<td>Error on a PCI bus; an LED lights at the failing slot</td>
+<td>Slot LEDs; remove adapters one at a time</td>
+</tr>
+<tr>
+<td>PS</td>
+<td>Supply failed; PS+CNFG = mixed supply types</td>
+<td>Supply LEDs</td>
+</tr>
+<tr>
+<td>SP</td>
+<td>IMM failed</td>
+<td>AC power cycle; IMM firmware</td>
+</tr>
+<tr>
+<td>TEMP</td>
+<td>Temperature over threshold</td>
+<td>Logs, room temperature, vents, fans</td>
+</tr>
+<tr>
+<td>LINK, RAID, VRM</td>
+<td>Reserved</td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+<p>The <strong>Remind</strong> button acknowledges the error: the system-error LED then flashes every 2 s until the problem is fixed,
+the server restarts or a new problem occurs. The same LED states are visible remotely on the IMM web page "Virtual
+Light Path". Mapping of IPMI sensors to LEDs: <a href="../volumes/sensors-sdr.html#9-mapping-to-light-path-leds-and-imm-events">Sensors and SDR 9</a>.</p>
+<p>Power-supply LEDs (AC, DC, error) and the components of each 12 V power channel are tabulated in
+<a href="../volumes/error-codes.html#93-power-supply-leds">Error codes 9.3</a> and
+<a href="../volumes/error-codes.html#94-power-channel-error-leds-12-v-channels-a-e-and-aux">9.4</a>. The minimum configuration for the
+server to start is one CPU in socket 1, one DIMM in slot 3, one power supply, three fans, a riser in connector 2 and
+the ServeRAID controller (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.367).</p>
+<h2 id="step-2-the-checkpoint-code-if-the-server-stops-in-post">Step 2: the checkpoint code (if the server stops in POST) <a class="anchor" href="#step-2-the-checkpoint-code-if-the-server-stops-in-post" aria-label="Link to this section">#</a></h2>
+<p>A checkpoint code shows where boot stopped, not what failed (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.360). Ranges (<a class="sref" href="../catalog/sources.html#s-024">S-024</a>, generic IBM UEFI):
+0x00-0x0F CPU init, 0x10-0x1F PEI, 0x20-0x9E DXE, 0x9F POST complete, 0xA0-0xAF QPI, 0xB0-0xBF memory init, 0xE0-0xE5
+processor or bus failure, 0xE8 no memory, 0xED invalid mixed DIMMs, 0xEE invalid DIMM population. A per-code list for
+this server is <span class="tl tl-unknown">UNKNOWN</span> (<a href="../volumes/error-codes.html#7-checkpoint-codes">Error codes 7</a>).</p>
+<h2 id="step-3-post-error-codes">Step 3: POST error codes <a class="anchor" href="#step-3-post-error-codes" aria-label="Link to this section">#</a></h2>
+<p>POST codes are seven hex digits (for example <code>0051003</code>) and appear on screen and in the POST event log. The dotted
+codes of later servers (I.xxxxx, W.xxxxx) do not apply. Groups (structure <span class="tl tl-candidate">CANDIDATE</span>, inferred from the table):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Prefix</th>
+<th>Area</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001xxxx</td>
+<td>Microprocessor</td>
+<td>0011002 CPU mismatch; 001100A microcode update failed</td>
+</tr>
+<tr>
+<td>005xxxx</td>
+<td>Memory</td>
+<td>0051003 uncorrectable DIMM error; 0058007 unsupported population; 00580A5 mirror failover</td>
+</tr>
+<tr>
+<td>006xxxx</td>
+<td>CMOS / battery</td>
+<td>0068002 CMOS battery cleared</td>
+</tr>
+<tr>
+<td>201xxxx</td>
+<td>PCI / PCIe</td>
+<td>2018001 PCIe uncorrected error; 2018002 option ROM resource allocation failure</td>
+</tr>
+<tr>
+<td>303xxxx-313xxxx</td>
+<td>Firmware, configuration, boot</td>
+<td>3048006 booted backup image (ABR); 3058004 three boot failures; 305000A RTC date/time incorrect</td>
+</tr>
+<tr>
+<td>380xxxx</td>
+<td>IMM communication</td>
+<td>3808000 IMM communication failure; 3808004 IMM system event log full</td>
+</tr>
+<tr>
+<td>381xxxx</td>
+<td>CRTM</td>
+<td>3818001-3818007 CRTM update and capsule signature errors</td>
+</tr>
+<tr>
+<td>382xxxx</td>
+<td>AEM</td>
+<td>3828004 power capping disabled</td>
+</tr>
+</tbody>
+</table></div>
+<p>Full list with actions: <a href="../volumes/error-codes.html#6-post--uefi-error-codes">Error codes 6</a>.</p>
+<h2 id="step-4-imm-event-ids">Step 4: IMM event ids <a class="anchor" href="#step-4-imm-event-ids" aria-label="Link to this section">#</a></h2>
+<p>IMM messages carry an id such as <code>806f010c-2001xxxx</code>. <a class="sref" href="../catalog/sources.html#s-004">S-004</a> lists the ids but not their structure; the decode below
+is <span class="tl tl-candidate">CANDIDATE</span>, inferred from all 655 ids and consistent with the IPMI sensor types measured on the reference unit
+(<a href="../volumes/error-codes.html#3-imm-event-id-structure">Error codes 3</a>):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field (<code>AABBCCDD-EEFFxxxx</code>)</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AA</td>
+<td>80 assertion, 81 deassertion, 40 IMM-internal event</td>
+</tr>
+<tr>
+<td>BB</td>
+<td>IPMI event/reading type: 01 threshold, 03 discrete, 07 generic severity, 0b redundancy, 6f sensor-specific</td>
+</tr>
+<tr>
+<td>CC</td>
+<td>Offset within the type (for thresholds 02 = lower critical going low, 09 = upper critical going high)</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>IPMI sensor type (01 temperature, 02 voltage, 04 fan, 07 processor, 08 power supply, 0c memory, 0d drive slot, 0f firmware, 10 event logging, 23 watchdog)</td>
+</tr>
+<tr>
+<td>EE</td>
+<td>Entity (03 CPU, 04 drive, 07 system board, 0a power supply, 1d fan, 20 DIMM, 22 system firmware, 28 battery)</td>
+</tr>
+<tr>
+<td>FF</td>
+<td>Instance (DIMM n = 20nn, drive n = 04nn)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Worked example: <code>80010202-2801xxxx</code> = assertion (80), threshold (01), lower critical going low (02), voltage (02),
+battery entity (28), instance 01: the CMOS battery is below its lower critical threshold. The documented user response
+is to replace the battery (<a href="../volumes/hardware-components.html#12-battery-cmos">Hardware 12</a>). The 64 condensed user
+responses (A01-A64) are in <a href="../volumes/error-codes.html#5-imm-action-catalog-a01-a64">Error codes 5</a>; the full message list in
+<a href="../volumes/error-codes.html#4-imm-event-log-messages-655-event-ids">Error codes 4</a>.</p>
+<p>Useful IMM-internal ids: 40000023 / 40000024 firmware flash success / failure, 4000002a firmware mismatch,
+40000029 SSH login failures; 806f052b-2101xxxx IMM firmware failover; 806f000f-2201xxxx ABR status.</p>
+<h2 id="step-5-the-sel-and-the-imm-event-log">Step 5: the SEL and the IMM event log <a class="anchor" href="#step-5-the-sel-and-the-imm-event-log" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>The SEL is small (512 entries on the reference unit) and does <strong>not</strong> overwrite: once full, new hardware events are
+  lost from it. Save it and clear it when the IMM logs the "more than 75 percent full" event (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.28). POST code
+  3808004 also reports a full log. Clearing is a state change: <code>ipmitool sel save &lt;file&gt;</code> first, then clear only
+  deliberately.</li>
+<li>The IMM event log keeps recording while the SEL is full and holds human-readable messages; <code>readlog</code> pages through
+  it five entries at a time. Its capacity was reported as 1500 records on the reference unit (<span class="tl tl-measured">MEASURED</span>).</li>
+<li>The two logs share a time base but the IMM log is a filtered subset: it omits firmware-progress events, for example
+  (<a href="../volumes/imm-architecture.html#10-event-logging-sel-and-imm-event-log">IMM architecture 10</a>).</li>
+</ul>
+<h2 id="step-6-sensors">Step 6: sensors <a class="anchor" href="#step-6-sensors" aria-label="Link to this section">#</a></h2>
+<p><code>ipmitool sensor</code> and <code>ipmitool sdr elist</code> show current readings and thresholds. Threshold names differ between
+interfaces (IPMI lnc/lcr/lnr, CLI "warning / soft shutdown / hard shutdown"); discrete sensors show state bytes that
+need the reading-type tables to decode (<a href="../volumes/sensors-sdr.html#3-how-to-read-the-values-columns-threshold-names-discrete-state-bytes">Sensors and SDR 3</a>,
+<a href="../volumes/sensors-sdr.html#6-discrete-sensors---decoding-reference">6</a>). The reference unit's SDR holds 135 sensor records;
+the full verbose dump with entities, masks and hysteresis is in
+<a href="../volumes/sensors-sdr.html#13-verbose-sdr-dump-2026-10-20-all-135-sensors">Sensors and SDR 13</a>. Example thresholds on that
+unit: ambient warning 38 deg C, soft shutdown 41, hard shutdown 45; Planar VBAT lower critical 2.095 V.</p>
+<h2 id="step-7-dsa-preboot">Step 7: DSA Preboot <a class="anchor" href="#step-7-dsa-preboot" aria-label="Link to this section">#</a></h2>
+<p>Press F2 during POST to start DSA Preboot (stored in IMM flash). Tests end Passed, Failed or Aborted; view results with
+<code>view</code> in the CLI or the "Diagnostic Event Log" in the GUI. Messages have the form <code>CCC-TTT-xxx</code>: CCC is the component
+(089 CPU, 166 IMM I2C, 201/202 memory, 215 optical, 217 SAS/SATA drive, 405 Broadcom Ethernet ...), TTT 8xx = aborted,
+9xx = failed (<span class="tl tl-candidate">CANDIDATE</span> from the state column); each maps to an action D01-D28
+(<a href="../volumes/error-codes.html#10-dsa-preboot-diagnostic-messages">Error codes 10</a>,
+<a href="../volumes/error-codes.html#11-dsa-action-catalog-d01-d28">11</a>). DSA Portable runs the same inventory from a supported OS
+(<a href="tools-guide.html#dsa---dynamic-system-analysis">tools guide</a>).</p>
+<h2 id="symptom-to-source">Symptom to source <a class="anchor" href="#symptom-to-source" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Look at</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server does not power on, power LED flashing fast</td>
+<td>Wait: the button is disabled for 20-40 s (and up to minutes after AC is applied) while the IMM starts</td>
+<td><a href="../volumes/hardware-components.html#61-operator-information-panel-front-s-002-p16-17-s-004-p12">Hardware 6.1</a></td>
+</tr>
+<tr>
+<td>No power at all</td>
+<td>Supply LEDs, power-channel LEDs, minimum configuration</td>
+<td><a href="../volumes/error-codes.html#93-power-supply-leds">Error codes 9.3</a>, <a href="../volumes/error-codes.html#power-problems-p353">Power problems</a></td>
+</tr>
+<tr>
+<td>Hangs in POST, F1 does not work</td>
+<td>Checkpoint display; Nx boot failure; firmware recovery</td>
+<td><a href="../volumes/error-codes.html#13-firmware-recovery-features-abr-nx-boot-failure">Error codes 13</a></td>
+</tr>
+<tr>
+<td>Boots from the backup UEFI bank</td>
+<td>POST 3048005 / 3048006; ABR</td>
+<td><a href="uefi-guide.html#banks-recovery-and-jumpers">UEFI guide</a></td>
+</tr>
+<tr>
+<td>Settings or clock lost after AC removal</td>
+<td>CMOS battery (VBAT sensor, BRD LED, POST 0068002 / 305000A)</td>
+<td><a href="../volumes/hardware-components.html#12-battery-cmos">Hardware 12</a></td>
+</tr>
+<tr>
+<td>Memory missing or errors</td>
+<td>MEM/CNFG LEDs, POST 005xxxx, DIMM LEDs, population rules</td>
+<td><a href="../volumes/error-codes.html#memory-problems-p347">Memory problems</a>, <a href="../volumes/memory.html#6-population-rules-and-order-per-mode">Memory 6</a></td>
+</tr>
+<tr>
+<td>CPU errors</td>
+<td>CPU/CNFG LEDs, POST 001xxxx</td>
+<td><a href="../volumes/error-codes.html#microprocessor-problems-p349">Microprocessor problems</a></td>
+</tr>
+<tr>
+<td>Drive failed or missing</td>
+<td>DASD LED, drive status LED (amber lit = failed, slow flash = rebuild), controller event log</td>
+<td><a href="../volumes/error-codes.html#hard-disk-drive-problems-p342">Hard disk drive problems</a>, <a href="../volumes/storage-raid.html#14-controller-event-log-and-termlog-measured-2026-10-20">Storage 14</a></td>
+</tr>
+<tr>
+<td>Fans loud or failed</td>
+<td>FAN/TEMP LEDs, fan tach sensors, cooling zones</td>
+<td><a href="../volumes/power-thermal.html#6-fans-and-fan-control">Power and thermal 6</a></td>
+</tr>
+<tr>
+<td>Over-temperature</td>
+<td>TEMP LED, ambient sensor, vents, baffles</td>
+<td><a href="../volumes/power-thermal.html#7-thermal-thresholds-and-environmental-limits">Power and thermal 7</a></td>
+</tr>
+<tr>
+<td>IMM unreachable</td>
+<td>IMM heartbeat LED, SP LED, network settings, default address 192.168.70.125 when DHCP fails</td>
+<td><a href="imm-guide.html#firmware-banks-and-recovery">IMM guide</a></td>
+</tr>
+<tr>
+<td>Remote console blank</td>
+<td>Console redirection settings, COM1 vs COM2</td>
+<td><a href="uefi-guide.html#serial-console-redirection">UEFI guide</a></td>
+</tr>
+<tr>
+<td>No video</td>
+<td>Monitor or video problems table; checkpoint display</td>
+<td><a href="../volumes/error-codes.html#video-problems-p360">Video problems</a></td>
+</tr>
+<tr>
+<td>Intermittent resets</td>
+<td>Watchdog events (806f0023-2101xxxx), POST watchdog, OS watchdog</td>
+<td><a href="../volumes/error-codes.html#intermittent-problems-p345">Intermittent problems</a></td>
+</tr>
+<tr>
+<td>PCI adapter problems</td>
+<td>PCI LED and slot LEDs; POST 201xxxx</td>
+<td><a href="../volumes/error-codes.html#optional-device-problems-p352">Optional-device problems</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="good-practice-drawn-from-the-documents">Good practice drawn from the documents <a class="anchor" href="#good-practice-drawn-from-the-documents" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Read before changing: logs, LEDs and sensors are all readable without side effects; clearing a log, resetting the
+  IMM or reseating parts is not.</li>
+<li>After installing or removing a DIMM, disconnect power and wait 10 seconds before restarting (<a class="sref" href="../catalog/sources.html#s-004">S-004</a>).</li>
+<li>Before replacing the CMOS battery, record UEFI settings (ASU <code>save</code>), because they may be lost.</li>
+<li>Check for a newer firmware level or a RETAIN tip when an action says so; IBM's actions often start with "update the
+  firmware" (see the <a href="firmware-guide.html#documented-risks">firmware guide</a> for what that involves).</li>
+</ul>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="uefi-guide.html"><span>Previous</span>UEFI Guide</a>
+<a class="next" href="tools-guide.html"><span>Next</span>Tools Guide</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#where-errors-appear">Where errors appear</a></li><li class="l2"><a href="#step-1-the-light-path-panel">Step 1: the light path panel</a></li><li class="l2"><a href="#step-2-the-checkpoint-code-if-the-server-stops-in-post">Step 2: the checkpoint code (if the server stops in POST)</a></li><li class="l2"><a href="#step-3-post-error-codes">Step 3: POST error codes</a></li><li class="l2"><a href="#step-4-imm-event-ids">Step 4: IMM event ids</a></li><li class="l2"><a href="#step-5-the-sel-and-the-imm-event-log">Step 5: the SEL and the IMM event log</a></li><li class="l2"><a href="#step-6-sensors">Step 6: sensors</a></li><li class="l2"><a href="#step-7-dsa-preboot">Step 7: DSA Preboot</a></li><li class="l2"><a href="#symptom-to-source">Symptom to source</a></li><li class="l2"><a href="#good-practice-drawn-from-the-documents">Good practice drawn from the documents</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

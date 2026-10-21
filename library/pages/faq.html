@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ - x3650 M3 Library</title>
+<meta name="description" content="Practical questions about the x3650 M3, its IMM, UEFI, firmware, storage and tools, answered in a few lines each with links to the evidence.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="page" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="reading-guide.html">Reading Guide</a></li>
+<li><a href="system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="firmware-guide.html">Firmware Guide</a></li>
+<li><a href="imm-guide.html">IMM Guide</a></li>
+<li><a href="uefi-guide.html">UEFI Guide</a></li>
+<li><a href="troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="faq.html" aria-current="page">FAQ</a></li>
+<li><a href="timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="../volumes/knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="../volumes/system-architecture.html">System Architecture</a></li>
+<li><a href="../volumes/hardware-components.html">Hardware Components</a></li>
+<li><a href="../volumes/memory.html">Memory</a></li>
+<li><a href="../volumes/storage-raid.html">Storage and RAID</a></li>
+<li><a href="../volumes/power-thermal.html">Power and Thermal</a></li>
+<li><a href="../volumes/sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="../volumes/imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="../volumes/imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="../volumes/imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="../volumes/serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="../volumes/uefi.html">UEFI Firmware</a></li>
+<li><a href="../volumes/firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="../volumes/firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="../volumes/firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="../volumes/error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="../volumes/tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="../volumes/optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Reference</li><li aria-current="page">FAQ</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">Reference</p>
+<h1>FAQ</h1>
+<p class="lede">Practical questions about the x3650 M3, its IMM, UEFI, firmware, storage and tools, answered in a few lines each with links to the evidence.</p>
+<p class="meta"><span class="source">source: <code>site/pages/faq.md</code></span> <span>6 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">4</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">24</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">3</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">3</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">3</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#identity-and-hardware">Identity and hardware</a></li><li class="l3"><a href="#which-machine-types-are-covered">Which machine types are covered?</a></li><li class="l3"><a href="#which-processors-does-it-take">Which processors does it take?</a></li><li class="l3"><a href="#how-much-memory-can-it-hold-and-how-fast-does-it-run">How much memory can it hold, and how fast does it run?</a></li><li class="l3"><a href="#can-i-mix-rdimms-and-udimms">Can I mix RDIMMs and UDIMMs?</a></li><li class="l3"><a href="#why-does-the-server-not-beep">Why does the server not beep?</a></li><li class="l3"><a href="#what-are-the-j29-and-j147-jumpers-for">What are the J29 and J147 jumpers for?</a></li><li class="l2"><a href="#imm-management-controller">IMM (management controller)</a></li><li class="l3"><a href="#what-is-the-default-imm-login-and-address">What is the default IMM login and address?</a></li><li class="l3"><a href="#is-the-imm-the-same-as-imm2-or-xclarity-controller">Is the IMM the same as IMM2 or XClarity Controller?</a></li><li class="l3"><a href="#which-interfaces-does-the-imm-offer">Which interfaces does the IMM offer?</a></li><li class="l3"><a href="#how-do-i-get-a-remote-graphical-console">How do I get a remote graphical console?</a></li><li class="l3"><a href="#how-do-i-read-the-imm-event-log-from-the-command-line">How do I read the IMM event log from the command line?</a></li><li class="l3"><a href="#what-does-an-imm-event-id-such-as-80010202-2801xxxx-mean">What does an IMM event id such as 80010202-2801xxxx mean?</a></li><li class="l3"><a href="#why-does-the-imm-web-interface-feel-slow-or-need-old-javaactivex">Why does the IMM web interface feel slow or need old Java/ActiveX?</a></li><li class="l2"><a href="#firmware">Firmware</a></li><li class="l3"><a href="#what-is-the-latest-firmware">What is the latest firmware?</a></li><li class="l3"><a href="#in-what-order-should-firmware-be-updated">In what order should firmware be updated?</a></li><li class="l3"><a href="#can-i-downgrade-the-imm">Can I downgrade the IMM?</a></li><li class="l3"><a href="#why-does-a-uefi-update-need-a-second-reboot">Why does a UEFI update need a second reboot?</a></li><li class="l3"><a href="#are-imm-firmware-images-signed">Are IMM firmware images signed?</a></li><li class="l3"><a href="#where-can-i-still-download-the-packages">Where can I still download the packages?</a></li><li class="l3"><a href="#which-cpu-security-fixes-need-a-uefi-update">Which CPU security fixes need a UEFI update?</a></li><li class="l3"><a href="#can-i-use-onecli-instead-of-asu-dsa-and-uxspi">Can I use OneCLI instead of ASU, DSA and UXSPI?</a></li><li class="l2"><a href="#configuration-and-tools">Configuration and tools</a></li><li class="l3"><a href="#how-do-i-change-uefi-settings-without-a-monitor">How do I change UEFI settings without a monitor?</a></li><li class="l3"><a href="#how-do-i-get-a-text-console-on-the-host-serial-port">How do I get a text console on the host serial port?</a></li><li class="l3"><a href="#which-operating-mode-should-i-pick">Which operating mode should I pick?</a></li><li class="l3"><a href="#what-does-lan-over-usb-do-and-why-is-it-there">What does LAN over USB do and why is it there?</a></li><li class="l3"><a href="#how-do-i-run-diagnostics">How do I run diagnostics?</a></li><li class="l2"><a href="#storage">Storage</a></li><li class="l3"><a href="#which-raid-controller-is-typical-and-what-can-it-do">Which RAID controller is typical and what can it do?</a></li><li class="l3"><a href="#which-tool-manages-the-m1015-from-linux">Which tool manages the M1015 from Linux?</a></li><li class="l3"><a href="#can-i-flash-it-firmware-over-ir-on-the-sas-hba">Can I flash IT firmware over IR on the SAS HBA?</a></li><li class="l2"><a href="#about-this-library">About this library</a></li><li class="l3"><a href="#can-i-trust-every-statement-here">Can I trust every statement here?</a></li><li class="l3"><a href="#does-the-library-contain-firmware-binaries">Does the library contain firmware binaries?</a></li></ul></nav></details>
+<div class="prose">
+<h1 id="frequently-asked-questions">Frequently asked questions <a class="anchor" href="#frequently-asked-questions" aria-label="Link to this section">#</a></h1>
+<p>Short answers with the truth level of the underlying fact. Follow the links for sources; when an answer says
+<span class="tl tl-unknown">UNKNOWN</span>, the library has no source for it.</p>
+<h2 id="identity-and-hardware">Identity and hardware <a class="anchor" href="#identity-and-hardware" aria-label="Link to this section">#</a></h2>
+<h3 id="which-machine-types-are-covered">Which machine types are covered? <a class="anchor" href="#which-machine-types-are-covered" aria-label="Link to this section">#</a></h3>
+<p>The IBM System x3650 M3, machine types 7945, 4255 and 7376 (<span class="tl tl-documented">DOCUMENTED</span>). Most analysis was done on one
+reference unit of type 7945. See <a href="system-at-a-glance.html">System at a glance</a> and
+<a href="../volumes/hardware-components.html#31-identity-measured--documented">Hardware 3.1</a>.</p>
+<h3 id="which-processors-does-it-take">Which processors does it take? <a class="anchor" href="#which-processors-does-it-take" aria-label="Link to this section">#</a></h3>
+<p>Intel Xeon 5500 (Nehalem-EP) and Xeon 5600 (Westmere-EP), one or two sockets, linked by QPI to an Intel 5520 IOH
+(<span class="tl tl-documented">DOCUMENTED</span>). Xeon 5600 support arrived with UEFI 1.06 (D6E145C). See
+<a href="../volumes/system-architecture.html#3-processor-complex">System architecture 3</a> and
+<a href="../volumes/firmware-history.html#uefi-history-documented-uxsp-pages-uefi-122-chg">Firmware history</a>.</p>
+<h3 id="how-much-memory-can-it-hold-and-how-fast-does-it-run">How much memory can it hold, and how fast does it run? <a class="anchor" href="#how-much-memory-can-it-hold-and-how-fast-does-it-run" aria-label="Link to this section">#</a></h3>
+<p>Eighteen DDR3 DIMM slots, nine per processor; speed falls with DIMMs per channel (1 DPC up to 1333 MHz, 3 DPC
+800 MHz), and the processor's own memory limit also applies (<span class="tl tl-documented">DOCUMENTED</span>). Only the slots of an installed CPU
+can be used. See <a href="../volumes/memory.html#42-maximum-capacity-table-s-002-table-9">Memory 4.2</a> and
+<a href="../volumes/memory.html#51-speed-vs-dimms-per-channel-dpc">Memory 5.1</a>.</p>
+<h3 id="can-i-mix-rdimms-and-udimms">Can I mix RDIMMs and UDIMMs? <a class="anchor" href="#can-i-mix-rdimms-and-udimms" aria-label="Link to this section">#</a></h3>
+<p>No; the rules forbid mixing registered and unbuffered DIMMs (<span class="tl tl-documented">DOCUMENTED</span>). See
+<a href="../volumes/memory.html#41-general-rules">Memory 4.1</a>.</p>
+<h3 id="why-does-the-server-not-beep">Why does the server not beep? <a class="anchor" href="#why-does-the-server-not-beep" aria-label="Link to this section">#</a></h3>
+<p>The vendor states that the server does not use beep codes; it reports through light path LEDs, the checkpoint
+display, POST error codes and the IMM event log (<span class="tl tl-documented">DOCUMENTED</span>). See
+<a href="../volumes/error-codes.html#8-beep-codes">Error codes 8</a> and the <a href="troubleshooting-guide.html">Troubleshooting guide</a>.</p>
+<h3 id="what-are-the-j29-and-j147-jumpers-for">What are the J29 and J147 jumpers for? <a class="anchor" href="#what-are-the-j29-and-j147-jumpers-for" aria-label="Link to this section">#</a></h3>
+<p>J29 forces the backup UEFI bank and J147 the backup IMM bank (pins 2-3) for recovery after a failed flash
+(<span class="tl tl-documented">DOCUMENTED</span>). See <a href="../volumes/hardware-components.html#41-jumpers">Hardware 4.1</a> and the
+<a href="uefi-guide.html#banks-recovery-and-jumpers">UEFI guide</a>.</p>
+<h2 id="imm-management-controller">IMM (management controller) <a class="anchor" href="#imm-management-controller" aria-label="Link to this section">#</a></h2>
+<h3 id="what-is-the-default-imm-login-and-address">What is the default IMM login and address? <a class="anchor" href="#what-is-the-default-imm-login-and-address" aria-label="Link to this section">#</a></h3>
+<p>Per IBM documentation: user <code>USERID</code>, password <code>PASSW0RD</code> (with a zero), and a static fallback address
+192.168.70.125 when DHCP fails (<span class="tl tl-documented">DOCUMENTED</span>). Change the password on first use. See the
+<a href="imm-guide.html">IMM guide</a> and <a href="../volumes/imm-architecture.html#6-users-authentication-ldap-ipmi-privileges">IMM architecture 6</a>.</p>
+<h3 id="is-the-imm-the-same-as-imm2-or-xclarity-controller">Is the IMM the same as IMM2 or XClarity Controller? <a class="anchor" href="#is-the-imm-the-same-as-imm2-or-xclarity-controller" aria-label="Link to this section">#</a></h3>
+<p>No. The x3650 M3 has the first-generation IMM (IMM v1, builds YUOOxxx); IMM2 and XCC belong to later servers and
+their manuals do not apply directly (<span class="tl tl-documented">DOCUMENTED</span>). See
+<a href="../volumes/firmware-history.html#naming-documented">Firmware history, naming</a>.</p>
+<h3 id="which-interfaces-does-the-imm-offer">Which interfaces does the IMM offer? <a class="anchor" href="#which-interfaces-does-the-imm-offer" aria-label="Link to this section">#</a></h3>
+<p>Web (HTTP/HTTPS), legacy CLI over SSH and Telnet, IPMI over LAN (RMCP/RMCP+) and in-band KCS, SOL, SNMP, CIM,
+WS-Man, SLP and LAN over USB (<span class="tl tl-documented">DOCUMENTED</span> and <span class="tl tl-measured">MEASURED</span>). See
+<a href="../volumes/imm-interfaces.html#2-interface-summary">IMM interfaces 2</a> and the <a href="imm-guide.html#interfaces">IMM guide</a>.</p>
+<h3 id="how-do-i-get-a-remote-graphical-console">How do I get a remote graphical console? <a class="anchor" href="#how-do-i-get-a-remote-graphical-console" aria-label="Link to this section">#</a></h3>
+<p>Remote presence (KVM and virtual media) needs IMM Premium, enabled by the Virtual Media Key option (<span class="tl tl-documented">DOCUMENTED</span>).
+Without it, use the serial paths (SOL or CLI serial redirection). See
+<a href="../volumes/imm-architecture.html#7-standard-vs-premium-virtual-media-key">IMM architecture 7</a> and
+<a href="../volumes/imm-interfaces.html#6-serial-over-lan-and-serial-redirection">IMM interfaces 6</a>.</p>
+<h3 id="how-do-i-read-the-imm-event-log-from-the-command-line">How do I read the IMM event log from the command line? <a class="anchor" href="#how-do-i-read-the-imm-event-log-from-the-command-line" aria-label="Link to this section">#</a></h3>
+<p>Use the CLI command <code>readlog</code> over SSH (five entries per call), or <code>ipmitool sel list</code> for the IPMI SEL
+(<span class="tl tl-documented">DOCUMENTED</span>, <span class="tl tl-measured">MEASURED</span>). See <a href="../volumes/imm-architecture.html#10-event-logging-sel-and-imm-event-log">IMM architecture 10</a>.</p>
+<h3 id="what-does-an-imm-event-id-such-as-80010202-2801xxxx-mean">What does an IMM event id such as 80010202-2801xxxx mean? <a class="anchor" href="#what-does-an-imm-event-id-such-as-80010202-2801xxxx-mean" aria-label="Link to this section">#</a></h3>
+<p>The first part identifies the event class and sensor type, the second the entity and instance; the decoding is
+inferred from IPMI sensor events (<span class="tl tl-candidate">CANDIDATE</span>) and each id is listed with its vendor text. See
+<a href="../volumes/error-codes.html#3-imm-event-id-structure">Error codes 3</a> and the
+<a href="troubleshooting-guide.html">Troubleshooting guide</a>.</p>
+<h3 id="why-does-the-imm-web-interface-feel-slow-or-need-old-javaactivex">Why does the IMM web interface feel slow or need old Java/ActiveX? <a class="anchor" href="#why-does-the-imm-web-interface-feel-slow-or-need-old-javaactivex" aria-label="Link to this section">#</a></h3>
+<p>The IMM v1 web UI is a frame-based JavaScript application that calls WS-Man for nearly every page; remote control
+used Java or ActiveX clients (<span class="tl tl-extracted">EXTRACTED</span>, <span class="tl tl-documented">DOCUMENTED</span>). See <a href="../volumes/imm-web-api.html#3-ui-architecture">IMM web API 3</a>
+and <a href="../volumes/firmware-history.html#imm-v1-history-documented-uxsp-500--750-pages-imm-155-chg">Firmware history</a>.</p>
+<h2 id="firmware">Firmware <a class="anchor" href="#firmware" aria-label="Link to this section">#</a></h2>
+<h3 id="what-is-the-latest-firmware">What is the latest firmware? <a class="anchor" href="#what-is-the-latest-firmware" aria-label="Link to this section">#</a></h3>
+<p>IMM 1.55 (YUOOH5A), UEFI 1.22 (D6E164A) and Preboot DSA 9.53 (DSYTC5F) are the newest levels found
+(<span class="tl tl-documented">DOCUMENTED</span>); see <a href="../volumes/firmware-history.html#latest-available-documented">Firmware history, latest available</a> and
+the <a href="firmware-guide.html">Firmware guide</a>.</p>
+<h3 id="in-what-order-should-firmware-be-updated">In what order should firmware be updated? <a class="anchor" href="#in-what-order-should-firmware-be-updated" aria-label="Link to this section">#</a></h3>
+<p>The IMM 1.55 readme recommends IMM first, then UEFI, then Preboot DSA, and some UEFI levels require a minimum
+IMM level (for example UEFI 1.08 needs IMM YUOO73M) (<span class="tl tl-documented">DOCUMENTED</span>). The IMM can take up to 17 minutes to be ready
+after an update. See
+<a href="../volumes/firmware-history.html#update-order-and-safety-documented">Firmware history, update order</a> and
+<a href="../volumes/imm-architecture.html#91-order-and-prerequisites">IMM architecture 9.1</a>.</p>
+<h3 id="can-i-downgrade-the-imm">Can I downgrade the IMM? <a class="anchor" href="#can-i-downgrade-the-imm" aria-label="Link to this section">#</a></h3>
+<p>With care: going below IMM 1.22 (YUOO84C) requires a factory reset of the IMM configuration (<span class="tl tl-documented">DOCUMENTED</span>). See
+<a href="../volumes/firmware-history.html#imm-v1-history-documented-uxsp-500--750-pages-imm-155-chg">Firmware history</a>.</p>
+<h3 id="why-does-a-uefi-update-need-a-second-reboot">Why does a UEFI update need a second reboot? <a class="anchor" href="#why-does-a-uefi-update-need-a-second-reboot" aria-label="Link to this section">#</a></h3>
+<p>The CRTM (boot block) cannot be written while in use; it is staged and applied at the next start (<span class="tl tl-documented">DOCUMENTED</span>).
+See <a href="../volumes/uefi.html#3-firmware-banks-recovery-and-jumpers">UEFI 3</a> and the
+<a href="firmware-guide.html#documented-risks">Firmware guide</a>.</p>
+<h3 id="are-imm-firmware-images-signed">Are IMM firmware images signed? <a class="anchor" href="#are-imm-firmware-images-signed" aria-label="Link to this section">#</a></h3>
+<p>The analysed IMM v1 <code>.upd</code> images (1.10 and 1.55) carry MD5/CRC checks, not a cryptographic signature; the UEFI
+image has an RSA2048-SHA256 trailer on its early boot code (<span class="tl tl-extracted">EXTRACTED</span>). See
+<a href="../volumes/firmware-formats.html#74-integrity-and-signing-extracted-cap-s3-s6-s7-s9">Firmware formats 7.4</a> and
+<a href="../volumes/firmware-formats.html#6-uefi-flash-image-structure">Firmware formats 6</a>.</p>
+<h3 id="where-can-i-still-download-the-packages">Where can I still download the packages? <a class="anchor" href="#where-can-i-still-download-the-packages" aria-label="Link to this section">#</a></h3>
+<p>The IBM delivery servers and the Lenovo support catalog (Data Center Support, "DS" document ids) still served the
+packages in 2026-10; some need an IBM ID at Fix Central (<span class="tl tl-measured">MEASURED</span> at download time). See
+<a href="../volumes/firmware-history.html#open-items">Firmware history, open items</a> and <a href="about.html">About</a>.</p>
+<h3 id="which-cpu-security-fixes-need-a-uefi-update">Which CPU security fixes need a UEFI update? <a class="anchor" href="#which-cpu-security-fixes-need-a-uefi-update" aria-label="Link to this section">#</a></h3>
+<p>UEFI 1.21 carries Spectre v2 microcode and 1.22 the Speculative Store Bypass microcode (<span class="tl tl-documented">DOCUMENTED</span>). See
+<a href="../volumes/uefi.html#9-microcode">UEFI 9</a>.</p>
+<h3 id="can-i-use-onecli-instead-of-asu-dsa-and-uxspi">Can I use OneCLI instead of ASU, DSA and UXSPI? <a class="anchor" href="#can-i-use-onecli-instead-of-asu-dsa-and-uxspi" aria-label="Link to this section">#</a></h3>
+<p>Whether OneCLI supports this machine type is <span class="tl tl-unknown">UNKNOWN</span> in the library; ASU, DSA, UXSPI and BoMC are the documented
+tools. See <a href="../volumes/tools.html#8-lenovo-xclarity-essentials-onecli">Tools 8</a>.</p>
+<h2 id="configuration-and-tools">Configuration and tools <a class="anchor" href="#configuration-and-tools" aria-label="Link to this section">#</a></h2>
+<h3 id="how-do-i-change-uefi-settings-without-a-monitor">How do I change UEFI settings without a monitor? <a class="anchor" href="#how-do-i-change-uefi-settings-without-a-monitor" aria-label="Link to this section">#</a></h3>
+<p>With ASU (<code>asu show</code>, <code>asu set uEFI.&lt;name&gt; &lt;value&gt;</code>) in-band over LAN over USB, or remotely against the IMM
+address; changes take effect at the next boot (<span class="tl tl-documented">DOCUMENTED</span>). See <a href="../volumes/tools.html#4-asu---advanced-settings-utility">Tools 4</a>
+and <a href="../volumes/uefi.html#7-asu-settings-s-026-and-the-setup-xml">UEFI 7</a>.</p>
+<h3 id="how-do-i-get-a-text-console-on-the-host-serial-port">How do I get a text console on the host serial port? <a class="anchor" href="#how-do-i-get-a-text-console-on-the-host-serial-port" aria-label="Link to this section">#</a></h3>
+<p>Enable console redirection in UEFI and attach through IPMI SOL (COM1) or the IMM CLI <code>console 1</code> command (COM2)
+(<span class="tl tl-documented">DOCUMENTED</span>). See the <a href="uefi-guide.html#serial-console-redirection">UEFI guide</a> and
+<a href="../volumes/imm-interfaces.html#6-serial-over-lan-and-serial-redirection">IMM interfaces 6</a>.</p>
+<h3 id="which-operating-mode-should-i-pick">Which operating mode should I pick? <a class="anchor" href="#which-operating-mode-should-i-pick" aria-label="Link to this section">#</a></h3>
+<p>Acoustic, Efficiency, Performance and Custom presets change speed, C-state and turbo settings; their exact effect
+on power is <span class="tl tl-candidate">CANDIDATE</span> on this platform. See <a href="../volumes/uefi.html#6-operating-modes">UEFI 6</a> and
+<a href="../volumes/power-thermal.html#9-uefi-powerperformance-modes-and-their-thermal-effect">Power and thermal 9</a>.</p>
+<h3 id="what-does-lan-over-usb-do-and-why-is-it-there">What does LAN over USB do and why is it there? <a class="anchor" href="#what-does-lan-over-usb-do-and-why-is-it-there" aria-label="Link to this section">#</a></h3>
+<p>It is a USB network link between host and IMM (IMM side 169.254.95.118) used by ASU, DSA and firmware updates
+(<span class="tl tl-documented">DOCUMENTED</span>). See <a href="../volumes/imm-interfaces.html#10-lan-over-usb-in-band-network-interface">IMM interfaces 10</a>.</p>
+<h3 id="how-do-i-run-diagnostics">How do I run diagnostics? <a class="anchor" href="#how-do-i-run-diagnostics" aria-label="Link to this section">#</a></h3>
+<p>Press F2 at POST to start Preboot DSA from IMM flash, or run DSA Portable from the OS (<span class="tl tl-documented">DOCUMENTED</span>). See
+<a href="../volumes/tools.html#5-dsa---dynamic-system-analysis-portable-and-preboot">Tools 5</a> and the
+<a href="troubleshooting-guide.html#step-7-dsa-preboot">Troubleshooting guide</a>.</p>
+<h2 id="storage">Storage <a class="anchor" href="#storage" aria-label="Link to this section">#</a></h2>
+<h3 id="which-raid-controller-is-typical-and-what-can-it-do">Which RAID controller is typical and what can it do? <a class="anchor" href="#which-raid-controller-is-typical-and-what-can-it-do" aria-label="Link to this section">#</a></h3>
+<p>The ServeRAID M1015 (LSI SAS2008): RAID 0, 1 and 10, RAID 5/50 with an upgrade key, no cache and no battery
+(<span class="tl tl-documented">DOCUMENTED</span>). See <a href="../volumes/storage-raid.html#41-serveraid-m1015-raid">Storage 4.1</a> and
+<a href="../volumes/storage-raid.html#9-raid-levels-feature-keys-and-limits">Storage 9</a>.</p>
+<h3 id="which-tool-manages-the-m1015-from-linux">Which tool manages the M1015 from Linux? <a class="anchor" href="#which-tool-manages-the-m1015-from-linux" aria-label="Link to this section">#</a></h3>
+<p>StorCLI (the newest Linux build found is 1.16.14); the IBM 6Gb SAS HBA uses SAS2IRCU and SAS2FLASH instead
+(<span class="tl tl-documented">DOCUMENTED</span>). See <a href="../volumes/tools.html#10-storcli-serveraid-m1015">Tools 10</a> and
+<a href="../volumes/tools.html#11-sas2ircu-and-sas2flash-ibm-6gb-sas-hba">Tools 11</a>.</p>
+<h3 id="can-i-flash-it-firmware-over-ir-on-the-sas-hba">Can I flash IT firmware over IR on the SAS HBA? <a class="anchor" href="#can-i-flash-it-firmware-over-ir-on-the-sas-hba" aria-label="Link to this section">#</a></h3>
+<p>The bundled SAS2FLASH refuses to cross the IT/IR personality and refuses NVDATA downgrades (<span class="tl tl-extracted">EXTRACTED</span>). See
+<a href="../volumes/storage-raid.html#71-hba-6gb-package-120-analysis-offline-2026-10-21">Storage 7.1</a>.</p>
+<h2 id="about-this-library">About this library <a class="anchor" href="#about-this-library" aria-label="Link to this section">#</a></h2>
+<h3 id="can-i-trust-every-statement-here">Can I trust every statement here? <a class="anchor" href="#can-i-trust-every-statement-here" aria-label="Link to this section">#</a></h3>
+<p>Each statement carries a truth level: <span class="tl tl-documented">DOCUMENTED</span> and <span class="tl tl-measured">MEASURED</span> facts are strongest, <span class="tl tl-candidate">CANDIDATE</span> is reasoning that
+still needs proof, <span class="tl tl-unknown">UNKNOWN</span> means no source. See the <a href="reading-guide.html">Reading guide</a>.</p>
+<h3 id="does-the-library-contain-firmware-binaries">Does the library contain firmware binaries? <a class="anchor" href="#does-the-library-contain-firmware-binaries" aria-label="Link to this section">#</a></h3>
+<p>No. It publishes analysis, metadata and checksums only; vendor documents and firmware remain the property of
+IBM and Lenovo. See <a href="about.html">About</a>.</p>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="glossary.html"><span>Previous</span>Glossary</a>
+<a class="next" href="timeline.html"><span>Next</span>Timeline</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#identity-and-hardware">Identity and hardware</a></li><li class="l3"><a href="#which-machine-types-are-covered">Which machine types are covered?</a></li><li class="l3"><a href="#which-processors-does-it-take">Which processors does it take?</a></li><li class="l3"><a href="#how-much-memory-can-it-hold-and-how-fast-does-it-run">How much memory can it hold, and how fast does it run?</a></li><li class="l3"><a href="#can-i-mix-rdimms-and-udimms">Can I mix RDIMMs and UDIMMs?</a></li><li class="l3"><a href="#why-does-the-server-not-beep">Why does the server not beep?</a></li><li class="l3"><a href="#what-are-the-j29-and-j147-jumpers-for">What are the J29 and J147 jumpers for?</a></li><li class="l2"><a href="#imm-management-controller">IMM (management controller)</a></li><li class="l3"><a href="#what-is-the-default-imm-login-and-address">What is the default IMM login and address?</a></li><li class="l3"><a href="#is-the-imm-the-same-as-imm2-or-xclarity-controller">Is the IMM the same as IMM2 or XClarity Controller?</a></li><li class="l3"><a href="#which-interfaces-does-the-imm-offer">Which interfaces does the IMM offer?</a></li><li class="l3"><a href="#how-do-i-get-a-remote-graphical-console">How do I get a remote graphical console?</a></li><li class="l3"><a href="#how-do-i-read-the-imm-event-log-from-the-command-line">How do I read the IMM event log from the command line?</a></li><li class="l3"><a href="#what-does-an-imm-event-id-such-as-80010202-2801xxxx-mean">What does an IMM event id such as 80010202-2801xxxx mean?</a></li><li class="l3"><a href="#why-does-the-imm-web-interface-feel-slow-or-need-old-javaactivex">Why does the IMM web interface feel slow or need old Java/ActiveX?</a></li><li class="l2"><a href="#firmware">Firmware</a></li><li class="l3"><a href="#what-is-the-latest-firmware">What is the latest firmware?</a></li><li class="l3"><a href="#in-what-order-should-firmware-be-updated">In what order should firmware be updated?</a></li><li class="l3"><a href="#can-i-downgrade-the-imm">Can I downgrade the IMM?</a></li><li class="l3"><a href="#why-does-a-uefi-update-need-a-second-reboot">Why does a UEFI update need a second reboot?</a></li><li class="l3"><a href="#are-imm-firmware-images-signed">Are IMM firmware images signed?</a></li><li class="l3"><a href="#where-can-i-still-download-the-packages">Where can I still download the packages?</a></li><li class="l3"><a href="#which-cpu-security-fixes-need-a-uefi-update">Which CPU security fixes need a UEFI update?</a></li><li class="l3"><a href="#can-i-use-onecli-instead-of-asu-dsa-and-uxspi">Can I use OneCLI instead of ASU, DSA and UXSPI?</a></li><li class="l2"><a href="#configuration-and-tools">Configuration and tools</a></li><li class="l3"><a href="#how-do-i-change-uefi-settings-without-a-monitor">How do I change UEFI settings without a monitor?</a></li><li class="l3"><a href="#how-do-i-get-a-text-console-on-the-host-serial-port">How do I get a text console on the host serial port?</a></li><li class="l3"><a href="#which-operating-mode-should-i-pick">Which operating mode should I pick?</a></li><li class="l3"><a href="#what-does-lan-over-usb-do-and-why-is-it-there">What does LAN over USB do and why is it there?</a></li><li class="l3"><a href="#how-do-i-run-diagnostics">How do I run diagnostics?</a></li><li class="l2"><a href="#storage">Storage</a></li><li class="l3"><a href="#which-raid-controller-is-typical-and-what-can-it-do">Which RAID controller is typical and what can it do?</a></li><li class="l3"><a href="#which-tool-manages-the-m1015-from-linux">Which tool manages the M1015 from Linux?</a></li><li class="l3"><a href="#can-i-flash-it-firmware-over-ir-on-the-sas-hba">Can I flash IT firmware over IR on the SAS HBA?</a></li><li class="l2"><a href="#about-this-library">About this library</a></li><li class="l3"><a href="#can-i-trust-every-statement-here">Can I trust every statement here?</a></li><li class="l3"><a href="#does-the-library-contain-firmware-binaries">Does the library contain firmware binaries?</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

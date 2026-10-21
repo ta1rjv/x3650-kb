@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knowledge Base Plan - x3650 M3 Library</title>
+<meta name="description" content="Target: the deepest practical engineering model of the IBM System x3650 M3 (7945KEG) - hardware, IMM, UEFI, firmware formats, management interfaces, error codes, security and optimization - every ...">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="about" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="../pages/reading-guide.html">Reading Guide</a></li>
+<li><a href="../pages/system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="../pages/firmware-guide.html">Firmware Guide</a></li>
+<li><a href="../pages/imm-guide.html">IMM Guide</a></li>
+<li><a href="../pages/uefi-guide.html">UEFI Guide</a></li>
+<li><a href="../pages/troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="../pages/tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="../pages/glossary.html">Glossary</a></li>
+<li><a href="../pages/faq.html">FAQ</a></li>
+<li><a href="../pages/timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="../pages/about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="../volumes/knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="../volumes/system-architecture.html">System Architecture</a></li>
+<li><a href="../volumes/hardware-components.html">Hardware Components</a></li>
+<li><a href="../volumes/memory.html">Memory</a></li>
+<li><a href="../volumes/storage-raid.html">Storage and RAID</a></li>
+<li><a href="../volumes/power-thermal.html">Power and Thermal</a></li>
+<li><a href="../volumes/sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="../volumes/imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="../volumes/imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="../volumes/imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="../volumes/serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="../volumes/uefi.html">UEFI Firmware</a></li>
+<li><a href="../volumes/firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="../volumes/firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="../volumes/firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="../volumes/error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="../volumes/tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="../volumes/optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="requirements.html">Requirements</a></li>
+<li><a href="kb-plan.html" aria-current="page">Knowledge Base Plan</a></li>
+<li><a href="decisions.html">Decisions</a></li>
+<li><a href="publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>About this project</li><li aria-current="page">Knowledge Base Plan</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">About this project</p>
+<h1>Knowledge Base Plan</h1>
+<p class="lede">Target: the deepest practical engineering model of the IBM System x3650 M3 (7945KEG) - hardware, IMM, UEFI, firmware formats, management interfaces, error codes, security and optimization - every fact with source and truth level (docs/AGENT.md).</p>
+<p class="meta"><span class="source">source: <code>docs/KB_PLAN.md</code></span> <span>2 sections</span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#common-inputs">Common inputs</a></li><li class="l2"><a href="#documents">Documents</a></li></ul></nav></details>
+<div class="prose">
+<p>Target: the deepest practical engineering model of the IBM System x3650 M3 (7945KEG) - hardware, IMM,
+UEFI, firmware formats, management interfaces, error codes, security and optimization - every fact with
+source and truth level (docs/AGENT.md).</p>
+<h2 id="common-inputs">Common inputs <a class="anchor" href="#common-inputs" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Vendor documents: sources/SOURCES.md, PDFs in sources/pdf/, text in sources/text/ (pdftotext -layout)</li>
+<li>Archived infocenter: sources/infocenter/7945/ (Wayback mirror)</li>
+<li>Live captures: captures/ (read-only)</li>
+<li>Firmware: firmware/ibm/, firmware/lenovo/ (catalog sources/lenovo/CATALOG.md)</li>
+</ul>
+<h2 id="documents">Documents <a class="anchor" href="#documents" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Wave</th>
+<th>Document</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>X3650M3_SYSTEM_ARCHITECTURE.md</td>
+<td>Block diagram: CPUs, QPI, 5520 IOH, ICH10, DMI, PCIe topology (measured lspci), IMM attachment, video, USB, clocks</td>
+</tr>
+<tr>
+<td>1</td>
+<td>X3650M3_HARDWARE_COMPONENTS.md</td>
+<td>System board layout, connectors, jumpers/switches, LEDs, risers/slots, backplanes, PSUs, fans, light path, FRU/CRU part numbers, installed FRUs</td>
+</tr>
+<tr>
+<td>1</td>
+<td>X3650M3_MEMORY.md</td>
+<td>DIMM slots/channels, population order, speeds/ranks/voltage, RAS (mirroring, sparing, Chipkill), installed config, upgrade paths</td>
+</tr>
+<tr>
+<td>1</td>
+<td>X3650M3_STORAGE_RAID.md</td>
+<td>M1015/SAS2008, second HBA, backplanes, drive bays, firmware levels, configuration utilities</td>
+</tr>
+<tr>
+<td>1</td>
+<td>X3650M3_ERROR_CODES.md</td>
+<td>POST/UEFI event codes, IMM event log messages, light path, DSA test codes, checkpoint codes, beep codes, symptom tables with actions</td>
+</tr>
+<tr>
+<td>1</td>
+<td>X3650M3_IMM_ARCHITECTURE.md</td>
+<td>IMM v1 internals, services, ports, users/auth, LAN-over-USB, banks, update flow, Standard vs Premium, measured config</td>
+</tr>
+<tr>
+<td>1</td>
+<td>X3650M3_FIRMWARE_FORMATS.md</td>
+<td>IBM .bin/.exe/.xml/.chg packages, .upd and UEFI image structure, iflash, unpack tooling</td>
+</tr>
+<tr>
+<td>1</td>
+<td>X3650M3_UEFI.md</td>
+<td>UEFI architecture, POST flow, setup menus and options, ASU setting names/values, operating modes, image analysis of 1.22 vs 1.14</td>
+</tr>
+<tr>
+<td>2</td>
+<td>X3650M3_IMM_INTERFACES.md</td>
+<td>Web UI map, CLI reference, IPMI (standard + IBM OEM), SOL, SNMP MIB, CIM/WS-Man, SLP - from docs plus live read-only probing</td>
+</tr>
+<tr>
+<td>2</td>
+<td>X3650M3_SENSORS_SDR.md</td>
+<td>Full SDR decode: sensors, numbers, thresholds, entity IDs, fan zones, measured values</td>
+</tr>
+<tr>
+<td>2</td>
+<td>X3650M3_POWER_THERMAL.md</td>
+<td>PSUs, power capping/metering, fan control, thermal thresholds, acoustics</td>
+</tr>
+<tr>
+<td>2</td>
+<td>X3650M3_TOOLS.md</td>
+<td>ASU, DSA, UXSPI, BoMC, OneCLI, iflash, ipmitool usage from the Proxmox host</td>
+</tr>
+<tr>
+<td>2</td>
+<td>X3650M3_SECURITY_REVIEW.md</td>
+<td>IMM/IPMI/TLS/SNMP posture, CVEs per firmware level, hardening checklist</td>
+</tr>
+<tr>
+<td>2</td>
+<td>X3650M3_OPTIMIZATION.md</td>
+<td>Proxmox host tuning: operating mode, C-states, turbo, memory, fans, power, firmware upgrade path</td>
+</tr>
+<tr>
+<td>3</td>
+<td>X3650M3_KNOWLEDGE_BASE.md</td>
+<td>Master index and cross-reference</td>
+</tr>
+<tr>
+<td>-</td>
+<td>X3650M3_FIRMWARE_HISTORY.md</td>
+<td>done (P1)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="requirements.html"><span>Previous</span>Requirements</a>
+<a class="next" href="decisions.html"><span>Next</span>Decisions</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#common-inputs">Common inputs</a></li><li class="l2"><a href="#documents">Documents</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

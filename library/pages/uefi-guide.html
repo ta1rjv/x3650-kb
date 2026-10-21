@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UEFI Guide - x3650 M3 Library</title>
+<meta name="description" content="The x3650 M3 system firmware - POST flow, the F1 Setup tree, ASU setting names, operating modes, console redirection, flash banks and recovery jumpers, microcode and what changed between releases.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="page" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="reading-guide.html">Reading Guide</a></li>
+<li><a href="system-at-a-glance.html">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="firmware-guide.html">Firmware Guide</a></li>
+<li><a href="imm-guide.html">IMM Guide</a></li>
+<li><a href="uefi-guide.html" aria-current="page">UEFI Guide</a></li>
+<li><a href="troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="faq.html">FAQ</a></li>
+<li><a href="timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="../volumes/knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="../volumes/system-architecture.html">System Architecture</a></li>
+<li><a href="../volumes/hardware-components.html">Hardware Components</a></li>
+<li><a href="../volumes/memory.html">Memory</a></li>
+<li><a href="../volumes/storage-raid.html">Storage and RAID</a></li>
+<li><a href="../volumes/power-thermal.html">Power and Thermal</a></li>
+<li><a href="../volumes/sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="../volumes/imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="../volumes/imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="../volumes/imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="../volumes/serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="../volumes/uefi.html">UEFI Firmware</a></li>
+<li><a href="../volumes/firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="../volumes/firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="../volumes/firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="../volumes/error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="../volumes/tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="../volumes/optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Guides</li><li aria-current="page">UEFI Guide</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">Guides</p>
+<h1>UEFI Guide</h1>
+<p class="lede">The x3650 M3 system firmware - POST flow, the F1 Setup tree, ASU setting names, operating modes, console redirection, flash banks and recovery jumpers, microcode and what changed between releases.</p>
+<p class="meta"><span class="source">source: <code>site/pages/uefi-guide.md</code></span> <span>9 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">3</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">8</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">10</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">1</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">2</span> <span class="tl tl-not-verified">NOT VERIFIED</span><span class="n">1</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#architecture-and-post-flow">Architecture and POST flow</a></li><li class="l2"><a href="#setup-utility-f1">Setup utility (F1)</a></li><li class="l2"><a href="#asu-setting-names">ASU setting names</a></li><li class="l2"><a href="#operating-modes">Operating modes</a></li><li class="l2"><a href="#serial-console-redirection">Serial console redirection</a></li><li class="l2"><a href="#banks-recovery-and-jumpers">Banks, recovery and jumpers</a></li><li class="l2"><a href="#microcode">Microcode</a></li><li class="l2"><a href="#what-changes-between-releases">What changes between releases</a></li><li class="l2"><a href="#open-questions">Open questions</a></li></ul></nav></details>
+<div class="prose">
+<p>The x3650 M3 was among IBM's early UEFI servers: its system firmware is UEFI 2.1 compliant, keeps a legacy BIOS
+compatibility module for older operating systems and adapters, and shares its configuration with the IMM. This guide
+summarises the <a href="../volumes/uefi.html#1-summary">UEFI volume</a>; package and image formats are in the
+<a href="firmware-guide.html#uefi">firmware guide</a> and <a href="../volumes/firmware-formats.html#6-uefi-flash-image-structure">Firmware formats 6</a>.</p>
+<h2 id="architecture-and-post-flow">Architecture and POST flow <a class="anchor" href="#architecture-and-post-flow" aria-label="Link to this section">#</a></h2>
+<p><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-024">S-024</a>, IBM's "Introducing uEFI-Compliant Firmware" paper) unless noted
+(<a href="../volumes/uefi.html#2-architecture-and-post-flow">UEFI 2</a>):</p>
+<ol>
+<li><strong>IMM initialisation and power sequencing.</strong> The IMM must be up before the host can start; this is why the power
+   button only works some minutes after AC is applied.</li>
+<li><strong>Platform initialisation</strong> (SEC and PEI phases): CPU, QPI and memory initialisation. The early code is the
+   <code>Capsule_P.scap</code> image of the flash package (<span class="tl tl-extracted">EXTRACTED</span>).</li>
+<li><strong>Pre-boot DXE</strong>: drivers, option ROMs, the Setup engine (<code>FvDxe.fv</code>, <code>FvPlatform.fv</code>, <span class="tl tl-extracted">EXTRACTED</span>).</li>
+<li><strong>BDS</strong> (boot device selection): UEFI boot entries or legacy boot through the CSM (<code>LegacyBios</code> module,
+   <span class="tl tl-extracted">EXTRACTED</span>).</li>
+</ol>
+<p>Configuration lives in two tiers: UEFI NVRAM variables, and an XML-modelled store held by the IMM that ASU uses for
+every setting (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> p.15). Adapters present their configuration through HII forms (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> p.16).</p>
+<p>RAS features of the firmware (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> pp.17-18): a locked CRTM region (a CRTM update is staged and applied at the next
+boot; the resulting power-good reset is expected), firmware volume integrity checks, a power-sequence watchdog, a POST
+watchdog (off by default), dual banks with automatic bank recovery, and a recovery behaviour after three consecutive
+boot failures. The update capsule carries an RSA2048-SHA256 signature trailer (<span class="tl tl-extracted">EXTRACTED</span>); POST codes 3818005-3818007
+report invalid CRTM capsule signatures (<span class="tl tl-documented">DOCUMENTED</span>, <a class="sref" href="../catalog/sources.html#s-004">S-004</a>).</p>
+<p>Boot progress is reported as checkpoint codes on the light path panel display: 0x00-0x0F CPU init, 0x10-0x1F PEI,
+0x20-0x9E DXE, 0x9F POST complete, 0xA0-0xAF QPI, 0xB0-0xBF memory, 0xE8 no memory, 0xEE invalid DIMM population
+(<a class="sref" href="../catalog/sources.html#s-024">S-024</a> pp.27-28; a per-code table for this server is <span class="tl tl-unknown">UNKNOWN</span>)
+(<a href="../volumes/error-codes.html#7-checkpoint-codes">Error codes 7</a>).</p>
+<p>Secure Boot is not supported: on the reference unit no Secure Boot variables exist and <code>mokutil</code> reports no support
+(<span class="tl tl-measured">MEASURED</span>, <a href="../volumes/uefi.html#122-secure-boot">UEFI 12.2</a>).</p>
+<h2 id="setup-utility-f1">Setup utility (F1) <a class="anchor" href="#setup-utility-f1" aria-label="Link to this section">#</a></h2>
+<p>Press F1 at the prompt. With an administrator password set, entering it gives the full menu; otherwise a limited menu
+is shown (<span class="tl tl-documented">DOCUMENTED</span>, <a class="sref" href="../catalog/sources.html#s-002">S-002</a> pp.158-162). The tree (<a href="../volumes/uefi.html#4-setup-utility-menu-tree">UEFI 4</a>):</p>
+<ul>
+<li><strong>System Information</strong>: System Summary, Product Data (and, from the extracted forms, Reference Code Level and
+  Processor Details Summary).</li>
+<li><strong>System Settings</strong>: Processors, Memory, Devices and I/O Ports, Power, Operating Modes, Legacy Support, Integrated
+  Management Module (POST watchdog, Reboot System on NMI, Commands on USB Interface Preference, Network
+  Configuration, Reset IMM to Defaults, Reset IMM), Adapters and UEFI Drivers, Network, Storage, Video.</li>
+<li><strong>Date and Time</strong>, <strong>Start Options</strong>, <strong>Boot Manager</strong> (boot order, driver options, one-time boot, WOL boot
+  options, time-out, console options, COM attributes), <strong>System Event Logs</strong> (POST Event Viewer, System Event Log,
+  clear), <strong>User Security</strong> (power-on and administrator passwords), <strong>Save Settings</strong>, <strong>Restore Settings</strong>, <strong>Load
+  Default Settings</strong>, <strong>Exit Setup</strong>.</li>
+</ul>
+<p>The extracted HII forms of 1.22 contain 27 formsets; the platform module alone renders about 1478 lines of options.
+Highlights per page (<span class="tl tl-extracted">EXTRACTED</span>, <a href="../volumes/uefi.html#5-setup-forms-and-options-from-extracted-hii-forms">UEFI 5</a>):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Main options</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Processors</td>
+<td>Turbo Mode, Turbo Boost, C-states, C-state limit, Hyper-Threading, VT, Data Reuse, QPI link speed, active cores</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>Memory speed, 2DPC maximum frequency, LV-DIMM power, channel mode (Independent / Mirroring / Sparing), spare error threshold, socket / channel / rank interleave, patrol and demand scrub, page policy, data scrambling, thermal mode</td>
+</tr>
+<tr>
+<td>Operating Modes</td>
+<td>Operating mode, Quiet Boot, POST Attempts Limit, IPv6, SMBIOS 2.5+ mode</td>
+</tr>
+<tr>
+<td>Devices and I/O Ports</td>
+<td>Onboard device enables, option ROM support and order, PCIe Gen1/Gen2 per slot, USB ports, console redirection (COM1/COM2, SOL, serial port sharing and access mode, terminal settings)</td>
+</tr>
+<tr>
+<td>Legacy Support</td>
+<td>Force legacy video, infinite boot retry, Rehook INT 19h, legacy serial redirection, legacy thunk</td>
+</tr>
+<tr>
+<td>Advanced</td>
+<td>ICH10 configuration (USB, SATA, networking), PCI Express root ports 1-6, interrupt round robin</td>
+</tr>
+<tr>
+<td>System Security</td>
+<td>TPM</td>
+</tr>
+<tr>
+<td>Integrated Management Module</td>
+<td>POST watchdog and value (5-20 minutes), Reboot on NMI, commands on USB interface, IMM network settings (VLAN from 1.22), synchronize IMM clock, reset IMM</td>
+</tr>
+<tr>
+<td>Power</td>
+<td>Power restore policy, Active Energy Manager capping, processor performance states, PCIe ASPM</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="asu-setting-names">ASU setting names <a class="anchor" href="#asu-setting-names" aria-label="Link to this section">#</a></h2>
+<p>Every Setup option that has an ASU name can be read and written from the OS or over the network with the Advanced
+Settings Utility (see the <a href="tools-guide.html#asu---advanced-settings-utility">tools guide</a>). The setting list comes from
+an XML document inside <code>FvOem_Ibm.fv</code>: in UEFI 1.22 it defines 209 top-level settings (202 <code>uEFI.*</code>, 4 <code>iSCSI.*</code>,
+3 <code>PXE.*</code>) and 147 sub-settings; the ASU name is <code>&lt;config mriName&gt;.&lt;setting mriName&gt;</code>, not the XML <code>ID</code> attribute
+(<span class="tl tl-extracted">EXTRACTED</span>; naming rule <span class="tl tl-documented">DOCUMENTED</span> by <a class="sref" href="../catalog/sources.html#s-026">S-026</a>) (<a href="../volumes/uefi.html#7-asu-settings-s-026-and-the-setup-xml">UEFI 7</a>; the
+full table is <a href="../volumes/uefi.html#appendix-a-full-asu-setting-table-uefi-122">UEFI Appendix A</a>).</p>
+<p>Selected settings and their 1.22 defaults (<span class="tl tl-extracted">EXTRACTED</span>; <code>*</code> = default):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ASU name</th>
+<th>Meaning</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>uEFI.OperatingMode</code></td>
+<td>Operating mode</td>
+<td>Custom Mode*, Acoustic, Efficiency, Performance</td>
+</tr>
+<tr>
+<td><code>uEFI.TurboModeEnable</code> / <code>uEFI.TurboBoost</code></td>
+<td>Turbo</td>
+<td>Disable<em> / Power Optimized</em>, Traditional</td>
+</tr>
+<tr>
+<td><code>uEFI.ProcessorCcxEnable</code></td>
+<td>CPU C-states</td>
+<td>Disable*</td>
+</tr>
+<tr>
+<td><code>uEFI.PackageCState</code></td>
+<td>C-state limit</td>
+<td>ACPI C2* in 1.22 (ACPI C3 in 1.14)</td>
+</tr>
+<tr>
+<td><code>uEFI.ProcessorHyperThreading</code></td>
+<td>Hyper-Threading</td>
+<td>Enable*</td>
+</tr>
+<tr>
+<td><code>uEFI.ProcessorVmxEnable</code> / <code>uEFI.VTdSupport</code></td>
+<td>VT-x / VT-d</td>
+<td>Enable<em> / Disable</em></td>
+</tr>
+<tr>
+<td><code>uEFI.DdrSpeed</code> / <code>uEFI.QPISpeed</code></td>
+<td>Memory / QPI speed</td>
+<td>Max Performance*, Minimal Power, Power Efficiency</td>
+</tr>
+<tr>
+<td><code>uEFI.MemoryChannelMode</code></td>
+<td>Memory mode</td>
+<td>Independent*, Mirroring, Sparing</td>
+</tr>
+<tr>
+<td><code>uEFI.PatrolScrub</code> / <code>uEFI.DemandScrub</code></td>
+<td>Scrubbing</td>
+<td>Disable<em> / Enable</em></td>
+</tr>
+<tr>
+<td><code>uEFI.PostAttemptsLimit</code></td>
+<td>Nx boot failure</td>
+<td>3*, 6, 9, Disable</td>
+</tr>
+<tr>
+<td><code>uEFI.PowerState</code></td>
+<td>Power restore policy</td>
+<td>Restore*, Always Off, Always On</td>
+</tr>
+<tr>
+<td><code>uEFI.EnergyManager</code></td>
+<td>AEM power capping</td>
+<td>Enable*</td>
+</tr>
+<tr>
+<td><code>uEFI.WatchdogTimerUefi</code></td>
+<td>POST watchdog</td>
+<td>Disable*</td>
+</tr>
+<tr>
+<td><code>uEFI.LimitBootAttempts</code></td>
+<td>Limit boot attempts (1.22 only)</td>
+<td>Enable*</td>
+</tr>
+<tr>
+<td><code>uEFI.TpmEnable</code></td>
+<td>TPM</td>
+<td>Disable*</td>
+</tr>
+<tr>
+<td><code>uEFI.Com1BaudRate</code></td>
+<td>COM1 speed</td>
+<td>115200*</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two default conflicts are recorded: the C-state limit default (form versus XML) and the 1.14 CPU C-state default
+(<a href="../volumes/uefi.html#10-source-conflicts">UEFI 10</a>). IMM settings use the <code>IMM.</code> prefix and are listed in
+<a href="../volumes/imm-interfaces.html#11-asu-as-a-configuration-interface">IMM interfaces 11</a>.</p>
+<h2 id="operating-modes">Operating modes <a class="anchor" href="#operating-modes" aria-label="Link to this section">#</a></h2>
+<p>The <strong>Operating Modes</strong> page sets several parameters at once (<span class="tl tl-extracted">EXTRACTED</span>; the mode-to-column assignment is <span class="tl tl-candidate">CANDIDATE</span>
+because the tool does not render the IFR OR operators) (<a href="../volumes/uefi.html#6-operating-modes">UEFI 6</a>):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Acoustic</th>
+<th>Efficiency</th>
+<th>Performance</th>
+<th>Custom (default)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Memory speed</td>
+<td>Minimal Power</td>
+<td>Power Efficiency</td>
+<td>Max Performance</td>
+<td>selectable (Max Performance)</td>
+</tr>
+<tr>
+<td>Processor performance states</td>
+<td>Enabled</td>
+<td>Enabled</td>
+<td>Disabled</td>
+<td>selectable (Enabled)</td>
+</tr>
+<tr>
+<td>C1 Enhanced mode</td>
+<td>Enabled</td>
+<td>Enabled</td>
+<td>Disabled</td>
+<td>selectable (Enabled)</td>
+</tr>
+<tr>
+<td>QPI link speed</td>
+<td>Minimal Power</td>
+<td>Minimal Power</td>
+<td>Max Performance</td>
+<td>selectable (Max Performance)</td>
+</tr>
+<tr>
+<td>Turbo mode</td>
+<td>Disabled</td>
+<td>Disabled</td>
+<td>Enabled</td>
+<td>selectable (Disabled)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Help text: "Efficiency: Highest performance per watt. Acoustic: Lower acoustic level and lowest power. Performance:
+Highest performance. Custom: Customized settings." A non-Custom mode makes the individual questions read-only. The
+thermal and power effect is discussed in <a href="../volumes/power-thermal.html#9-uefi-powerperformance-modes-and-their-thermal-effect">Power and thermal 9</a>.</p>
+<h2 id="serial-console-redirection">Serial console redirection <a class="anchor" href="#serial-console-redirection" aria-label="Link to this section">#</a></h2>
+<p>To see POST, Setup and the boot manager over IPMI Serial over LAN or the IMM CLI <code>console 1</code>, IBM's ASU example for
+IMM servers enables <code>uEFI.RemoteConsoleRedirection</code>, <code>uEFI.SerialPortSharing</code>, <code>uEFI.SerialPortAccessMode</code>
+(Dedicated; RETAIN H205981 warns that a session is lost after an IMM reset in Shared mode), <code>uEFI.SPRedirection</code>,
+VT100 terminal emulation and "active after boot" on the COM ports (<span class="tl tl-documented">DOCUMENTED</span>, <a class="sref" href="../catalog/sources.html#s-025">S-025</a>). All of these default to
+Disable / ANSI in 1.22 (<span class="tl tl-extracted">EXTRACTED</span>). On rack servers COM1 carries SOL and COM2 serves CLI redirection (<span class="tl tl-documented">DOCUMENTED</span>,
+<a class="sref" href="../catalog/sources.html#s-020">S-020</a>). After such a change on the reference unit the ConIn/ConOut NVRAM variables listed both UARTs at 115200 8N1
+VT100 (<span class="tl tl-measured">MEASURED</span>); serial output during POST itself was <span class="tl tl-not-verified">NOT VERIFIED</span>
+(<a href="../volumes/uefi.html#123-console-variables-evidence-for-the-2026-10-20-console-redirection-change">UEFI 12.3</a>).
+The system summary is always shown on text remote consoles regardless of Quiet Boot (<a class="sref" href="../catalog/sources.html#s-024">S-024</a>).</p>
+<h2 id="banks-recovery-and-jumpers">Banks, recovery and jumpers <a class="anchor" href="#banks-recovery-and-jumpers" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>Two banks.</strong> The UEFI flash has a primary and a backup bank (<span class="tl tl-documented">DOCUMENTED</span>, <a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.372). SMBIOS OEM strings
+  report the current bank and the backup level ("$CF Current UEFI Flash Bank", <span class="tl tl-measured">MEASURED</span> on the reference unit).</li>
+<li><strong>Restoring the primary</strong> after a bad update: update the primary bank, boot once from the backup, then switch back by
+  removing AC for 15 seconds or pressing F3 at the splash screen (<a class="sref" href="../catalog/sources.html#s-024">S-024</a> p.18; <a class="sref" href="../catalog/sources.html#s-004">S-004</a> p.372).</li>
+<li><strong>Jumper J29</strong> (UEFI boot recovery): pins 1-2 normal, 2-3 load the backup page; change only with power off. Adapters
+  on riser 2 may have to be removed to reach it (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> pp.372-373).</li>
+<li><strong>Automatic boot failure recovery (ABR)</strong>: POST 3048006 = booted the backup image because of ABR; 3048005 = the
+  backup switch was used.</li>
+<li><strong>Nx boot failure</strong>: after 3, 6 or 9 failed POST attempts (Setup -&gt; Operating Modes -&gt; POST Attempts Limit) the
+  firmware loads defaults and enters Setup (POST 3058004, 3108007).</li>
+<li><strong>Clear CMOS</strong>: switch SW3-1 (power off, cover removed) resets UEFI settings
+  (<a href="../volumes/hardware-components.html#4-jumpers-and-switches">Hardware 4</a>).</li>
+<li><strong>Backup-bank flashing</strong>: iflash <code>--backup</code>; RETAIN H196209 warns that updating the UEFI backup with the IMM32F
+  method may fail (<a href="../volumes/uefi.html#3-firmware-banks-recovery-and-jumpers">UEFI 3</a>).</li>
+</ul>
+<h2 id="microcode">Microcode <a class="anchor" href="#microcode" aria-label="Link to this section">#</a></h2>
+<p>Each UEFI image carries six Intel microcode updates (Nehalem-EP 0x106A4/0x106A5 and Westmere-EP 0x206C0/1/2). For the
+common Westmere-EP stepping 0x206C2: 1.13 ships revision 0x14, 1.14 ships 0x15 (2011-08-26), 1.22 ships 0x1F
+(2018-05-08); the Spectre v2 and SSB mitigations arrived with 1.21 and 1.22 (<span class="tl tl-extracted">EXTRACTED</span> / <span class="tl tl-documented">DOCUMENTED</span>). An OS can also
+load newer microcode at boot without flashing (discussed in
+<a href="../volumes/optimization.html#104-no-flash-alternative-for-microcode-r-b1">Optimization 10.4</a>)
+(<a href="../volumes/uefi.html#9-microcode">UEFI 9</a>).</p>
+<h2 id="what-changes-between-releases">What changes between releases <a class="anchor" href="#what-changes-between-releases" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th>Modules</th>
+<th>Notable setup changes</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.13 -&gt; 1.14</td>
+<td>150 of 178 modules changed</td>
+<td>-</td>
+<td><a href="../volumes/uefi.html#81-image-analysis-122-versus-installed-113-d6e154a">UEFI 8.1</a></td>
+</tr>
+<tr>
+<td>1.14 -&gt; 1.22</td>
+<td>154 differ at file level; 21 of 312 leaf files change substantively</td>
+<td>Memory Refresh and Static Driver Impedance added; IMM VLAN support and VLAN ID added; Limit Boot Attempts added; C-state limit default ACPI C3 -&gt; C2; Power C-States form default flips</td>
+<td><a href="../volumes/uefi.html#8-image-analysis-122-versus-114">UEFI 8</a></td>
+</tr>
+<tr>
+<td>1.13 -&gt; 1.22</td>
+<td>154 changed, 24 identical; 40 leaf files substantive</td>
+<td>as above plus microcode 0x14 -&gt; 0x1F</td>
+<td><a href="../volumes/uefi.html#81-image-analysis-122-versus-installed-113-d6e154a">UEFI 8.1</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>The full version history is in the <a href="firmware-guide.html#uefi">firmware guide</a> and on the <a href="timeline.html">timeline</a>.</p>
+<h2 id="open-questions">Open questions <a class="anchor" href="#open-questions" aria-label="Link to this section">#</a></h2>
+<p>The meaning of the <code>protected="true"</code> attribute on 134 settings, the per-code checkpoint table, the exact mapping of the
+IMM-side settings store and some form-to-XML mappings remain <span class="tl tl-unknown">UNKNOWN</span>
+(<a href="../volumes/uefi.html#11-open-questions--unknown">UEFI 11</a>).</p>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="imm-guide.html"><span>Previous</span>IMM Guide</a>
+<a class="next" href="troubleshooting-guide.html"><span>Next</span>Troubleshooting Guide</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#architecture-and-post-flow">Architecture and POST flow</a></li><li class="l2"><a href="#setup-utility-f1">Setup utility (F1)</a></li><li class="l2"><a href="#asu-setting-names">ASU setting names</a></li><li class="l2"><a href="#operating-modes">Operating modes</a></li><li class="l2"><a href="#serial-console-redirection">Serial console redirection</a></li><li class="l2"><a href="#banks-recovery-and-jumpers">Banks, recovery and jumpers</a></li><li class="l2"><a href="#microcode">Microcode</a></li><li class="l2"><a href="#what-changes-between-releases">What changes between releases</a></li><li class="l2"><a href="#open-questions">Open questions</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>System at a Glance - x3650 M3 Library</title>
+<meta name="description" content="A dense one-page datasheet of the x3650 M3 platform - processors, chipset, memory, storage, I/O, power, cooling, management and environment - with the source of every value.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../assets/library.css">
+<script>try{var t=localStorage.getItem("x3650-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body class="page" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<a class="brand" href="../index.html"><svg class="logo" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H11v17H5.5A1.5 1.5 0 0 1 4 18.5z M13 3h5.5A1.5 1.5 0 0 1 20 4.5v14a1.5 1.5 0 0 1-1.5 1.5H13z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7h2.5M6.5 10h2.5M15.5 7h2M15.5 10h2" stroke="currentColor" stroke-width="1.4"/></svg><span>x3650 M3 <em>Library</em></span></a>
+<form class="search" action="../search.html" role="search"><label for="q" class="vh">Search the library</label><input id="q" name="q" type="search" placeholder="Search the library" autocomplete="off" aria-controls="search-pop"><div id="search-pop" class="search-pop" hidden></div></form>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
+</header>
+<div class="layout">
+<nav class="sidenav" aria-label="Library contents"><details open><summary>Library contents</summary>
+<ul class="nav-top"><li><a href="../index.html">Library home</a></li><li><a href="../search.html">Search</a></li></ul>
+<h2 class="nav-h">Start here</h2><ul>
+<li><a href="reading-guide.html">Reading Guide</a></li>
+<li><a href="system-at-a-glance.html" aria-current="page">System at a Glance</a></li>
+</ul>
+<h2 class="nav-h">Guides</h2><ul>
+<li><a href="firmware-guide.html">Firmware Guide</a></li>
+<li><a href="imm-guide.html">IMM Guide</a></li>
+<li><a href="uefi-guide.html">UEFI Guide</a></li>
+<li><a href="troubleshooting-guide.html">Troubleshooting Guide</a></li>
+<li><a href="tools-guide.html">Tools Guide</a></li>
+</ul>
+<h2 class="nav-h">Reference</h2><ul>
+<li><a href="glossary.html">Glossary</a></li>
+<li><a href="faq.html">FAQ</a></li>
+<li><a href="timeline.html">Timeline</a></li>
+</ul>
+<h2 class="nav-h">About</h2><ul>
+<li><a href="about.html">About this library</a></li>
+</ul>
+<h2 class="nav-h">Volumes</h2><ul>
+<li class="nav-shelf">Start here</li>
+<li><a href="../volumes/knowledge-base.html">Knowledge Base Index</a></li>
+<li class="nav-shelf">Platform hardware</li>
+<li><a href="../volumes/system-architecture.html">System Architecture</a></li>
+<li><a href="../volumes/hardware-components.html">Hardware Components</a></li>
+<li><a href="../volumes/memory.html">Memory</a></li>
+<li><a href="../volumes/storage-raid.html">Storage and RAID</a></li>
+<li><a href="../volumes/power-thermal.html">Power and Thermal</a></li>
+<li><a href="../volumes/sensors-sdr.html">Sensors and SDR Decode</a></li>
+<li class="nav-shelf">Integrated Management Module</li>
+<li><a href="../volumes/imm-architecture.html">IMM (v1) Architecture</a></li>
+<li><a href="../volumes/imm-interfaces.html">IMM (v1) Management Interfaces</a></li>
+<li><a href="../volumes/imm-web-api.html">IMM 1.30 Web UI and WS-Man API</a></li>
+<li><a href="../volumes/serial-console.html">Serial Console Plan (remote console without the Virtual Media Key)</a></li>
+<li class="nav-shelf">Firmware</li>
+<li><a href="../volumes/uefi.html">UEFI Firmware</a></li>
+<li><a href="../volumes/firmware-formats.html">Firmware Package and Image Formats</a></li>
+<li><a href="../volumes/firmware-history.html">Firmware History and Naming</a></li>
+<li><a href="../volumes/firmware-update-plan.html">Firmware Update Plan</a></li>
+<li class="nav-shelf">Diagnostics and operations</li>
+<li><a href="../volumes/error-codes.html">Error Codes, Event Messages and Diagnostics</a></li>
+<li><a href="../volumes/tools.html">Management, Diagnostic and Update Tools</a></li>
+<li><a href="../volumes/optimization.html">Proxmox Host Optimization Guide</a></li>
+</ul>
+<h2 class="nav-h">Catalogs</h2><ul>
+<li><a href="../catalog/firmware.html">Firmware packages</a></li>
+<li><a href="../catalog/sources.html">Source documents</a></li>
+<li><a href="../catalog/tools.html">Scripts and tools</a></li>
+<li><a href="../catalog/files.html">Repository file index</a></li>
+</ul>
+<h2 class="nav-h">About this project</h2><ul>
+<li><a href="../about/requirements.html">Requirements</a></li>
+<li><a href="../about/kb-plan.html">Knowledge Base Plan</a></li>
+<li><a href="../about/decisions.html">Decisions</a></li>
+<li><a href="../about/publication.html">How this library is published</a></li>
+</ul>
+</details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Library</a></li><li>Start here</li><li aria-current="page">System at a Glance</li></ol></nav>
+<article>
+<header class="page-head">
+<p class="kicker">Start here</p>
+<h1>System at a Glance</h1>
+<p class="lede">A dense one-page datasheet of the x3650 M3 platform - processors, chipset, memory, storage, I/O, power, cooling, management and environment - with the source of every value.</p>
+<p class="meta"><span class="source">source: <code>site/pages/system-at-a-glance.md</code></span> <span>9 sections</span> <span class="tl-stats"><span class="tl tl-measured">MEASURED</span><span class="n">10</span> <span class="tl tl-documented">DOCUMENTED</span><span class="n">54</span> <span class="tl tl-extracted">EXTRACTED</span><span class="n">4</span> <span class="tl tl-candidate">CANDIDATE</span><span class="n">1</span> <span class="tl tl-unknown">UNKNOWN</span><span class="n">2</span></span></p>
+</header>
+<details class="toc-mobile"><summary>On this page</summary><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#identity">Identity</a></li><li class="l2"><a href="#processor-complex-and-chipset">Processor complex and chipset</a></li><li class="l2"><a href="#memory">Memory</a></li><li class="l2"><a href="#storage">Storage</a></li><li class="l2"><a href="#io-and-connectors">I/O and connectors</a></li><li class="l2"><a href="#power-and-cooling">Power and cooling</a></li><li class="l2"><a href="#management-and-firmware">Management and firmware</a></li><li class="l2"><a href="#environment">Environment</a></li><li class="l2"><a href="#not-in-this-library">Not in this library</a></li></ul></nav></details>
+<div class="prose">
+<p>One page with the platform facts that are asked for most often. Values are <span class="tl tl-documented">DOCUMENTED</span> unless the level column says
+otherwise; <span class="tl tl-measured">MEASURED</span> values come from the reference unit (see <a href="reading-guide.html">reading guide</a>). Each row links to
+the volume section that holds the full evidence, conflicts and open questions.</p>
+<h2 id="identity">Identity <a class="anchor" href="#identity" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Level</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product</td>
+<td>IBM System x3650 M3</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><code>sources/SOURCES.md</code></td>
+</tr>
+<tr>
+<td>Machine types</td>
+<td>7945, 4255, 7376 (same guides; 7949 = IBM Smart Analytics System 5600 on the same platform). Not to be mixed with 5454 (x3650 M3 HF) or 7944 (x3550 M3)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a>, <a class="sref" href="../catalog/sources.html#s-004">S-004</a>)</td>
+<td><code>sources/SOURCES.md</code> "Machine types"</td>
+</tr>
+<tr>
+<td>Model suffix</td>
+<td>"G" denotes an EMEA model</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (EMEA announcement ZG11-0012, <a class="sref" href="../catalog/sources.html#s-010">S-010</a>)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Withdrawn product (TIPS0805 is marked "withdrawn product")</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a>)</td>
+<td><a href="../volumes/memory.html#43-orderable-options-s-001-table-6-memory-options">Memory 4.3</a></td>
+</tr>
+<tr>
+<td>Form factor</td>
+<td>2U rack</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="../volumes/hardware-components.html#2-summary-what-is-installed-measured">Hardware 2</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="processor-complex-and-chipset">Processor complex and chipset <a class="anchor" href="#processor-complex-and-chipset" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Level</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sockets</td>
+<td>2 (Intel Xeon 5500 / 5600 series)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 1, <a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1)</td>
+<td><a href="../volumes/system-architecture.html#3-processor-complex">System architecture 3</a></td>
+</tr>
+<tr>
+<td>Interconnect</td>
+<td>QPI, up to 6.4 GT/s; QPI links CPU-CPU and CPU-IOH</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.12)</td>
+<td><a href="../volumes/system-architecture.html#3-processor-complex">System architecture 3</a></td>
+</tr>
+<tr>
+<td>Memory controller</td>
+<td>Integrated in each CPU, 3 DDR3 channels per CPU (NUMA)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a>)</td>
+<td><a href="../volumes/memory.html#2-memory-subsystem-architecture">Memory 2</a></td>
+</tr>
+<tr>
+<td>I/O hub</td>
+<td>Intel 5520 IOH (PCI ID 8086:3406): six PCIe 2.0 root ports measured (two x2, four x8), QuickData DMA, one VT-d unit</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a>) / <span class="tl tl-measured">MEASURED</span></td>
+<td><a href="../volumes/system-architecture.html#4-intel-5520-ioh-and-the-esidmi-link">System architecture 4</a></td>
+</tr>
+<tr>
+<td>Southbridge</td>
+<td>Intel ICH10 (82801JIB) on an ESI x4 link: USB (5x UHCI, 2x EHCI), SATA (optical drive), LPC (KCS to the IMM, COM1/COM2, TPM 1.2)</td>
+<td><span class="tl tl-measured">MEASURED</span> (named in no vendor document)</td>
+<td><a href="../volumes/system-architecture.html#6-ich10-southbridge-functions">System architecture 6</a></td>
+</tr>
+<tr>
+<td>CPU options</td>
+<td>Xeon 5600 models; E5606 lacks Turbo Boost and Hyper-Threading</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.12)</td>
+<td><a href="../volumes/system-architecture.html#3-processor-complex">System architecture 3</a></td>
+</tr>
+<tr>
+<td>Reference unit</td>
+<td>1x Xeon E5606, 4 cores, 2.13 GHz, 8 MB L3, CPUID 0x206C2 (Westmere-EP), socket 2 empty</td>
+<td><span class="tl tl-measured">MEASURED</span></td>
+<td><a href="../volumes/system-architecture.html#3-processor-complex">System architecture 3</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Chipset naming conflict: one announcement letter calls it a "5600" chipset while TIPS0805 says Intel 5520
+(<a href="../volumes/knowledge-base.html#41-contradictions-consolidated-by-topic">Knowledge base 4.1</a>, topic 4).</p>
+<h2 id="memory">Memory <a class="anchor" href="#memory" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Level</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sockets</td>
+<td>18 (9 per CPU; 3 channels x 3 DIMMs). CPU1 owns DIMM 1-9, CPU2 owns DIMM 10-18</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 11)</td>
+<td><a href="../volumes/memory.html#31-channel-and-cpu-assignment">Memory 3.1</a></td>
+</tr>
+<tr>
+<td>Type</td>
+<td>DDR3 800/1066/1333, ECC, registered (RDIMM) or unbuffered (UDIMM); never mixed</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="../volumes/memory.html#41-general-rules">Memory 4.1</a></td>
+</tr>
+<tr>
+<td>DIMM sizes</td>
+<td>RDIMM 2, 4, 8, 16 GB; UDIMM 2 and 4 GB</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="../volumes/memory.html#42-maximum-capacity-table-s-002-table-9">Memory 4.2</a></td>
+</tr>
+<tr>
+<td>Maximum</td>
+<td>288 GB (18x 16 GB dual-rank RDIMM); 192 GB with quad-rank RDIMM (12 max); 48 GB UDIMM (12 max)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 9)</td>
+<td><a href="../volumes/memory.html#42-maximum-capacity-table-s-002-table-9">Memory 4.2</a></td>
+</tr>
+<tr>
+<td>Speed vs DIMMs per channel</td>
+<td>1 DPC 1333 MHz; 2 DPC 1066 MHz (<a class="sref" href="../catalog/sources.html#s-002">S-002</a>) or 1333 MHz (<a class="sref" href="../catalog/sources.html#s-001">S-001</a>, recorded conflict); 3 DPC 800 MHz</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a href="../volumes/memory.html#51-speed-vs-dimms-per-channel-dpc">Memory 5.1</a></td>
+</tr>
+<tr>
+<td>Fill order (independent mode, CPU1)</td>
+<td>3, 6, 9, 2, 5, 8, 1, 4, 7</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 10)</td>
+<td><a href="../volumes/memory.html#32-non-mirroring-fill-order-round-robin-over-the-channels-farthest-first-not-stated">Memory 3.2</a></td>
+</tr>
+<tr>
+<td>Modes</td>
+<td>Independent (default), mirroring (pairs 3+6, 2+5, 1+4; half usable), online spare (Xeon 5600 only; 2/3 usable)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a>) / <span class="tl tl-extracted">EXTRACTED</span> (setup XML)</td>
+<td><a href="../volumes/memory.html#6-population-rules-and-order-per-mode">Memory 6</a></td>
+</tr>
+<tr>
+<td>RAS</td>
+<td>ECC, Chipkill with x4 DIMMs, PFA, patrol and demand scrub settings, DIMM error LEDs</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a href="../volumes/memory.html#7-ras-features">Memory 7</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="storage">Storage <a class="anchor" href="#storage" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Level</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bays</td>
+<td>2.5-inch only: 4 simple-swap SATA; or 8 hot-swap SAS/SATA, expandable to 16 (or 8 plus tape)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a>, <a class="sref" href="../catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="../volumes/storage-raid.html#51-bay-configurations-documented">Storage 5.1</a></td>
+</tr>
+<tr>
+<td>Expansion kits</td>
+<td>4 Pac HDD Upgrade 69Y4236; 8 Pac enablement with 6 Gb expander 59Y3825; 8 Pac with two M5015 69Y5034; tape enablement 59Y3806</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 7)</td>
+<td><a href="../volumes/storage-raid.html#52-expansion-options-documented-s-001-table-7-infocenter-t_installing_">Storage 5.2</a></td>
+</tr>
+<tr>
+<td>RAID controllers</td>
+<td>BR10il v2 (0/1/1E), M1015 (0/1/10; 5/50 with key 46M0832), M5014 / M5015 (0/1/5/10/50; 6/60 with key), B5015 SSD, MR10i, H1110, M5016, M5025</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 8)</td>
+<td><a href="../volumes/storage-raid.html#3-supported-controllers-documented">Storage 3</a></td>
+</tr>
+<tr>
+<td>RAID slot</td>
+<td>Dedicated slot on the SAS riser, x8 mechanical / x4 electrical; RAID on hot-swap models only</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="../volumes/storage-raid.html#3-supported-controllers-documented">Storage 3</a></td>
+</tr>
+<tr>
+<td>M1015</td>
+<td>LSI SAS2008, PCIe 2.0, 8 ports 6 Gb/s, no cache and no cache policies, up to 16 VDs</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-031">S-031</a>, <a class="sref" href="../catalog/sources.html#s-032">S-032</a>)</td>
+<td><a href="../volumes/storage-raid.html#9-raid-levels-feature-keys-and-limits">Storage 9</a></td>
+</tr>
+<tr>
+<td>Optical</td>
+<td>Optional CD/DVD on the ICH10 SATA</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-measured">MEASURED</span></td>
+<td><a href="../volumes/storage-raid.html#43-chipset-sata-optical-drive-only">Storage 4.3</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="io-and-connectors">I/O and connectors <a class="anchor" href="#io-and-connectors" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Level</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCIe slots</td>
+<td>Up to 5 PCIe 2.0 x8 (4 on two risers + 1 RAID). Riser 1 = slots 1-2, riser 2 = slots 3-4; slot 2 low profile, others full height</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> p.23)</td>
+<td><a href="../volumes/hardware-components.html#8-risers-and-pci-slots-reference">Hardware 8</a></td>
+</tr>
+<tr>
+<td>Riser options</td>
+<td>x8 two-slot (standard), x16 one-slot, PCI-X two-slot; a riser must always be present in connector 2</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 12)</td>
+<td><a href="../volumes/hardware-components.html#8-risers-and-pci-slots-reference">Hardware 8</a></td>
+</tr>
+<tr>
+<td>Ethernet</td>
+<td>2x Broadcom BCM5709 GbE (TOE, WoL, VLAN, teaming); optional dual-port daughter card 46M1076</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a>, <a class="sref" href="../catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="../volumes/system-architecture.html#10-network-interfaces">System architecture 10</a></td>
+</tr>
+<tr>
+<td>Management port</td>
+<td>Dedicated RJ-45 for the IMM; the IMM can also share Ethernet 1</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> rear view)</td>
+<td><a href="../volumes/hardware-components.html#72-rear-s-002-p18-s-004-pp14-15-fig-5-6-icc_rear_view">Hardware 7.2</a></td>
+</tr>
+<tr>
+<td>Video</td>
+<td>Matrox G200eV in the IMM, 16 MB; front and rear DB-15 usable at once</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a>, <a class="sref" href="../catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="../volumes/system-architecture.html#8-video">System architecture 8</a></td>
+</tr>
+<tr>
+<td>USB</td>
+<td>2 front, 2 rear, plus an internal port for an embedded hypervisor key (not on simple-swap models)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="../volumes/system-architecture.html#9-usb">System architecture 9</a></td>
+</tr>
+<tr>
+<td>Serial</td>
+<td>One DB-9 at the rear, shared with the IMM (SOL / serial redirection)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a href="../volumes/hardware-components.html#72-rear-s-002-p18-s-004-pp14-15-fig-5-6-icc_rear_view">Hardware 7.2</a></td>
+</tr>
+<tr>
+<td>TPM</td>
+<td>TPM 1.2 on LPC; presence switch SW3-2</td>
+<td><span class="tl tl-measured">MEASURED</span> / <span class="tl tl-documented">DOCUMENTED</span></td>
+<td><a href="../volumes/hardware-components.html#42-switch-block-sw3-default-all-off">Hardware 4.2</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="power-and-cooling">Power and cooling <a class="anchor" href="#power-and-cooling" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Level</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Supplies</td>
+<td>Up to 2 hot-swap, single 12 V output: 460 W AC (81Y6558), 675 W AC (46M1075), 675 W HE AC (81Y6557), 675 W -48 V DC (69Y1510, CTO)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a> Table 16)</td>
+<td><a href="../volumes/power-thermal.html#31-options-and-part-numbers-summary">Power and thermal 3.1</a></td>
+</tr>
+<tr>
+<td>Mixing</td>
+<td>Never mix 460 W and 675 W, HE and non-HE, or AC and DC; mixing lights PS and CNFG</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> p.123)</td>
+<td><a href="../volumes/hardware-components.html#101-documented-types-and-rules">Hardware 10.1</a></td>
+</tr>
+<tr>
+<td>Input</td>
+<td>100-127 V and 200-240 V AC auto-ranging, 47-63 Hz</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1)</td>
+<td><a href="../volumes/power-thermal.html#32-electrical-input">Power and thermal 3.2</a></td>
+</tr>
+<tr>
+<td>460 W behaviour</td>
+<td>One supply: normal below 400 W, warning 400-460 W, shutdown above 460 W</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 14)</td>
+<td><a href="../volumes/hardware-components.html#101-documented-types-and-rules">Hardware 10.1</a></td>
+</tr>
+<tr>
+<td>Efficiency</td>
+<td>About 93 percent at 50 percent load for the 675 W-class units in the EU 617/2013 table; no data for 460 W</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-candidate">CANDIDATE</span> (unit mapping)</td>
+<td><a href="../volumes/power-thermal.html#33-efficiency">Power and thermal 3.3</a></td>
+</tr>
+<tr>
+<td>Power management</td>
+<td>Active Energy Manager metering and capping (UEFI "Capping Enabled" default); operating modes Acoustic, Efficiency, Performance, Custom</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-extracted">EXTRACTED</span></td>
+<td><a href="../volumes/power-thermal.html#51-documented-features">Power and thermal 5.1</a></td>
+</tr>
+<tr>
+<td>Fans</td>
+<td>3 hot-swap dual 60 mm fan modules (CRU 49Y5361) in a fan cage, N+1; replace a removed fan within 30 s</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-001">S-001</a>, <a class="sref" href="../catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="../volumes/hardware-components.html#111-documented-design">Hardware 11.1</a></td>
+</tr>
+<tr>
+<td>Fan control</td>
+<td>IMM-driven, altimeter-assisted; three cooling zones exposed as IPMI sensors</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-measured">MEASURED</span></td>
+<td><a href="../volumes/power-thermal.html#6-fans-and-fan-control">Power and thermal 6</a></td>
+</tr>
+<tr>
+<td>CMOS battery</td>
+<td>3.0 V lithium, Tier 1 CRU 33F8354; sensor "Planar VBAT" (lower critical 2.095 V on the reference unit)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-measured">MEASURED</span></td>
+<td><a href="../volumes/hardware-components.html#12-battery-cmos">Hardware 12</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="management-and-firmware">Management and firmware <a class="anchor" href="#management-and-firmware" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Level</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Service processor</td>
+<td>IMM v1: BMC + video + optional remote presence (Virtual Media Key 46C7526) in one chip</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a>, <a class="sref" href="../catalog/sources.html#s-001">S-001</a>)</td>
+<td><a href="imm-guide.html">IMM guide</a></td>
+</tr>
+<tr>
+<td>IMM interfaces</td>
+<td>Web (80/443), legacy CLI over SSH/Telnet, IPMI 2.0 over KCS and LAN (623/udp), SOL, SNMPv1/v3, CIM over HTTP/HTTPS (5988/5989), SLP (427), remote presence (3900), LAN over USB</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-020">S-020</a>)</td>
+<td><a href="../volumes/imm-interfaces.html#2-interface-summary">IMM interfaces 2</a></td>
+</tr>
+<tr>
+<td>System firmware</td>
+<td>UEFI 2.1-compliant, SEC/PEI/DXE/BDS, legacy CSM, two banks, locked CRTM, no Secure Boot</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-024">S-024</a>) / <span class="tl tl-measured">MEASURED</span></td>
+<td><a href="../volumes/uefi.html#1-summary">UEFI 1</a></td>
+</tr>
+<tr>
+<td>Settings model</td>
+<td>209 top-level ASU settings (uEFI., iSCSI., PXE.) plus 147 sub-settings in UEFI 1.22</td>
+<td><span class="tl tl-extracted">EXTRACTED</span></td>
+<td><a href="../volumes/uefi.html#7-asu-settings-s-026-and-the-setup-xml">UEFI 7</a></td>
+</tr>
+<tr>
+<td>Recovery jumpers</td>
+<td>J29 UEFI boot recovery, J147 IMM recovery (pins 2-3 = backup page); SW3-1 clear CMOS</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-004">S-004</a> Table 4)</td>
+<td><a href="../volumes/hardware-components.html#4-jumpers-and-switches">Hardware 4</a></td>
+</tr>
+<tr>
+<td>Diagnostics</td>
+<td>Light path panel, POST event log, SEL (512 entries on the reference unit), IMM event log (1500 entries reported), DSA Preboot (F2)</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-measured">MEASURED</span></td>
+<td><a href="../volumes/error-codes.html#2-where-errors-are-reported-logs-leds-displays">Error codes 2</a></td>
+</tr>
+<tr>
+<td>Latest firmware</td>
+<td>IMM 1.55 YUOOH5A; UEFI 1.22 D6E164A; DSA Preboot 9.53 DSYTC5F</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> / <span class="tl tl-extracted">EXTRACTED</span></td>
+<td><a href="firmware-guide.html">Firmware guide</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="environment">Environment <a class="anchor" href="#environment" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Level</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operating temperature</td>
+<td>10-35 deg C at 0-914.4 m (3000 ft); derating per 1000 ft differs between sources</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a>, <a class="sref" href="../catalog/sources.html#s-001">S-001</a>)</td>
+<td><a href="../volumes/power-thermal.html#71-environmental-specification">Power and thermal 7.1</a></td>
+</tr>
+<tr>
+<td>Non-operating</td>
+<td>5-45 deg C, up to 3048 m; shipment -40 to +60 deg C</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="../volumes/power-thermal.html#71-environmental-specification">Power and thermal 7.1</a></td>
+</tr>
+<tr>
+<td>Humidity</td>
+<td>20-80 percent operating (max dew point 21 deg C), 8-80 percent off</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a>)</td>
+<td><a href="../volumes/power-thermal.html#71-environmental-specification">Power and thermal 7.1</a></td>
+</tr>
+<tr>
+<td>Acoustics</td>
+<td>Declared sound power 6.3 bel idle, 6.5 bel operating</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a>, <a class="sref" href="../catalog/sources.html#s-001">S-001</a>)</td>
+<td><a href="../volumes/power-thermal.html#8-acoustics">Power and thermal 8</a></td>
+</tr>
+<tr>
+<td>Heat output</td>
+<td>About 662 Btu/h minimum, 2302 Btu/h maximum configuration</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (<a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1)</td>
+<td><a href="../volumes/hardware-components.html#101-documented-types-and-rules">Hardware 10.1</a></td>
+</tr>
+<tr>
+<td>Clearance</td>
+<td>About 50 mm free at front and rear; air baffles and drive fillers installed; cover off at most 30 minutes</td>
+<td><span class="tl tl-documented">DOCUMENTED</span> (infocenter)</td>
+<td><a href="../volumes/power-thermal.html#71-environmental-specification">Power and thermal 7.1</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="not-in-this-library">Not in this library <a class="anchor" href="#not-in-this-library" aria-label="Link to this section">#</a></h2>
+<p>Physical dimensions and weight are not recorded in any repository volume (<span class="tl tl-unknown">UNKNOWN</span> here; see <a class="sref" href="../catalog/sources.html#s-002">S-002</a> Table 1 in the
+original guide). Physical board positions beyond the vendor drawings, riser part numbers of a given unit and the
+battery chemistry and size are also <span class="tl tl-unknown">UNKNOWN</span> (<a href="../volumes/knowledge-base.html#42-open-questions-and-next-read-only-captures-deduplicated">Knowledge base 4.2</a>, item 32).</p>
+</div>
+</article>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="reading-guide.html"><span>Previous</span>Reading Guide</a>
+<a class="next" href="firmware-guide.html"><span>Next</span>Firmware Guide</a>
+</nav>
+</main>
+<aside class="side-toc"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#identity">Identity</a></li><li class="l2"><a href="#processor-complex-and-chipset">Processor complex and chipset</a></li><li class="l2"><a href="#memory">Memory</a></li><li class="l2"><a href="#storage">Storage</a></li><li class="l2"><a href="#io-and-connectors">I/O and connectors</a></li><li class="l2"><a href="#power-and-cooling">Power and cooling</a></li><li class="l2"><a href="#management-and-firmware">Management and firmware</a></li><li class="l2"><a href="#environment">Environment</a></li><li class="l2"><a href="#not-in-this-library">Not in this library</a></li></ul></nav></aside>
+</div>
+<footer class="site-foot"><p>x3650 M3 Library - generated from the x3650m3-kb repository. Last built 2026-10-21 10:35 UTC from commit <code>7cea0c44fd3f</code>. Owner-specific identifiers are redacted; see <a href="../about/publication.html">how this library is published</a>.</p></footer>
+<script src="../assets/library.js"></script>
+</body>
+</html>
